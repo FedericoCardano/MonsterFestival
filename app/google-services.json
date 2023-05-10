@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "825795228911",
+    "project_id": "monsterfestival-7ca49",
+    "storage_bucket": "monsterfestival-7ca49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825795228911:android:61d078cff0d1bcb44dd71a",
+        "android_client_info": {
+          "package_name": "com.example.monsterfestival"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825795228911-a5q9h7c2tiv53t6becc6kd3bigo5dc25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSkS96MhdIdwrWVlu_ShFcVIqW6ISjp2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825795228911-a5q9h7c2tiv53t6becc6kd3bigo5dc25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

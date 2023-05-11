@@ -30,13 +30,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.recName.setText(dataList.get(position).getName());
-        holder.recRace.setText(dataList.get(position).getRace());
-        holder.recClass.setText(dataList.get(position).getM_class());
-        holder.recBackground.setText(dataList.get(position).getBackground());
-        holder.recAlignment.setText(dataList.get(position).getAlignment());
-        holder.recLevel.setText(dataList.get(position).getLevel());
-        holder.recPoints.setText(dataList.get(position).getPoints());
+        holder.recAmbiete.setText(dataList.get(position).getAmbiete());
+        holder.recCA.setText(dataList.get(position).getCa());
+        holder.recCategoria.setText(dataList.get(position).getCategoria());
+        holder.recNome.setText(dataList.get(position).getNome());
+        holder.recPF.setText(dataList.get(position).getPf());
+        holder.recSfida.setText(dataList.get(position).getSfida());
+        holder.recTaglia.setText(dataList.get(position).getTaglia());
 
     }
     @Override
@@ -49,16 +49,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 }
 class MyViewHolder extends RecyclerView.ViewHolder{
-    TextView recName, recRace, recClass, recBackground, recAlignment, recLevel, recPoints;
+    TextView recAmbiete, recCA, recCategoria, recNome, recPF, recSfida, recTaglia;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
-        recName = itemView.findViewById(R.id.tvName);
-        recRace = itemView.findViewById(R.id.tvRace);
-        recClass = itemView.findViewById(R.id.tvClass);
-        recBackground = itemView.findViewById(R.id.tvBackground);
-        recAlignment = itemView.findViewById(R.id.tvAlignment);
-        recLevel = itemView.findViewById(R.id.tvLevel);
-        recPoints = itemView.findViewById(R.id.tvPoints);
+        recAmbiete = itemView.findViewById(R.id.tvAmbiete);
+        recCA = itemView.findViewById(R.id.tvCA);
+        recCategoria = itemView.findViewById(R.id.tvCategoria);
+        recNome = itemView.findViewById(R.id.tvNome);
+        recPF = itemView.findViewById(R.id.tvPF);
+        recSfida = itemView.findViewById(R.id.tvSfida);
+        recTaglia = itemView.findViewById(R.id.tvTaglia);
 
     }
 }

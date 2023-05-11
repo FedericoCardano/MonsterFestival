@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name: "
+                android:text="Ambiete: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -32,9 +32,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvName"
+                android:id="@+id/tvAmbiete"
                 android:layout_marginStart="8dp"
-                android:text="Name"
+                android:text="Ambiete"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Race: "
+                android:text="CA: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -57,9 +57,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvRace"
+                android:id="@+id/tvCA"
                 android:layout_marginStart="8dp"
-                android:text="Race"
+                android:text="CA"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Class: "
+                android:text="Categoria: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -82,9 +82,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvClass"
+                android:id="@+id/tvCategoria"
                 android:layout_marginStart="8dp"
-                android:text="Class"
+                android:text="Categoria"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Background: "
+                android:text="Nome: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -107,9 +107,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvBackground"
+                android:id="@+id/tvNome"
                 android:layout_marginStart="8dp"
-                android:text="Background"
+                android:text="Nome"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alignment: "
+                android:text="PF: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -132,9 +132,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvAlignment"
+                android:id="@+id/tvPF"
                 android:layout_marginStart="8dp"
-                android:text="Alignment"
+                android:text="PF"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -149,7 +149,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Level: "
+                android:text="Sfida: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -157,9 +157,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvLevel"
+                android:id="@+id/tvSfida"
                 android:layout_marginStart="8dp"
-                android:text="Level"
+                android:text="Sfida"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -174,7 +174,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Points: "
+                android:text="Taglia: "
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -182,9 +182,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvPoints"
+                android:id="@+id/tvTaglia"
                 android:layout_marginStart="8dp"
-                android:text="Points"
+                android:text="Taglia"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 

@@ -13,10 +13,10 @@ import android.widget.TextView;
 public class SearchFiltersActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView clearFilters;
-    LinearLayout raceDwarf, raceElf, raceHalfling, raceHuman, raceDragonborn, raceGnome, raceHalfElf, raceHalfOrc, raceTiefling;
-    LinearLayout m_classBarbarian, m_classBard, m_classCleric, m_classDruid, m_classFighter, m_classMonk, m_classPaladin, m_classRanger, m_classRogue, m_classSorcerer, m_classWarlock, m_classWizard;
-    LinearLayout backgroundAcolyte, backgroundCharlatan, backgroundCriminal, backgroundEntertainer, backgroundFolkHero, backgroundGuildArtisan, backgroundHermit, backgroundNoble, backgroundOutlander, backgroundSage, backgroundSailor, backgroundSoldier, backgroundUrchin;
-    LinearLayout alignmentLawfulGood, alignmentNeutralGood, alignmentChaoticGood, alignmentLawfulNeutral, alignmentNeutral, alignmentChaoticNeutral, alignmentLawfulEvil, alignmentNeutralEvil, alignmentChaoticEvil;
+    LinearLayout ambieteArtico, ambieteCatacombe, ambieteCaverna, ambieteCittatina, ambieteCollina, ambieteCosta, ambieteDeserto, ambieteDungeon, ambieteErrante, ambieteForesta, ambieteGiungla, ambieteInferno, ambieteLago, ambieteLimbo, ambieteMontagna, ambieteNomade, ambieteOvunque, ambietePalude, ambieteParadiso, ambietePianoDelFuoco, ambietePianoDellAcqua, ambietePianoDellAria, ambietePianoDellaTerra, ambietePianura, ambieteProfonditàMarine, ambieteRovine, ambieteServitore, ambieteTerreSelvaggie, ambieteUnderdark, ambieteVulcano;
+    LinearLayout categoriaAberrazione, categoriaBestia, categoriaCelestiale, categoriaCostrutto, categoriaDrago, categoriaElementale, categoriaFolletto, categoriaGigante, categoriaImmondo, categoriaMelma, categoriaMostruosità, categoriaNonMorto, categoriaUmanoide, categoriaVegetale;
+    LinearLayout tagliaEnorme, tagliaGrande, tagliaMastodontica, tagliaMedia, tagliaMinuscola, tagliaPiccola;
+
 
     private int white, rossoPorpora, cream;
 
@@ -31,102 +31,115 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
 
         clearFilters.setOnClickListener(this);
 
-        raceDwarf.setOnClickListener(this);
-        raceElf.setOnClickListener(this);
-        raceHalfling.setOnClickListener(this);
-        raceHuman.setOnClickListener(this);
-        raceDragonborn.setOnClickListener(this);
-        raceGnome.setOnClickListener(this);
-        raceHalfElf.setOnClickListener(this);
-        raceHalfOrc.setOnClickListener(this);
-        raceTiefling.setOnClickListener(this);
+        ambieteArtico.setOnClickListener(this);
+        ambieteCatacombe.setOnClickListener(this);
+        ambieteCaverna.setOnClickListener(this);
+        ambieteCittatina.setOnClickListener(this);
+        ambieteCollina.setOnClickListener(this);
+        ambieteCosta.setOnClickListener(this);
+        ambieteDeserto.setOnClickListener(this);
+        ambieteDungeon.setOnClickListener(this);
+        ambieteErrante.setOnClickListener(this);
+        ambieteForesta.setOnClickListener(this);
+        ambieteGiungla.setOnClickListener(this);
+        ambieteInferno.setOnClickListener(this);
+        ambieteLago.setOnClickListener(this);
+        ambieteLimbo.setOnClickListener(this);
+        ambieteMontagna.setOnClickListener(this);
+        ambieteNomade.setOnClickListener(this);
+        ambieteOvunque.setOnClickListener(this);
+        ambietePalude.setOnClickListener(this);
+        ambieteParadiso.setOnClickListener(this);
+        ambietePianoDelFuoco.setOnClickListener(this);
+        ambietePianoDellAcqua.setOnClickListener(this);
+        ambietePianoDellAria.setOnClickListener(this);
+        ambietePianoDellaTerra.setOnClickListener(this);
+        ambietePianura.setOnClickListener(this);
+        ambieteProfonditàMarine.setOnClickListener(this);
+        ambieteRovine.setOnClickListener(this);
+        ambieteServitore.setOnClickListener(this);
+        ambieteTerreSelvaggie.setOnClickListener(this);
+        ambieteUnderdark.setOnClickListener(this);
+        ambieteVulcano.setOnClickListener(this);
 
-        m_classBarbarian.setOnClickListener(this);
-        m_classBard.setOnClickListener(this);
-        m_classCleric.setOnClickListener(this);
-        m_classDruid.setOnClickListener(this);
-        m_classFighter.setOnClickListener(this);
-        m_classMonk.setOnClickListener(this);
-        m_classPaladin.setOnClickListener(this);
-        m_classRanger.setOnClickListener(this);
-        m_classRogue.setOnClickListener(this);
-        m_classSorcerer.setOnClickListener(this);
-        m_classWarlock.setOnClickListener(this);
-        m_classWizard.setOnClickListener(this);
+        categoriaAberrazione.setOnClickListener(this);
+        categoriaBestia.setOnClickListener(this);
+        categoriaCelestiale.setOnClickListener(this);
+        categoriaCostrutto.setOnClickListener(this);
+        categoriaDrago.setOnClickListener(this);
+        categoriaElementale.setOnClickListener(this);
+        categoriaFolletto.setOnClickListener(this);
+        categoriaGigante.setOnClickListener(this);
+        categoriaImmondo.setOnClickListener(this);
+        categoriaMelma.setOnClickListener(this);
+        categoriaMostruosità.setOnClickListener(this);
+        categoriaNonMorto.setOnClickListener(this);
+        categoriaUmanoide.setOnClickListener(this);
+        categoriaVegetale.setOnClickListener(this);
 
-        backgroundAcolyte.setOnClickListener(this);
-        backgroundCharlatan.setOnClickListener(this);
-        backgroundCriminal.setOnClickListener(this);
-        backgroundEntertainer.setOnClickListener(this);
-        backgroundFolkHero.setOnClickListener(this);
-        backgroundGuildArtisan.setOnClickListener(this);
-        backgroundHermit.setOnClickListener(this);
-        backgroundNoble.setOnClickListener(this);
-        backgroundOutlander.setOnClickListener(this);
-        backgroundSage.setOnClickListener(this);
-        backgroundSailor.setOnClickListener(this);
-        backgroundSoldier.setOnClickListener(this);
-        backgroundUrchin.setOnClickListener(this);
 
-        alignmentLawfulGood.setOnClickListener(this);
-        alignmentNeutralGood.setOnClickListener(this);
-        alignmentChaoticGood.setOnClickListener(this);
-        alignmentLawfulNeutral.setOnClickListener(this);
-        alignmentNeutral.setOnClickListener(this);
-        alignmentChaoticNeutral.setOnClickListener(this);
-        alignmentLawfulEvil.setOnClickListener(this);
-        alignmentNeutralEvil.setOnClickListener(this);
-        alignmentChaoticEvil.setOnClickListener(this);
+        tagliaEnorme.setOnClickListener(this);
+        tagliaGrande.setOnClickListener(this);
+        tagliaMastodontica.setOnClickListener(this);
+        tagliaMedia.setOnClickListener(this);
+        tagliaMinuscola.setOnClickListener(this);
+        tagliaPiccola.setOnClickListener(this);
     }
 
     private void initAll() {
         clearFilters = findViewById(R.id.id_clear_btn);
-        raceDwarf = findViewById(R.id.race_Dwarf);
-        raceElf = findViewById(R.id.race_Elf);
-        raceHalfling = findViewById(R.id.race_Halfling);
-        raceHuman = findViewById(R.id.race_Human);
-        raceDragonborn = findViewById(R.id.race_Dragonborn);
-        raceGnome = findViewById(R.id.race_Gnome);
-        raceHalfElf = findViewById(R.id.race_HalfElf);
-        raceHalfOrc = findViewById(R.id.race_HalfOrc);
-        raceTiefling = findViewById(R.id.race_Tiefling);
+        ambieteArtico = findViewById(R.id.ambiete_artico);
+        ambieteCatacombe = findViewById(R.id.ambiete_catacombe);
+        ambieteCaverna = findViewById(R.id.ambiete_caverna);
+        ambieteCittatina = findViewById(R.id.ambiete_cittatina);
+        ambieteCollina = findViewById(R.id.ambiete_collina);
+        ambieteCosta = findViewById(R.id.ambiete_costa);
+        ambieteDeserto = findViewById(R.id.ambiete_deserto);
+        ambieteDungeon = findViewById(R.id.ambiete_dungeon);
+        ambieteErrante = findViewById(R.id.ambiete_errante);
+        ambieteForesta = findViewById(R.id.ambiete_foresta);
+        ambieteGiungla = findViewById(R.id.ambiete_giungla);
+        ambieteInferno = findViewById(R.id.ambiete_inferno);
+        ambieteLago = findViewById(R.id.ambiete_lago);
+        ambieteLimbo = findViewById(R.id.ambiete_limbo);
+        ambieteMontagna = findViewById(R.id.ambiete_montagna);
+        ambieteNomade = findViewById(R.id.ambiete_nomade);
+        ambieteOvunque = findViewById(R.id.ambiete_ovunque);
+        ambietePalude = findViewById(R.id.ambiete_palude);
+        ambieteParadiso = findViewById(R.id.ambiete_paradiso);
+        ambietePianoDelFuoco = findViewById(R.id.ambiete_pianoDelFuoco);
+        ambietePianoDellAcqua = findViewById(R.id.ambiete_pianoDellAcqua);
+        ambietePianoDellAria = findViewById(R.id.ambiete_pianoDellAria);
+        ambietePianoDellaTerra = findViewById(R.id.ambiete_pianoDellaTerra);
+        ambietePianura = findViewById(R.id.ambiete_pianura);
+        ambieteProfonditàMarine = findViewById(R.id.ambiete_profonditàMarine);
+        ambieteRovine = findViewById(R.id.ambiete_rovine);
+        ambieteServitore = findViewById(R.id.ambiete_servitore);
+        ambieteTerreSelvaggie = findViewById(R.id.ambiete_terreSelvaggie);
+        ambieteUnderdark = findViewById(R.id.ambiete_underdark);
+        ambieteVulcano = findViewById(R.id.ambiete_vulcano);
 
-        m_classBarbarian = findViewById(R.id.class_Barbarian);
-        m_classBard = findViewById(R.id.class_Bard);
-        m_classCleric = findViewById(R.id.class_Cleric);
-        m_classDruid = findViewById(R.id.class_Druid);
-        m_classFighter = findViewById(R.id.class_Fighter);
-        m_classMonk = findViewById(R.id.class_Monk);
-        m_classPaladin = findViewById(R.id.class_Paladin);
-        m_classRanger = findViewById(R.id.class_Ranger);
-        m_classRogue = findViewById(R.id.class_Rogue);
-        m_classSorcerer = findViewById(R.id.class_Sorcerer);
-        m_classWarlock = findViewById(R.id.class_Warlock);
-        m_classWizard = findViewById(R.id.class_Wizard);
+        categoriaAberrazione = findViewById(R.id.categoria_aberrazione);
+        categoriaBestia = findViewById(R.id.categoria_bestia);
+        categoriaCelestiale = findViewById(R.id.categoria_celestiale);
+        categoriaCostrutto = findViewById(R.id.categoria_costrutto);
+        categoriaDrago = findViewById(R.id.categoria_drago);
+        categoriaElementale = findViewById(R.id.categoria_elementale);
+        categoriaFolletto = findViewById(R.id.categoria_folletto);
+        categoriaGigante = findViewById(R.id.categoria_gigante);
+        categoriaImmondo = findViewById(R.id.categoria_immondo);
+        categoriaMelma = findViewById(R.id.categoria_melma);
+        categoriaMostruosità = findViewById(R.id.categoria_mostruosità);
+        categoriaNonMorto = findViewById(R.id.categoria_nonMorto);
+        categoriaUmanoide = findViewById(R.id.categoria_umanoide);
+        categoriaVegetale = findViewById(R.id.categoria_vegetale);
 
-        backgroundAcolyte = findViewById(R.id.back_Acolyte);
-        backgroundCharlatan = findViewById(R.id.back_Charlatan);
-        backgroundCriminal = findViewById(R.id.back_Criminal);
-        backgroundEntertainer = findViewById(R.id.back_Entertainer);
-        backgroundFolkHero = findViewById(R.id.back_FolkHero);
-        backgroundGuildArtisan = findViewById(R.id.back_GuildArtisan);
-        backgroundHermit = findViewById(R.id.back_Hermit);
-        backgroundNoble = findViewById(R.id.back_Noble);
-        backgroundOutlander = findViewById(R.id.back_Outlander);
-        backgroundSage = findViewById(R.id.back_Sage);
-        backgroundSailor = findViewById(R.id.back_Sailor);
-        backgroundSoldier = findViewById(R.id.back_Soldier);
-        backgroundUrchin = findViewById(R.id.back_Urchin);
-
-        alignmentLawfulGood = findViewById(R.id.ali_LawfulGood);
-        alignmentNeutralGood = findViewById(R.id.ali_NeutralGood);
-        alignmentChaoticGood = findViewById(R.id.ali_ChaoticGood);
-        alignmentLawfulNeutral = findViewById(R.id.ali_LawfulNeutral);
-        alignmentNeutral = findViewById(R.id.ali_Neutral);
-        alignmentChaoticNeutral = findViewById(R.id.ali_ChaoticNeutral);
-        alignmentLawfulEvil = findViewById(R.id.ali_LawfulEvil);
-        alignmentNeutralEvil = findViewById(R.id.ali_NeutralEvil);
-        alignmentChaoticEvil = findViewById(R.id.ali_ChaoticEvil);
+        tagliaEnorme = findViewById(R.id.taglia_enorme);
+        tagliaGrande = findViewById(R.id.taglia_grande);
+        tagliaMastodontica = findViewById(R.id.taglia_mastodontica);
+        tagliaMedia = findViewById(R.id.taglia_media);
+        tagliaMinuscola = findViewById(R.id.taglia_minuscola);
+        tagliaPiccola = findViewById(R.id.taglia_piccola);
     }
 
     @Override
@@ -134,245 +147,357 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
         int id = view.getId();
 
         switch (id) {
-            case R.id.race_Dwarf:
-                SearchMonstersActivity.selectedRaceFilters.add("Dwarf");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_artico:
+                SearchMonstersActivity.selectedAmbieteFilters.add("artico");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceDwarf);
+                lookSelected(ambieteArtico);
                 //finish();
                 break;
-            case R.id.race_Elf:
-                SearchMonstersActivity.selectedRaceFilters.add("Elf");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_catacombe:
+                SearchMonstersActivity.selectedAmbieteFilters.add("catacombe");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceElf);
+                lookSelected(ambieteCatacombe);
                 //finish();
                 break;
-            case R.id.race_Halfling:
-                SearchMonstersActivity.selectedRaceFilters.add("Halfling");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_caverna:
+                SearchMonstersActivity.selectedAmbieteFilters.add("caverna");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceHalfling);
+                lookSelected(ambieteCaverna);
                 //finish();
                 break;
-            case R.id.race_Human:
-                SearchMonstersActivity.selectedRaceFilters.add("Human");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_cittatina:
+                SearchMonstersActivity.selectedAmbieteFilters.add("cittatina");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceHuman);
+                lookSelected(ambieteCittatina);
                 //finish();
                 break;
-            case R.id.race_Dragonborn:
-                SearchMonstersActivity.selectedRaceFilters.add("Dragonborn");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_collina:
+                SearchMonstersActivity.selectedAmbieteFilters.add("collina");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceDragonborn);
+                lookSelected(ambieteCollina);
                 //finish();
                 break;
-            case R.id.race_Gnome:
-                SearchMonstersActivity.selectedRaceFilters.add("Gnome");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_costa:
+                SearchMonstersActivity.selectedAmbieteFilters.add("costa");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceGnome);
+                lookSelected(ambieteCosta);
                 //finish();
                 break;
-            case R.id.race_HalfElf:
-                SearchMonstersActivity.selectedRaceFilters.add("Half-Elf");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_deserto:
+                SearchMonstersActivity.selectedAmbieteFilters.add("deserto");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceHalfElf);
+                lookSelected(ambieteDeserto);
                 //finish();
                 break;
-            case R.id.race_HalfOrc:
-                SearchMonstersActivity.selectedRaceFilters.add("Half-Orc");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_dungeon:
+                SearchMonstersActivity.selectedAmbieteFilters.add("dungeon");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceHalfOrc);
+                lookSelected(ambieteDungeon);
                 //finish();
                 break;
-            case R.id.race_Tiefling:
-                SearchMonstersActivity.selectedRaceFilters.add("Tiefling");
-                SearchMonstersActivity.isRaceSelected = true;
+            case R.id.ambiete_errante:
+                SearchMonstersActivity.selectedAmbieteFilters.add("errante");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(raceTiefling);
+                lookSelected(ambieteErrante);
                 //finish();
                 break;
-            case R.id.class_Barbarian:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Barbarian");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_foresta:
+                SearchMonstersActivity.selectedAmbieteFilters.add("foresta");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classBarbarian);
+                lookSelected(ambieteForesta);
                 //finish();
                 break;
-            case R.id.class_Bard:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Bard");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_giungla:
+                SearchMonstersActivity.selectedAmbieteFilters.add("giungla");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classBard);
+                lookSelected(ambieteGiungla);
                 //finish();
                 break;
-            case R.id.class_Cleric:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Cleric");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_inferno:
+                SearchMonstersActivity.selectedAmbieteFilters.add("inferno");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classCleric);
+                lookSelected(ambieteInferno);
                 //finish();
                 break;
-            case R.id.class_Druid:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Druid");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_lago:
+                SearchMonstersActivity.selectedAmbieteFilters.add("lago");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classDruid);
+                lookSelected(ambieteLago);
                 //finish();
                 break;
-            case R.id.class_Fighter:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Fighter");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_limbo:
+                SearchMonstersActivity.selectedAmbieteFilters.add("limbo");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classFighter);
+                lookSelected(ambieteLimbo);
                 //finish();
                 break;
-            case R.id.class_Monk:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Monk");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_montagna:
+                SearchMonstersActivity.selectedAmbieteFilters.add("montagna");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classMonk);
+                lookSelected(ambieteMontagna);
                 //finish();
                 break;
-            case R.id.class_Paladin:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Paladin");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_nomade:
+                SearchMonstersActivity.selectedAmbieteFilters.add("nomade");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classPaladin);
+                lookSelected(ambieteNomade);
                 //finish();
                 break;
-            case R.id.class_Ranger:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Ranger");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_ovunque:
+                SearchMonstersActivity.selectedAmbieteFilters.add("ovunque");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classRanger);
+                lookSelected(ambieteOvunque);
                 //finish();
                 break;
-            case R.id.class_Rogue:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Rogue");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_palude:
+                SearchMonstersActivity.selectedAmbieteFilters.add("palude");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classRogue);
+                lookSelected(ambietePalude);
                 //finish();
                 break;
-            case R.id.class_Sorcerer:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Sorcerer");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_paradiso:
+                SearchMonstersActivity.selectedAmbieteFilters.add("paradiso");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classSorcerer);
+                lookSelected(ambieteParadiso);
                 //finish();
                 break;
-            case R.id.class_Warlock:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Warlock");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_pianoDelFuoco:
+                SearchMonstersActivity.selectedAmbieteFilters.add("piano del fuoco");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classWarlock);
+                lookSelected(ambietePianoDelFuoco);
                 //finish();
                 break;
-            case R.id.class_Wizard:
-                SearchMonstersActivity.selectedM_ClassFilters.add("Wizard");
-                SearchMonstersActivity.isM_ClassSelected = true;
+            case R.id.ambiete_pianoDellAcqua:
+                SearchMonstersActivity.selectedAmbieteFilters.add("piano dell acqua");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(m_classWizard);
+                lookSelected(ambietePianoDellAcqua);
                 //finish();
                 break;
-            case R.id.back_Acolyte:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Acolyte");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_pianoDellAria:
+                SearchMonstersActivity.selectedAmbieteFilters.add("piano dell aria");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundAcolyte);
+                lookSelected(ambietePianoDellAria);
                 //finish();
                 break;
-            case R.id.back_Charlatan:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Charlatan");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_pianoDellaTerra:
+                SearchMonstersActivity.selectedAmbieteFilters.add("piano della terra");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundCharlatan);
+                lookSelected(ambietePianoDellaTerra);
                 //finish();
                 break;
-            case R.id.back_Criminal:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Criminal");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_pianura:
+                SearchMonstersActivity.selectedAmbieteFilters.add("pianura");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundCriminal);
+                lookSelected(ambietePianura);
                 //finish();
                 break;
-            case R.id.back_Entertainer:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Entertainer");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_profonditàMarine:
+                SearchMonstersActivity.selectedAmbieteFilters.add("profondità marine");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundEntertainer);
+                lookSelected(ambieteProfonditàMarine);
                 //finish();
                 break;
-            case R.id.back_FolkHero:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Folk Hero");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_rovine:
+                SearchMonstersActivity.selectedAmbieteFilters.add("rovine");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundFolkHero);
+                lookSelected(ambieteRovine);
                 //finish();
                 break;
-            case R.id.back_GuildArtisan:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Guild Artisan");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_servitore:
+                SearchMonstersActivity.selectedAmbieteFilters.add("servitore");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundGuildArtisan);
+                lookSelected(ambieteServitore);
                 //finish();
                 break;
-            case R.id.back_Hermit:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Hermit");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_terreSelvaggie:
+                SearchMonstersActivity.selectedAmbieteFilters.add("terre selvaggie");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundHermit);
+                lookSelected(ambieteTerreSelvaggie);
                 //finish();
                 break;
-            case R.id.back_Noble:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Noble");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_underdark:
+                SearchMonstersActivity.selectedAmbieteFilters.add("underdark");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundNoble);
+                lookSelected(ambieteUnderdark);
                 //finish();
                 break;
-            case R.id.back_Outlander:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Outlander");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.ambiete_vulcano:
+                SearchMonstersActivity.selectedAmbieteFilters.add("vulcano");
+                SearchMonstersActivity.isAmbieteSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundOutlander);
+                lookSelected(ambieteVulcano);
                 //finish();
                 break;
-            case R.id.back_Sage:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Sage");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.categoria_aberrazione:
+                SearchMonstersActivity.selectedCategoriaFilters.add("aberrazione");
+                SearchMonstersActivity.isCategoriaSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundSage);
+                lookSelected(categoriaAberrazione);
                 //finish();
                 break;
-            case R.id.back_Sailor:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Sailor");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.categoria_bestia:
+                SearchMonstersActivity.selectedCategoriaFilters.add("bestia");
+                SearchMonstersActivity.isCategoriaSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundSailor);
+                lookSelected(categoriaBestia);
                 //finish();
                 break;
-            case R.id.back_Soldier:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Soldier");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.categoria_celestiale:
+                SearchMonstersActivity.selectedCategoriaFilters.add("celestiale");
+                SearchMonstersActivity.isCategoriaSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundSoldier);
+                lookSelected(categoriaCelestiale);
                 //finish();
                 break;
-            case R.id.back_Urchin:
-                SearchMonstersActivity.selectedBackgroundFilters.add("Urchin");
-                SearchMonstersActivity.isBackgroundSelected = true;
+            case R.id.categoria_costrutto:
+                SearchMonstersActivity.selectedCategoriaFilters.add("costrutto");
+                SearchMonstersActivity.isCategoriaSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(backgroundUrchin);
+                lookSelected(categoriaCostrutto);
                 //finish();
                 break;
-            case R.id.ali_LawfulGood:
+            case R.id.categoria_drago:
+                SearchMonstersActivity.selectedCategoriaFilters.add("drago");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaDrago);
+                //finish();
+                break;
+            case R.id.categoria_elementale:
+                SearchMonstersActivity.selectedCategoriaFilters.add("elementale");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaElementale);
+                //finish();
+                break;
+            case R.id.categoria_folletto:
+                SearchMonstersActivity.selectedCategoriaFilters.add("folletto");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaFolletto);
+                //finish();
+                break;
+            case R.id.categoria_gigante:
+                SearchMonstersActivity.selectedCategoriaFilters.add("gigante");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaGigante);
+                //finish();
+                break;
+            case R.id.categoria_immondo:
+                SearchMonstersActivity.selectedCategoriaFilters.add("immondo");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaImmondo);
+                //finish();
+                break;
+            case R.id.categoria_melma:
+                SearchMonstersActivity.selectedCategoriaFilters.add("melma");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaMelma);
+                //finish();
+                break;
+            case R.id.categoria_mostruosità:
+                SearchMonstersActivity.selectedCategoriaFilters.add("mostruosità");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaMostruosità);
+                //finish();
+                break;
+            case R.id.categoria_nonMorto:
+                SearchMonstersActivity.selectedCategoriaFilters.add("non morto");
+                SearchMonstersActivity.isCategoriaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaNonMorto);
+                //finish();
+                break;
+            case R.id.categoria_umanoide:
+                SearchMonstersActivity.selectedTagliaFilters.add("umanoide");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaUmanoide);
+                //finish();
+                break;
+            case R.id.categoria_vegetale:
+                SearchMonstersActivity.selectedTagliaFilters.add("vegetale");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(categoriaVegetale);
+                //finish();
+                break;
+            case R.id.taglia_enorme:
+                SearchMonstersActivity.selectedTagliaFilters.add("enorme");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaEnorme);
+                //finish();
+                break;
+            case R.id.taglia_grande:
+                SearchMonstersActivity.selectedTagliaFilters.add("grande");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaGrande);
+                //finish();
+                break;
+            case R.id.taglia_mastodontica:
+                SearchMonstersActivity.selectedTagliaFilters.add("mastodontica");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaMastodontica);
+                //finish();
+                break;
+            case R.id.taglia_media:
+                SearchMonstersActivity.selectedTagliaFilters.add("media");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaMedia);
+                //finish();
+                break;
+            case R.id.taglia_minuscola:
+                SearchMonstersActivity.selectedTagliaFilters.add("minuscola");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaMinuscola);
+                //finish();
+                break;
+            case R.id.taglia_piccola:
+                SearchMonstersActivity.selectedTagliaFilters.add("piccola");
+                SearchMonstersActivity.isTagliaSelected = true;
+                SearchMonstersActivity.isFiltersApplied = true;
+                lookSelected(tagliaPiccola);
+                //finish();
+                break;
+            /*case R.id.ali_LawfulGood:
                 SearchMonstersActivity.selectedAlignmentFilters.add("Lawful Good");
                 SearchMonstersActivity.isAlignmentSelected = true;
                 SearchMonstersActivity.isFiltersApplied = true;
@@ -434,7 +559,7 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 SearchMonstersActivity.isFiltersApplied = true;
                 lookSelected(alignmentChaoticEvil);
                 //finish();
-                break;
+                break;*/
             case R.id.id_clear_btn:
                 //clearClicked();
                 finish();

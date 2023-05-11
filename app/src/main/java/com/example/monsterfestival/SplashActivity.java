@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
-                finish();// prova poi pio oip iop
+                finish();
             }
         }, 3000);
     }

@@ -1,13 +1,13 @@
 package com.example.monsterfestival;
 
 public class DataClass {
-    private String name;
-    private String race;
-    private String m_class;
-    private String background;
-    private String alignment;
-    private String level;
-    private String points;
+    private String Ambiete;
+    private String CA;
+    private String Categoria;
+    private String Nome;
+    private String PF;
+    private String Sfida;
+    private String Taglia;
     private String key;
 
 
@@ -18,36 +18,32 @@ public class DataClass {
     public void setKey(String key) {
         this.key = key;
     }
-    public String getName() {
-        return name;
+    public String getAmbiete() { return Ambiete; }
+    public String getCa() { return CA; }
+    public String getCategoria() {
+        return Categoria;
     }
-    public String getRace() {
-        return race;
+    public String getNome() {
+        return Nome;
     }
-    public String getM_class() {
-        return m_class;
+    public String getPf() {
+        return PF;
     }
-    public String getBackground() {
-        return background;
+    public String getSfida() {
+        return Sfida;
     }
-    public String getAlignment() {
-        return alignment;
-    }
-    public String getLevel() {
-        return level;
-    }
-    public String getPoints() {
-        return points;
+    public String getTaglia() {
+        return Taglia;
     }
 
-    public DataClass(String name, String race, String m_class, String background, String alignment, String level, String points) {
-        this.name = name;
-        this.race = race;
-        this.m_class = m_class;
-        this.background = background;
-        this.alignment = alignment;
-        this.level = level;
-        this.points = points;
+    public DataClass(String Ambiete, String CA, String Categoria, String Nome, String PF, String Sfida, String Taglia) {
+        this.Ambiete = Ambiete;
+        this.CA = CA;
+        this.Categoria = Categoria;
+        this.Nome = Nome;
+        this.PF = PF;
+        this.Sfida = Sfida;
+        this.Taglia = Taglia;
     }
 
     public DataClass(){

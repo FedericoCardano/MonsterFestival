@@ -28,19 +28,19 @@ import java.util.Calendar;
 
 public class UploadActivity extends AppCompatActivity {
     Button saveButton;
-    EditText uploadName, uploadRace, uploadClass, uploadBackground, uploadAlignment, uploadLevel, uploadPoints;
+    EditText uploadAmbiete, uploadCA, uploadCategoria, uploadNome, uploadPF, uploadSfida, uploadTaglia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        uploadName = findViewById(R.id.uploadName);
-        uploadRace = findViewById(R.id.uploadRace);
-        uploadClass = findViewById(R.id.uploadClass);
-        uploadBackground = findViewById(R.id.uploadBackground);
-        uploadAlignment = findViewById(R.id.uploadAlignment);
-        uploadLevel = findViewById(R.id.uploadLevel);
-        uploadPoints = findViewById(R.id.uploadPoints);
+        uploadAmbiete = findViewById(R.id.uploadAmbiete);
+        uploadCA = findViewById(R.id.uploadCA);
+        uploadCategoria = findViewById(R.id.uploadCategoria);
+        uploadNome = findViewById(R.id.uploadNome);
+        uploadPF = findViewById(R.id.uploadPF);
+        uploadSfida = findViewById(R.id.uploadSfida);
+        uploadTaglia = findViewById(R.id.uploadTaglia);
         saveButton = findViewById(R.id.saveButton);
 
 
@@ -64,18 +64,18 @@ public class UploadActivity extends AppCompatActivity {
 
     }
     public void uploadData(){
-        String name = uploadName.getText().toString();
-        String race = uploadRace.getText().toString();
-        String m_class = uploadClass.getText().toString();
-        String background = uploadBackground.getText().toString();
-        String alignment = uploadAlignment.getText().toString();
-        String level = uploadLevel.getText().toString();
-        String points = uploadPoints.getText().toString();
-        DataClass dataClass = new DataClass(name, race, m_class,background, alignment, level, points);
+        String ambiete = uploadAmbiete.getText().toString();
+        String ca = uploadCA.getText().toString();
+        String categoria = uploadCategoria.getText().toString();
+        String nome = uploadNome.getText().toString();
+        String pf = uploadPF.getText().toString();
+        String sfida = uploadSfida.getText().toString();
+        String taglia = uploadTaglia.getText().toString();
+        DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia);
         //We are changing the child from title to currentDate,
         // because we will be updating title as well and it may affect child value.
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        FirebaseDatabase.getInstance().getReference("Android Tutorials").child(currentDate)
+        FirebaseDatabase.getInstance().getReference("Monster").child(currentDate)
                 .setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

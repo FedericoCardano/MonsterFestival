@@ -51,14 +51,14 @@ public class SearchMonstersActivity extends AppCompatActivity {
     SearchView searchView;
     FloatingActionButton fab;
     private ImageView filtersBtn;
-    public static ArrayList<String> selectedRaceFilters = new ArrayList<>();
-    public static ArrayList<String> selectedM_ClassFilters = new ArrayList<>();
-    public static ArrayList<String> selectedBackgroundFilters = new ArrayList<>();
-    public static ArrayList<String> selectedAlignmentFilters = new ArrayList<>();
-    public static boolean isRaceSelected = false;
-    public static boolean isM_ClassSelected = false;
-    public static boolean isBackgroundSelected = false;
-    public static boolean isAlignmentSelected = false;
+    public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
+    public static ArrayList<String> selectedCategoriaFilters = new ArrayList<>();
+    public static ArrayList<String> selectedTagliaFilters = new ArrayList<>();
+    //public static ArrayList<String> selectedAlignmentFilters = new ArrayList<>();
+    public static boolean isAmbieteSelected = false;
+    public static boolean isCategoriaSelected = false;
+    public static boolean isTagliaSelected = false;
+    //public static boolean isAlignmentSelected = false;
     public static boolean isFiltersApplied = false;
     private ArrayList<DataClass> tempList;
 
@@ -110,16 +110,30 @@ public class SearchMonstersActivity extends AppCompatActivity {
         dataList = new ArrayList<>();
         adapter = new MyAdapter(SearchMonstersActivity.this, dataList);
         recyclerView.setAdapter(adapter);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
+                //dataList.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()){
-                    DataClass dataClass = itemSnapshot.getValue(DataClass.class);
-                    dataClass.setKey(itemSnapshot.getKey());
-                    dataList.add(dataClass);
+                    dataList.clear();
+                    for (DataSnapshot it: itemSnapshot.getChildren()) {
+                        //dataList.clear();
+                        for (DataSnapshot i: it.getChildren()) {
+                            String ambiete = i.child("Ambiete").getValue(String.class);
+                            String ca = String.valueOf(i.child("CA").getValue(long.class));
+                            String categoria = i.child("Categoria").getValue(String.class);
+                            String nome = i.child("Nome").getValue(String.class);
+                            String pf = String.valueOf(i.child("PF").getValue(long.class));
+                            String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
+                            String taglia = i.child("Taglia").getValue(String.class);
+                            DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia);
+                            //DataClass dataClass = i.getValue(DataClass.class);
+                            dataClass.setKey(i.getKey());
+                            dataList.add(dataClass);
+                        }
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
@@ -145,7 +159,7 @@ public class SearchMonstersActivity extends AppCompatActivity {
     public void searchList(String text){
         ArrayList<DataClass> searchList = new ArrayList<>();
         for (DataClass dataClass: dataList){
-            if (dataClass.getName().toLowerCase().contains(text.toLowerCase())){
+            if (dataClass.getNome().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(dataClass);
             }
         }
@@ -167,7 +181,7 @@ public class SearchMonstersActivity extends AppCompatActivity {
             tempList.clear();
             Log.d("listClear", tempList.size() + "");
         }
-        if (isRaceSelected && isM_ClassSelected && isBackgroundSelected && isAlignmentSelected) {
+        /*if (isRaceSelected && isM_ClassSelected && isBackgroundSelected && isAlignmentSelected) {
             for (DataClass dataClass : dataList) {
                 for (String filterRace: selectedRaceFilters) {
                     if(dataClass.getRace().contains(filterRace)) {
@@ -188,14 +202,14 @@ public class SearchMonstersActivity extends AppCompatActivity {
                 }
 
             }
-        } else if (isRaceSelected && isM_ClassSelected && isBackgroundSelected) {
+        }*/ if (isAmbieteSelected && isCategoriaSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace: selectedRaceFilters) {
-                    if(dataClass.getRace().contains(filterRace)) {
-                        for (String filterM_Class: selectedM_ClassFilters) {
-                            if(dataClass.getM_class().contains(filterM_Class)) {
-                                for (String filterBackground: selectedBackgroundFilters) {
-                                    if(dataClass.getBackground().contains(filterBackground)) {
+                for (String filterRace: selectedAmbieteFilters) {
+                    if(dataClass.getAmbiete().contains(filterRace)) {
+                        for (String filterM_Class: selectedCategoriaFilters) {
+                            if(dataClass.getCategoria().contains(filterM_Class)) {
+                                for (String filterBackground: selectedTagliaFilters) {
+                                    if(dataClass.getTaglia().contains(filterBackground)) {
                                         tempList.add(dataClass);
                                     }
                                 }
@@ -204,7 +218,7 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (isRaceSelected && isM_ClassSelected && isAlignmentSelected) {
+        } /*else if (isRaceSelected && isM_ClassSelected && isAlignmentSelected) {
             for (DataClass dataClass : dataList) {
                 for (String filterRace: selectedRaceFilters) {
                     if(dataClass.getRace().contains(filterRace)) {
@@ -252,31 +266,31 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (isRaceSelected && isM_ClassSelected) {
+        }*/ else if (isAmbieteSelected && isCategoriaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace: selectedRaceFilters) {
-                    if(dataClass.getRace().contains(filterRace)) {
-                        for (String filterM_Class: selectedM_ClassFilters) {
-                            if(dataClass.getM_class().contains(filterM_Class)) {
+                for (String filterRace: selectedAmbieteFilters) {
+                    if(dataClass.getAmbiete().contains(filterRace)) {
+                        for (String filterM_Class: selectedCategoriaFilters) {
+                            if(dataClass.getCategoria().contains(filterM_Class)) {
                                         tempList.add(dataClass);
                             }
                         }
                     }
                 }
             }
-        } else if (isRaceSelected && isBackgroundSelected) {
+        } else if (isAmbieteSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace: selectedRaceFilters) {
-                    if(dataClass.getRace().contains(filterRace)) {
-                        for (String filterBackground: selectedBackgroundFilters) {
-                            if(dataClass.getBackground().contains(filterBackground)) {
+                for (String filterRace: selectedAmbieteFilters) {
+                    if(dataClass.getAmbiete().contains(filterRace)) {
+                        for (String filterBackground: selectedTagliaFilters) {
+                            if(dataClass.getTaglia().contains(filterBackground)) {
                                 tempList.add(dataClass);
                             }
                         }
                     }
                 }
             }
-        } else if (isRaceSelected && isAlignmentSelected) {
+        } /*else if (isRaceSelected && isAlignmentSelected) {
             for (DataClass dataClass : dataList) {
                 for (String filterRace: selectedRaceFilters) {
                     if(dataClass.getRace().contains(filterRace)) {
@@ -288,19 +302,19 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (isM_ClassSelected && isBackgroundSelected) {
+        }*/ else if (isCategoriaSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterM_Class: selectedM_ClassFilters) {
-                    if(dataClass.getM_class().contains(filterM_Class)) {
-                        for (String filterBackground: selectedBackgroundFilters) {
-                            if(dataClass.getBackground().contains(filterBackground)) {
+                for (String filterM_Class: selectedCategoriaFilters) {
+                    if(dataClass.getCategoria().contains(filterM_Class)) {
+                        for (String filterBackground: selectedTagliaFilters) {
+                            if(dataClass.getTaglia().contains(filterBackground)) {
                                 tempList.add(dataClass);
                             }
                         }
                     }
                 }
             }
-        } else if (isM_ClassSelected && isAlignmentSelected) {
+        } /*else if (isM_ClassSelected && isAlignmentSelected) {
             for (DataClass dataClass : dataList) {
                 for (String filterM_Class: selectedM_ClassFilters) {
                     if(dataClass.getM_class().contains(filterM_Class)) {
@@ -324,31 +338,31 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (isRaceSelected) {
+        }*/ else if (isAmbieteSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace: selectedRaceFilters) {
-                    if(dataClass.getRace().contains(filterRace)) {
+                for (String filterRace: selectedAmbieteFilters) {
+                    if(dataClass.getAmbiete().contains(filterRace)) {
                         tempList.add(dataClass);
                     }
                 }
             }
-        } else if (isM_ClassSelected) {
+        } else if (isCategoriaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterM_Class: selectedM_ClassFilters) {
-                    if(dataClass.getM_class().contains(filterM_Class)) {
+                for (String filterM_Class: selectedCategoriaFilters) {
+                    if(dataClass.getCategoria().contains(filterM_Class)) {
                         tempList.add(dataClass);
                     }
                 }
             }
-        } else if (isBackgroundSelected) {
+        } else if (isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterBackground: selectedBackgroundFilters) {
-                    if(dataClass.getBackground().contains(filterBackground)) {
+                for (String filterBackground: selectedTagliaFilters) {
+                    if(dataClass.getTaglia().contains(filterBackground)) {
                         tempList.add(dataClass);
                     }
                 }
             }
-        } else if (isAlignmentSelected) {
+        } /*else if (isAlignmentSelected) {
             for (DataClass dataClass : dataList) {
                 for (String filterAlignment: selectedAlignmentFilters) {
                     if(dataClass.getAlignment().contains(filterAlignment)) {
@@ -356,17 +370,17 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
+        }*/
 
         adapter.searchDataList(tempList);
-        selectedRaceFilters.clear();
-        selectedM_ClassFilters.clear();
-        selectedBackgroundFilters.clear();
-        selectedAlignmentFilters.clear();
-        isRaceSelected = false;
-        isM_ClassSelected = false;
-        isBackgroundSelected = false;
-        isAlignmentSelected = false;
+        selectedAmbieteFilters.clear();
+        selectedCategoriaFilters.clear();
+        selectedTagliaFilters.clear();
+        //selectedAlignmentFilters.clear();
+        isAmbieteSelected = false;
+        isCategoriaSelected = false;
+        isTagliaSelected = false;
+        //isAlignmentSelected = false;
         isFiltersApplied = false;
 
 

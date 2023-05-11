@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lobster"
-            android:text="Races"
+            android:text="Ambienti"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -71,7 +71,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Dwarf"
+                        android:id="@+id/ambiete_artico"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Dwarf" />
+                            android:text="artico" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -96,7 +96,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Elf"
+                        android:id="@+id/ambiete_catacombe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -110,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Elf" />
+                            android:text="catacombe" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -122,7 +122,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Halfling"
+                        android:id="@+id/ambiete_caverna"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -136,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Halfling" />
+                            android:text="caverna" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -148,7 +148,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Human"
+                        android:id="@+id/ambiete_cittatina"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Human" />
+                            android:text="cittatina" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -174,7 +174,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Dragonborn"
+                        android:id="@+id/ambiete_collina"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -188,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Dragonborn" />
+                            android:text="collina" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -213,7 +213,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Gnome"
+                        android:id="@+id/ambiete_costa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -226,7 +226,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Gnome" />
+                            android:text="costa" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -238,7 +238,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_HalfElf"
+                        android:id="@+id/ambiete_deserto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -252,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Half-Elf" />
+                            android:text="deserto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -264,7 +264,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_HalfOrc"
+                        android:id="@+id/ambiete_dungeon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -278,7 +278,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Half-Orc" />
+                            android:text="dungeon" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -290,7 +290,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/race_Tiefling"
+                        android:id="@+id/ambiete_errante"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -304,18 +304,598 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Tiefling" />
+                            android:text="errante" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_foresta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="foresta" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_giungla"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="giungla" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_inferno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="inferno" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_lago"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="lago" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_limbo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="limbo" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_montagna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="montagna" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_nomade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="nomade" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_ovunque"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="ovunque" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_palude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="palude" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_paradiso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="paradiso" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_pianoDelFuoco"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="piano del fuoco" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_pianoDellAcqua"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="piano dell acqua" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_pianoDellAria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="piano dell aria" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_pianoDellaTerra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="piano della terra" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_pianura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="pianura" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_profonditàMarine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="profondità marine" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_rovine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="rovine" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_servitore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="servitore" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_terreSelvaggie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="terre selvaggie" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_underdark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="underdark" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_vulcano"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="vulcano" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lobster"
-            android:text="Classes"
+            android:text="Categorie"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -339,7 +919,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Barbarian"
+                        android:id="@+id/categoria_aberrazione"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -352,7 +932,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Barbarian" />
+                            android:text="aberrazione" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -364,7 +944,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Bard"
+                        android:id="@+id/categoria_bestia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -378,7 +958,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Bard" />
+                            android:text="bestia" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -390,7 +970,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Cleric"
+                        android:id="@+id/categoria_celestiale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -404,7 +984,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Cleric" />
+                            android:text="celestiale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -416,7 +996,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Druid"
+                        android:id="@+id/categoria_costrutto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -430,7 +1010,33 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Druid" />
+                            android:text="costrutto" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/categoria_drago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="drago" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -454,7 +1060,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Fighter"
+                        android:id="@+id/categoria_elementale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -467,7 +1073,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Fighter" />
+                            android:text="elementale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -479,7 +1085,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Monk"
+                        android:id="@+id/categoria_folletto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -493,7 +1099,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Monk" />
+                            android:text="folletto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -505,7 +1111,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Paladin"
+                        android:id="@+id/categoria_gigante"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -519,7 +1125,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Paladin" />
+                            android:text="gigante" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -531,7 +1137,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Ranger"
+                        android:id="@+id/categoria_immondo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -545,45 +1151,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Ranger" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/class_Rogue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Rogue" />
+                            android:text="immondo" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -595,7 +1163,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/class_Sorcerer"
+                        android:id="@+id/categoria_melma"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -609,302 +1177,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Sorcerer" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/class_Warlock"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Warlock" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/class_Wizard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Wizard" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lobster"
-            android:text="Backgrounds"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Acolyte"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        >
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Acolyte" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Charlatan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Charlatan" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Criminal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Criminal" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Entertainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Entertainer" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_FolkHero"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Folk Hero" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_GuildArtisan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Guild Artisan" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Hermit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Hermit" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Noble"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Noble" />
+                            android:text="melma" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -929,7 +1202,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/back_Outlander"
+                        android:id="@+id/categoria_mostruosità"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -942,7 +1215,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Outlander" />
+                            android:text="mostruosità" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -954,7 +1227,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/back_Sage"
+                        android:id="@+id/categoria_nonMorto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -968,7 +1241,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Sage" />
+                            android:text="non morto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -980,7 +1253,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/back_Sailor"
+                        android:id="@+id/categoria_umanoide"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -994,7 +1267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Sailor" />
+                            android:text="umanoide" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1006,7 +1279,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/back_Soldier"
+                        android:id="@+id/categoria_vegetale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1020,44 +1293,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Soldier" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/back_Urchin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Urchin" />
+                            android:text="vegetale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </HorizontalScrollView>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lobster"
-            android:text="Alignment"
+            android:text="Taglie"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -1081,7 +1329,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_LawfulGood"
+                        android:id="@+id/taglia_enorme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1094,7 +1342,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Lawful Good" />
+                            android:text="enorme" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1106,7 +1354,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_NeutralGood"
+                        android:id="@+id/taglia_grande"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1120,7 +1368,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Neutral Good" />
+                            android:text="grande" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1132,7 +1380,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_ChaoticGood"
+                        android:id="@+id/taglia_mastodontica"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1146,7 +1394,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Chaotic Good" />
+                            android:text="mastodontica" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1172,7 +1420,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_LawfulNeutral"
+                        android:id="@+id/taglia_media"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1185,7 +1433,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Lawful Neutral" />
+                            android:text="media" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1197,7 +1445,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_Neutral"
+                        android:id="@+id/taglia_minuscola"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1211,7 +1459,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Neutral" />
+                            android:text="minuscola" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1223,7 +1471,7 @@
                     app:cardCornerRadius="7dp">
 
                     <LinearLayout
-                        android:id="@+id/ali_ChaoticNeutral"
+                        android:id="@+id/taglia_piccola"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -1237,7 +1485,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="Chaotic Neutral" />
+                            android:text="piccola" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1246,97 +1494,7 @@
 
         </HorizontalScrollView>
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/ali_LawfulEvil"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Lawful Evil" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/ali_NeutralEvil"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Neutral Evil" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/ali_ChaoticEvil"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="Chaotic Evil" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
 
     </LinearLayout>
 

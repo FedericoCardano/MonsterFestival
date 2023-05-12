@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginEnd="15dp"
-            android:text="Clear"
+            android:text="Apply"
             android:textColor="@color/black" />
 
     </RelativeLayout>
@@ -166,6 +166,19 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,19 +204,6 @@
                             android:text="collina" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -308,31 +308,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="7dp">
-
-                    <LinearLayout
-                        android:id="@+id/ambiete_foresta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
-
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/lobster"
-                            android:text="foresta" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </HorizontalScrollView>
@@ -346,6 +321,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/ambiete_foresta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/lobster"
+                        android:text="foresta" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -447,31 +448,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:elevation="10dp"
-                app:cardCornerRadius="7dp">
-
-                <LinearLayout
-                    android:id="@+id/ambiete_montagna"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:fontFamily="@font/lobster"
-                        android:text="montagna" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
         </HorizontalScrollView>
 
@@ -484,6 +460,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/ambiete_montagna"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="montagna" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -560,6 +561,19 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -610,19 +624,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -647,6 +648,19 @@
                             android:text="piano dell acqua" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -723,6 +737,19 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -747,19 +774,6 @@
                             android:text="profondità marine" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -810,6 +824,19 @@
                             android:text="servitore" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -1014,6 +1041,19 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1039,18 +1079,6 @@
                             android:text="drago" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -1128,6 +1156,19 @@
                             android:text="gigante" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -1180,19 +1221,6 @@
                             android:text="melma" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -1244,6 +1272,18 @@
                             android:text="non morto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"

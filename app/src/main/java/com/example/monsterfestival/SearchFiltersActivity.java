@@ -148,420 +148,758 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
 
         switch (id) {
             case R.id.ambiete_artico:
-                SearchMonstersActivity.selectedAmbieteFilters.add("artico");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteArtico);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("artico")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("artico");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteArtico);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("artico");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteArtico);
+                }
                 //finish();
                 break;
             case R.id.ambiete_catacombe:
-                SearchMonstersActivity.selectedAmbieteFilters.add("catacombe");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteCatacombe);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("catacombe")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("catacombe");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteCatacombe);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("catacombe");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteCatacombe);
+                }
                 //finish();
                 break;
             case R.id.ambiete_caverna:
-                SearchMonstersActivity.selectedAmbieteFilters.add("caverna");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteCaverna);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("caverna")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("caverna");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteCaverna);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("caverna");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteCaverna);
+                }
                 //finish();
                 break;
             case R.id.ambiete_cittatina:
-                SearchMonstersActivity.selectedAmbieteFilters.add("cittatina");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteCittatina);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("cittatina")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("cittatina");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteCittatina);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("cittatina");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteCittatina);
+                }
                 //finish();
                 break;
             case R.id.ambiete_collina:
-                SearchMonstersActivity.selectedAmbieteFilters.add("collina");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteCollina);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("collina")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("collina");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteCollina);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("collina");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteCollina);
+                }
                 //finish();
                 break;
             case R.id.ambiete_costa:
-                SearchMonstersActivity.selectedAmbieteFilters.add("costa");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteCosta);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("costa")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("costa");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteCosta);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("costa");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteCosta);
+                }
                 //finish();
                 break;
             case R.id.ambiete_deserto:
-                SearchMonstersActivity.selectedAmbieteFilters.add("deserto");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteDeserto);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("deserto")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("deserto");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteDeserto);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("deserto");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteDeserto);
+                }
                 //finish();
                 break;
             case R.id.ambiete_dungeon:
-                SearchMonstersActivity.selectedAmbieteFilters.add("dungeon");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteDungeon);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("dungeon")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("dungeon");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteDungeon);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("dungeon");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteDungeon);
+                }
                 //finish();
                 break;
             case R.id.ambiete_errante:
-                SearchMonstersActivity.selectedAmbieteFilters.add("errante");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteErrante);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("errante")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("errante");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteErrante);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("errante");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteErrante);
+                }
                 //finish();
                 break;
             case R.id.ambiete_foresta:
-                SearchMonstersActivity.selectedAmbieteFilters.add("foresta");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteForesta);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("foresta")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("foresta");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteForesta);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("foresta");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteForesta);
+                }
                 //finish();
                 break;
             case R.id.ambiete_giungla:
-                SearchMonstersActivity.selectedAmbieteFilters.add("giungla");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteGiungla);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("giungla")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("giungla");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteGiungla);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("giungla");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteGiungla);
+                }
                 //finish();
                 break;
             case R.id.ambiete_inferno:
-                SearchMonstersActivity.selectedAmbieteFilters.add("inferno");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteInferno);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("inferno")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("inferno");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteInferno);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("inferno");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteInferno);
+                }
                 //finish();
                 break;
             case R.id.ambiete_lago:
-                SearchMonstersActivity.selectedAmbieteFilters.add("lago");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteLago);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("lago")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("lago");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteLago);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("lago");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteLago);
+                }
                 //finish();
                 break;
             case R.id.ambiete_limbo:
-                SearchMonstersActivity.selectedAmbieteFilters.add("limbo");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteLimbo);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("limbo")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("limbo");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteLimbo);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("limbo");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteLimbo);
+                }
                 //finish();
                 break;
             case R.id.ambiete_montagna:
-                SearchMonstersActivity.selectedAmbieteFilters.add("montagna");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteMontagna);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("montagna")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("montagna");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteMontagna);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("montagna");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteMontagna);
+                }
                 //finish();
                 break;
             case R.id.ambiete_nomade:
-                SearchMonstersActivity.selectedAmbieteFilters.add("nomade");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteNomade);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("nomade")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("nomade");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteNomade);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("nomade");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteNomade);
+                }
                 //finish();
                 break;
             case R.id.ambiete_ovunque:
-                SearchMonstersActivity.selectedAmbieteFilters.add("ovunque");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteOvunque);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("ovunque")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("ovunque");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteOvunque);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("ovunque");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteOvunque);
+                }
                 //finish();
                 break;
             case R.id.ambiete_palude:
-                SearchMonstersActivity.selectedAmbieteFilters.add("palude");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePalude);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("palude")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("palude");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePalude);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("palude");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePalude);
+                }
                 //finish();
                 break;
             case R.id.ambiete_paradiso:
-                SearchMonstersActivity.selectedAmbieteFilters.add("paradiso");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteParadiso);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("paradiso")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("paradiso");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteParadiso);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("paradiso");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteParadiso);
+                }
                 //finish();
                 break;
             case R.id.ambiete_pianoDelFuoco:
-                SearchMonstersActivity.selectedAmbieteFilters.add("piano del fuoco");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePianoDelFuoco);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano del fuoco")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano del fuoco");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePianoDelFuoco);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("piano del fuoco");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePianoDelFuoco);
+                }
                 //finish();
                 break;
             case R.id.ambiete_pianoDellAcqua:
-                SearchMonstersActivity.selectedAmbieteFilters.add("piano dell acqua");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePianoDellAcqua);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano dell acqua")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano dell acqua");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePianoDellAcqua);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("piano dell acqua");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePianoDellAcqua);
+                }
                 //finish();
                 break;
             case R.id.ambiete_pianoDellAria:
-                SearchMonstersActivity.selectedAmbieteFilters.add("piano dell aria");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePianoDellAria);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano dell aria")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano dell aria");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePianoDellAria);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("piano dell aria");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePianoDellAria);
+                }
                 //finish();
                 break;
             case R.id.ambiete_pianoDellaTerra:
-                SearchMonstersActivity.selectedAmbieteFilters.add("piano della terra");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePianoDellaTerra);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano della terra")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano della terra");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePianoDellaTerra);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("piano della terra");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePianoDellaTerra);
+                }
                 //finish();
                 break;
             case R.id.ambiete_pianura:
-                SearchMonstersActivity.selectedAmbieteFilters.add("pianura");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambietePianura);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("pianura")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("pianura");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambietePianura);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("pianura");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambietePianura);
+                }
                 //finish();
                 break;
             case R.id.ambiete_profonditàMarine:
-                SearchMonstersActivity.selectedAmbieteFilters.add("profondità marine");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteProfonditàMarine);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("profondità marine")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("profondità marine");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteProfonditàMarine);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("profondità marine");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteProfonditàMarine);
+                }
                 //finish();
                 break;
             case R.id.ambiete_rovine:
-                SearchMonstersActivity.selectedAmbieteFilters.add("rovine");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteRovine);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("rovine")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("rovine");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteRovine);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("rovine");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteRovine);
+                }
                 //finish();
                 break;
             case R.id.ambiete_servitore:
-                SearchMonstersActivity.selectedAmbieteFilters.add("servitore");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteServitore);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("servitore")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("servitore");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteServitore);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("servitore");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteServitore);
+                }
                 //finish();
                 break;
             case R.id.ambiete_terreSelvaggie:
-                SearchMonstersActivity.selectedAmbieteFilters.add("terre selvaggie");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteTerreSelvaggie);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("terre selvaggie")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("terre selvaggie");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteTerreSelvaggie);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("terre selvaggie");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteTerreSelvaggie);
+                }
                 //finish();
                 break;
             case R.id.ambiete_underdark:
-                SearchMonstersActivity.selectedAmbieteFilters.add("underdark");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteUnderdark);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("underdark")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("underdark");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteUnderdark);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("underdark");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteUnderdark);
+                }
                 //finish();
                 break;
             case R.id.ambiete_vulcano:
-                SearchMonstersActivity.selectedAmbieteFilters.add("vulcano");
-                SearchMonstersActivity.isAmbieteSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(ambieteVulcano);
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains("vulcano")) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove("vulcano");
+                    if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
+                        SearchMonstersActivity.isAmbieteSelected = false;
+                    }
+                    lookDeselected(ambieteVulcano);
+                }else {
+                    SearchMonstersActivity.selectedAmbieteFilters.add("vulcano");
+                    SearchMonstersActivity.isAmbieteSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(ambieteVulcano);
+                }
                 //finish();
                 break;
             case R.id.categoria_aberrazione:
-                SearchMonstersActivity.selectedCategoriaFilters.add("aberrazione");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaAberrazione);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("aberrazione")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("aberrazione");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaAberrazione);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("aberrazione");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaAberrazione);
+                }
                 //finish();
                 break;
             case R.id.categoria_bestia:
-                SearchMonstersActivity.selectedCategoriaFilters.add("bestia");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaBestia);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("bestia")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("bestia");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaBestia);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("bestia");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaBestia);
+                }
                 //finish();
                 break;
             case R.id.categoria_celestiale:
-                SearchMonstersActivity.selectedCategoriaFilters.add("celestiale");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaCelestiale);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("celestiale")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("celestiale");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaCelestiale);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("celestiale");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaCelestiale);
+                }
                 //finish();
                 break;
             case R.id.categoria_costrutto:
-                SearchMonstersActivity.selectedCategoriaFilters.add("costrutto");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaCostrutto);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("costrutto")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("costrutto");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaCostrutto);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("costrutto");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaCostrutto);
+                }
                 //finish();
                 break;
             case R.id.categoria_drago:
-                SearchMonstersActivity.selectedCategoriaFilters.add("drago");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaDrago);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("drago")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("drago");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaDrago);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("drago");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaDrago);
+                }
                 //finish();
                 break;
             case R.id.categoria_elementale:
-                SearchMonstersActivity.selectedCategoriaFilters.add("elementale");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaElementale);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("elementale")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("elementale");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaElementale);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("elementale");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaElementale);
+                }
                 //finish();
                 break;
             case R.id.categoria_folletto:
-                SearchMonstersActivity.selectedCategoriaFilters.add("folletto");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaFolletto);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("folletto")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("folletto");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaFolletto);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("folletto");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaFolletto);
+                }
                 //finish();
                 break;
             case R.id.categoria_gigante:
-                SearchMonstersActivity.selectedCategoriaFilters.add("gigante");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaGigante);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("gigante")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("gigante");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaGigante);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("gigante");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaGigante);
+                }
                 //finish();
                 break;
             case R.id.categoria_immondo:
-                SearchMonstersActivity.selectedCategoriaFilters.add("immondo");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaImmondo);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("immondo")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("immondo");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaImmondo);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("immondo");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaImmondo);
+                }
                 //finish();
                 break;
             case R.id.categoria_melma:
-                SearchMonstersActivity.selectedCategoriaFilters.add("melma");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaMelma);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("melma")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("melma");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaMelma);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("melma");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaMelma);
+                }
                 //finish();
                 break;
             case R.id.categoria_mostruosità:
-                SearchMonstersActivity.selectedCategoriaFilters.add("mostruosità");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaMostruosità);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("mostruosità")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("mostruosità");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaMostruosità);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("mostruosità");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaMostruosità);
+                }
                 //finish();
                 break;
             case R.id.categoria_nonMorto:
-                SearchMonstersActivity.selectedCategoriaFilters.add("non morto");
-                SearchMonstersActivity.isCategoriaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaNonMorto);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("non morto")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("non morto");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaNonMorto);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("non morto");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaNonMorto);
+                }
                 //finish();
                 break;
             case R.id.categoria_umanoide:
-                SearchMonstersActivity.selectedTagliaFilters.add("umanoide");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaUmanoide);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("umanoide")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("umanoide");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaUmanoide);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("umanoide");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaUmanoide);
+                }
                 //finish();
                 break;
             case R.id.categoria_vegetale:
-                SearchMonstersActivity.selectedTagliaFilters.add("vegetale");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(categoriaVegetale);
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains("vegetale")) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove("vegetale");
+                    if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
+                        SearchMonstersActivity.isCategoriaSelected = false;
+                    }
+                    lookDeselected(categoriaVegetale);
+                }else {
+                    SearchMonstersActivity.selectedCategoriaFilters.add("vegetale");
+                    SearchMonstersActivity.isCategoriaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(categoriaVegetale);
+                }
                 //finish();
                 break;
             case R.id.taglia_enorme:
-                SearchMonstersActivity.selectedTagliaFilters.add("enorme");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaEnorme);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("enorme")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("enorme");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaEnorme);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("enorme");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaEnorme);
+                }
                 //finish();
                 break;
             case R.id.taglia_grande:
-                SearchMonstersActivity.selectedTagliaFilters.add("grande");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaGrande);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("grande")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("grande");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaGrande);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("grande");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaGrande);
+                }
                 //finish();
                 break;
             case R.id.taglia_mastodontica:
-                SearchMonstersActivity.selectedTagliaFilters.add("mastodontica");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaMastodontica);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("mastodontica")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("mastodontica");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaMastodontica);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("mastodontica");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaMastodontica);
+                }
                 //finish();
                 break;
             case R.id.taglia_media:
-                SearchMonstersActivity.selectedTagliaFilters.add("media");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaMedia);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("media")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("media");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaMedia);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("media");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaMedia);
+                }
                 //finish();
                 break;
             case R.id.taglia_minuscola:
-                SearchMonstersActivity.selectedTagliaFilters.add("minuscola");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaMinuscola);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("minuscola")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("minuscola");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaMinuscola);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("minuscola");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaMinuscola);
+                }
                 //finish();
                 break;
             case R.id.taglia_piccola:
-                SearchMonstersActivity.selectedTagliaFilters.add("piccola");
-                SearchMonstersActivity.isTagliaSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(tagliaPiccola);
+                if (SearchMonstersActivity.selectedTagliaFilters.contains("piccola")) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove("piccola");
+                    if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
+                        SearchMonstersActivity.isTagliaSelected = false;
+                    }
+                    lookDeselected(tagliaPiccola);
+                }else {
+                    SearchMonstersActivity.selectedTagliaFilters.add("piccola");
+                    SearchMonstersActivity.isTagliaSelected = true;
+                    //SearchMonstersActivity.isFiltersApplied = true;
+                    lookSelected(tagliaPiccola);
+                }
                 //finish();
                 break;
-            /*case R.id.ali_LawfulGood:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Lawful Good");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentLawfulGood);
-                //finish();
-                break;
-            case R.id.ali_NeutralGood:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Neutral Good");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentNeutralGood);
-                //finish();
-                break;
-            case R.id.ali_ChaoticGood:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Chaotic Good");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentChaoticGood);
-                //finish();
-                break;
-            case R.id.ali_LawfulNeutral:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Lawful Neutral");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentLawfulNeutral);
-                //finish();
-                break;
-            case R.id.ali_Neutral:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Neutral");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentNeutral);
-                //finish();
-                break;
-            case R.id.ali_ChaoticNeutral:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Chaotic Neutral");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentChaoticNeutral);
-                //finish();
-                break;
-            case R.id.ali_LawfulEvil:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Lawful Evil");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentLawfulEvil);
-                //finish();
-                break;
-            case R.id.ali_NeutralEvil:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Neutral Evil");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentNeutralEvil);
-                //finish();
-                break;
-            case R.id.ali_ChaoticEvil:
-                SearchMonstersActivity.selectedAlignmentFilters.add("Chaotic Evil");
-                SearchMonstersActivity.isAlignmentSelected = true;
-                SearchMonstersActivity.isFiltersApplied = true;
-                lookSelected(alignmentChaoticEvil);
-                //finish();
-                break;*/
             case R.id.id_clear_btn:
                 //clearClicked();
+                SearchMonstersActivity.isFiltersApplied = true;
                 finish();
                 break;
         }
@@ -577,5 +915,10 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
     private void lookSelected(LinearLayout selectedFilter)
     {
         selectedFilter.setBackgroundColor(rossoPorpora);
+    }
+
+    private void lookDeselected(LinearLayout selectedFilter)
+    {
+        selectedFilter.setBackgroundColor(white);
     }
 }

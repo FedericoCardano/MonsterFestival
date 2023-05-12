@@ -67,8 +67,10 @@ public class HomeFragment extends Fragment {
         myPartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
-                startActivity(intent);
+                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()){
+                    Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -76,8 +78,10 @@ public class HomeFragment extends Fragment {
         compareMonstersCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
-                startActivity(intent);
+                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                    Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -85,8 +89,10 @@ public class HomeFragment extends Fragment {
         comparePartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
-                startActivity(intent);
+                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                    Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

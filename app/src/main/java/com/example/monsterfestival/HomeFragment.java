@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,7 +68,9 @@ public class HomeFragment extends Fragment {
         myPartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()){
+                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
+                    Toast.makeText(getActivity(), "Login to access 'My Parties'", Toast.LENGTH_SHORT).show();
+                else {
                     Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
                     startActivity(intent);
                 }
@@ -78,7 +81,9 @@ public class HomeFragment extends Fragment {
         compareMonstersCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
+                    Toast.makeText(getActivity(), "Login to access 'Compare Monsters'", Toast.LENGTH_SHORT).show();
+                else {
                     Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
                     startActivity(intent);
                 }
@@ -89,7 +94,9 @@ public class HomeFragment extends Fragment {
         comparePartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
+                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
+                    Toast.makeText(getActivity(), "Login to access 'Compare Parties'", Toast.LENGTH_SHORT).show();
+                else {
                     Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
                     startActivity(intent);
                 }

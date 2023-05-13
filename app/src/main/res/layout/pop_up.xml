@@ -18,13 +18,13 @@
             android:textSize="20dp"
             android:textColor="@color/brawnColor"
             android:textStyle="bold"
-            android:text="Would you like to register?"
+            android:text="@string/vuoi_registrarti"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="If you register, your data will be securely saved, allowing you to access it from multiple devices"
+            android:text="@string/se_ti_registri_i_tuoi_dati_saranno_salvati_in_modo_sicuro_consentendoti_di_accedervi_da_pi_dispositivi"
             android:gravity="center"
             android:id="@+id/tvMessage"
             android:textColor="@color/brawnColor"
@@ -46,7 +46,7 @@
                 android:textColor="#eae4db"
                 android:textSize="14sp"
                 android:textAllCaps="false"
-                android:text="Register"
+                android:text="@string/registrati"
                 android:backgroundTint="@color/brawnColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -56,7 +56,7 @@
                 android:textColor="@color/brawnColor"
                 android:textSize="14sp"
                 android:textAllCaps="false"
-                android:text="Maybe Later"
+                android:text="@string/non_ora"
                 android:layout_margin="5dp"
                 android:backgroundTint="#eae4db"
                 android:layout_width="wrap_content"

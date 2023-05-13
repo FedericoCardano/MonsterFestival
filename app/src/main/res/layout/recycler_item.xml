@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvAmbiete"
                 android:layout_marginStart="8dp"
-                android:text="Ambiete"
+                android:text="@string/ambiete"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvCA"
                 android:layout_marginStart="8dp"
-                android:text="CA"
+                android:text="@string/ca"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvCategoria"
                 android:layout_marginStart="8dp"
-                android:text="Categoria"
+                android:text="@string/categoria"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNome"
                 android:layout_marginStart="8dp"
-                android:text="Nome"
+                android:text="@string/nomeMostro"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPF"
                 android:layout_marginStart="8dp"
-                android:text="PF"
+                android:text="@string/pf"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvSfida"
                 android:layout_marginStart="8dp"
-                android:text="Sfida"
+                android:text="@string/sfida"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTaglia"
                 android:layout_marginStart="8dp"
-                android:text="Taglia"
+                android:text="@string/taglia"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp"/>
 

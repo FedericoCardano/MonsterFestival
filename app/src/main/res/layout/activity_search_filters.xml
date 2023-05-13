@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Select"
+            android:text="@string/seleziona"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_marginEnd="15dp"
-            android:text="Apply"
+            android:text="@string/applica"
             android:textColor="@color/black" />
 
     </RelativeLayout>
@@ -84,7 +84,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="artico" />
+                            android:text="@string/artico" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -110,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="catacombe" />
+                            android:text="@string/catacombe" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -136,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="caverna" />
+                            android:text="@string/caverna" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="cittatina" />
+                            android:text="@string/cittatina" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -201,7 +201,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="collina" />
+                            android:text="@string/collina" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -226,7 +226,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="costa" />
+                            android:text="@string/costa" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -252,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="deserto" />
+                            android:text="@string/deserto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -278,7 +278,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="dungeon" />
+                            android:text="@string/dungeon" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -304,7 +304,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="errante" />
+                            android:text="@string/errante" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -344,7 +344,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/lobster"
-                        android:text="foresta" />
+                        android:text="@string/foresta" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -369,7 +369,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/lobster"
-                        android:text="giungla" />
+                        android:text="@string/giungla" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -394,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/lobster"
-                        android:text="inferno" />
+                        android:text="@string/inferno" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -419,7 +419,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/lobster"
-                        android:text="lago" />
+                        android:text="@string/lago" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -444,7 +444,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/lobster"
-                        android:text="limbo" />
+                        android:text="@string/limbo" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -482,7 +482,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="montagna" />
+                            android:text="@string/montagna" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -507,7 +507,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="nomade" />
+                            android:text="@string/nomade" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -532,7 +532,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="ovunque" />
+                            android:text="@string/ovunque" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -557,7 +557,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="palude" />
+                            android:text="@string/palude" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -595,7 +595,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="paradiso" />
+                            android:text="@string/paradiso" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -620,7 +620,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="piano del fuoco" />
+                            android:text="@string/piano_del_fuoco" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -645,7 +645,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="piano dell acqua" />
+                            android:text="@string/piano_dell_acqua" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -683,7 +683,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="piano dell aria" />
+                            android:text="@string/piano_dell_aria" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -708,7 +708,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="piano della terra" />
+                            android:text="@string/piano_della_terra" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -733,7 +733,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="pianura" />
+                            android:text="@string/pianura" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -771,7 +771,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="profondità marine" />
+                            android:text="@string/profondit_marine" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -796,7 +796,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="rovine" />
+                            android:text="@string/rovine" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -821,7 +821,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="servitore" />
+                            android:text="@string/servitore" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -859,7 +859,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="terre selvaggie" />
+                            android:text="@string/terre_selvaggie" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -884,7 +884,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="underdark" />
+                            android:text="@string/underdark" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -909,7 +909,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="vulcano" />
+                            android:text="@string/vulcano" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -959,7 +959,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="aberrazione" />
+                            android:text="@string/aberrazione" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -985,7 +985,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="bestia" />
+                            android:text="@string/bestia" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1011,7 +1011,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="celestiale" />
+                            android:text="@string/celestiale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1037,7 +1037,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="costrutto" />
+                            android:text="@string/costrutto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1076,7 +1076,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="drago" />
+                            android:text="@string/drago" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1101,7 +1101,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="elementale" />
+                            android:text="@string/elementale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1127,7 +1127,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="folletto" />
+                            android:text="@string/folletto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1153,7 +1153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="gigante" />
+                            android:text="@string/gigante" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -1192,7 +1192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="immondo" />
+                            android:text="@string/immondo" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1218,7 +1218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="melma" />
+                            android:text="@string/melma" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1243,7 +1243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="mostruosità" />
+                            android:text="@string/mostruosit" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1269,7 +1269,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="non morto" />
+                            android:text="@string/non_morto" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -1307,7 +1307,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="umanoide" />
+                            android:text="@string/umanoide" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1333,7 +1333,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="vegetale" />
+                            android:text="@string/vegetale" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -1382,7 +1382,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="enorme" />
+                            android:text="@string/enorme" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1408,7 +1408,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="grande" />
+                            android:text="@string/grande" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1434,7 +1434,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="mastodontica" />
+                            android:text="@string/mastodontica" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1473,7 +1473,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="media" />
+                            android:text="@string/media" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1499,7 +1499,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="minuscola" />
+                            android:text="@string/minuscola" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -1525,7 +1525,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/lobster"
-                            android:text="piccola" />
+                            android:text="@string/piccola" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

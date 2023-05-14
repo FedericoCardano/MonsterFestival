@@ -89,4 +89,11 @@
     <string name="media">media</string>
     <string name="minuscola">minuscola</string>
     <string name="piccola">piccola</string>
+    <string name="Ambiete">Ambiete:</string>
+    <string name="CA">CA:</string>
+    <string name="Categoria">Categoria:</string>
+    <string name="Nome">Nome:</string>
+    <string name="PF">PF:</string>
+    <string name="Sfida">Sfida:</string>
+    <string name="Taglia">Taglia:</string>
 </resources>

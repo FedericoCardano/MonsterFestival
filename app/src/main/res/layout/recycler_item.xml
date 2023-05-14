@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ambiete: "
+                android:text="@string/Ambiete"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CA: "
+                android:text="@string/CA"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Categoria: "
+                android:text="@string/Categoria"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome: "
+                android:text="@string/Nome"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PF: "
+                android:text="@string/PF"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -149,7 +149,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sfida: "
+                android:text="@string/Sfida"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
@@ -174,7 +174,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Taglia: "
+                android:text="@string/Taglia"
                 android:textColor="@color/brawnColor"
                 android:textSize="26sp"
                 android:textStyle="bold"/>

@@ -148,14 +148,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
 
         switch (id) {
             case R.id.ambiete_artico:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("artico")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("artico");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.artico))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.artico));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteArtico);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("artico");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.artico));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteArtico);
@@ -163,14 +163,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_catacombe:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("catacombe")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("catacombe");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.catacombe))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.catacombe));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteCatacombe);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("catacombe");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.catacombe));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteCatacombe);
@@ -178,14 +178,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_caverna:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("caverna")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("caverna");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.caverna))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.caverna));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteCaverna);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("caverna");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.caverna));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteCaverna);
@@ -193,14 +193,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_cittatina:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("cittatina")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("cittatina");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.cittatina))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.cittatina));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteCittatina);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("cittatina");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.cittatina));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteCittatina);
@@ -208,14 +208,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_collina:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("collina")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("collina");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.collina))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.collina));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteCollina);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("collina");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.collina));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteCollina);
@@ -223,14 +223,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_costa:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("costa")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("costa");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.costa))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.costa));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteCosta);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("costa");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.costa));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteCosta);
@@ -238,14 +238,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_deserto:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("deserto")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("deserto");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.deserto))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.deserto));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteDeserto);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("deserto");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.deserto));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteDeserto);
@@ -253,14 +253,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_dungeon:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("dungeon")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("dungeon");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.dungeon))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.dungeon));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteDungeon);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("dungeon");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.dungeon));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteDungeon);
@@ -268,14 +268,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_errante:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("errante")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("errante");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.errante))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.errante));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteErrante);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("errante");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.errante));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteErrante);
@@ -283,14 +283,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_foresta:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("foresta")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("foresta");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.foresta))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.foresta));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteForesta);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("foresta");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.foresta));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteForesta);
@@ -298,14 +298,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_giungla:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("giungla")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("giungla");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.giungla))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.giungla));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteGiungla);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("giungla");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.giungla));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteGiungla);
@@ -313,14 +313,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_inferno:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("inferno")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("inferno");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.inferno))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.inferno));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteInferno);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("inferno");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.inferno));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteInferno);
@@ -328,14 +328,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_lago:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("lago")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("lago");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.lago))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.lago));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteLago);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("lago");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.lago));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteLago);
@@ -343,14 +343,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_limbo:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("limbo")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("limbo");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.limbo))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.limbo));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteLimbo);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("limbo");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.limbo));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteLimbo);
@@ -358,14 +358,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_montagna:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("montagna")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("montagna");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.montagna))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.montagna));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteMontagna);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("montagna");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.montagna));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteMontagna);
@@ -373,14 +373,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_nomade:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("nomade")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("nomade");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.nomade))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.nomade));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteNomade);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("nomade");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.nomade));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteNomade);
@@ -388,14 +388,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_ovunque:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("ovunque")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("ovunque");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.ovunque))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.ovunque));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteOvunque);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("ovunque");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.ovunque));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteOvunque);
@@ -403,14 +403,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_palude:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("palude")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("palude");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.palude))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.palude));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePalude);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("palude");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.palude));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePalude);
@@ -418,14 +418,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_paradiso:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("paradiso")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("paradiso");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.paradiso))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.paradiso));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteParadiso);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("paradiso");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.paradiso));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteParadiso);
@@ -433,14 +433,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_pianoDelFuoco:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano del fuoco")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano del fuoco");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.piano_del_fuoco))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.piano_del_fuoco));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePianoDelFuoco);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("piano del fuoco");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.piano_del_fuoco));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePianoDelFuoco);
@@ -448,14 +448,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_pianoDellAcqua:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano dell acqua")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano dell acqua");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.piano_dell_acqua))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.piano_dell_acqua));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePianoDellAcqua);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("piano dell acqua");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.piano_dell_acqua));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePianoDellAcqua);
@@ -463,14 +463,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_pianoDellAria:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano dell aria")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano dell aria");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.piano_dell_aria))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.piano_dell_aria));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePianoDellAria);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("piano dell aria");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.piano_dell_aria));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePianoDellAria);
@@ -478,14 +478,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_pianoDellaTerra:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("piano della terra")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("piano della terra");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.piano_della_terra))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.piano_della_terra));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePianoDellaTerra);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("piano della terra");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.piano_della_terra));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePianoDellaTerra);
@@ -493,14 +493,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_pianura:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("pianura")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("pianura");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.pianura))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.pianura));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambietePianura);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("pianura");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.pianura));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambietePianura);
@@ -508,14 +508,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_profonditàMarine:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("profondità marine")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("profondità marine");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.profondit_marine))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.profondit_marine));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteProfonditàMarine);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("profondità marine");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.profondit_marine));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteProfonditàMarine);
@@ -523,14 +523,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_rovine:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("rovine")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("rovine");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.rovine))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.rovine));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteRovine);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("rovine");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.rovine));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteRovine);
@@ -538,14 +538,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_servitore:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("servitore")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("servitore");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.servitore))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.servitore));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteServitore);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("servitore");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.servitore));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteServitore);
@@ -553,14 +553,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_terreSelvaggie:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("terre selvaggie")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("terre selvaggie");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.terre_selvaggie))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.terre_selvaggie));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteTerreSelvaggie);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("terre selvaggie");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.terre_selvaggie));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteTerreSelvaggie);
@@ -568,14 +568,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_underdark:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("underdark")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("underdark");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.underdark))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.underdark));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteUnderdark);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("underdark");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.underdark));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteUnderdark);
@@ -583,14 +583,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.ambiete_vulcano:
-                if (SearchMonstersActivity.selectedAmbieteFilters.contains("vulcano")) {
-                    SearchMonstersActivity.selectedAmbieteFilters.remove("vulcano");
+                if (SearchMonstersActivity.selectedAmbieteFilters.contains(getResources().getString(R.string.vulcano))) {
+                    SearchMonstersActivity.selectedAmbieteFilters.remove(getResources().getString(R.string.vulcano));
                     if (SearchMonstersActivity.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersActivity.isAmbieteSelected = false;
                     }
                     lookDeselected(ambieteVulcano);
                 }else {
-                    SearchMonstersActivity.selectedAmbieteFilters.add("vulcano");
+                    SearchMonstersActivity.selectedAmbieteFilters.add(getResources().getString(R.string.vulcano));
                     SearchMonstersActivity.isAmbieteSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(ambieteVulcano);
@@ -598,14 +598,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_aberrazione:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("aberrazione")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("aberrazione");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.aberrazione))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.aberrazione));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaAberrazione);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("aberrazione");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.aberrazione));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaAberrazione);
@@ -613,14 +613,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_bestia:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("bestia")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("bestia");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.bestia))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.bestia));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaBestia);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("bestia");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.bestia));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaBestia);
@@ -628,14 +628,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_celestiale:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("celestiale")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("celestiale");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.celestiale))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.celestiale));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaCelestiale);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("celestiale");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.celestiale));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaCelestiale);
@@ -643,14 +643,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_costrutto:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("costrutto")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("costrutto");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.costrutto))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.costrutto));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaCostrutto);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("costrutto");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.costrutto));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaCostrutto);
@@ -658,14 +658,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_drago:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("drago")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("drago");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.drago))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.drago));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaDrago);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("drago");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.drago));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaDrago);
@@ -673,14 +673,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_elementale:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("elementale")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("elementale");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.elementale))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.elementale));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaElementale);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("elementale");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.elementale));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaElementale);
@@ -688,14 +688,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_folletto:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("folletto")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("folletto");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.folletto))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.folletto));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaFolletto);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("folletto");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.folletto));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaFolletto);
@@ -703,14 +703,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_gigante:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("gigante")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("gigante");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.gigante))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.gigante));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaGigante);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("gigante");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.gigante));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaGigante);
@@ -718,14 +718,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_immondo:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("immondo")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("immondo");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.immondo))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.immondo));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaImmondo);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("immondo");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.immondo));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaImmondo);
@@ -733,14 +733,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_melma:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("melma")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("melma");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.melma))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.melma));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaMelma);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("melma");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.melma));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaMelma);
@@ -748,14 +748,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_mostruosità:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("mostruosità")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("mostruosità");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.mostruosit))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.mostruosit));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaMostruosità);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("mostruosità");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.mostruosit));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaMostruosità);
@@ -763,14 +763,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_nonMorto:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("non morto")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("non morto");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.non_morto))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.non_morto));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaNonMorto);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("non morto");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.non_morto));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaNonMorto);
@@ -778,14 +778,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_umanoide:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("umanoide")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("umanoide");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.umanoide))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.umanoide));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaUmanoide);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("umanoide");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.umanoide));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaUmanoide);
@@ -793,14 +793,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.categoria_vegetale:
-                if (SearchMonstersActivity.selectedCategoriaFilters.contains("vegetale")) {
-                    SearchMonstersActivity.selectedCategoriaFilters.remove("vegetale");
+                if (SearchMonstersActivity.selectedCategoriaFilters.contains(getResources().getString(R.string.vegetale))) {
+                    SearchMonstersActivity.selectedCategoriaFilters.remove(getResources().getString(R.string.vegetale));
                     if (SearchMonstersActivity.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersActivity.isCategoriaSelected = false;
                     }
                     lookDeselected(categoriaVegetale);
                 }else {
-                    SearchMonstersActivity.selectedCategoriaFilters.add("vegetale");
+                    SearchMonstersActivity.selectedCategoriaFilters.add(getResources().getString(R.string.vegetale));
                     SearchMonstersActivity.isCategoriaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(categoriaVegetale);
@@ -808,14 +808,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_enorme:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("enorme")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("enorme");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.enorme))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.enorme));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaEnorme);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("enorme");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.enorme));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaEnorme);
@@ -823,14 +823,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_grande:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("grande")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("grande");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.grande))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.grande));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaGrande);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("grande");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.grande));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaGrande);
@@ -838,14 +838,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_mastodontica:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("mastodontica")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("mastodontica");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.mastodontica))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.mastodontica));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaMastodontica);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("mastodontica");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.mastodontica));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaMastodontica);
@@ -853,14 +853,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_media:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("media")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("media");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.media))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.media));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaMedia);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("media");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.media));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaMedia);
@@ -868,14 +868,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_minuscola:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("minuscola")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("minuscola");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.minuscola))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.minuscola));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaMinuscola);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("minuscola");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.minuscola));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaMinuscola);
@@ -883,14 +883,14 @@ public class SearchFiltersActivity extends AppCompatActivity implements View.OnC
                 //finish();
                 break;
             case R.id.taglia_piccola:
-                if (SearchMonstersActivity.selectedTagliaFilters.contains("piccola")) {
-                    SearchMonstersActivity.selectedTagliaFilters.remove("piccola");
+                if (SearchMonstersActivity.selectedTagliaFilters.contains(getResources().getString(R.string.piccola))) {
+                    SearchMonstersActivity.selectedTagliaFilters.remove(getResources().getString(R.string.piccola));
                     if (SearchMonstersActivity.selectedTagliaFilters.size() == 0) {
                         SearchMonstersActivity.isTagliaSelected = false;
                     }
                     lookDeselected(tagliaPiccola);
                 }else {
-                    SearchMonstersActivity.selectedTagliaFilters.add("piccola");
+                    SearchMonstersActivity.selectedTagliaFilters.add(getResources().getString(R.string.piccola));
                     SearchMonstersActivity.isTagliaSelected = true;
                     //SearchMonstersActivity.isFiltersApplied = true;
                     lookSelected(tagliaPiccola);

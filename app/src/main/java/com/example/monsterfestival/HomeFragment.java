@@ -35,7 +35,10 @@ public class HomeFragment extends Fragment {
         textView = view.findViewById(R.id.textUsername);
 
         user = auth.getCurrentUser();
-        textView.setText(user.getDisplayName());
+        if (user.isAnonymous())
+            textView.setText(getResources().getString(R.string.default_utente));
+        else
+            textView.setText(user.getDisplayName());
 
         editText = view.findViewById(R.id.search_editText);
         editText.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +72,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    Toast.makeText(getActivity(), "Login to access 'My Parties'", Toast.LENGTH_SHORT).show();
+                    printMessage(getResources().getString(R.string.miei_party));
                 else {
                     Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
                     startActivity(intent);
@@ -82,7 +85,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    Toast.makeText(getActivity(), "Login to access 'Compare Monsters'", Toast.LENGTH_SHORT).show();
+                    printMessage(getResources().getString(R.string.confronto_mostri));
                 else {
                     Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
                     startActivity(intent);
@@ -95,7 +98,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    Toast.makeText(getActivity(), "Login to access 'Compare Parties'", Toast.LENGTH_SHORT).show();
+                    printMessage(getResources().getString(R.string.confronto_party));
                 else {
                     Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
                     startActivity(intent);
@@ -104,6 +107,10 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    void printMessage(String nome_opzione) {
+        Toast.makeText(getActivity(), getResources().getString(R.string.errore_login) + " '" + nome_opzione + "'", Toast.LENGTH_SHORT).show();
     }
 
 }

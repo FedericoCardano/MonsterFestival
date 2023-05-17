@@ -5,8 +5,10 @@
     <string name="iniziamo">Iniziamo</string>
     <string name="clicca_per_accedere">Clicca per accedere</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="cpassword">Conferma Password</string>
     <string name="vuoi_creare_un_account_registrati">Vuoi creare un account? Registrati</string>
     <string name="registrazione">Registrazione</string>
     <string name="nome">Nome</string>
@@ -16,7 +18,14 @@
     <string name="descrizione_se_ti_registri">Se ti registri, i tuoi dati saranno salvati in modo sicuro, consentendoti di accedervi da più dispositivi.</string>
     <string name="registrati">Registrati</string>
     <string name="non_ora">Non ora</string>
-    <string name="attendi">Attendi...</string>
+    <string name="email_mancante">Inserire l\'Email</string>
+    <string name="password_mancante">Inserire la Password</string>
+    <string name="nome_mancante">Inserire il Nome Utente</string>
+    <string name="account_creato">Account creato con Successo</string>
+    <string name="registrazione_fallita">La Registrazione del tuo Account è fallita, riprovare…</string>
+    <string name="login_riuscito">Login effettuato con Successo</string>
+    <string name="login_fallito">Login non riuscito, riprovare…</string>
+    <string name="attendi">Attendi…</string>
 
     <string name="ambiete">Ambiete</string>
     <string name="ca">CA</string>
@@ -101,4 +110,8 @@
     <string name="PF">PF:</string>
     <string name="Sfida">Sfida:</string>
     <string name="Taglia">Taglia:</string>
+
+    <string name="filtro_Ambieti">Ambienti</string>
+    <string name="filtro_Categorie">Categorie</string>
+    <string name="filtro_Taglie">Taglie</string>
 </resources>

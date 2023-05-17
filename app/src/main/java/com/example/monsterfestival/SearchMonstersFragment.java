@@ -1,28 +1,29 @@
 package com.example.monsterfestival;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.session.MediaSessionManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -30,18 +31,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class SearchMonstersActivity extends AppCompatActivity {
+public class SearchMonstersFragment extends Fragment {
 
     DatabaseReference databaseReference;
     ValueEventListener eventListener;
@@ -51,82 +45,81 @@ public class SearchMonstersActivity extends AppCompatActivity {
     SearchView searchView;
     FloatingActionButton fab;
     private ImageView filtersBtn;
+    private CardView filtersCard;
     public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
     public static ArrayList<String> selectedCategoriaFilters = new ArrayList<>();
     public static ArrayList<String> selectedTagliaFilters = new ArrayList<>();
-    public static boolean isAmbieteSelected = false;
+    public static boolean isAmbienteSelected = false;
     public static boolean isCategoriaSelected = false;
     public static boolean isTagliaSelected = false;
     public static boolean isFiltersApplied = false;
     private ArrayList<DataClass> tempList;
 
+    private SearchFiltersFragment searchFiltersFragment;
 
-    ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (isFiltersApplied) {
-                ApplyFilters();
-            } else {
-                selectedAmbieteFilters.clear();
-                selectedCategoriaFilters.clear();
-                selectedTagliaFilters.clear();
-                isAmbieteSelected = false;
-                isCategoriaSelected = false;
-                isTagliaSelected = false;
-            }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search_monsters, container, false);
 
-        }
-    });
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_monsters);
-
-        fab = findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchMonstersActivity.this, UploadActivity.class);
+                Intent intent = new Intent(getActivity(), UploadActivity.class);
                 startActivity(intent);
             }
         });
 
-        filtersBtn = findViewById(R.id.filters_btn);
+        filtersBtn = view.findViewById(R.id.filters_btn);
+        filtersCard = view.findViewById(R.id.filters_card);
         filtersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchMonstersActivity.this, SearchFiltersActivity.class);
-                //startActivity(intent);
-                startForResult.launch(intent);
+                FrameLayout container = view.findViewById(R.id.frame_access);
+
+                container.bringToFront();
+                filtersCard.setVisibility(View.INVISIBLE);
+                fab.setVisibility(View.INVISIBLE);
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                // Inizializza il Fragment
+                searchFiltersFragment = new SearchFiltersFragment();
+
+                // Ottieni il FragmentManager e inizia la transazione
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                // Aggiunti il Fragment al Container View
+                fragmentTransaction.add(container.getId(), searchFiltersFragment);
+
+                // Esegui la transazione
+                fragmentTransaction.commit();
             }
         });
 
-        searchView = findViewById(R.id.search);
+        searchView = view.findViewById(R.id.search);
         showSoftKeyboard(searchView);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(SearchMonstersActivity.this, 1);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        AlertDialog.Builder builder = new AlertDialog.Builder(SearchMonstersActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
         dataList = new ArrayList<>();
-        adapter = new MyAdapter(SearchMonstersActivity.this, dataList);
+        adapter = new MyAdapter(getActivity(), dataList);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //dataList.clear();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    dataList.clear();
                     for (DataSnapshot it : itemSnapshot.getChildren()) {
-                        //dataList.clear();
                         for (DataSnapshot i : it.getChildren()) {
                             String ambiete = i.child("Ambiete").getValue(String.class);
                             String ca = String.valueOf(i.child("CA").getValue(long.class));
@@ -136,7 +129,6 @@ public class SearchMonstersActivity extends AppCompatActivity {
                             String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
                             String taglia = i.child("Taglia").getValue(String.class);
                             DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia);
-                            //DataClass dataClass = i.getValue(DataClass.class);
                             dataClass.setKey(i.getKey());
                             dataList.add(dataClass);
                         }
@@ -164,6 +156,7 @@ public class SearchMonstersActivity extends AppCompatActivity {
             }
         });
 
+        return view;
     }
 
     public void searchList(String text) {
@@ -179,26 +172,51 @@ public class SearchMonstersActivity extends AppCompatActivity {
     public void showSoftKeyboard(SearchView searchView) {
         if (searchView.requestFocus()) {
             InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
-    private void ApplyFilters() {
-        ArrayList<DataClass> tempList = new ArrayList<>();
-        Log.d("TEStArraySize", dataList.size() + "");
-        if (tempList.size() > 0) {
-            tempList.clear();
-            Log.d("listClear", tempList.size() + "");
+    public void setFilters() {
+        FrameLayout container = getActivity().findViewById(R.id.frame_access);
+
+        container.bringToFront();
+        filtersCard.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.VISIBLE);
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.remove(searchFiltersFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+
+        if (isFiltersApplied) {
+            applyFilters();
+        } else {
+            selectedAmbieteFilters.clear();
+            selectedCategoriaFilters.clear();
+            selectedTagliaFilters.clear();
+            isAmbienteSelected = false;
+            isCategoriaSelected = false;
+            isTagliaSelected = false;
         }
-        if (isAmbieteSelected && isCategoriaSelected && isTagliaSelected) {
+    }
+
+    private void applyFilters() {
+        ArrayList<DataClass> tempList = new ArrayList<>();
+
+        if (isAmbienteSelected && isCategoriaSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiete().contains(filterRace)) {
-                        for (String filterM_Class : selectedCategoriaFilters) {
-                            if (dataClass.getCategoria().contains(filterM_Class)) {
-                                for (String filterBackground : selectedTagliaFilters) {
-                                    if (dataClass.getTaglia().contains(filterBackground)) {
+                for (String filterAmbiente : selectedAmbieteFilters) {
+                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
+                        for (String filterCategoria : selectedCategoriaFilters) {
+                            if (dataClass.getCategoria().contains(filterCategoria)) {
+                                for (String filterTaglia : selectedTagliaFilters) {
+                                    if (dataClass.getTaglia().contains(filterTaglia)) {
                                         tempList.add(dataClass);
                                     }
                                 }
@@ -207,24 +225,24 @@ public class SearchMonstersActivity extends AppCompatActivity {
                     }
                 }
             }
-        } else if (isAmbieteSelected && isCategoriaSelected) {
+        } else if (isAmbienteSelected && isCategoriaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiete().contains(filterRace)) {
-                        for (String filterBackground : selectedCategoriaFilters) {
-                            if (dataClass.getCategoria().contains(filterBackground)) {
+                for (String filterAmbiente : selectedAmbieteFilters) {
+                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
+                        for (String filterCategoria : selectedCategoriaFilters) {
+                            if (dataClass.getCategoria().contains(filterCategoria)) {
                                 tempList.add(dataClass);
                             }
                         }
                     }
                 }
             }
-        } else if (isAmbieteSelected && isTagliaSelected) {
+        } else if (isAmbienteSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiete().contains(filterRace)) {
-                        for (String filterBackground : selectedTagliaFilters) {
-                            if (dataClass.getTaglia().contains(filterBackground)) {
+                for (String filterAmbiente : selectedAmbieteFilters) {
+                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
+                        for (String filterTaglia : selectedTagliaFilters) {
+                            if (dataClass.getTaglia().contains(filterTaglia)) {
                                 tempList.add(dataClass);
                             }
                         }
@@ -233,55 +251,51 @@ public class SearchMonstersActivity extends AppCompatActivity {
             }
         } else if (isCategoriaSelected && isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterM_Class : selectedCategoriaFilters) {
-                    if (dataClass.getCategoria().contains(filterM_Class)) {
-                        for (String filterBackground : selectedTagliaFilters) {
-                            if (dataClass.getTaglia().contains(filterBackground)) {
+                for (String filterCategoria : selectedCategoriaFilters) {
+                    if (dataClass.getCategoria().contains(filterCategoria)) {
+                        for (String filterTaglia : selectedTagliaFilters) {
+                            if (dataClass.getTaglia().contains(filterTaglia)) {
                                 tempList.add(dataClass);
                             }
                         }
                     }
                 }
             }
-        } else if (isAmbieteSelected) {
+        } else if (isAmbienteSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterRace : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiete().contains(filterRace)) {
+                for (String filterAmbiente : selectedAmbieteFilters) {
+                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
                         tempList.add(dataClass);
                     }
                 }
             }
         } else if (isCategoriaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterM_Class : selectedCategoriaFilters) {
-                    if (dataClass.getCategoria().contains(filterM_Class)) {
+                for (String filterCategoria : selectedCategoriaFilters) {
+                    if (dataClass.getCategoria().contains(filterCategoria)) {
                         tempList.add(dataClass);
                     }
                 }
             }
         } else if (isTagliaSelected) {
             for (DataClass dataClass : dataList) {
-                for (String filterBackground : selectedTagliaFilters) {
-                    if (dataClass.getTaglia().contains(filterBackground)) {
+                for (String filterTaglia : selectedTagliaFilters) {
+                    if (dataClass.getTaglia().contains(filterTaglia)) {
                         tempList.add(dataClass);
                     }
                 }
             }
         } else {
-            for (DataClass dataClass : dataList) {
-                tempList.add(dataClass);
-            }
+            tempList.addAll(dataList);
         }
 
         adapter.searchDataList(tempList);
         selectedAmbieteFilters.clear();
         selectedCategoriaFilters.clear();
         selectedTagliaFilters.clear();
-        isAmbieteSelected = false;
+        isAmbienteSelected = false;
         isCategoriaSelected = false;
         isTagliaSelected = false;
         isFiltersApplied = false;
-
-
     }
 }

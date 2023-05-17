@@ -5,11 +5,14 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,13 +29,14 @@ public class HomeFragment extends Fragment {
     TextView textView;
     EditText editText;
     ImageView imageView;
+    View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         auth = FirebaseAuth.getInstance();
-        textView = view.findViewById(R.id.textUsername);
+        textView = rootView.findViewById(R.id.textUsername);
 
         user = auth.getCurrentUser();
         if (user.isAnonymous())
@@ -40,25 +44,23 @@ public class HomeFragment extends Fragment {
         else
             textView.setText(user.getDisplayName());
 
-        editText = view.findViewById(R.id.search_editText);
+        editText = rootView.findViewById(R.id.search_editText);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchMonstersActivity.class);
-                startActivity(intent);
+                creaSearchMonsters();
             }
         });
 
-        imageView = view.findViewById(R.id.search_imageView);
+        imageView = rootView.findViewById(R.id.search_imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchMonstersActivity.class);
-                startActivity(intent);
+                creaSearchMonsters();
             }
         });
 
-        partyCreationCard = view.findViewById(R.id.partyCreationCard);
+        partyCreationCard = rootView.findViewById(R.id.partyCreationCard);
         partyCreationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +69,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        myPartiesCard = view.findViewById(R.id.myPartiesCard);
+        myPartiesCard = rootView.findViewById(R.id.myPartiesCard);
         myPartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +82,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        compareMonstersCard = view.findViewById(R.id.compareMonstersCard);
+        compareMonstersCard = rootView.findViewById(R.id.compareMonstersCard);
         compareMonstersCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +95,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        comparePartiesCard = view.findViewById(R.id.comparePartiesCard);
+        comparePartiesCard = rootView.findViewById(R.id.comparePartiesCard);
         comparePartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,11 +108,28 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return view;
+        return rootView;
     }
 
     void printMessage(String nome_opzione) {
         Toast.makeText(getActivity(), getResources().getString(R.string.errore_login) + " '" + nome_opzione + "'", Toast.LENGTH_SHORT).show();
+    }
+
+    void creaSearchMonsters() {
+        FrameLayout container = rootView.findViewById(R.id.frame_access);
+
+        // Inizializza il Fragment
+        SearchMonstersFragment myFragment = new SearchMonstersFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
 }

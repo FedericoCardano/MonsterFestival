@@ -30,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.recAmbiete.setText(dataList.get(position).getAmbiete());
+        holder.recAmbiete.setText(dataList.get(position).getAmbiente());
         holder.recCA.setText(dataList.get(position).getCa());
         holder.recCategoria.setText(dataList.get(position).getCategoria());
         holder.recNome.setText(dataList.get(position).getNome());

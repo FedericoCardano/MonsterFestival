@@ -18,7 +18,7 @@ public class DataClass {
     public void setKey(String key) {
         this.key = key;
     }
-    public String getAmbiete() { return Ambiete; }
+    public String getAmbiente() { return Ambiete; }
     public String getCa() { return CA; }
     public String getCategoria() {
         return Categoria;

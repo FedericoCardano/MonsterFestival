@@ -105,10 +105,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
+                        if (task.isSuccessful())
                             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

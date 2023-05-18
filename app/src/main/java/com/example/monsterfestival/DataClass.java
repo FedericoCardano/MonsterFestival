@@ -45,8 +45,5 @@ public class DataClass {
         this.Sfida = Sfida;
         this.Taglia = Taglia;
     }
-
-    public DataClass(){
-    }
 }
 

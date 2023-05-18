@@ -1,5 +1,6 @@
 package com.example.monsterfestival;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -33,13 +34,12 @@ import java.util.List;
 public class SearchMonstersFragment extends Fragment {
 
     DatabaseReference databaseReference;
-    ValueEventListener eventListener;
     RecyclerView recyclerView;
     List<DataClass> dataList;
+    @SuppressLint("StaticFieldLeak")
     static MyAdapter adapter;
     SearchView searchView;
     FloatingActionButton fab;
-    private ImageView filtersBtn;
     private CardView filtersCard;
     public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
     public static ArrayList<String> selectedCategoriaFilters = new ArrayList<>();
@@ -48,9 +48,11 @@ public class SearchMonstersFragment extends Fragment {
     public static boolean isCategoriaSelected = false;
     public static boolean isTagliaSelected = false;
     public static boolean isFiltersApplied = false;
-    private ArrayList<DataClass> tempList;
 
     private SearchFiltersFragment searchFiltersFragment;
+
+    public SearchMonstersFragment() {
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_monsters, container, false);
@@ -64,7 +66,7 @@ public class SearchMonstersFragment extends Fragment {
             }
         });
 
-        filtersBtn = view.findViewById(R.id.filters_btn);
+        ImageView filtersBtn = view.findViewById(R.id.filters_btn);
         filtersCard = view.findViewById(R.id.filters_card);
         filtersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +113,7 @@ public class SearchMonstersFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
@@ -204,84 +207,45 @@ public class SearchMonstersFragment extends Fragment {
     private void applyFilters() {
         ArrayList<DataClass> tempList = new ArrayList<>();
 
-        if (isAmbienteSelected && isCategoriaSelected && isTagliaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterAmbiente : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
-                        for (String filterCategoria : selectedCategoriaFilters) {
-                            if (dataClass.getCategoria().contains(filterCategoria)) {
-                                for (String filterTaglia : selectedTagliaFilters) {
-                                    if (dataClass.getTaglia().contains(filterTaglia)) {
-                                        tempList.add(dataClass);
-                                    }
-                                }
-                            }
-                        }
+        for (DataClass dataClass : dataList) {
+            boolean isOk = true;
+
+            if (isAmbienteSelected) {
+                boolean ambienteOk = true;
+                for (String filterAmbiente : selectedAmbieteFilters)
+                    if (!dataClass.getAmbiente().contains(filterAmbiente)) {
+                        ambienteOk = false;
+                        break;
                     }
-                }
+                if (!ambienteOk)
+                    isOk = false;
             }
-        } else if (isAmbienteSelected && isCategoriaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterAmbiente : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
-                        for (String filterCategoria : selectedCategoriaFilters) {
-                            if (dataClass.getCategoria().contains(filterCategoria)) {
-                                tempList.add(dataClass);
-                            }
-                        }
+
+            if (isOk && isCategoriaSelected) {
+                boolean categoriaOk = true;
+                for (String filterCategoria : selectedCategoriaFilters)
+                    if (!dataClass.getCategoria().contains(filterCategoria)) {
+                        categoriaOk = false;
+                        break;
                     }
-                }
+                if (!categoriaOk)
+                    isOk = false;
             }
-        } else if (isAmbienteSelected && isTagliaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterAmbiente : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
-                        for (String filterTaglia : selectedTagliaFilters) {
-                            if (dataClass.getTaglia().contains(filterTaglia)) {
-                                tempList.add(dataClass);
-                            }
-                        }
+
+            if (isOk && isTagliaSelected) {
+                boolean tagliaOk = true;
+                for (String filterTaglia : selectedTagliaFilters)
+                    if (!dataClass.getTaglia().contains(filterTaglia)) {
+                        tagliaOk = false;
+                        break;
                     }
-                }
+                if (!tagliaOk)
+                    isOk = false;
             }
-        } else if (isCategoriaSelected && isTagliaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterCategoria : selectedCategoriaFilters) {
-                    if (dataClass.getCategoria().contains(filterCategoria)) {
-                        for (String filterTaglia : selectedTagliaFilters) {
-                            if (dataClass.getTaglia().contains(filterTaglia)) {
-                                tempList.add(dataClass);
-                            }
-                        }
-                    }
-                }
-            }
-        } else if (isAmbienteSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterAmbiente : selectedAmbieteFilters) {
-                    if (dataClass.getAmbiente().contains(filterAmbiente)) {
-                        tempList.add(dataClass);
-                    }
-                }
-            }
-        } else if (isCategoriaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterCategoria : selectedCategoriaFilters) {
-                    if (dataClass.getCategoria().contains(filterCategoria)) {
-                        tempList.add(dataClass);
-                    }
-                }
-            }
-        } else if (isTagliaSelected) {
-            for (DataClass dataClass : dataList) {
-                for (String filterTaglia : selectedTagliaFilters) {
-                    if (dataClass.getTaglia().contains(filterTaglia)) {
-                        tempList.add(dataClass);
-                    }
-                }
-            }
-        } else {
-            tempList.addAll(dataList);
+
+            if (isOk)
+                tempList.add(dataClass);
+
         }
 
         adapter.searchDataList(tempList);

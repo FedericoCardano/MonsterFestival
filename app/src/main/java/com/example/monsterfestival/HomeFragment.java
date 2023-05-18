@@ -39,10 +39,12 @@ public class HomeFragment extends Fragment {
         textView = rootView.findViewById(R.id.textUsername);
 
         user = auth.getCurrentUser();
-        if (user.isAnonymous())
-            textView.setText(getResources().getString(R.string.default_utente));
-        else
-            textView.setText(user.getDisplayName());
+        if (user != null) {
+            if (user.isAnonymous())
+                textView.setText(getResources().getString(R.string.default_utente));
+            else
+                textView.setText(user.getDisplayName());
+        }
 
         editText = rootView.findViewById(R.id.search_editText);
         editText.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +75,14 @@ public class HomeFragment extends Fragment {
         myPartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    printMessage(getResources().getString(R.string.miei_party));
-                else {
-                    Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
-                    startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    if (user.isAnonymous())
+                        printMessage(getResources().getString(R.string.miei_party));
+                    else {
+                        Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -86,11 +91,14 @@ public class HomeFragment extends Fragment {
         compareMonstersCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    printMessage(getResources().getString(R.string.confronto_mostri));
-                else {
-                    Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
-                    startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    if (user.isAnonymous())
+                        printMessage(getResources().getString(R.string.confronto_mostri));
+                    else {
+                        Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -99,11 +107,14 @@ public class HomeFragment extends Fragment {
         comparePartiesCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (FirebaseAuth.getInstance().getCurrentUser().isAnonymous())
-                    printMessage(getResources().getString(R.string.confronto_party));
-                else {
-                    Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
-                    startActivity(intent);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    if (user.isAnonymous())
+                        printMessage(getResources().getString(R.string.confronto_party));
+                    else {
+                        Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });

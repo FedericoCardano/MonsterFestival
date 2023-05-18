@@ -1,5 +1,6 @@
 package com.example.monsterfestival;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,12 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
     View rootView;
     private TextView clearFilters;
-    private LinearLayout ambieteArtico, ambieteCatacombe, ambieteCaverna, ambieteCittatina, ambieteCollina, ambieteCosta, ambieteDeserto, ambieteDungeon, ambieteErrante, ambieteForesta, ambieteGiungla, ambieteInferno, ambieteLago, ambieteLimbo, ambieteMontagna, ambieteNomade, ambieteOvunque, ambietePalude, ambieteParadiso, ambietePianoDelFuoco, ambietePianoDellAcqua, ambietePianoDellAria, ambietePianoDellaTerra, ambietePianura, ambieteProfonditàMarine, ambieteRovine, ambieteServitore, ambieteTerreSelvaggie, ambieteUnderdark, ambieteVulcano;
-    private LinearLayout categoriaAberrazione, categoriaBestia, categoriaCelestiale, categoriaCostrutto, categoriaDrago, categoriaElementale, categoriaFolletto, categoriaGigante, categoriaImmondo, categoriaMelma, categoriaMostruosità, categoriaNonMorto, categoriaUmanoide, categoriaVegetale;
+    private LinearLayout ambieteArtico, ambieteCatacombe, ambieteCaverna, ambieteCittatina, ambieteCollina, ambieteCosta, ambieteDeserto, ambieteDungeon, ambieteErrante, ambieteForesta, ambieteGiungla, ambieteInferno, ambieteLago, ambieteLimbo, ambieteMontagna, ambieteNomade, ambieteOvunque, ambietePalude, ambieteParadiso, ambietePianoDelFuoco, ambietePianoDellAcqua, ambietePianoDellAria, ambietePianoDellaTerra, ambietePianura, ambieteProfonditaMarine, ambieteRovine, ambieteServitore, ambieteTerreSelvaggie, ambieteUnderdark, ambieteVulcano;
+    private LinearLayout categoriaAberrazione, categoriaBestia, categoriaCelestiale, categoriaCostrutto, categoriaDrago, categoriaElementale, categoriaFolletto, categoriaGigante, categoriaImmondo, categoriaMelma, categoriaMostruosita, categoriaNonMorto, categoriaUmanoide, categoriaVegetale;
     private LinearLayout tagliaEnorme, tagliaGrande, tagliaMastodontica, tagliaMedia, tagliaMinuscola, tagliaPiccola;
 
-    private int white, rossoPorpora, cream;
+    private int white;
+    private int rossoPorpora;
 
     @Nullable
     @Override
@@ -57,7 +59,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         ambietePianoDellAria.setOnClickListener(this);
         ambietePianoDellaTerra.setOnClickListener(this);
         ambietePianura.setOnClickListener(this);
-        ambieteProfonditàMarine.setOnClickListener(this);
+        ambieteProfonditaMarine.setOnClickListener(this);
         ambieteRovine.setOnClickListener(this);
         ambieteServitore.setOnClickListener(this);
         ambieteTerreSelvaggie.setOnClickListener(this);
@@ -74,7 +76,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         categoriaGigante.setOnClickListener(this);
         categoriaImmondo.setOnClickListener(this);
         categoriaMelma.setOnClickListener(this);
-        categoriaMostruosità.setOnClickListener(this);
+        categoriaMostruosita.setOnClickListener(this);
         categoriaNonMorto.setOnClickListener(this);
         categoriaUmanoide.setOnClickListener(this);
         categoriaVegetale.setOnClickListener(this);
@@ -115,7 +117,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         ambietePianoDellAria = rootView.findViewById(R.id.ambiete_pianoDellAria);
         ambietePianoDellaTerra = rootView.findViewById(R.id.ambiete_pianoDellaTerra);
         ambietePianura = rootView.findViewById(R.id.ambiete_pianura);
-        ambieteProfonditàMarine = rootView.findViewById(R.id.ambiete_profonditàMarine);
+        ambieteProfonditaMarine = rootView.findViewById(R.id.ambiete_profonditaMarine);
         ambieteRovine = rootView.findViewById(R.id.ambiete_rovine);
         ambieteServitore = rootView.findViewById(R.id.ambiete_servitore);
         ambieteTerreSelvaggie = rootView.findViewById(R.id.ambiete_terreSelvaggie);
@@ -132,7 +134,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         categoriaGigante = rootView.findViewById(R.id.categoria_gigante);
         categoriaImmondo = rootView.findViewById(R.id.categoria_immondo);
         categoriaMelma = rootView.findViewById(R.id.categoria_melma);
-        categoriaMostruosità = rootView.findViewById(R.id.categoria_mostruosità);
+        categoriaMostruosita = rootView.findViewById(R.id.categoria_mostruosita);
         categoriaNonMorto = rootView.findViewById(R.id.categoria_nonMorto);
         categoriaUmanoide = rootView.findViewById(R.id.categoria_umanoide);
         categoriaVegetale = rootView.findViewById(R.id.categoria_vegetale);
@@ -145,6 +147,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         tagliaPiccola = rootView.findViewById(R.id.taglia_piccola);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -486,18 +489,18 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                     lookSelected(ambietePianura);
                 }
                 break;
-            case R.id.ambiete_profonditàMarine:
+            case R.id.ambiete_profonditaMarine:
                 if (SearchMonstersFragment.selectedAmbieteFilters.contains(getResources().getString(R.string.profondit_marine))) {
                     SearchMonstersFragment.selectedAmbieteFilters.remove(getResources().getString(R.string.profondit_marine));
                     if (SearchMonstersFragment.selectedAmbieteFilters.size() == 0) {
                         SearchMonstersFragment.isAmbienteSelected = false;
                     }
-                    lookDeselected(ambieteProfonditàMarine);
+                    lookDeselected(ambieteProfonditaMarine);
                 }else {
                     SearchMonstersFragment.selectedAmbieteFilters.add(getResources().getString(R.string.profondit_marine));
                     SearchMonstersFragment.isAmbienteSelected = true;
                     //SearchMonstersFragment.isFiltersApplied = true;
-                    lookSelected(ambieteProfonditàMarine);
+                    lookSelected(ambieteProfonditaMarine);
                 }
                 break;
             case R.id.ambiete_rovine:
@@ -710,18 +713,18 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                     lookSelected(categoriaMelma);
                 }
                 break;
-            case R.id.categoria_mostruosità:
+            case R.id.categoria_mostruosita:
                 if (SearchMonstersFragment.selectedCategoriaFilters.contains(getResources().getString(R.string.mostruosit))) {
                     SearchMonstersFragment.selectedCategoriaFilters.remove(getResources().getString(R.string.mostruosit));
                     if (SearchMonstersFragment.selectedCategoriaFilters.size() == 0) {
                         SearchMonstersFragment.isCategoriaSelected = false;
                     }
-                    lookDeselected(categoriaMostruosità);
+                    lookDeselected(categoriaMostruosita);
                 }else {
                     SearchMonstersFragment.selectedCategoriaFilters.add(getResources().getString(R.string.mostruosit));
                     SearchMonstersFragment.isCategoriaSelected = true;
                     //SearchMonstersFragment.isFiltersApplied = true;
-                    lookSelected(categoriaMostruosità);
+                    lookSelected(categoriaMostruosita);
                 }
                 break;
             case R.id.categoria_nonMorto:
@@ -863,7 +866,6 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     {
         white = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.white);
         rossoPorpora = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rossoPorpora);
-        cream = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.creamColor);
     }
 
     private void lookSelected(LinearLayout selectedFilter)

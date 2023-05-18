@@ -1,6 +1,5 @@
 package com.example.monsterfestival;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,10 +25,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class RegisterFragment extends Fragment {
 
     private EditText editTextName, editTextEmail, editTextPassword, editTextCPassword;
-    private Button buttonReg;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
-    private TextView textView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,9 +43,9 @@ public class RegisterFragment extends Fragment {
         editTextEmail = view.findViewById(R.id.register_email);
         editTextPassword = view.findViewById(R.id.register_password);
         editTextCPassword = view.findViewById(R.id.register_cpassword);
-        buttonReg = view.findViewById(R.id.register_button);
+        Button buttonReg = view.findViewById(R.id.register_button);
         progressBar = view.findViewById(R.id.progressBar);
-        textView = view.findViewById(R.id.loginRedirectText);
+        TextView textView = view.findViewById(R.id.loginRedirectText);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +88,11 @@ public class RegisterFragment extends Fragment {
                     return;
                 }
 
+                if (!password.equals(cpassword)){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.cpassword_diversa), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -102,7 +104,8 @@ public class RegisterFragment extends Fragment {
                                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                             .setDisplayName(name).build();
 
-                                    user.updateProfile(profileUpdates);
+                                    if (user != null)
+                                        user.updateProfile(profileUpdates);
 
                                     Toast.makeText(getActivity(), getResources().getString(R.string.account_creato), Toast.LENGTH_SHORT).show();
 

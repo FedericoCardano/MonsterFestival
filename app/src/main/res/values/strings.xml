@@ -20,6 +20,7 @@
     <string name="non_ora">Non ora</string>
     <string name="email_mancante">Inserire l\'Email</string>
     <string name="password_mancante">Inserire la Password</string>
+    <string name="cpassword_diversa">Le due Password non corrispondono</string>
     <string name="nome_mancante">Inserire il Nome Utente</string>
     <string name="account_creato">Account creato con Successo</string>
     <string name="registrazione_fallita">La Registrazione del tuo Account è fallita, riprovare…</string>

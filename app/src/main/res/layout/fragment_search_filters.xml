@@ -755,7 +755,7 @@
                         app:cardCornerRadius="7dp">
 
                         <LinearLayout
-                            android:id="@+id/ambiete_profonditàMarine"
+                            android:id="@+id/ambiete_profonditaMarine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -1218,7 +1218,7 @@
                         app:cardCornerRadius="7dp">
 
                         <LinearLayout
-                            android:id="@+id/categoria_mostruosità"
+                            android:id="@+id/categoria_mostruosita"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"

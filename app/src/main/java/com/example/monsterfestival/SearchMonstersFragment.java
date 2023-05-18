@@ -69,13 +69,13 @@ public class SearchMonstersFragment extends Fragment {
         filtersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FrameLayout container = view.findViewById(R.id.frame_access_search);
+                FrameLayout container = requireActivity().findViewById(R.id.frame_access_search);
 
                 container.bringToFront();
                 filtersCard.setVisibility(View.INVISIBLE);
                 fab.setVisibility(View.INVISIBLE);
 
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null)
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 

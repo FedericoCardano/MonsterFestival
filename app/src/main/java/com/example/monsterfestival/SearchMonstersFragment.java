@@ -167,7 +167,7 @@ public class SearchMonstersFragment extends Fragment {
     public void showSoftKeyboard(SearchView searchView) {
         if (searchView.requestFocus()) {
             InputMethodManager imm = (InputMethodManager)
-                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
         }
     }

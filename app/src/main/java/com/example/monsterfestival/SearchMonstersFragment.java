@@ -173,7 +173,7 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     public void setFilters() {
-        FrameLayout container = getActivity().findViewById(R.id.frame_access_search);
+        FrameLayout container = requireActivity().findViewById(R.id.frame_access_search);
 
         container.bringToFront();
         filtersCard.setVisibility(View.VISIBLE);

@@ -119,7 +119,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void mostraLogin() {
-        FrameLayout container = findViewById(R.id.frame_access);
+        FrameLayout container = findViewById(R.id.frame_access_search);
 
         // Inizializza il Fragment
         FragmentL = new LoginFragment();
@@ -128,7 +128,7 @@ public class WelcomeActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_access) != null)
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_access_search) != null)
             fragmentTransaction.remove(FragmentR);
 
         // Aggiunti il Fragment al Container View
@@ -139,7 +139,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void mostraRegister() {
-        FrameLayout container = findViewById(R.id.frame_access);
+        FrameLayout container = findViewById(R.id.frame_access_search);
 
         // Inizializza il Fragment
         FragmentR = new RegisterFragment();
@@ -148,7 +148,7 @@ public class WelcomeActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_access) != null)
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_access_search) != null)
             fragmentTransaction.remove(FragmentL);
 
         // Aggiunti il Fragment al Container View

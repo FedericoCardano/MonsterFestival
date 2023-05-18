@@ -267,7 +267,7 @@
     </ScrollView>
 
     <FrameLayout
-        android:id="@+id/frame_access"
+        android:id="@+id/frame_access_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

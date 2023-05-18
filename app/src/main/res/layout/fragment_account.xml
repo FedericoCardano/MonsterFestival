@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/frame_access"
+        android:id="@+id/frame_access_account"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

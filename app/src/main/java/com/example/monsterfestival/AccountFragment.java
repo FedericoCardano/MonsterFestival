@@ -1,6 +1,5 @@
 package com.example.monsterfestival;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -59,7 +58,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraLogin() {
-        FrameLayout container = rootView.findViewById(R.id.frame_access);
+        FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment
         FragmentL = new LoginFragment();
@@ -68,7 +67,7 @@ public class AccountFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (getChildFragmentManager().findFragmentById(R.id.frame_access) != null)
+        if (getChildFragmentManager().findFragmentById(R.id.frame_access_account) != null)
             fragmentTransaction.remove(FragmentR);
 
         // Aggiunti il Fragment al Container View
@@ -79,7 +78,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraRegister() {
-        FrameLayout container = rootView.findViewById(R.id.frame_access);
+        FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment
         FragmentR = new RegisterFragment();
@@ -88,7 +87,7 @@ public class AccountFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (getChildFragmentManager().findFragmentById(R.id.frame_access) != null)
+        if (getChildFragmentManager().findFragmentById(R.id.frame_access_account) != null)
             fragmentTransaction.remove(FragmentL);
 
         // Aggiunti il Fragment al Container View

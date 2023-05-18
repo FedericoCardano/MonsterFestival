@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
     }
 
     void creaSearchMonsters() {
-        FrameLayout container = rootView.findViewById(R.id.frame_access);
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
 
         // Inizializza il Fragment
         SearchMonstersFragment myFragment = new SearchMonstersFragment();

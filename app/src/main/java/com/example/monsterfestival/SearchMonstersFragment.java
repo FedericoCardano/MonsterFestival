@@ -1,28 +1,23 @@
 package com.example.monsterfestival;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -74,7 +69,7 @@ public class SearchMonstersFragment extends Fragment {
         filtersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FrameLayout container = view.findViewById(R.id.frame_access);
+                FrameLayout container = view.findViewById(R.id.frame_access_search);
 
                 container.bringToFront();
                 filtersCard.setVisibility(View.INVISIBLE);
@@ -178,7 +173,7 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     public void setFilters() {
-        FrameLayout container = getActivity().findViewById(R.id.frame_access);
+        FrameLayout container = getActivity().findViewById(R.id.frame_access_search);
 
         container.bringToFront();
         filtersCard.setVisibility(View.VISIBLE);

@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -112,11 +114,12 @@ public class SearchMonstersFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+        databaseReference.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    dataList.clear();
                     for (DataSnapshot it : itemSnapshot.getChildren()) {
                         for (DataSnapshot i : it.getChildren()) {
                             String ambiete = i.child("Ambiete").getValue(String.class);
@@ -193,6 +196,7 @@ public class SearchMonstersFragment extends Fragment {
         fragmentTransaction.commit();
 
         if (isFiltersApplied) {
+            //Toast.makeText(getActivity(), getResources().getString(R.string.errore_login) , Toast.LENGTH_SHORT).show();
             applyFilters();
         } else {
             selectedAmbieteFilters.clear();
@@ -212,11 +216,12 @@ public class SearchMonstersFragment extends Fragment {
 
             if (isAmbienteSelected) {
                 boolean ambienteOk = true;
-                for (String filterAmbiente : selectedAmbieteFilters)
-                    if (!dataClass.getAmbiente().contains(filterAmbiente)) {
+                for (String filterAmbiente : selectedAmbieteFilters) {
+                    if (!dataClass.getAmbiente().contains(filterAmbiente.toLowerCase())) {
                         ambienteOk = false;
                         break;
                     }
+                }
                 if (!ambienteOk)
                     isOk = false;
             }
@@ -224,7 +229,7 @@ public class SearchMonstersFragment extends Fragment {
             if (isOk && isCategoriaSelected) {
                 boolean categoriaOk = true;
                 for (String filterCategoria : selectedCategoriaFilters)
-                    if (!dataClass.getCategoria().contains(filterCategoria)) {
+                    if (!dataClass.getCategoria().contains(filterCategoria.toLowerCase())) {
                         categoriaOk = false;
                         break;
                     }
@@ -235,7 +240,7 @@ public class SearchMonstersFragment extends Fragment {
             if (isOk && isTagliaSelected) {
                 boolean tagliaOk = true;
                 for (String filterTaglia : selectedTagliaFilters)
-                    if (!dataClass.getTaglia().contains(filterTaglia)) {
+                    if (!dataClass.getTaglia().contains(filterTaglia.toLowerCase())) {
                         tagliaOk = false;
                         break;
                     }
@@ -243,11 +248,11 @@ public class SearchMonstersFragment extends Fragment {
                     isOk = false;
             }
 
-            if (isOk)
+            if (isOk) {
                 tempList.add(dataClass);
+            }
 
         }
-
         adapter.searchDataList(tempList);
         selectedAmbieteFilters.clear();
         selectedCategoriaFilters.clear();

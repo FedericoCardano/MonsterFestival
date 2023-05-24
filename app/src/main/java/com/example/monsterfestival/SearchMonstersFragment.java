@@ -118,11 +118,9 @@ public class SearchMonstersFragment extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
-                    dataList.clear();
-                    for (DataSnapshot it : itemSnapshot.getChildren()) {
-                        for (DataSnapshot i : it.getChildren()) {
-                            String ambiete = i.child("Ambiete").getValue(String.class);
+              DataSnapshot itemSnapshot = snapshot.child("ID");
+                        for (DataSnapshot i : itemSnapshot.getChildren()) {
+                            String ambiete = i.child("Ambiente").getValue(String.class);
                             String ca = String.valueOf(i.child("CA").getValue(long.class));
                             String categoria = i.child("Categoria").getValue(String.class);
                             String nome = i.child("Nome").getValue(String.class);
@@ -133,8 +131,8 @@ public class SearchMonstersFragment extends Fragment {
                             dataClass.setKey(i.getKey());
                             dataList.add(dataClass);
                         }
-                    }
-                }
+
+
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }

@@ -30,11 +30,7 @@ public class SplashActivity extends AppCompatActivity {
             try {
 
                 PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_PERMISSIONS);
-                String[] PermissionsList = packageInfo.requestedPermissions;
-
-                for (int i = 0; i < PermissionsList.length; i++)
-                    if (ContextCompat.checkSelfPermission(this, PermissionsList[i]) != PackageManager.PERMISSION_GRANTED)
-                        ActivityCompat.requestPermissions(this, new String[]{PermissionsList[i]}, i);
+                ActivityCompat.requestPermissions(this, packageInfo.requestedPermissions, 0);
 
             } catch (PackageManager.NameNotFoundException e) {
                 // Handle the exception (TO DO)

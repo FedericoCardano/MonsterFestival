@@ -111,7 +111,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(WelcomeActivity.this, "Access error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WelcomeActivity.this, "Access error: " + e, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

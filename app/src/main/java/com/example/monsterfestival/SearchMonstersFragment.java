@@ -3,16 +3,13 @@ package com.example.monsterfestival;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -58,15 +55,6 @@ public class SearchMonstersFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_monsters, container, false);
-
-        fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), UploadActivity.class);
-                startActivity(intent);
-            }
-        });
 
         ImageView filtersBtn = view.findViewById(R.id.filters_btn);
         filtersCard = view.findViewById(R.id.filters_card);
@@ -116,6 +104,7 @@ public class SearchMonstersFragment extends Fragment {
         dialog.show();
         databaseReference.addValueEventListener(new ValueEventListener() {
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
               DataSnapshot itemSnapshot = snapshot.child("ID");

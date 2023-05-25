@@ -1,6 +1,5 @@
 package com.example.monsterfestival;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -65,10 +64,7 @@ public class HomeFragment extends Fragment {
         partyCreationCard = rootView.findViewById(R.id.partyCreationCard);
         partyCreationCard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), PartyCreationActivity.class);
-                startActivity(intent);
-            }
+            public void onClick(View view) { creaPartyCreationFragment(); }
         });
 
         myPartiesCard = rootView.findViewById(R.id.myPartiesCard);
@@ -80,8 +76,7 @@ public class HomeFragment extends Fragment {
                     if (user.isAnonymous())
                         printMessage(getResources().getString(R.string.miei_party));
                     else {
-                        Intent intent = new Intent(getActivity(), MyPartiesActivity.class);
-                        startActivity(intent);
+                        creaMyPartiesFragment();
                     }
                 }
             }
@@ -96,8 +91,7 @@ public class HomeFragment extends Fragment {
                     if (user.isAnonymous())
                         printMessage(getResources().getString(R.string.confronto_mostri));
                     else {
-                        Intent intent = new Intent(getActivity(), CompareMonstersActivity.class);
-                        startActivity(intent);
+                        creaCompareMonstersFragment();
                     }
                 }
             }
@@ -112,8 +106,7 @@ public class HomeFragment extends Fragment {
                     if (user.isAnonymous())
                         printMessage(getResources().getString(R.string.confronto_party));
                     else {
-                        Intent intent = new Intent(getActivity(), ComparePartiesActivity.class);
-                        startActivity(intent);
+                        creaComparePartiesFragment();
                     }
                 }
             }
@@ -131,6 +124,78 @@ public class HomeFragment extends Fragment {
 
         // Inizializza il Fragment
         SearchMonstersFragment myFragment = new SearchMonstersFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+    }
+
+    void creaPartyCreationFragment() {
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        PartyCreationFragment myFragment = new PartyCreationFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+    }
+
+    void creaMyPartiesFragment() {
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        MyPartiesFragment myFragment = new MyPartiesFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+    }
+
+    void creaCompareMonstersFragment() {
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        CompareMonstersFragment myFragment = new CompareMonstersFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+    }
+
+    void creaComparePartiesFragment() {
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        ComparePartiesFragment myFragment = new ComparePartiesFragment();
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();

@@ -115,4 +115,6 @@
     <string name="filtro_Ambieti">Ambienti</string>
     <string name="filtro_Categorie">Categorie</string>
     <string name="filtro_Taglie">Taglie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

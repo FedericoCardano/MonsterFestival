@@ -2,12 +2,19 @@ package com.example.monsterfestival;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +25,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
     private List<DataClass> dataList;
+
     public MyAdapter(Context context, List<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
@@ -30,13 +38,51 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.recAmbiete.setText(dataList.get(position).getAmbiente());
-        holder.recCA.setText(dataList.get(position).getCa());
-        holder.recCategoria.setText(dataList.get(position).getCategoria());
+
         holder.recNome.setText(dataList.get(position).getNome());
-        holder.recPF.setText(dataList.get(position).getPf());
-        holder.recSfida.setText(dataList.get(position).getSfida());
+        holder.recCategoria.setText(dataList.get(position).getCategoria());
         holder.recTaglia.setText(dataList.get(position).getTaglia());
+
+
+        holder.recCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Intent intent = new Intent(context, DetailFragment.class);
+                intent.putExtra("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
+                intent.putExtra("CA", dataList.get(holder.getAdapterPosition()).getCa());
+                intent.putExtra("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());
+                intent.putExtra("Nome",dataList.get(holder.getAdapterPosition()).getNome());
+                intent.putExtra("PF", dataList.get(holder.getAdapterPosition()).getPf());
+                intent.putExtra("Sfida", dataList.get(holder.getAdapterPosition()).getSfida());
+                intent.putExtra("Taglia", dataList.get(holder.getAdapterPosition()).getTaglia());
+                intent.putExtra("Descrizione", dataList.get(holder.getAdapterPosition()).getDescrizione());
+                context.startActivity(intent);*/
+                //filtersCard = view.findViewById(R.id.filters_card);
+                SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
+                SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
+
+                Bundle b = new Bundle();
+                b.putString("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
+                b.putString("CA", dataList.get(holder.getAdapterPosition()).getCa());
+                b.putString("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());
+                b.putString("Nome",dataList.get(holder.getAdapterPosition()).getNome());
+                b.putString("PF", dataList.get(holder.getAdapterPosition()).getPf());
+                b.putString("Sfida", dataList.get(holder.getAdapterPosition()).getSfida());
+                b.putString("Taglia", dataList.get(holder.getAdapterPosition()).getTaglia());
+                b.putString("Descrizione", dataList.get(holder.getAdapterPosition()).getDescrizione());
+                b.putString("CAR", dataList.get(holder.getAdapterPosition()).getCar());
+                b.putString("COST", dataList.get(holder.getAdapterPosition()).getCost());
+                b.putString("DES", dataList.get(holder.getAdapterPosition()).getDes());
+                b.putString("FOR", dataList.get(holder.getAdapterPosition()).getFor());
+                b.putString("INT", dataList.get(holder.getAdapterPosition()).getInt());
+                b.putString("SAG", dataList.get(holder.getAdapterPosition()).getSag());
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new DetailFragment();
+                myFragment.setArguments(b);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, myFragment ).addToBackStack(null).commit();
+            }
+        });
 
     }
     @Override
@@ -49,16 +95,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 }
 class MyViewHolder extends RecyclerView.ViewHolder{
-    TextView recAmbiete, recCA, recCategoria, recNome, recPF, recSfida, recTaglia;
+    TextView recNome, recCategoria, recTaglia;
+    CardView recCard;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
-        recAmbiete = itemView.findViewById(R.id.tvAmbiete);
-        recCA = itemView.findViewById(R.id.tvCA);
-        recCategoria = itemView.findViewById(R.id.tvCategoria);
         recNome = itemView.findViewById(R.id.tvNome);
-        recPF = itemView.findViewById(R.id.tvPF);
-        recSfida = itemView.findViewById(R.id.tvSfida);
+        recCategoria = itemView.findViewById(R.id.tvCategoria);
         recTaglia = itemView.findViewById(R.id.tvTaglia);
+        recCard = itemView.findViewById(R.id.recCard);
 
     }
 }

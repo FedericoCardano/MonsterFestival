@@ -37,9 +37,8 @@ public class SearchMonstersFragment extends Fragment {
     List<DataClass> dataList;
     @SuppressLint("StaticFieldLeak")
     static MyAdapter adapter;
-    SearchView searchView;
-    FloatingActionButton fab;
-    private CardView filtersCard;
+    public static SearchView searchView;
+    public static CardView filtersCard;
     public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
     public static ArrayList<String> selectedCategoriaFilters = new ArrayList<>();
     public static ArrayList<String> selectedTagliaFilters = new ArrayList<>();
@@ -65,7 +64,7 @@ public class SearchMonstersFragment extends Fragment {
 
                 container.bringToFront();
                 filtersCard.setVisibility(View.INVISIBLE);
-                fab.setVisibility(View.INVISIBLE);
+                searchView.setVisibility(View.INVISIBLE);
 
                 InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null)
@@ -116,7 +115,14 @@ public class SearchMonstersFragment extends Fragment {
                             String pf = String.valueOf(i.child("PF").getValue(long.class));
                             String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
                             String taglia = i.child("Taglia").getValue(String.class);
-                            DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia);
+                            String descrizione = i.child("Descrizione").getValue(String.class);
+                            String car = i.child("CAR").getValue(String.class);
+                            String cost = i.child("COST").getValue(String.class);
+                            String des = i.child("DES").getValue(String.class);
+                            String _for = i.child("FOR").getValue(String.class);
+                            String _int = i.child("INT").getValue(String.class);
+                            String sag = i.child("SAG").getValue(String.class);
+                            DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia, descrizione, car, cost, des, _for, _int, sag);
                             dataClass.setKey(i.getKey());
                             dataList.add(dataClass);
                         }
@@ -170,7 +176,6 @@ public class SearchMonstersFragment extends Fragment {
 
         container.bringToFront();
         filtersCard.setVisibility(View.VISIBLE);
-        fab.setVisibility(View.VISIBLE);
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();

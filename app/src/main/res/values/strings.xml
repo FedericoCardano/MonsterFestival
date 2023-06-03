@@ -27,6 +27,8 @@
     <string name="login_riuscito">Login effettuato con Successo</string>
     <string name="login_fallito">Login non riuscito, riprovare…</string>
     <string name="attendi">Attendi…</string>
+    <string name="aggiungi">Aggiungi</string>
+    <string name="chiudi">Chiudi</string>
 
     <string name="ambiete">Ambiete</string>
     <string name="ca">CA</string>
@@ -104,6 +106,7 @@
     <string name="minuscola">Minuscola</string>
     <string name="piccola">Piccola</string>
 
+    <string name="Titolo">Title</string>
     <string name="Ambiete">Ambiete:</string>
     <string name="CA">CA:</string>
     <string name="Categoria">Categoria:</string>
@@ -111,10 +114,15 @@
     <string name="PF">PF:</string>
     <string name="Sfida">Sfida:</string>
     <string name="Taglia">Taglia:</string>
+    <string name="CAR">CAR:</string>
+    <string name="COST">COST:</string>
+    <string name="DES">DES:</string>
+    <string name="FOR">FOR:</string>
+    <string name="INT">INT:</string>
+    <string name="SAG">SAG:</string>
+    <string name="Descrizione">Descrizione</string>
 
     <string name="filtro_Ambieti">Ambienti</string>
     <string name="filtro_Categorie">Categorie</string>
     <string name="filtro_Taglie">Taglie</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

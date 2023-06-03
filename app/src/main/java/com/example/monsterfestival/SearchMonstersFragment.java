@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -20,7 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +37,7 @@ public class SearchMonstersFragment extends Fragment {
     List<DataClass> dataList;
     @SuppressLint("StaticFieldLeak")
     static MyAdapter adapter;
+    @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
     public static CardView filtersCard;
     public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
@@ -65,6 +66,7 @@ public class SearchMonstersFragment extends Fragment {
                 container.bringToFront();
                 filtersCard.setVisibility(View.INVISIBLE);
                 searchView.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
 
                 InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null)
@@ -175,7 +177,9 @@ public class SearchMonstersFragment extends Fragment {
         FrameLayout container = requireActivity().findViewById(R.id.frame_access_search);
 
         container.bringToFront();
+        searchView.setVisibility(View.VISIBLE);
         filtersCard.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -188,7 +192,6 @@ public class SearchMonstersFragment extends Fragment {
         fragmentTransaction.commit();
 
         if (isFiltersApplied) {
-            //Toast.makeText(getActivity(), getResources().getString(R.string.errore_login) , Toast.LENGTH_SHORT).show();
             applyFilters();
         } else {
             selectedAmbieteFilters.clear();
@@ -203,26 +206,31 @@ public class SearchMonstersFragment extends Fragment {
     private void applyFilters() {
         ArrayList<DataClass> tempList = new ArrayList<>();
 
+        /* Regole di Ricerca:
+         *
+         *  Per filtri dello stesso tipo -> OR
+         *  Per filtri di tipi diversi -> AND
+         *
+         */
         for (DataClass dataClass : dataList) {
             boolean isOk = true;
 
             if (isAmbienteSelected) {
-                boolean ambienteOk = true;
-                for (String filterAmbiente : selectedAmbieteFilters) {
-                    if (!dataClass.getAmbiente().contains(filterAmbiente.toLowerCase())) {
-                        ambienteOk = false;
+                boolean ambienteOk = false;
+                for (String filterAmbiente : selectedAmbieteFilters)
+                    if (dataClass.getAmbiente().contains(filterAmbiente.toLowerCase())) {
+                        ambienteOk = true;
                         break;
                     }
-                }
                 if (!ambienteOk)
                     isOk = false;
             }
 
             if (isOk && isCategoriaSelected) {
-                boolean categoriaOk = true;
+                boolean categoriaOk = false;
                 for (String filterCategoria : selectedCategoriaFilters)
-                    if (!dataClass.getCategoria().contains(filterCategoria.toLowerCase())) {
-                        categoriaOk = false;
+                    if (dataClass.getCategoria().contains(filterCategoria.toLowerCase())) {
+                        categoriaOk = true;
                         break;
                     }
                 if (!categoriaOk)
@@ -230,10 +238,10 @@ public class SearchMonstersFragment extends Fragment {
             }
 
             if (isOk && isTagliaSelected) {
-                boolean tagliaOk = true;
+                boolean tagliaOk = false;
                 for (String filterTaglia : selectedTagliaFilters)
                     if (!dataClass.getTaglia().contains(filterTaglia.toLowerCase())) {
-                        tagliaOk = false;
+                        tagliaOk = true;
                         break;
                     }
                 if (!tagliaOk)
@@ -246,12 +254,5 @@ public class SearchMonstersFragment extends Fragment {
 
         }
         adapter.searchDataList(tempList);
-        selectedAmbieteFilters.clear();
-        selectedCategoriaFilters.clear();
-        selectedTagliaFilters.clear();
-        isAmbienteSelected = false;
-        isCategoriaSelected = false;
-        isTagliaSelected = false;
-        isFiltersApplied = false;
     }
 }

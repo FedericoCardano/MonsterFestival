@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <LinearLayout
@@ -24,29 +24,40 @@
         android:layout_marginBottom="12dp"
         android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/detailName"
-        android:text="Title"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="@color/brawnColor"/>
+        <TextView
+            android:id="@+id/detailName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/Titolo"
+            android:textColor="@color/brawnColor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
+            android:layout_marginStart="55dp"
             android:backgroundTint="@color/brawnColor"
-            app:tint = "@color/white"
-            android:src="@drawable/baseline_add_24" />
+            android:contentDescription="@string/chiudi"
+            android:src="@drawable/baseline_add_24"
+            app:tint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/brawnColor"
+            android:contentDescription="@string/aggiungi"
+            android:src="@drawable/baseline_clear_24"
+            app:tint="@color/white" />
 
 
-</LinearLayout>
+    </LinearLayout>
     <androidx.cardview.widget.CardView
         android:layout_width="370dp"
         android:layout_height="wrap_content"
@@ -124,7 +135,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CAR:"
+            android:text="@string/CAR"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"
             android:textStyle="bold"/>
@@ -134,7 +145,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/detailCAR"
             android:layout_marginStart="8dp"
-            android:text="CAR"
+            android:text="@string/CAR"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"/>
 
@@ -150,7 +161,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="COST:"
+            android:text="@string/COST"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"
             android:textStyle="bold"/>
@@ -160,7 +171,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/detailCOST"
             android:layout_marginStart="8dp"
-            android:text="COST"
+            android:text="@string/COST"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"/>
 
@@ -202,7 +213,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DES:"
+            android:text="@string/DES"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"
             android:textStyle="bold"/>
@@ -212,7 +223,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/detailDES"
             android:layout_marginStart="8dp"
-            android:text="DES"
+            android:text="@string/DES"
             android:textColor="@color/brawnColor"
             android:textSize="20sp"/>
 
@@ -222,7 +233,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -234,7 +245,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FOR:"
+                    android:text="@string/FOR"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -244,7 +255,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/detailFOR"
                     android:layout_marginStart="8dp"
-                    android:text="FOR"
+                    android:text="@string/FOR"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"/>
 
@@ -260,7 +271,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="INT:"
+                    android:text="@string/INT"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -270,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/detailINT"
                     android:layout_marginStart="8dp"
-                    android:text="INT"
+                    android:text="@string/INT"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"/>
 
@@ -286,7 +297,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PF:"
+                    android:text="@string/pf"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -296,7 +307,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/detailPF"
                     android:layout_marginStart="8dp"
-                    android:text="PF"
+                    android:text="@string/pf"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"/>
 
@@ -312,7 +323,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAG:"
+                    android:text="@string/SAG"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
@@ -322,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/detailSAG"
                     android:layout_marginStart="8dp"
-                    android:text="SAG"
+                    android:text="@string/SAG"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp"/>
 
@@ -389,7 +400,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="20dp"
-        android:text="Descrizione"
+        android:text="@string/Descrizione"
         android:layout_gravity="center"
         android:id="@+id/detailDesc"
         android:textSize="20sp"

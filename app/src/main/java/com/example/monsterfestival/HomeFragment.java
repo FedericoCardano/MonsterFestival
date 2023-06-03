@@ -120,6 +120,8 @@ public class HomeFragment extends Fragment {
     }
 
     void creaSearchMonsters() {
+        setAllVisibility(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
 
         // Inizializza il Fragment
@@ -137,6 +139,8 @@ public class HomeFragment extends Fragment {
     }
 
     void creaPartyCreationFragment() {
+        setAllVisibility(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 
@@ -155,6 +159,8 @@ public class HomeFragment extends Fragment {
     }
 
     void creaMyPartiesFragment() {
+        setAllVisibility(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 
@@ -173,6 +179,8 @@ public class HomeFragment extends Fragment {
     }
 
     void creaCompareMonstersFragment() {
+        setAllVisibility(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 
@@ -191,6 +199,8 @@ public class HomeFragment extends Fragment {
     }
 
     void creaComparePartiesFragment() {
+        setAllVisibility(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 
@@ -206,6 +216,10 @@ public class HomeFragment extends Fragment {
 
         // Esegui la transazione
         fragmentTransaction.commit();
+    }
+
+    void setAllVisibility(boolean value) {
+        rootView.findViewById(R.id.constraintLayout).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
 }

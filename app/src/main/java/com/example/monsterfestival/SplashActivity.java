@@ -3,7 +3,6 @@ package com.example.monsterfestival;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;

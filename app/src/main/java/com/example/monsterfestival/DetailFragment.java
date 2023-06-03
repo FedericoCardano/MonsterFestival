@@ -2,13 +2,16 @@ package com.example.monsterfestival;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -16,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class DetailFragment extends Fragment {
 
     TextView detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
-    FloatingActionButton addButton;
+    FloatingActionButton addButton, closeButton;
 
     
     @Override
@@ -56,6 +59,44 @@ public class DetailFragment extends Fragment {
             detailSAG.setText(bundle.getString("SAG"));
             detailSfida.setText(bundle.getString("Sfida"));
             detailTaglia.setText(bundle.getString("Taglia"));
+        }
+
+        closeButton = view.findViewById(R.id.close_btn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                fragmentTransaction.remove(DetailFragment.this);
+                fragmentTransaction.commit();
+
+                SearchMonstersFragment.searchView.setVisibility(View.VISIBLE);
+                SearchMonstersFragment.filtersCard.setVisibility(View.VISIBLE);
+            }
+        });
+
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment != null) {
+            // Il Fragment ha un genitore
+
+            Fragment grandparentFragment = parentFragment.getParentFragment();
+            if (grandparentFragment != null) {
+                // Il genitore del Fragment ha un genitore
+
+                Fragment greatgrandparentFragment = grandparentFragment.getParentFragment();
+                if (greatgrandparentFragment != null) {
+                    // Il genitore del genitore del Fragment ha un genitore
+
+                    if (greatgrandparentFragment instanceof HomeFragment) {
+                        addButton.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        addButton.setVisibility(View.VISIBLE);
+                    }
+
+                }
+
+            }
+
         }
 
         return view;

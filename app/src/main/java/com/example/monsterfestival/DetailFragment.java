@@ -21,6 +21,12 @@ public class DetailFragment extends Fragment {
     TextView detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton addButton, closeButton;
 
+    Fragment parent;
+
+    void setParent(Fragment _parent) {
+        parent = _parent;
+    }
+
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,29 +80,16 @@ public class DetailFragment extends Fragment {
             }
         });
 
-        Fragment parentFragment = getParentFragment();
-        if (parentFragment != null) {
-            // Il Fragment ha un genitore
-
-            Fragment grandparentFragment = parentFragment.getParentFragment();
+        if (parent != null) {
+            Fragment grandparentFragment = parent.getParentFragment();
             if (grandparentFragment != null) {
-                // Il genitore del Fragment ha un genitore
-
-                Fragment greatgrandparentFragment = grandparentFragment.getParentFragment();
-                if (greatgrandparentFragment != null) {
-                    // Il genitore del genitore del Fragment ha un genitore
-
-                    if (greatgrandparentFragment instanceof HomeFragment) {
+                    if (grandparentFragment instanceof HomeFragment) {
                         addButton.setVisibility(View.INVISIBLE);
                     }
                     else {
                         addButton.setVisibility(View.VISIBLE);
                     }
-
-                }
-
             }
-
         }
 
         return view;

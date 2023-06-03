@@ -20,9 +20,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
     private List<DataClass> dataList;
 
-    public MyAdapter(Context context, List<DataClass> dataList) {
+    private Fragment _parent;
+
+    public MyAdapter(Context context, List<DataClass> dataList, Fragment parent) {
         this.context = context;
         this.dataList = dataList;
+        this._parent = parent;
     }
     @NonNull
     @Override
@@ -60,9 +63,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new DetailFragment();
-                myFragment.setArguments(b);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, myFragment ).addToBackStack(null).commit();
+                DetailFragment RecyclerFragment = new DetailFragment();
+                RecyclerFragment.setParent(_parent);
+                RecyclerFragment.setArguments(b);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
             }
         });
 

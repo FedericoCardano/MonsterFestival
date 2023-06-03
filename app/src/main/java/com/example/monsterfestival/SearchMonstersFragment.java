@@ -99,7 +99,7 @@ public class SearchMonstersFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.show();
         dataList = new ArrayList<>();
-        adapter = new MyAdapter(getActivity(), dataList);
+        adapter = new MyAdapter(getActivity(), dataList, this);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();

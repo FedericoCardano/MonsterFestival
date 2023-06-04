@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -28,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class SearchMonstersFragment extends Fragment {
@@ -40,9 +40,9 @@ public class SearchMonstersFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
     public static CardView filtersCard;
-    public static ArrayList<String> selectedAmbieteFilters = new ArrayList<>();
-    public static ArrayList<String> selectedCategoriaFilters = new ArrayList<>();
-    public static ArrayList<String> selectedTagliaFilters = new ArrayList<>();
+    public static HashSet<String> selectedAmbieteFilters = new HashSet<>();
+    public static HashSet<String> selectedCategoriaFilters = new HashSet<>();
+    public static HashSet<String> selectedTagliaFilters = new HashSet<>();
     public static boolean isAmbienteSelected = false;
     public static boolean isCategoriaSelected = false;
     public static boolean isTagliaSelected = false;
@@ -108,28 +108,25 @@ public class SearchMonstersFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-              DataSnapshot itemSnapshot = snapshot.child("ID");
-                        for (DataSnapshot i : itemSnapshot.getChildren()) {
-                            String ambiete = i.child("Ambiente").getValue(String.class);
-                            String ca = String.valueOf(i.child("CA").getValue(long.class));
-                            String categoria = i.child("Categoria").getValue(String.class);
-                            String nome = i.child("Nome").getValue(String.class);
-                            String pf = String.valueOf(i.child("PF").getValue(long.class));
-                            String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
-                            String taglia = i.child("Taglia").getValue(String.class);
-                            String descrizione = i.child("Descrizione").getValue(String.class);
-                            String car = i.child("CAR").getValue(String.class);
-                            String cost = i.child("COST").getValue(String.class);
-                            String des = i.child("DES").getValue(String.class);
-                            String _for = i.child("FOR").getValue(String.class);
-                            String _int = i.child("INT").getValue(String.class);
-                            String sag = i.child("SAG").getValue(String.class);
-                            DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia, descrizione, car, cost, des, _for, _int, sag);
-                            dataClass.setKey(i.getKey());
-                            dataList.add(dataClass);
-                        }
-
-
+                for (DataSnapshot i : snapshot.child("ID").getChildren()) {
+                    String ambiete = i.child("Ambiente").getValue(String.class);
+                    String ca = String.valueOf(i.child("CA").getValue(long.class));
+                    String categoria = i.child("Categoria").getValue(String.class);
+                    String nome = i.child("Nome").getValue(String.class);
+                    String pf = String.valueOf(i.child("PF").getValue(long.class));
+                    String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
+                    String taglia = i.child("Taglia").getValue(String.class);
+                    String descrizione = i.child("Descrizione").getValue(String.class);
+                    String car = i.child("CAR").getValue(String.class);
+                    String cost = i.child("COST").getValue(String.class);
+                    String des = i.child("DES").getValue(String.class);
+                    String _for = i.child("FOR").getValue(String.class);
+                    String _int = i.child("INT").getValue(String.class);
+                    String sag = i.child("SAG").getValue(String.class);
+                    DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia, descrizione, car, cost, des, _for, _int, sag);
+                    dataClass.setKey(i.getKey());
+                    dataList.add(dataClass);
+                }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -206,53 +203,19 @@ public class SearchMonstersFragment extends Fragment {
     private void applyFilters() {
         ArrayList<DataClass> tempList = new ArrayList<>();
 
-        /* Regole di Ricerca:
-         *
-         *  Per filtri dello stesso tipo -> OR
-         *  Per filtri di tipi diversi -> AND
-         *
-         */
         for (DataClass dataClass : dataList) {
-            boolean isOk = true;
 
-            if (isAmbienteSelected) {
-                boolean ambienteOk = false;
-                for (String filterAmbiente : selectedAmbieteFilters)
-                    if (dataClass.getAmbiente().contains(filterAmbiente.toLowerCase())) {
-                        ambienteOk = true;
-                        break;
-                    }
-                if (!ambienteOk)
-                    isOk = false;
-            }
+            if (isAmbienteSelected && !selectedAmbieteFilters.contains(dataClass.getAmbiente()))
+                continue;
+            if (isCategoriaSelected && !selectedCategoriaFilters.contains(dataClass.getCategoria()))
+                continue;
+            if (isTagliaSelected && !selectedTagliaFilters.contains(dataClass.getTaglia()))
+                continue;
 
-            if (isOk && isCategoriaSelected) {
-                boolean categoriaOk = false;
-                for (String filterCategoria : selectedCategoriaFilters)
-                    if (dataClass.getCategoria().contains(filterCategoria.toLowerCase())) {
-                        categoriaOk = true;
-                        break;
-                    }
-                if (!categoriaOk)
-                    isOk = false;
-            }
-
-            if (isOk && isTagliaSelected) {
-                boolean tagliaOk = false;
-                for (String filterTaglia : selectedTagliaFilters)
-                    if (!dataClass.getTaglia().contains(filterTaglia.toLowerCase())) {
-                        tagliaOk = true;
-                        break;
-                    }
-                if (!tagliaOk)
-                    isOk = false;
-            }
-
-            if (isOk) {
-                tempList.add(dataClass);
-            }
+            tempList.add(dataClass);
 
         }
+
         adapter.searchDataList(tempList);
     }
 }

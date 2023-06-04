@@ -1,20 +1,20 @@
 package com.example.monsterfestival;
 
 public class DataClass {
-    private String Ambiete;
-    private String CA;
-    private String Categoria;
-    private String Nome;
-    private String PF;
-    private String Sfida;
-    private String Taglia;
-    private String Descrizione;
-    private String CAR;
-    private String COST;
-    private String DES;
-    private String FOR;
-    private String INT;
-    private String SAG;
+    private final String Ambiete;
+    private final String CA;
+    private final String Categoria;
+    private final String Nome;
+    private final String PF;
+    private final String Sfida;
+    private final String Taglia;
+    private final String Descrizione;
+    private final String CAR;
+    private final String COST;
+    private final String DES;
+    private final String FOR;
+    private final String INT;
+    private final String SAG;
     private String key;
 
 

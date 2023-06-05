@@ -33,7 +33,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class SearchMonstersFragment extends Fragment {
 
@@ -198,150 +199,131 @@ public class SearchMonstersFragment extends Fragment {
         ArrayList<DataClass> tempList = new ArrayList<>();
         NativeLib objectNativeLib = new NativeLib();
         List<HashSet<Integer>> filterTableList = new ArrayList<>();
-        final boolean[] failed_search = {false};
-        boolean textEmpty = text.equals("");
 
         dialog.show();
 
-        // Creazione del CountDownLatch
-        CountDownLatch latch1 = new CountDownLatch((isAmbienteSelected ? selectedAmbieteFilters.size() : 0) +
-                                                    (isCategoriaSelected ? selectedCategoriaFilters.size() : 0) +
-                                                    (isTagliaSelected ? selectedTagliaFilters.size() : 0));
+        List<CompletableFuture<Void>> queryFutures = new ArrayList<>();
 
-        // Definizione dell'event listener
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        // Creazione dei futuri delle query
+        if (isAmbienteSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Ambiente");
+            for (String filtro : selectedAmbieteFilters) {
+                CompletableFuture<Void> future = new CompletableFuture<>();
+                queryFutures.add(future);
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+            }
+        }
+        if (isCategoriaSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Categoria");
+            for (String filtro : selectedCategoriaFilters) {
+                CompletableFuture<Void> future = new CompletableFuture<>();
+                queryFutures.add(future);
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+            }
+        }
+        if (isTagliaSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Taglia");
+            for (String filtro : selectedTagliaFilters) {
+                CompletableFuture<Void> future = new CompletableFuture<>();
+                queryFutures.add(future);
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+            }
+        }
+
+        // Attendi il completamento di tutte le query
+        CompletableFuture<Void> allQueriesFuture = CompletableFuture.allOf(queryFutures.toArray(new CompletableFuture[0]));
+
+        // Gestisci il completamento di tutte le query
+        allQueriesFuture.thenAccept(ignored -> {
+            if (filterTableList.size() != 0) {
+                // Esegui una intersezione custom tra i vari HashSet
+                HashSet<Integer> result = objectNativeLib.processTables(filterTableList);
+                if (result.size() == 0) {
+                    handleSearchResults(new ArrayList<>());
+                    return;
+                }
+
+                List<CompletableFuture<Void>> monsterQueryFutures = new ArrayList<>();
+
+                // Creazione dei futuri delle query per i mostri
+                for (Integer ID : result) {
+                    CompletableFuture<Void> future = new CompletableFuture<>();
+                    monsterQueryFutures.add(future);
+                    databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(createValueEventListener(future, tempList, text));
+                }
+
+                // Attendi il completamento di tutte le query per i mostri
+                CompletableFuture<Void> allMonsterQueriesFuture = CompletableFuture.allOf(monsterQueryFutures.toArray(new CompletableFuture[0]));
+
+                // Gestisci il completamento di tutte le query per i mostri
+                allMonsterQueriesFuture.thenRun(() -> handleSearchResults(tempList));
+            } else {
+                CompletableFuture<Void> future = new CompletableFuture<>();
+                databaseReference.child("ID").addListenerForSingleValueEvent(createValueEventListener(future, tempList, text));
+
+                // Attendi il completamento della query
+                future.thenRun(() -> handleSearchResults(tempList));
+            }
+        });
+
+        allQueriesFuture.exceptionally(ex -> {
+            Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
+            handleSearchResults(new ArrayList<>());
+            return null;
+        });
+
+        // Attendi il completamento di tutte le query
+        try {
+            allQueriesFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, List<HashSet<Integer>> filterTableList) {
+        return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashSet<Integer> set = new HashSet<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     set.add(snapshot.getValue(Integer.class));
-                filterTableList.add(set);
-                latch1.countDown(); // Decrementa il contatore
+                }
+                if (set.size() > 0)
+                    filterTableList.add(set);
+                future.complete(null);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
-                failed_search[0] = true;
-                latch1.countDown(); // Decrementa il contatore
+                future.completeExceptionally(error.toException());
             }
         };
-
-        // Ottieni gli ID corrispondenti ai filtri selezionati
-        if (isAmbienteSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Ambiente");
-            for (String filtro : selectedAmbieteFilters)
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
-        }
-        if (isCategoriaSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Categoria");
-            for (String filtro : selectedCategoriaFilters)
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
-        }
-        if (isTagliaSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Taglia");
-            for (String filtro : selectedTagliaFilters)
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
-        }
-
-        try {
-            // Aspetta che tutte le Query siano state eseguite
-            latch1.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (failed_search[0]) {
-            dialog.dismiss();
-            adapter.searchDataList(new ArrayList<>());
-            return;
-        }
-
-        if (filterTableList.size() != 0) {
-            // Esegui una intersezione custom tra i vari HashSet
-            HashSet<Integer> result = objectNativeLib.processTables(filterTableList);
-            if (result.size() == 0) {
-                dialog.dismiss();
-                adapter.searchDataList(new ArrayList<>());
-                return;
-            }
-
-            // Ridefinisci il CountDownLatch
-            CountDownLatch latch2 = new CountDownLatch(result.size());
-
-            // Ridefinisci l'event listener
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                        if (textEmpty || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text))
-                            tempList.add(new DataClass(snapshot));
-                    latch2.countDown(); // Decrementa il contatore
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
-                    failed_search[0] = true;
-                    latch2.countDown(); // Decrementa il contatore
-                }
-            };
-
-            // Cerca i mostri
-            for (Integer ID : result) {
-                databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(valueEventListener);
-            }
-
-            try {
-                // Aspetta che tutte le Query siano state eseguite
-                latch2.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            // Ridefinisci il CountDownLatch
-            CountDownLatch latch2 = new CountDownLatch(1);
-
-            // Ridefinisci l'event listener
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                        if (textEmpty || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text))
-                            tempList.add(new DataClass(snapshot));
-                    latch2.countDown(); // Decrementa il contatore
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
-                    failed_search[0] = true;
-                    latch2.countDown(); // Decrementa il contatore
-                }
-            };
-
-            databaseReference.child("ID").addListenerForSingleValueEvent(valueEventListener);
-
-            try {
-                // Aspetta che tutte le Query siano state eseguite
-                latch2.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        dialog.dismiss();
-
-        if (failed_search[0]) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
-            adapter.searchDataList(new ArrayList<>());
-        }
-        else {
-            Collections.sort(tempList);
-            adapter.searchDataList(tempList);
-        }
-
     }
+
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, String text) {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (text.isEmpty() || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
+                        tempList.add(new DataClass(snapshot));
+                    }
+                }
+                future.complete(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                future.completeExceptionally(error.toException());
+            }
+        };
+    }
+
+    private void handleSearchResults(ArrayList<DataClass> tempList) {
+        dialog.dismiss();
+        if (!tempList.isEmpty())
+            Collections.sort(tempList);
+        adapter.searchDataList(tempList);
+    }
+
 }

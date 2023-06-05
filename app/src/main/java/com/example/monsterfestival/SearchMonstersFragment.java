@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -20,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.customsearchlibrary.NativeLib;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class SearchMonstersFragment extends Fragment {
 
@@ -40,6 +45,8 @@ public class SearchMonstersFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
     public static CardView filtersCard;
+
+    public static AlertDialog dialog;
     public static HashSet<String> selectedAmbieteFilters = new HashSet<>();
     public static HashSet<String> selectedCategoriaFilters = new HashSet<>();
     public static HashSet<String> selectedTagliaFilters = new HashSet<>();
@@ -96,37 +103,20 @@ public class SearchMonstersFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_layout);
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
         dataList = new ArrayList<>();
         adapter = new MyAdapter(getActivity(), dataList, this);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
         dialog.show();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("ID").addValueEventListener(new ValueEventListener() {
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot i : snapshot.child("ID").getChildren()) {
-                    String ambiete = i.child("Ambiente").getValue(String.class);
-                    String ca = String.valueOf(i.child("CA").getValue(long.class));
-                    String categoria = i.child("Categoria").getValue(String.class);
-                    String nome = i.child("Nome").getValue(String.class);
-                    String pf = String.valueOf(i.child("PF").getValue(long.class));
-                    String sfida = String.valueOf(i.child("Sfida").getValue(long.class));
-                    String taglia = i.child("Taglia").getValue(String.class);
-                    String descrizione = i.child("Descrizione").getValue(String.class);
-                    String car = i.child("CAR").getValue(String.class);
-                    String cost = i.child("COST").getValue(String.class);
-                    String des = i.child("DES").getValue(String.class);
-                    String _for = i.child("FOR").getValue(String.class);
-                    String _int = i.child("INT").getValue(String.class);
-                    String sag = i.child("SAG").getValue(String.class);
-                    DataClass dataClass = new DataClass(ambiete, ca, categoria, nome, pf, sfida, taglia, descrizione, car, cost, des, _for, _int, sag);
-                    dataClass.setKey(i.getKey());
-                    dataList.add(dataClass);
-                }
+                for (DataSnapshot i : snapshot.getChildren())
+                    dataList.add(new DataClass(i));
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -153,13 +143,17 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     public void searchList(String text) {
-        ArrayList<DataClass> searchList = new ArrayList<>();
-        for (DataClass dataClass : dataList) {
-            if (dataClass.getNome().toLowerCase().contains(text.toLowerCase())) {
-                searchList.add(dataClass);
+        if (isFiltersApplied)
+            applyFilters(text);
+        else {
+            ArrayList<DataClass> searchList = new ArrayList<>();
+            for (DataClass dataClass : dataList) {
+                if (dataClass.getNome().toLowerCase().contains(text.toLowerCase())) {
+                    searchList.add(dataClass);
+                }
             }
+            adapter.searchDataList(searchList);
         }
-        adapter.searchDataList(searchList);
     }
 
     public void showSoftKeyboard(SearchView searchView) {
@@ -189,7 +183,7 @@ public class SearchMonstersFragment extends Fragment {
         fragmentTransaction.commit();
 
         if (isFiltersApplied) {
-            applyFilters();
+            applyFilters("");
         } else {
             selectedAmbieteFilters.clear();
             selectedCategoriaFilters.clear();
@@ -200,22 +194,154 @@ public class SearchMonstersFragment extends Fragment {
         }
     }
 
-    private void applyFilters() {
+    private void applyFilters(String text) {
         ArrayList<DataClass> tempList = new ArrayList<>();
+        NativeLib objectNativeLib = new NativeLib();
+        List<HashSet<Integer>> filterTableList = new ArrayList<>();
+        final boolean[] failed_search = {false};
+        boolean textEmpty = text.equals("");
 
-        for (DataClass dataClass : dataList) {
+        dialog.show();
 
-            if (isAmbienteSelected && !selectedAmbieteFilters.contains(dataClass.getAmbiente()))
-                continue;
-            if (isCategoriaSelected && !selectedCategoriaFilters.contains(dataClass.getCategoria()))
-                continue;
-            if (isTagliaSelected && !selectedTagliaFilters.contains(dataClass.getTaglia()))
-                continue;
+        // Creazione del CountDownLatch
+        CountDownLatch latch1 = new CountDownLatch((isAmbienteSelected ? selectedAmbieteFilters.size() : 0) +
+                                                    (isCategoriaSelected ? selectedCategoriaFilters.size() : 0) +
+                                                    (isTagliaSelected ? selectedTagliaFilters.size() : 0));
 
-            tempList.add(dataClass);
+        // Definizione dell'event listener
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashSet<Integer> set = new HashSet<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                    set.add(snapshot.getValue(Integer.class));
+                filterTableList.add(set);
+                latch1.countDown(); // Decrementa il contatore
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
+                failed_search[0] = true;
+                latch1.countDown(); // Decrementa il contatore
+            }
+        };
+
+        // Ottieni gli ID corrispondenti ai filtri selezionati
+        if (isAmbienteSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Ambiente");
+            for (String filtro : selectedAmbieteFilters)
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
+        }
+        if (isCategoriaSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Categoria");
+            for (String filtro : selectedCategoriaFilters)
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
+        }
+        if (isTagliaSelected) {
+            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Taglia");
+            for (String filtro : selectedTagliaFilters)
+                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(valueEventListener);
+        }
+
+        try {
+            // Aspetta che tutte le Query siano state eseguite
+            latch1.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (failed_search[0]) {
+            dialog.dismiss();
+            adapter.searchDataList(new ArrayList<>());
+            return;
+        }
+
+        if (filterTableList.size() != 0) {
+            // Esegui una intersezione custom tra i vari HashSet
+            HashSet<Integer> result = objectNativeLib.processTables(filterTableList);
+            if (result.size() == 0) {
+                dialog.dismiss();
+                adapter.searchDataList(new ArrayList<>());
+                return;
+            }
+
+            // Ridefinisci il CountDownLatch
+            CountDownLatch latch2 = new CountDownLatch(result.size());
+
+            // Ridefinisci l'event listener
+            valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        if (textEmpty || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text))
+                            tempList.add(new DataClass(snapshot));
+                    latch2.countDown(); // Decrementa il contatore
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
+                    failed_search[0] = true;
+                    latch2.countDown(); // Decrementa il contatore
+                }
+            };
+
+            // Cerca i mostri
+            for (Integer ID : result) {
+                databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(valueEventListener);
+            }
+
+            try {
+                // Aspetta che tutte le Query siano state eseguite
+                latch2.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            // Ridefinisci il CountDownLatch
+            CountDownLatch latch2 = new CountDownLatch(1);
+
+            // Ridefinisci l'event listener
+            valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        if (textEmpty || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text))
+                            tempList.add(new DataClass(snapshot));
+                    latch2.countDown(); // Decrementa il contatore
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
+                    failed_search[0] = true;
+                    latch2.countDown(); // Decrementa il contatore
+                }
+            };
+
+            databaseReference.child("ID").addListenerForSingleValueEvent(valueEventListener);
+
+            try {
+                // Aspetta che tutte le Query siano state eseguite
+                latch2.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         }
 
-        adapter.searchDataList(tempList);
+        dialog.dismiss();
+
+        if (failed_search[0]) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
+            adapter.searchDataList(new ArrayList<>());
+        }
+        else {
+            Collections.sort(tempList);
+            adapter.searchDataList(tempList);
+        }
+
     }
 }

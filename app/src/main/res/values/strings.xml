@@ -26,6 +26,7 @@
     <string name="registrazione_fallita">La Registrazione del tuo Account è fallita, riprovare…</string>
     <string name="login_riuscito">Login effettuato con Successo</string>
     <string name="login_fallito">Login non riuscito, riprovare…</string>
+    <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
     <string name="chiudi">Chiudi</string>

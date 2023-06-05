@@ -125,10 +125,12 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         if (view == clearFilters) {
             // Applica i Filtri
 
-            SearchMonstersFragment.isFiltersApplied = true;
             SearchMonstersFragment.isAmbienteSelected = SearchMonstersFragment.selectedAmbieteFilters.size() != 0;
             SearchMonstersFragment.isCategoriaSelected = SearchMonstersFragment.selectedCategoriaFilters.size() != 0;
             SearchMonstersFragment.isTagliaSelected = SearchMonstersFragment.selectedTagliaFilters.size() != 0;
+            SearchMonstersFragment.isFiltersApplied = SearchMonstersFragment.isAmbienteSelected ||
+                                                      SearchMonstersFragment.isCategoriaSelected ||
+                                                      SearchMonstersFragment.isTagliaSelected;
 
             SearchMonstersFragment fragment = (SearchMonstersFragment) getParentFragment();
             if (fragment != null)

@@ -1,5 +1,6 @@
 package com.example.monsterfestival;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-    private Context context;
+    private final Context context;
     private List<DataClass> dataList;
 
-    private Fragment _parent;
+    private final Fragment _parent;
 
     public MyAdapter(Context context, List<DataClass> dataList, Fragment parent) {
         this.context = context;
@@ -75,6 +76,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount() {
         return dataList.size();
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void searchDataList(ArrayList<DataClass> searchList){
         dataList = searchList;
         notifyDataSetChanged();

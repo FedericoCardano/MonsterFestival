@@ -1,6 +1,8 @@
 package com.example.monsterfestival;
 
-public class DataClass {
+import com.google.firebase.database.DataSnapshot;
+
+public class DataClass implements Comparable<DataClass> {
     private final String Ambiete;
     private final String CA;
     private final String Categoria;
@@ -79,6 +81,32 @@ public class DataClass {
         this.FOR = FOR;
         this.INT = INT;
         this.SAG = SAG;
+    }
+
+    public DataClass(DataSnapshot snapshot) {
+
+        this.Ambiete = snapshot.child("Ambiente").getValue(String.class);
+        this.CA = String.valueOf(snapshot.child("CA").getValue(long.class));
+        this.Categoria = snapshot.child("Categoria").getValue(String.class);
+        this.Nome = snapshot.child("Nome").getValue(String.class);
+        this.PF = String.valueOf(snapshot.child("PF").getValue(long.class));
+        this.Sfida = String.valueOf(snapshot.child("Sfida").getValue(long.class));
+        this.Taglia = snapshot.child("Taglia").getValue(String.class);
+        this.Descrizione = snapshot.child("Descrizione").getValue(String.class);
+        this.CAR = snapshot.child("CAR").getValue(String.class);
+        this.COST = snapshot.child("COST").getValue(String.class);
+        this.DES = snapshot.child("DES").getValue(String.class);
+        this.FOR = snapshot.child("FOR").getValue(String.class);
+        this.INT = snapshot.child("INT").getValue(String.class);
+        this.SAG = snapshot.child("SAG").getValue(String.class);
+
+        this.key = snapshot.getKey();
+
+    }
+
+    @Override
+    public int compareTo(DataClass otherData) {
+        return this.Nome.compareTo(otherData.getNome());
     }
 }
 

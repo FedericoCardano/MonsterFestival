@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SearchMonstersFragment extends Fragment {
 
@@ -199,13 +201,21 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     private void applyFilters(String text) {
-        ArrayList<DataClass> tempList = new ArrayList<>();
-        NativeLib objectNativeLib = new NativeLib();
+
+        dialog.show();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            applyFiltersThread(text);
+        });
+        executor.shutdown();
+
+    }
+
+    private void applyFiltersThread(String text) {
         ArrayList<HashSet<Integer>> selectedAmbieteFilters_ID = new ArrayList<>();
         ArrayList<HashSet<Integer>> selectedCategoriaFilters_ID = new ArrayList<>();
         ArrayList<HashSet<Integer>> selectedTagliaFilters_ID = new ArrayList<>();
-
-        dialog.show();
 
         // Definizione di queryFutures come Lista Thread-safe
         List<CompletableFuture<Void>> queryFutures = Collections.synchronizedList(new ArrayList<>());
@@ -239,6 +249,8 @@ public class SearchMonstersFragment extends Fragment {
         // Gestisci il completamento di tutte le query
         allQueriesFuture.thenAccept(ignored -> {
 
+            ArrayList<DataClass> tempList = new ArrayList<>();
+            NativeLib objectNativeLib = new NativeLib();
             ArrayList<HashSet<Integer>> filterTableList = new ArrayList<>();
 
             // Se le liste non sono vuote allora compattale e aggiungile a filterTableList
@@ -262,7 +274,8 @@ public class SearchMonstersFragment extends Fragment {
                 // Creazione dei futuri delle query per i mostri
                 for (Integer ID : result) {
                     monsterQueryFutures.add(new CompletableFuture<>());
-                    databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, text));
+                    // TODO: Capire perché non riesce a trovare gli ID giusti ma ritorna tutti i mostri
+                    databaseReference.child("ID").child(String.valueOf(ID)).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, text));
                 }
 
                 // Attendi il completamento di tutte le query per i mostri
@@ -293,13 +306,11 @@ public class SearchMonstersFragment extends Fragment {
         }
     }
 
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, List<HashSet<Integer>> tableList) {
-        Log.d("TestThread", "Ciao");
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<HashSet<Integer>> tableList) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 synchronized (ThreadLock) {
-                    Log.d("TestThread", "Ciao1");
                     HashSet<Integer> set = new HashSet<>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         set.add(snapshot.getValue(Integer.class));
@@ -313,7 +324,6 @@ public class SearchMonstersFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 synchronized (ThreadLock) {
-                    Log.d("TestThread", "Sad Ciao1");
                     future.completeExceptionally(error.toException());
                 }
             }
@@ -321,14 +331,12 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, String text) {
-        Log.d("TestThread", "Ciao Mondo");
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 synchronized (ThreadLock) {
-                    Log.d("TestThread", "Ciao2");
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (text.isEmpty() || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
+                        if (text.equals("") || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
                             tempList.add(new DataClass(snapshot));
                         }
                     }
@@ -340,7 +348,6 @@ public class SearchMonstersFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 synchronized (ThreadLock) {
-                    Log.d("TestThread", "SadCiao2");
                     future.completeExceptionally(error.toException());
                 }
             }

@@ -36,12 +36,9 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
-                finish();
-            }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+            finish();
         }, 3000);
     }
 

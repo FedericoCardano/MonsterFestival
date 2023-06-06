@@ -1,7 +1,7 @@
 package com.example.customsearchlibrary;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class NativeLib {
 
@@ -10,6 +10,8 @@ public class NativeLib {
         System.loadLibrary("customsearchlibrary");
     }
 
-    public native HashSet<Integer> processTables(List<HashSet<Integer>> filterTableList);
+    public native HashSet<Integer> processTables(ArrayList<HashSet<Integer>> filterTableList);
+
+    public native HashSet<Integer> unifyTables(ArrayList<HashSet<Integer>> filterTableList);
 
 }

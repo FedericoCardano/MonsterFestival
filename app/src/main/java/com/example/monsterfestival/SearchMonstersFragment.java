@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class SearchMonstersFragment extends Fragment {
     public static boolean isFiltersApplied = false;
 
     private SearchFiltersFragment searchFiltersFragment;
+
+    final Object ThreadLock = new Object();
 
     public SearchMonstersFragment() {
     }
@@ -198,35 +201,35 @@ public class SearchMonstersFragment extends Fragment {
     private void applyFilters(String text) {
         ArrayList<DataClass> tempList = new ArrayList<>();
         NativeLib objectNativeLib = new NativeLib();
-        List<HashSet<Integer>> filterTableList = new ArrayList<>();
+        ArrayList<HashSet<Integer>> selectedAmbieteFilters_ID = new ArrayList<>();
+        ArrayList<HashSet<Integer>> selectedCategoriaFilters_ID = new ArrayList<>();
+        ArrayList<HashSet<Integer>> selectedTagliaFilters_ID = new ArrayList<>();
 
         dialog.show();
 
-        List<CompletableFuture<Void>> queryFutures = new ArrayList<>();
+        // Definizione di queryFutures come Lista Thread-safe
+        List<CompletableFuture<Void>> queryFutures = Collections.synchronizedList(new ArrayList<>());
 
         // Creazione dei futuri delle query
         if (isAmbienteSelected) {
             DatabaseReference refFiltro = databaseReference.child("Filtri").child("Ambiente");
             for (String filtro : selectedAmbieteFilters) {
-                CompletableFuture<Void> future = new CompletableFuture<>();
-                queryFutures.add(future);
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+                queryFutures.add(new CompletableFuture<>());
+                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedAmbieteFilters_ID));
             }
         }
         if (isCategoriaSelected) {
             DatabaseReference refFiltro = databaseReference.child("Filtri").child("Categoria");
             for (String filtro : selectedCategoriaFilters) {
-                CompletableFuture<Void> future = new CompletableFuture<>();
-                queryFutures.add(future);
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+                queryFutures.add(new CompletableFuture<>());
+                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedCategoriaFilters_ID));
             }
         }
         if (isTagliaSelected) {
             DatabaseReference refFiltro = databaseReference.child("Filtri").child("Taglia");
             for (String filtro : selectedTagliaFilters) {
-                CompletableFuture<Void> future = new CompletableFuture<>();
-                queryFutures.add(future);
-                refFiltro.equalTo(filtro).addListenerForSingleValueEvent(createValueEventListener(future, filterTableList));
+                queryFutures.add(new CompletableFuture<>());
+                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedTagliaFilters_ID));
             }
         }
 
@@ -235,6 +238,17 @@ public class SearchMonstersFragment extends Fragment {
 
         // Gestisci il completamento di tutte le query
         allQueriesFuture.thenAccept(ignored -> {
+
+            ArrayList<HashSet<Integer>> filterTableList = new ArrayList<>();
+
+            // Se le liste non sono vuote allora compattale e aggiungile a filterTableList
+            if (selectedAmbieteFilters_ID.size() != 0)
+                filterTableList.add(objectNativeLib.unifyTables(selectedAmbieteFilters_ID));
+            if (selectedCategoriaFilters_ID.size() != 0)
+                filterTableList.add(objectNativeLib.unifyTables(selectedCategoriaFilters_ID));
+            if (selectedTagliaFilters_ID.size() != 0)
+                filterTableList.add(objectNativeLib.unifyTables(selectedTagliaFilters_ID));
+
             if (filterTableList.size() != 0) {
                 // Esegui una intersezione custom tra i vari HashSet
                 HashSet<Integer> result = objectNativeLib.processTables(filterTableList);
@@ -243,13 +257,12 @@ public class SearchMonstersFragment extends Fragment {
                     return;
                 }
 
-                List<CompletableFuture<Void>> monsterQueryFutures = new ArrayList<>();
+                List<CompletableFuture<Void>> monsterQueryFutures = Collections.synchronizedList(new ArrayList<>());
 
                 // Creazione dei futuri delle query per i mostri
                 for (Integer ID : result) {
-                    CompletableFuture<Void> future = new CompletableFuture<>();
-                    monsterQueryFutures.add(future);
-                    databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(createValueEventListener(future, tempList, text));
+                    monsterQueryFutures.add(new CompletableFuture<>());
+                    databaseReference.child("ID").equalTo(ID).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, text));
                 }
 
                 // Attendi il completamento di tutte le query per i mostri
@@ -280,41 +293,56 @@ public class SearchMonstersFragment extends Fragment {
         }
     }
 
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, List<HashSet<Integer>> filterTableList) {
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, List<HashSet<Integer>> tableList) {
+        Log.d("TestThread", "Ciao");
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashSet<Integer> set = new HashSet<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    set.add(snapshot.getValue(Integer.class));
+                synchronized (ThreadLock) {
+                    Log.d("TestThread", "Ciao1");
+                    HashSet<Integer> set = new HashSet<>();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        set.add(snapshot.getValue(Integer.class));
+                    }
+                    if (set.size() > 0)
+                        tableList.add(set);
+                    future.complete(null);
                 }
-                if (set.size() > 0)
-                    filterTableList.add(set);
-                future.complete(null);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                future.completeExceptionally(error.toException());
+                synchronized (ThreadLock) {
+                    Log.d("TestThread", "Sad Ciao1");
+                    future.completeExceptionally(error.toException());
+                }
             }
         };
     }
 
     private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, String text) {
+        Log.d("TestThread", "Ciao Mondo");
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (text.isEmpty() || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
-                        tempList.add(new DataClass(snapshot));
+                synchronized (ThreadLock) {
+                    Log.d("TestThread", "Ciao2");
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (text.isEmpty() || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
+                            tempList.add(new DataClass(snapshot));
+                        }
                     }
+                    future.complete(null);
+
                 }
-                future.complete(null);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                future.completeExceptionally(error.toException());
+                synchronized (ThreadLock) {
+                    Log.d("TestThread", "SadCiao2");
+                    future.completeExceptionally(error.toException());
+                }
             }
         };
     }

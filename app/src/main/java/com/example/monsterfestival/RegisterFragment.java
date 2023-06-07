@@ -56,9 +56,9 @@ public class RegisterFragment extends Fragment {
                         activity.mostraLogin();
                 }
                 else {
-                    AccountFragment activity = (AccountFragment) getParentFragment();
-                    if (activity != null)
-                        activity.mostraLogin();
+                    AccountFragment fragment = (AccountFragment) getParentFragment();
+                    if (fragment != null)
+                        fragment.mostraLogin();
                 }
             }
         });
@@ -115,9 +115,9 @@ public class RegisterFragment extends Fragment {
                                             activity.mostraLogin();
                                     }
                                     else {
-                                        AccountFragment activity = (AccountFragment) getParentFragment();
-                                        if (activity != null)
-                                            activity.mostraLogin();
+                                        AccountFragment fragment = (AccountFragment) getParentFragment();
+                                        if (fragment != null)
+                                            fragment.mostraLogin();
                                     }
 
                                 } else {

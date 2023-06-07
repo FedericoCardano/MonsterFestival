@@ -2,7 +2,6 @@ package com.example.monsterfestival;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -11,6 +10,8 @@ import android.os.Bundle;
 import com.example.monsterfestival.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Fragment currentFragment;
 
     ActivityMainBinding binding;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        currentFragment = null;
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -42,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (currentFragment != null)
+            fragmentTransaction.remove(currentFragment);
+        currentFragment = fragment;
         fragmentTransaction.replace(R.id.frame_access_main, fragment);
         fragmentTransaction.commit();
     }

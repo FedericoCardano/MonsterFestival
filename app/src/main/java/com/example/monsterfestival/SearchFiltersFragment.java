@@ -33,8 +33,8 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         rootView = inflater.inflate(R.layout.fragment_search_filters, container, false);
 
         initColors();
-
         initAll();
+        SearchMonstersFragment.areFiltersNotChanged = true;
 
         clearFilters.setOnClickListener(this);
 
@@ -128,7 +128,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
             SearchMonstersFragment.isAmbienteSelected = SearchMonstersFragment.selectedAmbieteFilters.size() != 0;
             SearchMonstersFragment.isCategoriaSelected = SearchMonstersFragment.selectedCategoriaFilters.size() != 0;
             SearchMonstersFragment.isTagliaSelected = SearchMonstersFragment.selectedTagliaFilters.size() != 0;
-            SearchMonstersFragment.isFiltersApplied = SearchMonstersFragment.isAmbienteSelected ||
+            SearchMonstersFragment.areFiltersApplied = SearchMonstersFragment.isAmbienteSelected ||
                                                       SearchMonstersFragment.isCategoriaSelected ||
                                                       SearchMonstersFragment.isTagliaSelected;
 
@@ -138,6 +138,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
         } else if (filtri_ambiente.containsKey(view)) {
             // Filtri Ambiente
+            SearchMonstersFragment.areFiltersNotChanged = false;
 
             String testo = filtri_ambiente.get(view);
             if (SearchMonstersFragment.selectedAmbieteFilters.contains(testo)) {
@@ -150,6 +151,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
         } else if (filtri_categoria.containsKey(view)) {
             // Filtri Categoria
+            SearchMonstersFragment.areFiltersNotChanged = false;
 
             String testo = filtri_categoria.get(view);
             if (SearchMonstersFragment.selectedCategoriaFilters.contains(testo)) {
@@ -162,6 +164,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
         } else if (filtri_taglia.containsKey(view)) {
             // Filtri Taglia
+            SearchMonstersFragment.areFiltersNotChanged = false;
 
             String testo = filtri_taglia.get(view);
             if (SearchMonstersFragment.selectedTagliaFilters.contains(testo)) {

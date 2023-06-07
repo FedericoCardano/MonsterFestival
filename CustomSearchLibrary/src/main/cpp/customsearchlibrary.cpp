@@ -1,33 +1,91 @@
 #include <jni.h>
+#include <vector>
+#include <unordered_set>
 
+using namespace std;
+
+/****** Variabili JNI ******/
 jclass arrayListClass;
-jclass hashSetClass;
+jclass integerClass;
 
-jmethodID hashInit;
-jmethodID addAllMethod;
-jmethodID retainAllMethod;
-jmethodID sizeMethod_AL;
-jmethodID sizeMethod_HS;
+jmethodID arrayListInit;
+jmethodID integerInit;
+
 jmethodID getMethod;
+jmethodID addMethod;
+jmethodID sizeMethod;
+jmethodID intValueMethod;
 
-// Carica i metodi e le classi di Default all'inizializzazione dell'oggetto NaviteLib
-extern "C" JNIEXPORT jint
-JNI_OnLoad(JavaVM* vm, void* reserved) {
+/****** Variabili C++ ******/
+vector<unordered_set<int>> cppFilterTableList;
+unordered_set<int> result;
+
+/****** Funzioni C++ ******/
+void convert2CPP(JNIEnv* env, jobject filterTableList) {
+
+    jint listSize = env->CallIntMethod(filterTableList, sizeMethod);
+    jint arrayListSize;
+
+    cppFilterTableList = vector<unordered_set<int>>(listSize);
+
+    // Iterazione sull'ArrayList
+    jobject arrayListObject;
+    for (jint i = 0; i < listSize; i++) {
+        arrayListObject = env->CallObjectMethod(filterTableList, getMethod, i);
+        arrayListSize = env->CallIntMethod(arrayListObject, sizeMethod);
+
+        // Iterazione sul arrayList
+        for (jint j = 0; j < arrayListSize; j++)
+            cppFilterTableList[i].insert(env->CallIntMethod(env->CallObjectMethod(arrayListObject, getMethod, j), intValueMethod));
+    }
+    // Rilascia la variabile JNI dopo l'uso
+    env->DeleteLocalRef(arrayListObject);
+
+}
+
+jobject convert2JNI(JNIEnv* env) {
+
+    jobject javaArrayList = env->NewObject(arrayListClass, arrayListInit);
+
+    // Iterazione sul UnorderedSet
+    for (int element : result)
+        env->CallBooleanMethod(javaArrayList, addMethod, env->NewObject(integerClass, integerInit, element));
+
+    return javaArrayList;
+
+}
+
+bool intersect(const unordered_set<int>& set1, const unordered_set<int>& set2, unordered_set<int>& finalSet) {
+
+    if (set1.size() < set2.size())
+        return intersect(set2, set1, finalSet);
+
+    for (const int& ID : set2)
+        if (set1.count(ID))
+            finalSet.insert(ID);
+
+    return finalSet.empty();
+
+}
+
+/****** Funzioni JNI ******/
+extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM* vm, [[maybe_unused]] void* reserved) {
     JNIEnv* env;
     if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK)
         return JNI_ERR;
 
     // Definizione oggetti Classe
     arrayListClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/ArrayList")));
-    hashSetClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/HashSet")));
+    integerClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/lang/Integer")));
 
     // Definizione metodi delle Classi
-    hashInit = env->GetMethodID(hashSetClass, "<init>", "()V");
+    arrayListInit = env->GetMethodID(arrayListClass, "<init>", "()V");
+    integerInit = env->GetMethodID(integerClass, "<init>", "(I)V");
+
     getMethod = env->GetMethodID(arrayListClass, "get", "(I)Ljava/lang/Object;");
-    sizeMethod_AL = env->GetMethodID(arrayListClass, "size", "()I");
-    sizeMethod_HS = env->GetMethodID(hashSetClass, "size", "()I");
-    addAllMethod = env->GetMethodID(hashSetClass, "addAll", "(Ljava/util/Collection;)Z");
-    retainAllMethod = env->GetMethodID(hashSetClass, "retainAll", "(Ljava/util/Collection;)Z");
+    addMethod = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
+    sizeMethod = env->GetMethodID(arrayListClass, "size", "()I");
+    intValueMethod = env->GetMethodID(integerClass, "intValue", "()I");
 
     return JNI_VERSION_1_6;
 }
@@ -35,31 +93,28 @@ JNI_OnLoad(JavaVM* vm, void* reserved) {
 extern "C" JNIEXPORT jobject JNICALL
 Java_com_example_customsearchlibrary_NativeLib_processTablesNative(JNIEnv* env, jobject /* this */, jobject filterTableList) {
 
-    jobject result = env->NewObject(hashSetClass, hashInit);
+    convert2CPP(env, filterTableList);
 
-    jint listSize = env->CallIntMethod(filterTableList, sizeMethod_AL);
-
-    env->CallBooleanMethod(result, addAllMethod, env->CallObjectMethod(filterTableList, getMethod, 0));
-    for (jint i = 1; i < listSize; i++) {
-        env->CallBooleanMethod(result, retainAllMethod, env->CallObjectMethod(filterTableList, getMethod, i));
-        if (env->CallIntMethod(result, sizeMethod_HS) == 0)
+    unordered_set<int> temp = cppFilterTableList[0];
+    for (int i = 1; i < cppFilterTableList.size(); i++) {
+        result.clear();
+        if (intersect(temp, cppFilterTableList[i], result))
             break;
+        temp = result;
     }
 
-    return result;
-
+    return convert2JNI(env);
 }
 
 extern "C" JNIEXPORT jobject JNICALL
 Java_com_example_customsearchlibrary_NativeLib_unifyTablesNative(JNIEnv* env, jobject /* this */, jobject filterTableList) {
 
-    jobject result = env->NewObject(hashSetClass, hashInit);
+    convert2CPP(env, filterTableList);
 
-    jint listSize = env->CallIntMethod(filterTableList, sizeMethod_AL);
+    result.clear();
+    for (const unordered_set<int>& cppArrayList : cppFilterTableList)
+        for (const int& ID : cppArrayList)
+            result.insert(ID);
 
-    for (jint i = 0; i < listSize; i++)
-        env->CallBooleanMethod(result, addAllMethod, env->CallObjectMethod(filterTableList, getMethod, i));
-
-    return result;
-
+    return convert2JNI(env);
 }

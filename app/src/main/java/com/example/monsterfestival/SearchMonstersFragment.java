@@ -57,10 +57,10 @@ public class SearchMonstersFragment extends Fragment {
     public static boolean isAmbienteSelected = false;
     public static boolean isCategoriaSelected = false;
     public static boolean isTagliaSelected = false;
-    public static boolean isFiltersApplied = false;
+    public static boolean areFiltersApplied = false;
+    public static boolean areFiltersNotChanged = true;
 
     private String _text;
-
     private SearchFiltersFragment searchFiltersFragment;
 
     private final NativeLib objectNativeLib = new NativeLib();
@@ -156,7 +156,12 @@ public class SearchMonstersFragment extends Fragment {
 
     public void searchList(String text) {
         _text = text;
-        if (isFiltersApplied)
+
+        if (areFiltersNotChanged)
+            return;
+        areFiltersNotChanged = true;
+
+        if (areFiltersApplied)
             applyFilters(text);
         else {
             dialog.show();
@@ -197,7 +202,8 @@ public class SearchMonstersFragment extends Fragment {
         // Esegui la transazione
         fragmentTransaction.commit();
 
-        applyFilters(_text);
+        if (!areFiltersNotChanged)
+            applyFilters(_text);
     }
 
     private void applyFilters(String text) {
@@ -213,9 +219,9 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     private void applyFiltersThread(String text) {
-        ArrayList<HashSet<Integer>> selectedAmbieteFilters_ID = new ArrayList<>();
-        ArrayList<HashSet<Integer>> selectedCategoriaFilters_ID = new ArrayList<>();
-        ArrayList<HashSet<Integer>> selectedTagliaFilters_ID = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> selectedAmbieteFilters_ID = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> selectedCategoriaFilters_ID = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> selectedTagliaFilters_ID = new ArrayList<>();
 
         // Definizione di queryFutures come Lista Thread-safe
         List<CompletableFuture<Void>> queryFutures = Collections.synchronizedList(new ArrayList<>());
@@ -244,7 +250,7 @@ public class SearchMonstersFragment extends Fragment {
         allQueriesFuture.thenAccept(ignored -> {
 
             ArrayList<DataClass> tempList = new ArrayList<>();
-            ArrayList<HashSet<Integer>> filterTableList = new ArrayList<>();
+            ArrayList<ArrayList<Integer>> filterTableList = new ArrayList<>();
 
             // Se le liste non sono vuote allora compattale e aggiungile a filterTableList
             if (selectedAmbieteFilters_ID.size() != 0)
@@ -258,7 +264,7 @@ public class SearchMonstersFragment extends Fragment {
 
             if (filterTableList.size() != 0) {
                 // Esegui una intersezione custom tra i vari HashSet
-                HashSet<Integer> result = objectNativeLib.processTables(filterTableList);
+                ArrayList<Integer> result = objectNativeLib.processTables(filterTableList);
                 if (result.size() == 0) {
                     handleSearchResults(new ArrayList<>());
                     return;
@@ -300,12 +306,12 @@ public class SearchMonstersFragment extends Fragment {
         }
     }
 
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<HashSet<Integer>> tableList) {
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<ArrayList<Integer>> tableList) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 synchronized (ThreadLock) {
-                    HashSet<Integer> set = new HashSet<>();
+                    ArrayList<Integer> set = new ArrayList<>();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         set.add(snapshot.getValue(Integer.class));
                     }

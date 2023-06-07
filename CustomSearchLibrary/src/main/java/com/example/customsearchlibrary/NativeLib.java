@@ -10,8 +10,24 @@ public class NativeLib {
         System.loadLibrary("customsearchlibrary");
     }
 
-    public native HashSet<Integer> processTables(ArrayList<HashSet<Integer>> filterTableList);
+    private native HashSet<Integer> processTablesNative(ArrayList<HashSet<Integer>> filterTableList);
 
-    public native HashSet<Integer> unifyTables(ArrayList<HashSet<Integer>> filterTableList);
+    private native HashSet<Integer> unifyTablesNative(ArrayList<HashSet<Integer>> filterTableList);
+
+    public HashSet<Integer> unifyTables(ArrayList<HashSet<Integer>> filterTableList) {
+        if (filterTableList.isEmpty())
+            return new HashSet<>();
+        if (filterTableList.size() == 1)
+            return filterTableList.get(0);
+        return unifyTablesNative(filterTableList);
+    }
+
+    public HashSet<Integer> processTables(ArrayList<HashSet<Integer>> filterTableList) {
+        if (filterTableList.isEmpty())
+            return new HashSet<>();
+        if (filterTableList.size() == 1)
+            return filterTableList.get(0);
+        return processTablesNative(filterTableList);
+    }
 
 }

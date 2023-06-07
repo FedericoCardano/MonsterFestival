@@ -1,87 +1,65 @@
 #include <jni.h>
 
+jclass arrayListClass;
+jclass hashSetClass;
+
+jmethodID hashInit;
+jmethodID addAllMethod;
+jmethodID retainAllMethod;
+jmethodID sizeMethod_AL;
+jmethodID sizeMethod_HS;
+jmethodID getMethod;
+
+// Carica i metodi e le classi di Default all'inizializzazione dell'oggetto NaviteLib
+extern "C" JNIEXPORT jint
+JNI_OnLoad(JavaVM* vm, void* reserved) {
+    JNIEnv* env;
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK)
+        return JNI_ERR;
+
+    // Definizione oggetti Classe
+    arrayListClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/ArrayList")));
+    hashSetClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/HashSet")));
+
+    // Definizione metodi delle Classi
+    hashInit = env->GetMethodID(hashSetClass, "<init>", "()V");
+    getMethod = env->GetMethodID(arrayListClass, "get", "(I)Ljava/lang/Object;");
+    sizeMethod_AL = env->GetMethodID(arrayListClass, "size", "()I");
+    sizeMethod_HS = env->GetMethodID(hashSetClass, "size", "()I");
+    addAllMethod = env->GetMethodID(hashSetClass, "addAll", "(Ljava/util/Collection;)Z");
+    retainAllMethod = env->GetMethodID(hashSetClass, "retainAll", "(Ljava/util/Collection;)Z");
+
+    return JNI_VERSION_1_6;
+}
+
 extern "C" JNIEXPORT jobject JNICALL
-Java_com_example_customsearchlibrary_NativeLib_processTables(JNIEnv* env, jobject /* this */, jobject filterTableList) {
+Java_com_example_customsearchlibrary_NativeLib_processTablesNative(JNIEnv* env, jobject /* this */, jobject filterTableList) {
 
-    /****** Inizializzazione Variabile Result  ******/
+    jobject result = env->NewObject(hashSetClass, hashInit);
 
-    // Ottieni la classe dell'oggetto HashSet
-    jclass hashSetClass = env->FindClass("java/util/HashSet");
+    jint listSize = env->CallIntMethod(filterTableList, sizeMethod_AL);
 
-    // Inizializza il Costruttore del HashSet e crea la variabile
-    jobject result = env->NewObject(hashSetClass, env->GetMethodID(hashSetClass, "<init>", "()V"));
-
-    // Ottieni l'ID del metodo addAll, retainAll e size nella classe HashList
-    jmethodID addAllMethod = env->GetMethodID(hashSetClass, "addAll", "(Ljava/util/Collection;)Z");
-    jmethodID retainAllMethod = env->GetMethodID(hashSetClass, "retainAll", "(Ljava/util/Collection;)Z");
-    jmethodID sizeMethod = env->GetMethodID(hashSetClass, "size", "()I");
-
-    /****** Definizione Variabile List ******/
-
-    // Ottieni la classe dell'oggetto List
-    jclass listClass = env->GetObjectClass(filterTableList);
-
-    // Ottieni l'ID del metodo size nella classe List e ottieni la dimensione della lista
-    jint listSize = env->CallIntMethod(filterTableList, env->GetMethodID(listClass, "size", "()I"));
-
-    // Ottieni l'ID del metodo 'get' nella classe List
-    jmethodID getMethod = env->GetMethodID(listClass, "get", "(I)Ljava/lang/Object;");
-
-    /****** Intersezione degli ID ******/
-
-    jobject hashSet = env->CallObjectMethod(filterTableList, getMethod, 0);
-    env->CallBooleanMethod(result, addAllMethod, hashSet);
+    env->CallBooleanMethod(result, addAllMethod, env->CallObjectMethod(filterTableList, getMethod, 0));
     for (jint i = 1; i < listSize; i++) {
-        hashSet = env->CallObjectMethod(filterTableList, getMethod, i);
-        env->CallBooleanMethod(result, retainAllMethod, hashSet);
-
-        if (env->CallIntMethod(result, sizeMethod) == 0)
+        env->CallBooleanMethod(result, retainAllMethod, env->CallObjectMethod(filterTableList, getMethod, i));
+        if (env->CallIntMethod(result, sizeMethod_HS) == 0)
             break;
     }
-    // Release della referenza locale all'HashSet
-    env->DeleteLocalRef(hashSet);
 
-    // Ritorna il risultato
     return result;
 
 }
 
 extern "C" JNIEXPORT jobject JNICALL
-Java_com_example_customsearchlibrary_NativeLib_unifyTables(JNIEnv* env, jobject /* this */, jobject filterTableList) {
+Java_com_example_customsearchlibrary_NativeLib_unifyTablesNative(JNIEnv* env, jobject /* this */, jobject filterTableList) {
 
-    /****** Inizializzazione Variabile Result  ******/
+    jobject result = env->NewObject(hashSetClass, hashInit);
 
-    // Ottieni la classe dell'oggetto HashSet
-    jclass hashSetClass = env->FindClass("java/util/HashSet");
+    jint listSize = env->CallIntMethod(filterTableList, sizeMethod_AL);
 
-    // Inizializza il Costruttore del HashSet e crea la variabile
-    jobject result = env->NewObject(hashSetClass, env->GetMethodID(hashSetClass, "<init>", "()V"));
+    for (jint i = 0; i < listSize; i++)
+        env->CallBooleanMethod(result, addAllMethod, env->CallObjectMethod(filterTableList, getMethod, i));
 
-    // Ottieni l'ID del metodo addAll nella classe HashList
-    jmethodID addAllMethod = env->GetMethodID(hashSetClass, "addAll", "(Ljava/util/Collection;)Z");
-
-    /****** Definizione Variabile List ******/
-
-    // Ottieni la classe dell'oggetto List
-    jclass listClass = env->GetObjectClass(filterTableList);
-
-    // Ottieni l'ID del metodo size nella classe List e ottieni la dimensione della lista
-    jint listSize = env->CallIntMethod(filterTableList, env->GetMethodID(listClass, "size", "()I"));
-
-    // Ottieni l'ID del metodo 'get' nella classe List
-    jmethodID getMethod = env->GetMethodID(listClass, "get", "(I)Ljava/lang/Object;");
-
-    /****** Unione degli ID ******/
-
-    jobject hashSet;
-    for (jint i = 0; i < listSize; i++) {
-        hashSet = env->CallObjectMethod(filterTableList, getMethod, i);
-        env->CallBooleanMethod(result, addAllMethod, hashSet);
-    }
-    // Release della referenza locale all'HashSet
-    env->DeleteLocalRef(hashSet);
-
-    // Ritorna il risultato
     return result;
 
 }

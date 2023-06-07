@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -59,9 +59,13 @@ public class SearchMonstersFragment extends Fragment {
     public static boolean isTagliaSelected = false;
     public static boolean isFiltersApplied = false;
 
+    private String _text;
+
     private SearchFiltersFragment searchFiltersFragment;
 
-    final Object ThreadLock = new Object();
+    private final NativeLib objectNativeLib = new NativeLib();
+
+    private final Object ThreadLock = new Object();
 
     public SearchMonstersFragment() {
     }
@@ -135,13 +139,15 @@ public class SearchMonstersFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                searchList(query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchList(newText);
-                return true;
+                if (newText.equals("") && !_text.equals(""))
+                    searchList(newText);
+                return false;
             }
         });
 
@@ -149,15 +155,18 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     public void searchList(String text) {
+        _text = text;
         if (isFiltersApplied)
             applyFilters(text);
         else {
+            dialog.show();
             ArrayList<DataClass> searchList = new ArrayList<>();
             for (DataClass dataClass : dataList) {
-                if (dataClass.getNome().toLowerCase().contains(text.toLowerCase())) {
+                if (stringSimilarity(text, dataClass.getNome())) {
                     searchList.add(dataClass);
                 }
             }
+            dialog.dismiss();
             adapter.searchDataList(searchList);
         }
     }
@@ -188,16 +197,7 @@ public class SearchMonstersFragment extends Fragment {
         // Esegui la transazione
         fragmentTransaction.commit();
 
-        if (isFiltersApplied) {
-            applyFilters("");
-        } else {
-            selectedAmbieteFilters.clear();
-            selectedCategoriaFilters.clear();
-            selectedTagliaFilters.clear();
-            isAmbienteSelected = false;
-            isCategoriaSelected = false;
-            isTagliaSelected = false;
-        }
+        applyFilters(_text);
     }
 
     private void applyFilters(String text) {
@@ -206,7 +206,7 @@ public class SearchMonstersFragment extends Fragment {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
-            applyFiltersThread(text);
+            applyFiltersThread(text != null ? text : "");
         });
         executor.shutdown();
 
@@ -221,27 +221,21 @@ public class SearchMonstersFragment extends Fragment {
         List<CompletableFuture<Void>> queryFutures = Collections.synchronizedList(new ArrayList<>());
 
         // Creazione dei futuri delle query
-        if (isAmbienteSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Ambiente");
+        if (isAmbienteSelected)
             for (String filtro : selectedAmbieteFilters) {
                 queryFutures.add(new CompletableFuture<>());
-                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedAmbieteFilters_ID));
+                databaseReference.child("Filtri").child("Ambiente").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedAmbieteFilters_ID));
             }
-        }
-        if (isCategoriaSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Categoria");
+        if (isCategoriaSelected)
             for (String filtro : selectedCategoriaFilters) {
                 queryFutures.add(new CompletableFuture<>());
-                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedCategoriaFilters_ID));
+                databaseReference.child("Filtri").child("Categoria").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedCategoriaFilters_ID));
             }
-        }
-        if (isTagliaSelected) {
-            DatabaseReference refFiltro = databaseReference.child("Filtri").child("Taglia");
+        if (isTagliaSelected)
             for (String filtro : selectedTagliaFilters) {
                 queryFutures.add(new CompletableFuture<>());
-                refFiltro.child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedTagliaFilters_ID));
+                databaseReference.child("Filtri").child("Taglia").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedTagliaFilters_ID));
             }
-        }
 
         // Attendi il completamento di tutte le query
         CompletableFuture<Void> allQueriesFuture = CompletableFuture.allOf(queryFutures.toArray(new CompletableFuture[0]));
@@ -250,7 +244,6 @@ public class SearchMonstersFragment extends Fragment {
         allQueriesFuture.thenAccept(ignored -> {
 
             ArrayList<DataClass> tempList = new ArrayList<>();
-            NativeLib objectNativeLib = new NativeLib();
             ArrayList<HashSet<Integer>> filterTableList = new ArrayList<>();
 
             // Se le liste non sono vuote allora compattale e aggiungile a filterTableList
@@ -260,6 +253,8 @@ public class SearchMonstersFragment extends Fragment {
                 filterTableList.add(objectNativeLib.unifyTables(selectedCategoriaFilters_ID));
             if (selectedTagliaFilters_ID.size() != 0)
                 filterTableList.add(objectNativeLib.unifyTables(selectedTagliaFilters_ID));
+
+            HashSet<String> stringText = convertString2HashSet(text);
 
             if (filterTableList.size() != 0) {
                 // Esegui una intersezione custom tra i vari HashSet
@@ -274,8 +269,7 @@ public class SearchMonstersFragment extends Fragment {
                 // Creazione dei futuri delle query per i mostri
                 for (Integer ID : result) {
                     monsterQueryFutures.add(new CompletableFuture<>());
-                    // TODO: Capire perché non riesce a trovare gli ID giusti ma ritorna tutti i mostri
-                    databaseReference.child("ID").child(String.valueOf(ID)).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, text));
+                    databaseReference.child("ID").orderByKey().startAt(Integer.toString(ID)).limitToFirst(1).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, stringText));
                 }
 
                 // Attendi il completamento di tutte le query per i mostri
@@ -285,7 +279,7 @@ public class SearchMonstersFragment extends Fragment {
                 allMonsterQueriesFuture.thenRun(() -> handleSearchResults(tempList));
             } else {
                 CompletableFuture<Void> future = new CompletableFuture<>();
-                databaseReference.child("ID").addListenerForSingleValueEvent(createValueEventListener(future, tempList, text));
+                databaseReference.child("ID").addListenerForSingleValueEvent(createValueEventListener(future, tempList, stringText));
 
                 // Attendi il completamento della query
                 future.thenRun(() -> handleSearchResults(tempList));
@@ -330,16 +324,14 @@ public class SearchMonstersFragment extends Fragment {
         };
     }
 
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, String text) {
+    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, HashSet<String> text) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 synchronized (ThreadLock) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (text.equals("") || Objects.requireNonNull(snapshot.child("Nome").getValue(String.class)).contains(text)) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                        if (text.size() == 0 || stringSimilarity(text, Objects.requireNonNull(snapshot.child("Nome").getValue(String.class))))
                             tempList.add(new DataClass(snapshot));
-                        }
-                    }
                     future.complete(null);
 
                 }
@@ -359,6 +351,21 @@ public class SearchMonstersFragment extends Fragment {
         if (!tempList.isEmpty())
             Collections.sort(tempList);
         adapter.searchDataList(tempList);
+    }
+
+    private boolean stringSimilarity(String text1, String text2) {
+        return stringSimilarity(convertString2HashSet(text1), text2);
+    }
+    private boolean stringSimilarity(HashSet<String> text1_HS, String text2) {
+        text2 = text2.toLowerCase();
+        for (String t : text1_HS)
+            if (!text2.contains(t))
+                return false;
+        return true;
+    }
+
+    private HashSet<String> convertString2HashSet(String text) {
+        return new HashSet<>(Arrays.asList(text.toLowerCase().split(" ")));
     }
 
 }

@@ -123,6 +123,7 @@
     <string name="SAG">SAG:</string>
     <string name="Descrizione">Descrizione</string>
 
+    <string name="bottone_filtri">Filter Button</string>
     <string name="filtro_Ambieti">Ambienti</string>
     <string name="filtro_Categorie">Categorie</string>
     <string name="filtro_Taglie">Taglie</string>

@@ -79,7 +79,7 @@
                     <EditText
                         android:id="@+id/search_editText"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:layout_weight="1"
                         android:background="@null"
                         android:focusableInTouchMode="false"
@@ -94,8 +94,8 @@
 
                     <ImageView
                         android:id="@+id/search_imageView"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:background="@drawable/search_icon_background"
                         android:contentDescription="@string/nome_app"
                         android:padding="6dp"

@@ -1,6 +1,7 @@
 package com.example.monsterfestival;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SearchFiltersFragment extends Fragment implements View.OnClickListener {
 
     View rootView;
     private TextView clearFilters;
+
+    DatabaseReference databaseReference;
+    public static AlertDialog dialog;
+    RecyclerView recyclerView;
+    ArrayList<ParentModelClass> parentModelClassArrayList;
+    ParentAdapter parentAdapter;
+    ArrayList<ChildModelClass> ambienteList;
+    ArrayList<ChildModelClass> categoriaList;
+    ArrayList<ChildModelClass> tagliaList;
 
     private final HashMap<View, String> filtri_ambiente = new HashMap<>();
     private final HashMap<View, String> filtri_categoria = new HashMap<>();
@@ -31,6 +49,47 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search_filters, container, false);
+
+
+        recyclerView = rootView.findViewById(R.id.rv_parent);
+        ambienteList = new ArrayList<>();
+        categoriaList = new ArrayList<>();
+        tagliaList = new ArrayList<>();
+        parentModelClassArrayList = new ArrayList<>();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_layout);
+        dialog = builder.create();
+        dialog.show();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
+        dialog.show();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                DataSnapshot itemSnapshot = snapshot.child("Filtri");
+                for (DataSnapshot i : itemSnapshot.getChildren()) {
+                //TODO: salvarsi il nome dei filtri (che sono delle cartelle) dentro una stringa,
+                // e in base a quale cartella appartengono (Ambiente, Categoria, Taglia) eseguire il metodo nomeLista.add(new ChildModelClass(Stringa))
+                // (i nomi delle liste sono ambienteList, categoriaList, tagliaList)
+                }
+                parentModelClassArrayList.add(new ParentModelClass("Ambienti", ambienteList));
+                parentModelClassArrayList.add(new ParentModelClass("Categorie", categoriaList));
+                parentModelClassArrayList.add(new ParentModelClass("Taglie", tagliaList));
+                parentAdapter = new ParentAdapter(parentModelClassArrayList, getActivity());
+                recyclerView.setAdapter(parentAdapter);
+                parentAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                dialog.dismiss();
+            }
+        });
+
 
         initColors();
         initAll();
@@ -61,6 +120,8 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
     private void initAll() {
         clearFilters = rootView.findViewById(R.id.id_clear_btn);
+
+        /*
 
         filtri_ambiente.put(rootView.findViewById(R.id.ambiete_artico), getResources().getString(R.string.artico).toLowerCase());
         filtri_ambiente.put(rootView.findViewById(R.id.ambiete_catacombe), getResources().getString(R.string.catacombe).toLowerCase());
@@ -114,6 +175,8 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         filtri_taglia.put(rootView.findViewById(R.id.taglia_media), getResources().getString(R.string.media).toLowerCase());
         filtri_taglia.put(rootView.findViewById(R.id.taglia_minuscola), getResources().getString(R.string.minuscola).toLowerCase());
         filtri_taglia.put(rootView.findViewById(R.id.taglia_piccola), getResources().getString(R.string.piccola).toLowerCase());
+
+         */
 
 
     }

@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/background_image"
     tools:context=".CompareMonstersFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/compare_monsters_title"
-        android:text="Testo Provvisorio: Compare Monsters"
-        android:textSize="36sp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/lobster"
-        android:textColor="@color/brawnColor"
-        android:layout_centerHorizontal="true"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brawnColor"
+            android:contentDescription="@string/aggiungi_mostro_1"
+            android:src="@drawable/baseline_add_24"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/separator_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brawnColor"
+            android:contentDescription="@string/aggiungi_mostro_2"
+            android:src="@drawable/baseline_add_24"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

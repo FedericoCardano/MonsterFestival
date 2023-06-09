@@ -40,16 +40,19 @@ public class AccountFragment extends Fragment {
 
         user = auth.getCurrentUser();
         if (user == null){
+            button.setText(getResources().getString(R.string.login));
             mostraLogin();
         }
         else{
             textView.setText(user.getEmail());
+            button.setText(getResources().getString(R.string.logout));
         }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                auth.signOut();
+                button.setText(getResources().getString(R.string.login));
                 mostraLogin();
             }
         });

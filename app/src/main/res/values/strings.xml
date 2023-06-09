@@ -30,6 +30,8 @@
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
     <string name="chiudi">Chiudi</string>
+    <string name="aggiungi_mostro_1">Aggiungi il Primo Mostro</string>
+    <string name="aggiungi_mostro_2">Aggiungi il Secondo Mostro</string>
 
     <string name="ambiete">Ambiete</string>
     <string name="ca">CA</string>

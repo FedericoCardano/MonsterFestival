@@ -51,14 +51,14 @@ public class SearchMonstersFragment extends Fragment {
     public static CardView filtersCard;
 
     public static AlertDialog dialog;
-    public static HashSet<String> selectedAmbieteFilters = new HashSet<>();
-    public static HashSet<String> selectedCategoriaFilters = new HashSet<>();
-    public static HashSet<String> selectedTagliaFilters = new HashSet<>();
-    public static boolean isAmbienteSelected = false;
-    public static boolean isCategoriaSelected = false;
-    public static boolean isTagliaSelected = false;
-    public static boolean areFiltersApplied = false;
-    public static boolean areFiltersNotChanged = true;
+    public static HashSet<String> selectedAmbieteFilters;
+    public static HashSet<String> selectedCategoriaFilters;
+    public static HashSet<String> selectedTagliaFilters;
+    public static boolean isAmbienteSelected;
+    public static boolean isCategoriaSelected;
+    public static boolean isTagliaSelected;
+    public static boolean areFiltersApplied;
+    public static boolean areFiltersNotChanged;
 
     private String _text;
     private SearchFiltersFragment searchFiltersFragment;
@@ -106,6 +106,15 @@ public class SearchMonstersFragment extends Fragment {
 
         searchView = view.findViewById(R.id.search);
         showSoftKeyboard(searchView);
+
+        selectedAmbieteFilters = new HashSet<>();
+        selectedCategoriaFilters = new HashSet<>();
+        selectedTagliaFilters = new HashSet<>();
+        isAmbienteSelected = false;
+        isCategoriaSelected = false;
+        isTagliaSelected = false;
+        areFiltersApplied = false;
+        areFiltersNotChanged = true;
 
         recyclerView = view.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);

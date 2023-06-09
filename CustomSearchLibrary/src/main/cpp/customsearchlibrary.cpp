@@ -113,8 +113,7 @@ Java_com_example_customsearchlibrary_NativeLib_unifyTablesNative(JNIEnv* env, jo
 
     result.clear();
     for (const unordered_set<int>& cppArrayList : cppFilterTableList)
-        for (const int& ID : cppArrayList)
-            result.insert(ID);
+        result.insert(cppArrayList.begin(), cppArrayList.end());
 
     return convert2JNI(env);
 }

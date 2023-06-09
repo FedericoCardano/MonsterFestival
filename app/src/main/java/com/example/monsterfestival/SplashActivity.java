@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,14 +19,19 @@ import android.content.pm.PackageInfo;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
-    private boolean firstLaunch = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        boolean firstLaunch = sharedPreferences.getBoolean("firstLaunch", true);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         if (firstLaunch) {
-            firstLaunch = false;
+            editor.putBoolean("firstLaunch", false);
+            editor.apply();
 
             try {
 

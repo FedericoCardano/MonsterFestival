@@ -8,6 +8,7 @@
     <string name="logout">Logout</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="password_corta">Password troppo corta</string>
     <string name="cpassword">Conferma Password</string>
     <string name="vuoi_creare_un_account_registrati">Vuoi creare un account? Registrati</string>
     <string name="registrazione">Registrazione</string>

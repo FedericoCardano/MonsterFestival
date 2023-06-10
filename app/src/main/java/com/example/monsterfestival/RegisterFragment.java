@@ -47,6 +47,8 @@ public class RegisterFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         TextView textView = view.findViewById(R.id.loginRedirectText);
 
+
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +92,11 @@ public class RegisterFragment extends Fragment {
 
                 if (!password.equals(cpassword)){
                     Toast.makeText(getActivity(), getResources().getString(R.string.cpassword_diversa), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length()<8){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.password_corta), Toast.LENGTH_SHORT).show();
                     return;
                 }
 

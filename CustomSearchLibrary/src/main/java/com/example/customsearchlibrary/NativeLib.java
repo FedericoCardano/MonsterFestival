@@ -29,4 +29,8 @@ public class NativeLib {
         return processTablesNative(filterTableList);
     }
 
+    public native String getVersion();
+
+    public native void updateDatabase(ArrayList<ArrayList<String>> ID, ArrayList<ArrayList<ArrayList<Integer>>> Filtri, ArrayList<ArrayList<String>> nomiFiltri);
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="nome_app">MonsterFestival</string>
+    <string name="nome_app">Monster Festival</string>
     <string name="powered_by_unige">Powered by UniGe</string>
     <string name="comincia_a_costruire_il_tuo_mondo">Comincia a costruire il tuo mondo</string>
     <string name="iniziamo">Iniziamo</string>
@@ -34,13 +34,21 @@
     <string name="aggiungi_mostro_1">Aggiungi il Primo Mostro</string>
     <string name="aggiungi_mostro_2">Aggiungi il Secondo Mostro</string>
 
-    <string name="ambiete">Ambiete</string>
-    <string name="ca">CA</string>
-    <string name="categoria">Categoria</string>
-    <string name="nomeMostro">Nome</string>
-    <string name="pf">PF</string>
-    <string name="sfida">Sfida</string>
-    <string name="taglia">Taglia</string>
+    <string name="Titolo">Title</string>
+    <string name="Ambiete">Ambiete:</string>
+    <string name="CA">CA:</string>
+    <string name="Categoria">Categoria:</string>
+    <string name="Nome">Nome:</string>
+    <string name="PF">PF:</string>
+    <string name="Sfida">Sfida:</string>
+    <string name="Taglia">Taglia:</string>
+    <string name="CAR">CAR:</string>
+    <string name="COST">COST:</string>
+    <string name="DES">DES:</string>
+    <string name="FOR">FOR:</string>
+    <string name="INT">INT:</string>
+    <string name="SAG">SAG:</string>
+    <string name="Descrizione">Descrizione</string>
 
     <string name="benvenuto">Benvenuto</string>
     <string name="default_utente">Anonymous</string>
@@ -109,22 +117,6 @@
     <string name="media">Media</string>
     <string name="minuscola">Minuscola</string>
     <string name="piccola">Piccola</string>
-
-    <string name="Titolo">Title</string>
-    <string name="Ambiete">Ambiete:</string>
-    <string name="CA">CA:</string>
-    <string name="Categoria">Categoria:</string>
-    <string name="Nome">Nome:</string>
-    <string name="PF">PF:</string>
-    <string name="Sfida">Sfida:</string>
-    <string name="Taglia">Taglia:</string>
-    <string name="CAR">CAR:</string>
-    <string name="COST">COST:</string>
-    <string name="DES">DES:</string>
-    <string name="FOR">FOR:</string>
-    <string name="INT">INT:</string>
-    <string name="SAG">SAG:</string>
-    <string name="Descrizione">Descrizione</string>
 
     <string name="bottone_filtri">Filter Button</string>
     <string name="filtro_Ambieti">Ambienti</string>

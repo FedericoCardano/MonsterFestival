@@ -34,13 +34,9 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     RecyclerView recyclerView;
     ArrayList<ParentModelClass> parentModelClassArrayList;
     ParentAdapter parentAdapter;
-    ArrayList<ChildModelClass> ambienteList;
-    ArrayList<ChildModelClass> categoriaList;
-    ArrayList<ChildModelClass> tagliaList;
-
-    private final HashMap<View, String> filtri_ambiente = new HashMap<>();
-    private final HashMap<View, String> filtri_categoria = new HashMap<>();
-    private final HashMap<View, String> filtri_taglia = new HashMap<>();
+    private final HashMap<View, ChildModelClass> filtri_ambiente = new HashMap<>();
+    private final HashMap<View, ChildModelClass> filtri_categoria = new HashMap<>();
+    private final HashMap<View, ChildModelClass> filtri_taglia = new HashMap<>();
 
     private int white;
     private int rossoPorpora;
@@ -52,9 +48,6 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
 
         recyclerView = rootView.findViewById(R.id.rv_parent);
-        ambienteList = new ArrayList<>();
-        categoriaList = new ArrayList<>();
-        tagliaList = new ArrayList<>();
         parentModelClassArrayList = new ArrayList<>();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -76,9 +69,9 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                 // e in base a quale cartella appartengono (Ambiente, Categoria, Taglia) eseguire il metodo nomeLista.add(new ChildModelClass(Stringa))
                 // (i nomi delle liste sono ambienteList, categoriaList, tagliaList)
                 }
-                parentModelClassArrayList.add(new ParentModelClass("Ambienti", ambienteList));
-                parentModelClassArrayList.add(new ParentModelClass("Categorie", categoriaList));
-                parentModelClassArrayList.add(new ParentModelClass("Taglie", tagliaList));
+                parentModelClassArrayList.add(new ParentModelClass("Ambienti", filtri_ambiente));
+                parentModelClassArrayList.add(new ParentModelClass("Categorie", filtri_categoria));
+                parentModelClassArrayList.add(new ParentModelClass("Taglie", filtri_taglia));
                 parentAdapter = new ParentAdapter(parentModelClassArrayList, getActivity());
                 recyclerView.setAdapter(parentAdapter);
                 parentAdapter.notifyDataSetChanged();
@@ -120,6 +113,8 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
     private void initAll() {
         clearFilters = rootView.findViewById(R.id.id_clear_btn);
+
+
 
         /*
 

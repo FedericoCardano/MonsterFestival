@@ -20,13 +20,15 @@ jmethodID intValueMethod;
 
 /****** Variabili Database ******/
 struct Mostro {
+    string Nome;
+    string Descrizione;
     string Ambiente;
     string Categoria;
     string Taglia;
     float Sfida{};
     int PF{};
     int CA{};
-    int FOF{};
+    int FOR{};
     int DES{};
     int COST{};
     int INT{};
@@ -34,25 +36,24 @@ struct Mostro {
     int CAR{};
 };
 
-string databaseVersion = "1.0";
 unordered_map<int, Mostro> ID;
 unordered_map<string, unordered_map<string, unordered_set<int>>> Filtri;
 
 /****** Funzioni C++ ******/
-[[maybe_unused]] void addElement(vector<int>& cppList, int& element) {
-    cppList.push_back(element);
-}
 
-[[maybe_unused]] void addElement(unordered_set<int>& cppList, int& element) {
-    cppList.insert(element);
+// NB: A causa di errori del compilatore non è stato possibile sfruttare i template per
+//      evitare l'utilizzo delle funzioni addElement
+[[maybe_unused]] void addElement(JNIEnv* env, vector<int>& cppList, jobject arrayListObject, int index) {
+    cppList.push_back(env->CallIntMethod(env->CallObjectMethod(arrayListObject, getMethod, index), intValueMethod));
 }
-
-[[maybe_unused]] void addElement(vector<string>& cppList, string& element) {
-    cppList.push_back(element);
+[[maybe_unused]] void addElement(JNIEnv* env, unordered_set<int>& cppList, jobject arrayListObject, int index) {
+    cppList.insert(env->CallIntMethod(env->CallObjectMethod(arrayListObject, getMethod, index), intValueMethod));
 }
-
-[[maybe_unused]] void addElement(unordered_set<string>& cppList, string& element) {
-    cppList.insert(element);
+[[maybe_unused]] void addElement(JNIEnv* env, vector<string>& cppList, jobject arrayListObject, int index) {
+    cppList.emplace_back(env->GetStringUTFChars(reinterpret_cast<jstring>(env->CallObjectMethod(arrayListObject, getMethod, index)), reinterpret_cast<jboolean *>(false)));
+}
+[[maybe_unused]] void addElement(JNIEnv* env, unordered_set<string>& cppList, jobject arrayListObject, int index) {
+    cppList.insert(env->GetStringUTFChars(reinterpret_cast<jstring>(env->CallObjectMethod(arrayListObject, getMethod, index)), reinterpret_cast<jboolean *>(false)));
 }
 
 template<typename T, template<typename...> typename W>
@@ -72,7 +73,7 @@ void convert2CPP(JNIEnv* env, jobject List, vector<W<T>>& cppList) {
 
         // Iterazione sul arrayList
         for (jint j = 0; j < arrayListSize; j++)
-            addElement(cppList[i], element);
+            addElement(env, cppList[i], arrayListObject, j);
     }
 
     // Rilascia la variabile JNI dopo l'uso
@@ -89,10 +90,12 @@ void convert2CPP(JNIEnv* env, jobject List, vector<vector<unordered_set<T>>>& cp
 
     // Iterazione sull'ArrayList
     for (jint i = 0; i < listSize; i++)
-        convert2CPP(env, env->CallObjectMethod(env->CallObjectMethod(List, getMethod, i), getMethod, i), cppList[i]);
+        convert2CPP(env, env->CallObjectMethod(List, getMethod, i), cppList[i]);
 
 }
 
+// NB: A causa di errori del compilatore non è stato possibile sfruttare i template per
+//      evitare l'uso del doppione di convert2JNI
 jobject convert2JNI(JNIEnv* env, unordered_set<int>& result) {
 
     jobject javaArrayList = env->NewObject(arrayListClass, arrayListInit);
@@ -100,6 +103,31 @@ jobject convert2JNI(JNIEnv* env, unordered_set<int>& result) {
     // Iterazione sul UnorderedSet
     for (int element : result)
         env->CallBooleanMethod(javaArrayList, addMethod, env->NewObject(integerClass, integerInit, element));
+
+    return javaArrayList;
+
+}
+
+jobject convert2JNI(JNIEnv* env, vector<string>& result) {
+
+    jobject javaArrayList = env->NewObject(arrayListClass, arrayListInit);
+
+    // Iterazione sul Vector
+    for (const string& element : result)
+        env->CallBooleanMethod(javaArrayList, addMethod, env->NewStringUTF(element.c_str()));
+
+    return javaArrayList;
+
+}
+
+template<class T>
+jobject convert2JNI(JNIEnv* env, vector<vector<T>>& result) {
+
+    jobject javaArrayList = env->NewObject(arrayListClass, arrayListInit);
+
+    // Iterazione sul Vector
+    for (vector<T>& element : result)
+        env->CallBooleanMethod(javaArrayList, addMethod, convert2JNI(env, element));
 
     return javaArrayList;
 
@@ -117,6 +145,89 @@ bool intersect(const unordered_set<T>& set1, const unordered_set<T>& set2, unord
 
     return finalSet.empty();
 
+}
+
+void processTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList, unordered_set<int>& result) {
+
+    unordered_set<int> temp = cppFilterTableList[0];
+    for (int i = 1; i < cppFilterTableList.size(); i++) {
+        result.clear();
+        if (intersect(temp, cppFilterTableList[i], result))
+            break;
+        temp = result;
+    }
+
+}
+
+void unifyTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList, unordered_set<int>& result) {
+
+    for (const unordered_set<int>& cppArrayList : cppFilterTableList)
+        result.insert(cppArrayList.begin(), cppArrayList.end());
+
+}
+
+void getMostroCPP(const int& id, vector<string>& result) {
+    result = vector<string>();
+    Mostro m = ID[id];
+    result.push_back(m.Nome);
+    result.push_back(m.Descrizione);
+    result.push_back(m.Ambiente);
+    result.push_back(m.Categoria);
+    result.push_back(m.Taglia);
+    result.push_back(to_string(m.Sfida));
+    result.push_back(to_string(m.PF));
+    result.push_back(to_string(m.CA));
+    result.push_back(to_string(m.FOR));
+    result.push_back(to_string(m.DES));
+    result.push_back(to_string(m.COST));
+    result.push_back(to_string(m.INT));
+    result.push_back(to_string(m.SAG));
+    result.push_back(to_string(m.CAR));
+}
+
+string convertString(string text, bool remove) {
+    // Converti la stringa in caratteri minuscoli
+    transform(text.begin(), text.end(), text.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
+
+    if (remove) {
+        // Rimuovi gli spazi extra all'inizio e alla fine della stringa
+        text.erase(text.begin(), find_if(text.begin(), text.end(), [](int ch) {
+            return !isspace(ch);
+        }));
+
+        text.erase(find_if(text.rbegin(), text.rend(), [](int ch) {
+            return !isspace(ch);
+        }).base(), text.end());
+    }
+
+    return text;
+}
+
+bool stringSimilarity(const string& text1, const string& text2, bool is1Proc) {
+
+    string processedText1 = is1Proc ? text1 : convertString(text1, true);
+    string processedText2 = convertString(text2, false);
+
+    // Converti processedText1 in un unordered_set<string>
+    unordered_set<string> text1_HS;
+    string parola;
+    for (const char& lettera : text1) {
+        if (lettera == ' ') {
+            text1_HS.insert(parola);
+            parola = string();
+        }
+        else
+            parola += lettera;
+    }
+    text1_HS.insert(parola);
+
+    for (const string& t : text1_HS)
+        if (processedText2.find(t) == string::npos)
+            return false;
+
+    return true;
 }
 
 /****** Funzioni JNI ******/
@@ -149,13 +260,7 @@ Java_com_example_customsearchlibrary_NativeLib_processTablesNative(JNIEnv* env, 
 
     convert2CPP(env, filterTableList, cppFilterTableList);
 
-    unordered_set<int> temp = cppFilterTableList[0];
-    for (int i = 1; i < cppFilterTableList.size(); i++) {
-        result.clear();
-        if (intersect(temp, cppFilterTableList[i], result))
-            break;
-        temp = result;
-    }
+    processTablesNativeCPP(cppFilterTableList, result);
 
     return convert2JNI(env, result);
 }
@@ -168,20 +273,14 @@ Java_com_example_customsearchlibrary_NativeLib_unifyTablesNative(JNIEnv* env, jo
 
     convert2CPP(env, filterTableList, cppFilterTableList);
 
-    for (const unordered_set<int>& cppArrayList : cppFilterTableList)
-        result.insert(cppArrayList.begin(), cppArrayList.end());
+    unifyTablesNativeCPP(cppFilterTableList, result);
 
     return convert2JNI(env, result);
 }
-extern "C"
-JNIEXPORT jstring JNICALL
-Java_com_example_customsearchlibrary_NativeLib_getVersion(JNIEnv *env, jobject /* this */) {
-    return env->NewStringUTF(databaseVersion.c_str());
-}
+
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_example_customsearchlibrary_NativeLib_updateDatabase(JNIEnv *env, jobject /* this */, jobject id,
-                                                              jobject filtri, jobject nomi_filtri) {
+Java_com_example_customsearchlibrary_NativeLib_updateDatabaseNative(JNIEnv *env, jobject /* this */, jobject id, jobject filtri, jobject nomi_filtri) {
 
     ID.clear();
     Filtri.clear();
@@ -195,20 +294,22 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabase(JNIEnv *env, jobje
     // Salva i Mostri
     Mostro m;
     for (int i = 0; i < tempID.size(); i++) {
-        m.Ambiente = tempID[i][0];
-        m.Categoria = tempID[i][1];
-        m.Taglia = tempID[i][2];
-        m.Sfida = stof(tempID[i][3]);
+        m.Nome = tempID[i][0];
+        m.Descrizione = tempID[i][1];
+        m.Ambiente = tempID[i][2];
+        m.Categoria = tempID[i][3];
+        m.Taglia = tempID[i][4];
+        m.Sfida = stof(tempID[i][5]);
         if (m.Sfida < 0)
             m.Sfida = (float) pow(2, m.Sfida);
-        m.PF = stoi(tempID[i][4]);
-        m.CA = stoi(tempID[i][5]);
-        m.FOF = stoi(tempID[i][6]);
-        m.DES = stoi(tempID[i][7]);
-        m.COST = stoi(tempID[i][8]);
-        m.INT = stoi(tempID[i][9]);
-        m.SAG = stoi(tempID[i][10]);
-        m.CAR = stoi(tempID[i][11]);
+        m.PF = stoi(tempID[i][6]);
+        m.CA = stoi(tempID[i][7]);
+        m.FOR = stoi(tempID[i][8]);
+        m.DES = stoi(tempID[i][9]);
+        m.COST = stoi(tempID[i][10]);
+        m.INT = stoi(tempID[i][11]);
+        m.SAG = stoi(tempID[i][12]);
+        m.CAR = stoi(tempID[i][13]);
         ID.insert(make_pair(i, m));
     }
 
@@ -220,4 +321,51 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabase(JNIEnv *env, jobje
         Filtri.insert(make_pair(tempNomiFiltri[i][0], catFiltro));
     }
 
+}
+extern "C"
+JNIEXPORT jobject JNICALL
+Java_com_example_customsearchlibrary_NativeLib_getMostro(JNIEnv *env, jobject /* this */, jobject id) {
+    vector<string> mostro;
+    getMostroCPP(env->CallIntMethod(id, intValueMethod), mostro);
+    return convert2JNI(env, mostro);
+}
+
+extern "C"
+JNIEXPORT jobject JNICALL
+Java_com_example_customsearchlibrary_NativeLib_execSearch(JNIEnv *env, jobject /* this */, jstring text, jobject filter_list) {
+
+    string testo(env->GetStringUTFChars(text, reinterpret_cast<jboolean *>(false)));
+    vector<vector<string>> listaFiltri;
+    convert2CPP(env, filter_list, listaFiltri);
+
+    // Recupero degli ID associati ad ogni Filtro
+    // NB: Si sta supponendo che i filtri passati siano solo Ambiente, Categoria e Taglia (in questo ordine)
+    vector<unordered_set<int>> filterTableList = vector<unordered_set<int>>(3);
+    vector<vector<unordered_set<int>>> idFiltro = vector<vector<unordered_set<int>>>(3);
+    for (const string& filtro : listaFiltri[0])
+        idFiltro[0].push_back(Filtri["Ambiente"][filtro]);
+    for (const string& filtro : listaFiltri[1])
+        idFiltro[1].push_back(Filtri["Categoria"][filtro]);
+    for (const string& filtro : listaFiltri[2])
+        idFiltro[2].push_back(Filtri["Taglia"][filtro]);
+
+    // Applicazione della regola OR tra i filtri della stessa categoria
+    for (int i = 0; i < 3; i++)
+        unifyTablesNativeCPP(idFiltro[i], filterTableList[i]);
+
+    // Applicazione della regola AND tra le categorie di filtro
+    unordered_set<int> listaID;
+    processTablesNativeCPP(filterTableList, listaID);
+
+    // Recupero dei mostri che corrispondono alle specifiche della ricerca
+    vector<vector<string>> result;
+    vector<string> mostro;
+    string processedText = convertString(env->GetStringUTFChars(text, reinterpret_cast<jboolean *>(false)), true);
+    for (const int& id : listaID) {
+        getMostroCPP(id, mostro);
+        if (stringSimilarity(processedText, mostro[0], true))
+            result.push_back(mostro);
+    }
+
+    return convert2JNI(env, result);
 }

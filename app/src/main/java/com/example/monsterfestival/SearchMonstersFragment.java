@@ -3,6 +3,7 @@ package com.example.monsterfestival;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,10 +35,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SearchMonstersFragment extends Fragment {
 
@@ -62,10 +59,6 @@ public class SearchMonstersFragment extends Fragment {
 
     private String _text;
     private SearchFiltersFragment searchFiltersFragment;
-
-    private final NativeLib objectNativeLib = new NativeLib();
-
-    private final Object ThreadLock = new Object();
 
     public SearchMonstersFragment() {
     }
@@ -216,164 +209,42 @@ public class SearchMonstersFragment extends Fragment {
     }
 
     private void applyFilters(String text) {
+        ArrayList<ArrayList<String>> listaFiltri = new ArrayList<>();
 
         dialog.show();
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(() -> {
-            applyFiltersThread(text != null ? text : "");
-        });
-        executor.shutdown();
-
-    }
-
-    private void applyFiltersThread(String text) {
-        ArrayList<ArrayList<Integer>> selectedAmbieteFilters_ID = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> selectedCategoriaFilters_ID = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> selectedTagliaFilters_ID = new ArrayList<>();
-
-        // Definizione di queryFutures come Lista Thread-safe
-        List<CompletableFuture<Void>> queryFutures = Collections.synchronizedList(new ArrayList<>());
-
-        // Creazione dei futuri delle query
+        listaFiltri.add(new ArrayList<>());
         if (isAmbienteSelected)
-            for (String filtro : selectedAmbieteFilters) {
-                queryFutures.add(new CompletableFuture<>());
-                databaseReference.child("Filtri").child("Ambiente").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedAmbieteFilters_ID));
-            }
+            for (String filtro : selectedAmbieteFilters)
+                listaFiltri.get(0).add(filtro);
+        listaFiltri.add(new ArrayList<>());
         if (isCategoriaSelected)
-            for (String filtro : selectedCategoriaFilters) {
-                queryFutures.add(new CompletableFuture<>());
-                databaseReference.child("Filtri").child("Categoria").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedCategoriaFilters_ID));
-            }
+            for (String filtro : selectedCategoriaFilters)
+                listaFiltri.get(0).add(filtro);
+        listaFiltri.add(new ArrayList<>());
         if (isTagliaSelected)
-            for (String filtro : selectedTagliaFilters) {
-                queryFutures.add(new CompletableFuture<>());
-                databaseReference.child("Filtri").child("Taglia").child(filtro).addListenerForSingleValueEvent(createValueEventListener(queryFutures.get(queryFutures.size() - 1), selectedTagliaFilters_ID));
-            }
+            for (String filtro : selectedTagliaFilters)
+                listaFiltri.get(0).add(filtro);
 
-        // Attendi il completamento di tutte le query
-        CompletableFuture<Void> allQueriesFuture = CompletableFuture.allOf(queryFutures.toArray(new CompletableFuture[0]));
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        NativeLib objectNativeLib = new Gson().fromJson(sharedPreferences.getString("objectNativeLib", null), NativeLib.class);
 
-        // Gestisci il completamento di tutte le query
-        allQueriesFuture.thenAccept(ignored -> {
+        ArrayList<ArrayList<String>> tempList = objectNativeLib.execSearch(text, listaFiltri);
+        ArrayList<DataClass> dataList = new ArrayList<>();
+        for (ArrayList<String> element : tempList)
+            dataList.add(new DataClass(element));
 
-            ArrayList<DataClass> tempList = new ArrayList<>();
-            ArrayList<ArrayList<Integer>> filterTableList = new ArrayList<>();
-
-            // Se le liste non sono vuote allora compattale e aggiungile a filterTableList
-            if (selectedAmbieteFilters_ID.size() != 0)
-                filterTableList.add(objectNativeLib.unifyTables(selectedAmbieteFilters_ID));
-            if (selectedCategoriaFilters_ID.size() != 0)
-                filterTableList.add(objectNativeLib.unifyTables(selectedCategoriaFilters_ID));
-            if (selectedTagliaFilters_ID.size() != 0)
-                filterTableList.add(objectNativeLib.unifyTables(selectedTagliaFilters_ID));
-
-            HashSet<String> stringText = convertString2HashSet(text);
-
-            if (filterTableList.size() != 0) {
-                // Esegui una intersezione custom tra i vari HashSet
-                ArrayList<Integer> result = objectNativeLib.processTables(filterTableList);
-                if (result.size() == 0) {
-                    handleSearchResults(new ArrayList<>());
-                    return;
-                }
-
-                List<CompletableFuture<Void>> monsterQueryFutures = Collections.synchronizedList(new ArrayList<>());
-
-                // Creazione dei futuri delle query per i mostri
-                for (Integer ID : result) {
-                    monsterQueryFutures.add(new CompletableFuture<>());
-                    databaseReference.child("ID").orderByKey().startAt(Integer.toString(ID)).limitToFirst(1).addListenerForSingleValueEvent(createValueEventListener(monsterQueryFutures.get(monsterQueryFutures.size() - 1), tempList, stringText));
-                }
-
-                // Attendi il completamento di tutte le query per i mostri
-                CompletableFuture<Void> allMonsterQueriesFuture = CompletableFuture.allOf(monsterQueryFutures.toArray(new CompletableFuture[0]));
-
-                // Gestisci il completamento di tutte le query per i mostri
-                allMonsterQueriesFuture.thenRun(() -> handleSearchResults(tempList));
-            } else {
-                CompletableFuture<Void> future = new CompletableFuture<>();
-                databaseReference.child("ID").addListenerForSingleValueEvent(createValueEventListener(future, tempList, stringText));
-
-                // Attendi il completamento della query
-                future.thenRun(() -> handleSearchResults(tempList));
-            }
-        });
-
-        allQueriesFuture.exceptionally(ex -> {
-            Toast.makeText(getActivity(), getResources().getString(R.string.ricerca_fallita), Toast.LENGTH_SHORT).show();
-            handleSearchResults(new ArrayList<>());
-            return null;
-        });
-
-        // Attendi il completamento di tutte le query
-        try {
-            allQueriesFuture.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<ArrayList<Integer>> tableList) {
-        return new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                synchronized (ThreadLock) {
-                    ArrayList<Integer> set = new ArrayList<>();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        set.add(snapshot.getValue(Integer.class));
-                    }
-                    if (set.size() > 0)
-                        tableList.add(set);
-                    future.complete(null);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                synchronized (ThreadLock) {
-                    future.completeExceptionally(error.toException());
-                }
-            }
-        };
-    }
-
-    private ValueEventListener createValueEventListener(CompletableFuture<Void> future, ArrayList<DataClass> tempList, HashSet<String> text) {
-        return new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                synchronized (ThreadLock) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                        if (text.size() == 0 || stringSimilarity(text, Objects.requireNonNull(snapshot.child("Nome").getValue(String.class))))
-                            tempList.add(new DataClass(snapshot));
-                    future.complete(null);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                synchronized (ThreadLock) {
-                    future.completeExceptionally(error.toException());
-                }
-            }
-        };
-    }
-
-    private void handleSearchResults(ArrayList<DataClass> tempList) {
         dialog.dismiss();
-        if (!tempList.isEmpty())
-            Collections.sort(tempList);
-        adapter.searchDataList(tempList);
+
+        if (!dataList.isEmpty())
+            Collections.sort(dataList);
+        adapter.searchDataList(dataList);
+
     }
 
     private boolean stringSimilarity(String text1, String text2) {
-        return stringSimilarity(convertString2HashSet(text1), text2);
-    }
-    private boolean stringSimilarity(HashSet<String> text1_HS, String text2) {
         text2 = text2.toLowerCase();
-        for (String t : text1_HS)
+        for (String t : convertString2HashSet(text1))
             if (!text2.contains(t))
                 return false;
         return true;

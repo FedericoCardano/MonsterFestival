@@ -2,6 +2,8 @@ package com.example.monsterfestival;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
+
 public class DataClass implements Comparable<DataClass> {
     private final String Ambiete;
     private final String CA;
@@ -66,21 +68,21 @@ public class DataClass implements Comparable<DataClass> {
         return SAG;
     }
 
-    public DataClass(String Ambiete, String CA, String Categoria, String Nome, String PF, String Sfida, String Taglia, String Descrizione, String CAR, String COST, String DES, String FOR, String INT, String SAG) {
-        this.Ambiete = Ambiete;
-        this.CA = CA;
-        this.Categoria = Categoria;
-        this.Nome = Nome;
-        this.PF = PF;
-        this.Sfida = Sfida;
-        this.Taglia = Taglia;
-        this.Descrizione = Descrizione;
-        this.CAR = CAR;
-        this.COST = COST;
-        this.DES = DES;
-        this.FOR = FOR;
-        this.INT = INT;
-        this.SAG = SAG;
+    public DataClass(ArrayList<String> dati) {
+        this.Nome = dati.get(0);
+        this.Descrizione = dati.get(1);
+        this.Ambiete = dati.get(2);
+        this.Categoria = dati.get(3);
+        this.Taglia = dati.get(4);
+        this.Sfida = dati.get(5);
+        this.PF = dati.get(6);
+        this.CA = dati.get(7);
+        this.FOR = dati.get(8);
+        this.DES = dati.get(9);
+        this.COST = dati.get(10);
+        this.INT = dati.get(11);
+        this.SAG = dati.get(12);
+        this.CAR = dati.get(14);
     }
 
     public DataClass(DataSnapshot snapshot) {

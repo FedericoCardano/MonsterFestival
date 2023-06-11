@@ -27,7 +27,7 @@
                 android:id="@+id/tvNome"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="@string/nomeMostro"
+                android:text="@string/Nome"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp" />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/tvCategoria"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/categoria"
+                android:text="@string/Categoria"
                 android:textColor="@color/brawnColor"
                 android:textSize="15sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/taglia"
+                android:text="@string/Taglia"
                 android:textColor="@color/brawnColor"
                 android:textSize="15sp" />
 

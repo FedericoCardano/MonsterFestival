@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SearchFiltersFragment extends Fragment implements View.OnClickListener {
 
@@ -37,6 +38,9 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     private final HashMap<View, ChildModelClass> filtri_ambiente = new HashMap<>();
     private final HashMap<View, ChildModelClass> filtri_categoria = new HashMap<>();
     private final HashMap<View, ChildModelClass> filtri_taglia = new HashMap<>();
+    private final ArrayList<ChildModelClass> filtri_ambiente_ModelClass = new ArrayList<>();
+    private final ArrayList<ChildModelClass> filtri_categoria_ModelClass = new ArrayList<>();
+    private final ArrayList<ChildModelClass> filtri_taglia_ModelClass = new ArrayList<>();
 
     private int white;
     private int rossoPorpora;
@@ -69,9 +73,9 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                 // e in base a quale cartella appartengono (Ambiente, Categoria, Taglia) eseguire il metodo nomeLista.add(new ChildModelClass(Stringa))
                 // (i nomi delle liste sono ambienteList, categoriaList, tagliaList)
                 }
-                parentModelClassArrayList.add(new ParentModelClass("Ambienti", filtri_ambiente));
-                parentModelClassArrayList.add(new ParentModelClass("Categorie", filtri_categoria));
-                parentModelClassArrayList.add(new ParentModelClass("Taglie", filtri_taglia));
+                parentModelClassArrayList.add(new ParentModelClass("Ambienti", filtri_ambiente_ModelClass));
+                parentModelClassArrayList.add(new ParentModelClass("Categorie", filtri_categoria_ModelClass));
+                parentModelClassArrayList.add(new ParentModelClass("Taglie", filtri_taglia_ModelClass));
                 parentAdapter = new ParentAdapter(parentModelClassArrayList, getActivity());
                 recyclerView.setAdapter(parentAdapter);
                 parentAdapter.notifyDataSetChanged();
@@ -198,7 +202,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
             // Filtri Ambiente
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = filtri_ambiente.get(view);
+            String testo = Objects.requireNonNull(filtri_ambiente.get(view)).getNomeFiltro();
             if (SearchMonstersFragment.selectedAmbieteFilters.contains(testo)) {
                 SearchMonstersFragment.selectedAmbieteFilters.remove(testo);
                 lookDeselected((LinearLayout) view);
@@ -211,7 +215,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
             // Filtri Categoria
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = filtri_categoria.get(view);
+            String testo = Objects.requireNonNull(filtri_categoria.get(view)).getNomeFiltro();
             if (SearchMonstersFragment.selectedCategoriaFilters.contains(testo)) {
                 SearchMonstersFragment.selectedCategoriaFilters.remove(testo);
                 lookDeselected((LinearLayout) view);
@@ -224,7 +228,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
             // Filtri Taglia
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = filtri_taglia.get(view);
+            String testo = Objects.requireNonNull(filtri_taglia.get(view)).getNomeFiltro();
             if (SearchMonstersFragment.selectedTagliaFilters.contains(testo)) {
                 SearchMonstersFragment.selectedTagliaFilters.remove(testo);
                 lookDeselected((LinearLayout) view);

@@ -24,15 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-
-    private ArrayList<ArrayList<String>> ID;
-    private ArrayList<ArrayList<ArrayList<Integer>>> Filtri;
-    private ArrayList<ArrayList<String>> nomiFiltri;
 
     private final Object ThreadLock = new Object();
     private int operationCounter = 0;
@@ -61,49 +54,57 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
+
+        String temp = sharedPreferences.getString("objectNativeLib", "");
+        NativeLib objectNativeLib;
+        if (temp.equals(""))
+            objectNativeLib = new NativeLib();
+        else
+            objectNativeLib = new Gson().fromJson(temp, NativeLib.class);
+        databaseReference.child("Filtri").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                objectNativeLib.setFiltri(dataSnapshot);
+                synchronized (ThreadLock) {
+                    if (++operationCounter > 1) {
+                        objectNativeLib.updateDatabase();
+                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+                        editor.apply();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        databaseReference.child("ID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                objectNativeLib.setID(dataSnapshot);
+                synchronized (ThreadLock) {
+                    if (++operationCounter > 1) {
+                        objectNativeLib.updateDatabase();
+                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+                        editor.apply();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
             finish();
         }, 3000);
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
-
-        NativeLib objectNativeLib = new Gson().fromJson(sharedPreferences.getString("objectNativeLib", null), NativeLib.class);
-        databaseReference.child("Filtri").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                /*
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    }
-                    nomiFiltri.add(filterName);
-                }
-                */
-                synchronized (ThreadLock) {
-                    if (++operationCounter > 1)
-                        saveDatabase();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                synchronized (ThreadLock) {
-                    future.completeExceptionally(error.toException());
-                }
-            }
-        });
-        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-        editor.apply(); // o editor.commit();
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private void saveDatabase() {
-
     }
 
 }

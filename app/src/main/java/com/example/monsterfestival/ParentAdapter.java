@@ -5,26 +5,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class ParentAdapter extends RecyclerView.Adapter<ParentViewHolder> {
 
     ArrayList<ParentModelClass> parentModelClassList;
     Context context;
 
-    private ArrayList<ArrayList<View>> childView;
+    private ArrayList<View> childView = new ArrayList<>();
 
-    public ParentAdapter(ArrayList<ParentModelClass> parentModelClassList, Context context) {
+    private final SearchFiltersFragment parentFragment;
+
+    public ParentAdapter(ArrayList<ParentModelClass> parentModelClassList, Context context, SearchFiltersFragment parentFragment) {
         this.parentModelClassList = parentModelClassList;
         this.context = context;
-        this.childView = new ArrayList<>();
+        this.parentFragment = parentFragment;
     }
 
     @NonNull
@@ -45,21 +48,24 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentViewHolder> {
         holder.rv_child.setLayoutManager(new WrapLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.rv_child.setAdapter(childAdapter);
         childAdapter.notifyDataSetChanged();
+        holder.rv_child.requestLayout();
 
-        ArrayList<View> _childView = new ArrayList<>();
-        for (int i = 0; i < holder.rv_child.getChildCount(); i++)
-            _childView.add(holder.rv_child.getChildAt(i));
-        childView.add(_childView);
+        holder.rv_child.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                holder.rv_child.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                ArrayList<View> childView = new ArrayList<>();
+                for (int i = 0; i < holder.rv_child.getChildCount(); i++)
+                    childView.add(holder.rv_child.getChildAt(i));
+                parentFragment.addFilters(childView);
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
         return parentModelClassList.size();
-    }
-
-    public ArrayList<ArrayList<View>> getChildView() {
-        return childView;
     }
 }
 

@@ -93,9 +93,18 @@ public class NativeLib {
         }
     }
 
+    public ArrayList<ArrayList<String>> getID() {
+        return ID;
+    };
+
     @SuppressWarnings("unused")
     public native ArrayList<String> getMostro(Integer ID);
 
-    public native ArrayList<ArrayList<String>> execSearch(String text, ArrayList<ArrayList<String>> filterList);
+    private native ArrayList<ArrayList<String>> execSearchNative(String text, ArrayList<ArrayList<String>> filterList);
 
+    public ArrayList<ArrayList<String>> execSearch(String text, ArrayList<ArrayList<String>> filterList) {
+        if (filterList.size() > 0)
+            return execSearchNative(text == null ? "" : text, filterList);
+        return ID;
+    }
 }

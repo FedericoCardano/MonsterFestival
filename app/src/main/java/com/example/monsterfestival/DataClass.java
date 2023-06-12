@@ -82,7 +82,7 @@ public class DataClass implements Comparable<DataClass> {
         this.COST = dati.get(10);
         this.INT = dati.get(11);
         this.SAG = dati.get(12);
-        this.CAR = dati.get(14);
+        this.CAR = dati.get(13);
     }
 
     public DataClass(DataSnapshot snapshot) {

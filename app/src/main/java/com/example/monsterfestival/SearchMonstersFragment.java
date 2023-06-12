@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -22,25 +21,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 
 public class SearchMonstersFragment extends Fragment {
 
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
-    List<DataClass> dataList;
+    ArrayList<DataClass> dataList;
     @SuppressLint("StaticFieldLeak")
     static MyAdapter adapter;
     @SuppressLint("StaticFieldLeak")
@@ -55,50 +49,46 @@ public class SearchMonstersFragment extends Fragment {
     public static boolean isCategoriaSelected;
     public static boolean isTagliaSelected;
     public static boolean areFiltersApplied;
-    public static boolean areFiltersNotChanged;
 
     private String _text;
     private SearchFiltersFragment searchFiltersFragment;
 
+    private NativeLib objectNativeLib;
+
     public SearchMonstersFragment() {
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_monsters, container, false);
 
         ImageView filtersBtn = view.findViewById(R.id.filters_btn);
         filtersCard = view.findViewById(R.id.filters_card);
-        filtersBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FrameLayout container = requireActivity().findViewById(R.id.frame_access_search);
+        filtersBtn.setOnClickListener(view1 -> {
+            FrameLayout container1 = requireActivity().findViewById(R.id.frame_access_search);
 
-                container.bringToFront();
-                filtersCard.setVisibility(View.INVISIBLE);
-                searchView.setVisibility(View.INVISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
+            container1.bringToFront();
+            filtersCard.setVisibility(View.INVISIBLE);
+            searchView.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
 
-                InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null)
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null)
+                imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
 
-                // Inizializza il Fragment
-                searchFiltersFragment = new SearchFiltersFragment();
+            // Inizializza il Fragment
+            searchFiltersFragment = new SearchFiltersFragment();
 
-                // Ottieni il FragmentManager e inizia la transazione
-                FragmentManager fragmentManager = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            // Ottieni il FragmentManager e inizia la transazione
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                // Aggiunti il Fragment al Container View
-                fragmentTransaction.add(container.getId(), searchFiltersFragment);
+            // Aggiunti il Fragment al Container View
+            fragmentTransaction.add(container1.getId(), searchFiltersFragment);
 
-                // Esegui la transazione
-                fragmentTransaction.commit();
-            }
+            // Esegui la transazione
+            fragmentTransaction.commit();
         });
-
-        searchView = view.findViewById(R.id.search);
-        showSoftKeyboard(searchView);
 
         selectedAmbieteFilters = new HashSet<>();
         selectedCategoriaFilters = new HashSet<>();
@@ -107,7 +97,6 @@ public class SearchMonstersFragment extends Fragment {
         isCategoriaSelected = false;
         isTagliaSelected = false;
         areFiltersApplied = false;
-        areFiltersNotChanged = true;
 
         recyclerView = view.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
@@ -121,23 +110,9 @@ public class SearchMonstersFragment extends Fragment {
         adapter = new MyAdapter(getActivity(), dataList, this);
         recyclerView.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
-        dialog.show();
-        databaseReference.child("ID").addValueEventListener(new ValueEventListener() {
 
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot i : snapshot.getChildren())
-                    dataList.add(new DataClass(i));
-                adapter.notifyDataSetChanged();
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                dialog.dismiss();
-            }
-        });
+        searchView = view.findViewById(R.id.search);
+        showSoftKeyboard(searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -147,21 +122,28 @@ public class SearchMonstersFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.equals("") && !_text.equals(""))
+                if (newText.isEmpty() && !_text.isEmpty())
                     searchList(newText);
-                return false;
+                return true;
             }
         });
+
+        dialog.show();
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        objectNativeLib = new Gson().fromJson(sharedPreferences.getString("objectNativeLib", null), NativeLib.class);
+
+        for (ArrayList<String> element : objectNativeLib.getID())
+            dataList.add(new DataClass(element));
+        adapter.notifyDataSetChanged();
+
+        dialog.dismiss();
 
         return view;
     }
 
     public void searchList(String text) {
         _text = text;
-
-        if (areFiltersNotChanged)
-            return;
-        areFiltersNotChanged = true;
 
         if (areFiltersApplied)
             applyFilters(text);
@@ -204,8 +186,7 @@ public class SearchMonstersFragment extends Fragment {
         // Esegui la transazione
         fragmentTransaction.commit();
 
-        if (!areFiltersNotChanged)
-            applyFilters(_text);
+        applyFilters(_text);
     }
 
     private void applyFilters(String text) {
@@ -220,14 +201,11 @@ public class SearchMonstersFragment extends Fragment {
         listaFiltri.add(new ArrayList<>());
         if (isCategoriaSelected)
             for (String filtro : selectedCategoriaFilters)
-                listaFiltri.get(0).add(filtro);
+                listaFiltri.get(1).add(filtro);
         listaFiltri.add(new ArrayList<>());
         if (isTagliaSelected)
             for (String filtro : selectedTagliaFilters)
-                listaFiltri.get(0).add(filtro);
-
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-        NativeLib objectNativeLib = new Gson().fromJson(sharedPreferences.getString("objectNativeLib", null), NativeLib.class);
+                listaFiltri.get(2).add(filtro);
 
         ArrayList<ArrayList<String>> tempList = objectNativeLib.execSearch(text, listaFiltri);
         ArrayList<DataClass> dataList = new ArrayList<>();

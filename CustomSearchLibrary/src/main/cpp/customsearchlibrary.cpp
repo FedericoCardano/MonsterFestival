@@ -139,6 +139,15 @@ bool intersect(const unordered_set<T>& set1, const unordered_set<T>& set2, unord
     if (set1.size() < set2.size())
         return intersect(set2, set1, finalSet);
 
+    if (set1.empty()) {
+        finalSet = set2;
+        return false;
+    }
+    if (set2.empty()) {
+        finalSet = set1;
+        return false;
+    }
+
     for (const auto& id : set2)
         if (set1.count(id))
             finalSet.insert(id);
@@ -148,6 +157,11 @@ bool intersect(const unordered_set<T>& set1, const unordered_set<T>& set2, unord
 }
 
 void processTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList, unordered_set<int>& result) {
+
+    if (cppFilterTableList.empty()) {
+        result = unordered_set<int>();
+        return;
+    }
 
     unordered_set<int> temp = cppFilterTableList[0];
     for (int i = 1; i < cppFilterTableList.size(); i++) {
@@ -160,6 +174,11 @@ void processTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList
 }
 
 void unifyTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList, unordered_set<int>& result) {
+
+    if (cppFilterTableList.empty()) {
+        result = unordered_set<int>();
+        return;
+    }
 
     for (const unordered_set<int>& cppArrayList : cppFilterTableList)
         result.insert(cppArrayList.begin(), cppArrayList.end());
@@ -332,7 +351,7 @@ Java_com_example_customsearchlibrary_NativeLib_getMostro(JNIEnv *env, jobject /*
 
 extern "C"
 JNIEXPORT jobject JNICALL
-Java_com_example_customsearchlibrary_NativeLib_execSearch(JNIEnv *env, jobject /* this */, jstring text, jobject filter_list) {
+Java_com_example_customsearchlibrary_NativeLib_execSearchNative(JNIEnv *env, jobject /* this */, jstring text, jobject filter_list) {
 
     string testo(env->GetStringUTFChars(text, reinterpret_cast<jboolean *>(false)));
     vector<vector<string>> listaFiltri;
@@ -342,12 +361,24 @@ Java_com_example_customsearchlibrary_NativeLib_execSearch(JNIEnv *env, jobject /
     // NB: Si sta supponendo che i filtri passati siano solo Ambiente, Categoria e Taglia (in questo ordine)
     vector<unordered_set<int>> filterTableList = vector<unordered_set<int>>(3);
     vector<vector<unordered_set<int>>> idFiltro = vector<vector<unordered_set<int>>>(3);
-    for (const string& filtro : listaFiltri[0])
-        idFiltro[0].push_back(Filtri["Ambiente"][filtro]);
-    for (const string& filtro : listaFiltri[1])
-        idFiltro[1].push_back(Filtri["Categoria"][filtro]);
-    for (const string& filtro : listaFiltri[2])
-        idFiltro[2].push_back(Filtri["Taglia"][filtro]);
+
+    if (!listaFiltri[0].empty())
+        for (const string& filtro : listaFiltri[0])
+            idFiltro[0].push_back(Filtri["Ambiente"][filtro]);
+    else
+        idFiltro[0].push_back(unordered_set<int>());
+
+    if (!listaFiltri[1].empty())
+        for (const string& filtro : listaFiltri[1])
+            idFiltro[1].push_back(Filtri["Categoria"][filtro]);
+    else
+        idFiltro[1].push_back(unordered_set<int>());
+
+    if (!listaFiltri[2].empty())
+        for (const string& filtro : listaFiltri[2])
+            idFiltro[2].push_back(Filtri["Taglia"][filtro]);
+    else
+        idFiltro[2].push_back(unordered_set<int>());
 
     // Applicazione della regola OR tra i filtri della stessa categoria
     for (int i = 0; i < 3; i++)

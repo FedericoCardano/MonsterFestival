@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class ChildAdapter extends RecyclerView.Adapter<ChildViewHolder> {
     @NonNull
     @Override
     public ChildViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.child_rv_layout, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_rv_layout, parent, false);
         return new ChildViewHolder(view);
     }
 

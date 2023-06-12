@@ -2,6 +2,8 @@ package com.example.monsterfestival;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.customsearchlibrary.NativeLib;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,12 +40,13 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     RecyclerView recyclerView;
     ArrayList<ParentModelClass> parentModelClassArrayList;
     ParentAdapter parentAdapter;
-    private final HashMap<View, ChildModelClass> filtri_ambiente = new HashMap<>();
-    private final HashMap<View, ChildModelClass> filtri_categoria = new HashMap<>();
-    private final HashMap<View, ChildModelClass> filtri_taglia = new HashMap<>();
-    private final ArrayList<ChildModelClass> filtri_ambiente_ModelClass = new ArrayList<>();
-    private final ArrayList<ChildModelClass> filtri_categoria_ModelClass = new ArrayList<>();
-    private final ArrayList<ChildModelClass> filtri_taglia_ModelClass = new ArrayList<>();
+
+    private final HashMap<View, String> filtri_ambiente_HM = new HashMap<>();
+    private final HashMap<View, String> filtri_categoria_HM = new HashMap<>();
+    private final HashMap<View, String> filtri_taglia_HM = new HashMap<>();
+    private final ArrayList<ChildModelClass> filtri_ambiente = new ArrayList<>();
+    private final ArrayList<ChildModelClass> filtri_categoria = new ArrayList<>();
+    private final ArrayList<ChildModelClass> filtri_taglia = new ArrayList<>();
 
     private int white;
     private int rossoPorpora;
@@ -50,75 +56,77 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_search_filters, container, false);
 
-
-        recyclerView = rootView.findViewById(R.id.rv_parent);
-        parentModelClassArrayList = new ArrayList<>();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_layout);
-        dialog = builder.create();
-        dialog.show();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
-        dialog.show();
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                DataSnapshot itemSnapshot = snapshot.child("Filtri");
-                for (DataSnapshot i : itemSnapshot.getChildren()) {
-                //TODO: salvarsi il nome dei filtri (che sono delle cartelle) dentro una stringa,
-                // e in base a quale cartella appartengono (Ambiente, Categoria, Taglia) eseguire il metodo nomeLista.add(new ChildModelClass(Stringa))
-                // (i nomi delle liste sono ambienteList, categoriaList, tagliaList)
-                }
-                parentModelClassArrayList.add(new ParentModelClass("Ambienti", filtri_ambiente_ModelClass));
-                parentModelClassArrayList.add(new ParentModelClass("Categorie", filtri_categoria_ModelClass));
-                parentModelClassArrayList.add(new ParentModelClass("Taglie", filtri_taglia_ModelClass));
-                parentAdapter = new ParentAdapter(parentModelClassArrayList, getActivity());
-                recyclerView.setAdapter(parentAdapter);
-                parentAdapter.notifyDataSetChanged();
-                dialog.dismiss();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                dialog.dismiss();
-            }
-        });
-
-
         initColors();
         initAll();
         SearchMonstersFragment.areFiltersNotChanged = true;
 
         clearFilters.setOnClickListener(this);
 
-        for (View view : filtri_ambiente.keySet()) {
+        for (View view : filtri_ambiente_HM.keySet()) {
             view.setOnClickListener(this);
-            if (SearchMonstersFragment.isAmbienteSelected && SearchMonstersFragment.selectedAmbieteFilters.contains(filtri_ambiente.get(view)))
+            if (SearchMonstersFragment.isAmbienteSelected && SearchMonstersFragment.selectedAmbieteFilters.contains(filtri_ambiente_HM.get(view)))
                 lookSelected((LinearLayout) view);
         }
 
-        for (View view : filtri_categoria.keySet()) {
+        for (View view : filtri_categoria_HM.keySet()) {
             view.setOnClickListener(this);
-            if (SearchMonstersFragment.isCategoriaSelected && SearchMonstersFragment.selectedCategoriaFilters.contains(filtri_categoria.get(view)))
+            if (SearchMonstersFragment.isCategoriaSelected && SearchMonstersFragment.selectedCategoriaFilters.contains(filtri_categoria_HM.get(view)))
                 lookSelected((LinearLayout) view);
         }
 
-        for (View view : filtri_taglia.keySet()) {
+        for (View view : filtri_taglia_HM.keySet()) {
             view.setOnClickListener(this);
-            if (SearchMonstersFragment.isTagliaSelected && SearchMonstersFragment.selectedTagliaFilters.contains(filtri_taglia.get(view)))
+            if (SearchMonstersFragment.isTagliaSelected && SearchMonstersFragment.selectedTagliaFilters.contains(filtri_taglia_HM.get(view)))
                 lookSelected((LinearLayout) view);
         }
 
         return rootView;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void initAll() {
         clearFilters = rootView.findViewById(R.id.id_clear_btn);
 
+        recyclerView = rootView.findViewById(R.id.rv_parent);
+        parentModelClassArrayList = new ArrayList<>();
 
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String temp = sharedPreferences.getString("objectNativeLib", "");
+        NativeLib objectNativeLib;
+        if (temp.equals(""))
+            objectNativeLib = new NativeLib();
+        else
+            objectNativeLib = new Gson().fromJson(temp, NativeLib.class);
+
+
+        for (int i = 1; i < objectNativeLib.nomiFiltri.get(0).size(); i++) {
+            filtri_ambiente.add(new ChildModelClass(objectNativeLib.nomiFiltri.get(0).get(i)));
+        }
+        for (int i = 1; i < objectNativeLib.nomiFiltri.get(2).size(); i++) {
+            filtri_categoria.add(new ChildModelClass(objectNativeLib.nomiFiltri.get(2).get(i)));
+        }
+        for (int i = 1; i < objectNativeLib.nomiFiltri.get(5).size(); i++) {
+            filtri_taglia.add(new ChildModelClass(objectNativeLib.nomiFiltri.get(5).get(i)));
+        }
+
+        parentModelClassArrayList.add(new ParentModelClass("Ambienti", filtri_ambiente));
+        parentModelClassArrayList.add(new ParentModelClass("Categorie", filtri_categoria));
+        parentModelClassArrayList.add(new ParentModelClass("Taglie", filtri_taglia));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        recyclerView.setLayoutManager(layoutManager);
+        parentAdapter = new ParentAdapter(parentModelClassArrayList, requireContext());
+        recyclerView.setAdapter(parentAdapter);
+        parentAdapter.notifyDataSetChanged();
+
+        // TODO: mettere una wait per via dei thread
+        ArrayList<ArrayList<View>> childList = parentAdapter.getChildView();
+        for (int i = 0; i < childList.get(0).size(); i++)
+            filtri_ambiente_HM.put(childList.get(0).get(i), filtri_ambiente.get(i).getNomeFiltro());
+        for (int i = 0; i < childList.get(1).size(); i++)
+            filtri_categoria_HM.put(childList.get(1).get(i), filtri_categoria.get(i).getNomeFiltro());
+        for (int i = 0; i < childList.get(2).size(); i++)
+            filtri_taglia_HM.put(childList.get(2).get(i), filtri_taglia.get(i).getNomeFiltro());
 
         /*
 
@@ -198,11 +206,11 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
             if (fragment != null)
                 fragment.setFilters();
 
-        } else if (filtri_ambiente.containsKey(view)) {
+        } else if (filtri_ambiente_HM.containsKey(view)) {
             // Filtri Ambiente
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = Objects.requireNonNull(filtri_ambiente.get(view)).getNomeFiltro();
+            String testo = Objects.requireNonNull(filtri_ambiente_HM.get(view));
             if (SearchMonstersFragment.selectedAmbieteFilters.contains(testo)) {
                 SearchMonstersFragment.selectedAmbieteFilters.remove(testo);
                 lookDeselected((LinearLayout) view);
@@ -211,11 +219,11 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                 lookSelected((LinearLayout) view);
             }
 
-        } else if (filtri_categoria.containsKey(view)) {
+        } else if (filtri_categoria_HM.containsKey(view)) {
             // Filtri Categoria
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = Objects.requireNonNull(filtri_categoria.get(view)).getNomeFiltro();
+            String testo = Objects.requireNonNull(filtri_categoria_HM.get(view));
             if (SearchMonstersFragment.selectedCategoriaFilters.contains(testo)) {
                 SearchMonstersFragment.selectedCategoriaFilters.remove(testo);
                 lookDeselected((LinearLayout) view);
@@ -224,11 +232,11 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
                 lookSelected((LinearLayout) view);
             }
 
-        } else if (filtri_taglia.containsKey(view)) {
+        } else if (filtri_taglia_HM.containsKey(view)) {
             // Filtri Taglia
             SearchMonstersFragment.areFiltersNotChanged = false;
 
-            String testo = Objects.requireNonNull(filtri_taglia.get(view)).getNomeFiltro();
+            String testo = Objects.requireNonNull(filtri_taglia_HM.get(view));
             if (SearchMonstersFragment.selectedTagliaFilters.contains(testo)) {
                 SearchMonstersFragment.selectedTagliaFilters.remove(testo);
                 lookDeselected((LinearLayout) view);

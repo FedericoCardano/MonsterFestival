@@ -9,7 +9,7 @@ public class NativeLib {
 
     private ArrayList<ArrayList<String>> ID;
     private ArrayList<ArrayList<ArrayList<Integer>>> Filtri;
-    private ArrayList<ArrayList<String>> nomiFiltri;
+    public ArrayList<ArrayList<String>> nomiFiltri;
 
     // Used to load the 'customsearchlibrary' library on application startup.
     static {

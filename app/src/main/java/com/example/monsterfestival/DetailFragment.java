@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 
 public class DetailFragment extends Fragment {
 
@@ -74,6 +76,31 @@ public class DetailFragment extends Fragment {
 
                 SearchMonstersFragment.searchView.setVisibility(View.VISIBLE);
                 SearchMonstersFragment.filtersCard.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // TODO: mettere una wait per via dei thread
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cart cart = CartHelper.getCart();
+                ArrayList<String> dati = new ArrayList<>();
+                dati.add(bundle.getString("Nome"));
+                dati.add(bundle.getString("Descrizione"));
+                dati.add(bundle.getString("Ambiente"));
+                dati.add(bundle.getString("Categoria"));
+                dati.add(bundle.getString("Taglia"));
+                dati.add(bundle.getString("Sfida"));
+                dati.add(bundle.getString("PF"));
+                dati.add(bundle.getString("CA"));
+                dati.add(bundle.getString("FOR"));
+                dati.add(bundle.getString("DES"));
+                dati.add(bundle.getString("COST"));
+                dati.add(bundle.getString("INT"));
+                dati.add(bundle.getString("SAG"));
+                dati.add(bundle.getString("CAR"));
+                DataClass dataClass = new DataClass(dati);
+                cart.add(dataClass, 1, getContext());
             }
         });
 

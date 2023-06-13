@@ -4,6 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,19 +22,12 @@ import android.os.Looper;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
 
-import com.example.customsearchlibrary.NativeLib;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.concurrent.TimeUnit;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-
-    private final Object ThreadLock = new Object();
-    private int operationCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,59 +51,40 @@ public class SplashActivity extends AppCompatActivity {
             } catch (PackageManager.NameNotFoundException e) {
                 // Handle the exception (TO DO)
             }
+
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> { });
+            FirebaseMessaging.getInstance().subscribeToTopic("Aggiornamenti_Database").addOnCompleteListener(task -> { });
+
+            PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
+                    DatabaseUpdateWorker.class,
+                    /* intervallo di controllo in millisecondi */ 24 * 60 * 60 * 1000,
+                    TimeUnit.MILLISECONDS
+            ).build();
+
+
+            Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
+            OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(DatabaseUpdateWorker.class).setConstraints(constraints).build();
+            WorkManager.getInstance(this).enqueue(workRequest);
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork("Aggiornamenti_Database", ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
         }
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
-
-        String temp = sharedPreferences.getString("objectNativeLib", "");
-        NativeLib objectNativeLib;
-        if (temp.equals(""))
-            objectNativeLib = new NativeLib();
         else
-            objectNativeLib = new Gson().fromJson(temp, NativeLib.class);
-        databaseReference.child("Filtri").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                objectNativeLib.setFiltri(dataSnapshot);
-                synchronized (ThreadLock) {
-                    if (++operationCounter > 1) {
-                        objectNativeLib.updateDatabase();
-                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-                        editor.apply();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-        databaseReference.child("ID").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                objectNativeLib.setID(dataSnapshot);
-                synchronized (ThreadLock) {
-                    if (++operationCounter > 1) {
-                        objectNativeLib.updateDatabase();
-                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-                        editor.apply();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
-
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
-            finish();
-        }, 3000);
+            continueCode();
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        continueCode();
+    }
+
+    private void continueCode() {
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+            finish();
+        }, 3000);
+
     }
 
 }

@@ -2,23 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"
+    <uses-permission
+        android:name="android.permission.INTERNET"
         android:protectionLevel="normal"
         android:required="true" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
         android:protectionLevel="normal"
         android:required="false" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:protectionLevel="dangerous"
         android:required="false" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"
         android:protectionLevel="dangerous"
-        android:required="false"
-        android:maxSdkVersion="29" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NOTIFICATION_POLICY"
         android:protectionLevel="normal"
         android:required="false" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:protectionLevel="normal"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED"
         android:protectionLevel="normal"
         android:required="false" />
 
@@ -27,12 +37,22 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/nome_app"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MonsterFestival"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="32">
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="false"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".WelcomeActivity"
             android:exported="false" />
@@ -52,6 +72,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher_round" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/black" />
     </application>
 
 </manifest>

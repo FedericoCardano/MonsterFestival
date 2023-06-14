@@ -34,8 +34,6 @@
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
     <string name="chiudi">Chiudi</string>
-    <string name="aggiungi_mostro_1">Aggiungi il Primo Mostro</string>
-    <string name="aggiungi_mostro_2">Aggiungi il Secondo Mostro</string>
 
     <string name="Titolo">Title</string>
     <string name="Ambiete">Ambiete:</string>
@@ -67,9 +65,25 @@
     <string name="cerca">Cerca…</string>
     <string name="seleziona">Seleziona</string>
     <string name="applica">Applica</string>
+    <string name="torna_indietro">Torna Indietro</string>
+
+    <string name="nome_compare_monsters">Confronto Mostri</string>
+    <string name="nome_compare_parties">Confronto Party</string>
+    <string name="nome_detailt_monster">Scheda Mostro</string>
+    <string name="nome_my_parties">I miei Party</string>
+    <string name="nome_party_creation">Creazione Party</string>
+    <string name="nome_search">Ricerca</string>
+    <string name="nome_search_filters">Filtri Ricerca</string>
 
     <string name="bottone_filtri">Filter Button</string>
     <string name="filtro_Ambieti">Ambienti</string>
     <string name="filtro_Categorie">Categorie</string>
     <string name="filtro_Taglie">Taglie</string>
+
+    <string name="aggiungi_mostro_1">Aggiungi il Primo Mostro</string>
+    <string name="aggiungi_mostro_2">Aggiungi il Secondo Mostro</string>
+
+    <string name="numero_mostri">Numero mostri</string>
+    <string name="aggiungi_mostro">Aggiungi mostro</string>
+    <string name="salva_party">Salva party</string>
 </resources>

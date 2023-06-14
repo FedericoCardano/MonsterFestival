@@ -1,9 +1,11 @@
 package com.example.monsterfestival;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +20,10 @@ import java.util.ArrayList;
 public class DetailFragment extends Fragment {
 
     TextView detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
-    FloatingActionButton addButton, closeButton;
+    FloatingActionButton addButton;
 
     Fragment parent;
+    OnFragmentVisibleListener fragmentVisibleListener;
 
     void setParent(Fragment _parent) {
         parent = _parent;
@@ -66,42 +69,25 @@ public class DetailFragment extends Fragment {
             detailTaglia.setText(bundle.getString("Taglia"));
         }
 
-        closeButton = view.findViewById(R.id.close_btn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.remove(DetailFragment.this);
-                fragmentTransaction.commit();
-
-                SearchMonstersFragment.searchView.setVisibility(View.VISIBLE);
-                SearchMonstersFragment.filtersCard.setVisibility(View.VISIBLE);
-            }
-        });
-
-        // TODO: mettere una wait per via dei thread
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cart cart = CartHelper.getCart();
-                ArrayList<String> dati = new ArrayList<>();
-                dati.add(bundle.getString("Nome"));
-                dati.add(bundle.getString("Descrizione"));
-                dati.add(bundle.getString("Ambiente"));
-                dati.add(bundle.getString("Categoria"));
-                dati.add(bundle.getString("Taglia"));
-                dati.add(bundle.getString("Sfida"));
-                dati.add(bundle.getString("PF"));
-                dati.add(bundle.getString("CA"));
-                dati.add(bundle.getString("FOR"));
-                dati.add(bundle.getString("DES"));
-                dati.add(bundle.getString("COST"));
-                dati.add(bundle.getString("INT"));
-                dati.add(bundle.getString("SAG"));
-                dati.add(bundle.getString("CAR"));
-                DataClass dataClass = new DataClass(dati);
-                cart.add(dataClass, 1, getContext());
-            }
+        addButton.setOnClickListener(view1 -> {
+            Cart cart = CartHelper.getCart();
+            ArrayList<String> dati = new ArrayList<>();
+            dati.add(bundle.getString("Nome"));
+            dati.add(bundle.getString("Descrizione"));
+            dati.add(bundle.getString("Ambiente"));
+            dati.add(bundle.getString("Categoria"));
+            dati.add(bundle.getString("Taglia"));
+            dati.add(bundle.getString("Sfida"));
+            dati.add(bundle.getString("PF"));
+            dati.add(bundle.getString("CA"));
+            dati.add(bundle.getString("FOR"));
+            dati.add(bundle.getString("DES"));
+            dati.add(bundle.getString("COST"));
+            dati.add(bundle.getString("INT"));
+            dati.add(bundle.getString("SAG"));
+            dati.add(bundle.getString("CAR"));
+            DataClass dataClass = new DataClass(dati);
+            cart.add(dataClass, 1, getContext());
         });
 
         if (parent != null) {
@@ -117,5 +103,21 @@ public class DetailFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentVisibleListener) {
+            fragmentVisibleListener = (OnFragmentVisibleListener) context;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentVisibleListener != null) {
+            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_detailt_monster));
+        }
     }
 }

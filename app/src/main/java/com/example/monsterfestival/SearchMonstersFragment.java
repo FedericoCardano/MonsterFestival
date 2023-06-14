@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -31,6 +33,8 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class SearchMonstersFragment extends Fragment {
+
+    OnFragmentVisibleListener fragmentVisibleListener;
 
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
@@ -230,6 +234,22 @@ public class SearchMonstersFragment extends Fragment {
 
     private HashSet<String> convertString2HashSet(String text) {
         return new HashSet<>(Arrays.asList(text.toLowerCase().split(" ")));
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentVisibleListener) {
+            fragmentVisibleListener = (OnFragmentVisibleListener) context;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentVisibleListener != null) {
+            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_search));
+        }
     }
 
 }

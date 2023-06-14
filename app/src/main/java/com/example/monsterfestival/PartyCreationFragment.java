@@ -1,8 +1,12 @@
 package com.example.monsterfestival;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.nfc.Tag;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 public class PartyCreationFragment extends Fragment {
+
+    OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
     AppCompatButton btnAddMonster;
@@ -107,8 +113,25 @@ public class PartyCreationFragment extends Fragment {
         rootView.findViewById(R.id.bottomBox).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 
+    @SuppressLint("SetTextI18n")
     public void changeTotalMonstersNumber(Cart cart) {
         numMostri = rootView.findViewById(R.id.tvNumeroMostri);
         numMostri.setText(Integer.toString(cart.getTotalQuantity()));
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentVisibleListener) {
+            fragmentVisibleListener = (OnFragmentVisibleListener) context;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentVisibleListener != null) {
+            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_party_creation));
+        }
     }
 }

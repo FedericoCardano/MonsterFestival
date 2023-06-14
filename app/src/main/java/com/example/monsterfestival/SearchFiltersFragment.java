@@ -25,6 +25,8 @@ import java.util.Objects;
 
 public class SearchFiltersFragment extends Fragment implements View.OnClickListener {
 
+    OnFragmentVisibleListener fragmentVisibleListener;
+
     View rootView;
     private TextView clearFilters;
     RecyclerView recyclerView;
@@ -204,5 +206,21 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         View view = selectedFilter.findViewById(R.id.tv_child_item);
         view.setBackgroundColor(white);
         ((TextView) view).setTextColor(black);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentVisibleListener) {
+            fragmentVisibleListener = (OnFragmentVisibleListener) context;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentVisibleListener != null) {
+            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_search_filters));
+        }
     }
 }

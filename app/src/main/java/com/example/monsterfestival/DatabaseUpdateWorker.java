@@ -2,6 +2,7 @@ package com.example.monsterfestival;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -27,6 +28,8 @@ public class DatabaseUpdateWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+
+        Log.d("MyDatabaseUpdateWorker", "Inizio fase di controllo aggiornamenti");
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

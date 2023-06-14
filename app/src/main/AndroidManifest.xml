@@ -5,9 +5,17 @@
     <uses-permission
         android:name="android.permission.INTERNET"
         android:protectionLevel="normal"
-        android:required="true" />
+        android:required="false" />
     <uses-permission
         android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:protectionLevel="normal"
+        android:required="true" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:protectionLevel="normal"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED"
         android:protectionLevel="normal"
         android:required="false" />
     <uses-permission
@@ -18,18 +26,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"
         android:protectionLevel="dangerous"
-        android:required="false" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NOTIFICATION_POLICY"
-        android:protectionLevel="normal"
-        android:required="false" />
-    <uses-permission
-        android:name="android.permission.POST_NOTIFICATIONS"
-        android:protectionLevel="normal"
-        android:required="false" />
-    <uses-permission
-        android:name="android.permission.RECEIVE_BOOT_COMPLETED"
-        android:protectionLevel="normal"
         android:required="false" />
 
     <application

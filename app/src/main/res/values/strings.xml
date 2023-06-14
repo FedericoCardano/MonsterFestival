@@ -28,6 +28,9 @@
     <string name="login_riuscito">Login effettuato con Successo</string>
     <string name="login_fallito">Login non riuscito, riprovare…</string>
     <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
+    <string name="primo_accesso">Primo Accesso</string>
+    <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
+    <string name="riprova">Riprova</string>
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
     <string name="chiudi">Chiudi</string>

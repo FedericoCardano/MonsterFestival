@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class PartyCreationFragment extends Fragment {
     RecyclerView recyclerView;
     AppCompatButton btnAddMonster;
     View rootView;
+    TextView numMostri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,10 @@ public class PartyCreationFragment extends Fragment {
 
         final Cart cart = CartHelper.getCart();
 
+        changeTotalMonstersNumber(cart);
 
-        final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext());
+
+        final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
 
@@ -101,5 +105,10 @@ public class PartyCreationFragment extends Fragment {
     void setAllVisibility(boolean value) {
         rootView.findViewById(R.id.appBarLayout).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
         rootView.findViewById(R.id.bottomBox).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    public void changeTotalMonstersNumber(Cart cart) {
+        numMostri = rootView.findViewById(R.id.tvNumeroMostri);
+        numMostri.setText(Integer.toString(cart.getTotalQuantity()));
     }
 }

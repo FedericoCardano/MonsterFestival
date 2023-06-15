@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class SearchMonstersFragment extends Fragment {
+public class SearchMonstersFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
@@ -248,8 +248,14 @@ public class SearchMonstersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_search));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_search));
         }
+    }
+
+    public void ripristinaVisibilitaElementi() {
+        filtersCard.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
 }

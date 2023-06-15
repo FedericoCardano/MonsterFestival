@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements OnFragmentRemoveListener {
 
     TextView detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton addButton;
@@ -117,7 +117,11 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_detailt_monster));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_detailt_monster));
         }
+    }
+
+    public void ripristinaVisibilitaElementi() {
+
     }
 }

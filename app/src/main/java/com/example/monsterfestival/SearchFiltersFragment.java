@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class SearchFiltersFragment extends Fragment implements View.OnClickListener {
+public class SearchFiltersFragment extends Fragment implements View.OnClickListener, OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
@@ -220,7 +220,11 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_search_filters));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_search_filters));
         }
+    }
+
+    public void ripristinaVisibilitaElementi() {
+
     }
 }

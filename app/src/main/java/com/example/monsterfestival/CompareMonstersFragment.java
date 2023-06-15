@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.Objects;
 
-public class CompareMonstersFragment extends Fragment {
+public class CompareMonstersFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
@@ -51,7 +52,12 @@ public class CompareMonstersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_compare_monsters));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_compare_monsters));
         }
+    }
+
+    @Override
+    public void ripristinaVisibilitaElementi() {
+
     }
 }

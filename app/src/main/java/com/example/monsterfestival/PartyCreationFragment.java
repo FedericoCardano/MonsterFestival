@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PartyCreationFragment extends Fragment {
+public class PartyCreationFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
@@ -47,12 +47,7 @@ public class PartyCreationFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_party_creation, container, false);
 
         btnAddMonster = rootView.findViewById(R.id.btnAddMonster);
-        btnAddMonster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                creaSearchMonsters();
-            }
-        });
+        btnAddMonster.setOnClickListener(view -> creaSearchMonsters());
 
         recyclerView = rootView.findViewById(R.id.rvCartItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
@@ -131,7 +126,17 @@ public class PartyCreationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_party_creation));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_party_creation));
         }
+    }
+
+    public void ripristinaVisibilitaElementi() {
+        setAllVisibility(true);
+
+        final Cart cart = CartHelper.getCart();
+        changeTotalMonstersNumber(cart);
+        final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
+        recyclerView.setAdapter(cartItemAdapter);
+        cartItemAdapter.updateCartItems(getCartItems(cart));
     }
 }

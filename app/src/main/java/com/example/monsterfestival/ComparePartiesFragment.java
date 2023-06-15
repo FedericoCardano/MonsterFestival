@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ComparePartiesFragment extends Fragment {
+public class ComparePartiesFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
@@ -49,7 +49,11 @@ public class ComparePartiesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(view.getId(), getResources().getString(R.string.nome_compare_parties));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_compare_parties));
         }
+    }
+
+    public void ripristinaVisibilitaElementi() {
+
     }
 }

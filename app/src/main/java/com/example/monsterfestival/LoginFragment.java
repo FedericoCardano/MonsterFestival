@@ -38,66 +38,57 @@ public class LoginFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         textView = view.findViewById(R.id.registerRedirectText);
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() instanceof WelcomeActivity) {
-                    WelcomeActivity activity = (WelcomeActivity) getActivity();
-                    if (activity != null)
-                        activity.mostraRegister();
-                }
-                else {
-                    AccountFragment fragment = (AccountFragment) getParentFragment();
-                    if (fragment != null)
-                        fragment.mostraRegister();
-                }
+        textView.setOnClickListener(view12 -> {
+            if (getActivity() instanceof WelcomeActivity) {
+                WelcomeActivity activity = (WelcomeActivity) getActivity();
+                if (activity != null)
+                    activity.mostraRegister();
+            }
+            else {
+                AccountFragment fragment = (AccountFragment) getParentFragment();
+                if (fragment != null)
+                    fragment.mostraRegister();
             }
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
+        buttonLogin.setOnClickListener(view1 -> {
+            progressBar.setVisibility(View.VISIBLE);
+            String email, password;
+            email = String.valueOf(editTextEmail.getText());
+            password = String.valueOf(editTextPassword.getText());
 
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(getActivity(), "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)){
-                    Toast.makeText(getActivity(), "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), getResources().getString(R.string.login_riuscito), Toast.LENGTH_SHORT).show();
-
-                                    if (getActivity() instanceof WelcomeActivity) {
-                                        WelcomeActivity activity = (WelcomeActivity) getActivity();
-                                        if (activity != null)
-                                            activity.mostraRegister();
-                                    }
-                                    else {
-                                        AccountFragment fragment = (AccountFragment) getParentFragment();
-                                        if (fragment != null)
-                                            fragment.mostraRegister();
-                                    }
-
-                                } else {
-                                    Toast.makeText(getActivity(), getResources().getString(R.string.login_fallito), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
+            if (TextUtils.isEmpty(email)){
+                Toast.makeText(getActivity(), "Enter email", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (TextUtils.isEmpty(password)){
+                Toast.makeText(getActivity(), "Enter password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.login_riuscito), Toast.LENGTH_SHORT).show();
+
+                            if (getActivity() instanceof WelcomeActivity) {
+                                WelcomeActivity activity = (WelcomeActivity) getActivity();
+                                if (activity != null)
+                                    activity.mostraRegister();
+                            }
+                            else {
+                                AccountFragment fragment = (AccountFragment) getParentFragment();
+                                if (fragment != null)
+                                    fragment.mostraRegister();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.login_fallito), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
         });
 
         return view;

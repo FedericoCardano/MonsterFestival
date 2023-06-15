@@ -43,7 +43,6 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootView = inflater.inflate(R.layout.fragment_party_creation, container, false);
 
         btnAddMonster = rootView.findViewById(R.id.btnAddMonster);
@@ -57,13 +56,9 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         changeTotalMonstersNumber(cart);
 
-
         final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
-
-
-
 
         return rootView;
     }
@@ -88,7 +83,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     }
 
     private List<CartItem> getCartItems(Cart cart) {
-        List<CartItem> cartItems = new ArrayList<CartItem>();
+        List<CartItem> cartItems = new ArrayList<>();
 
         Map<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 

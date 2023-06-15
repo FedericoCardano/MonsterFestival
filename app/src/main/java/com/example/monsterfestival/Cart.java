@@ -4,47 +4,40 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Cart {
-    private Map<DataClass, Integer> cartItemMap = new HashMap<DataClass, Integer>();
+    private HashMap<DataClass, Integer> cartItemMap = new HashMap<>();
     private int totalQuantity = 0;
 
     public void add(DataClass dataClass, int quantity, Context context) {
-        if (cartItemMap.size() == 0) {
+        if (cartItemMap.size() == 10)
+            Toast.makeText(context,"Party al completo (10 diversi mostri massimo)", Toast.LENGTH_SHORT).show();
+        else if (cartItemMap.size() == 0 || !doesContain(dataClass)) {
             cartItemMap.put(dataClass, quantity);
             totalQuantity += quantity;
             Toast.makeText(context,"Mostro aggiunto al party", Toast.LENGTH_SHORT).show();
         }
-        else {
-            for (Map.Entry<DataClass, Integer> entry : cartItemMap.entrySet()) {
-                Log.d("ADebugTag", "Value: " + entry.getKey().getNome());
-                if (entry.getKey().getNome().equals(dataClass.getNome())) {
-                    Toast.makeText(context,"Mostro già presente nel party", Toast.LENGTH_SHORT).show();
-                } else {
-                    cartItemMap.put(dataClass, quantity);
-                    totalQuantity += quantity;
-                    Toast.makeText(context,"Mostro aggiunto al party", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
+        else
+            Toast.makeText(context,"Il mostro è già presente nel party", Toast.LENGTH_SHORT).show();
     }
 
     public int getTotalQuantity() {return this.totalQuantity;}
 
     public void setTotalQuantity(int totalQuantity) {this.totalQuantity = totalQuantity;}
 
-    public Map<DataClass, Integer> getItemWithQuantity() {
-        Map<DataClass, Integer> cartItemMap = new HashMap<DataClass, Integer>();
-        cartItemMap.putAll(this.cartItemMap);
-        return cartItemMap;
+    public HashMap<DataClass, Integer> getItemWithQuantity() {
+        return new HashMap<>(this.cartItemMap);
     }
 
-    public void changeCart(Map<DataClass, Integer> itemMap) {
-        Map<DataClass, Integer> cartItemMap = new HashMap<DataClass, Integer>();
-        cartItemMap.putAll(this.cartItemMap);
-        this.cartItemMap = itemMap;
+    public void changeCart(HashMap<DataClass, Integer> itemMap) {
+        this.cartItemMap = new HashMap<>(itemMap);
+    }
+
+    public boolean doesContain(DataClass dataClass) {
+        for (DataClass _dataClass : cartItemMap.keySet())
+            if (_dataClass.getNome().equals(dataClass.getNome()))
+                return true;
+        return false;
     }
 }

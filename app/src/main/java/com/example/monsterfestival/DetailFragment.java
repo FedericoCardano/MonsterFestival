@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.pdf.PdfDocument;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,12 +25,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfWriter;
 
+import com.itextpdf.io.source.ByteArrayOutputStream;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 
-
-import org.w3c.dom.Document;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -225,7 +225,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
         fragmentBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] bitmapData = baos.toByteArray();
 
-        /*// Crea un nuovo documento PDF
+        // Crea un nuovo documento PDF
         PdfDocument document = new PdfDocument(new PdfWriter(filePath));
         Document pdfDocument = new Document(document);
 
@@ -235,7 +235,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
 
         // Chiusura del documento
         document.close();
-*/
+
         if (addButtonVisibility)
             addButton.setVisibility(View.VISIBLE);
         exportButton.setVisibility(View.VISIBLE);

@@ -118,18 +118,12 @@ public class NativeLib {
             nomiParty.add(snapshot.getKey());
 
             ArrayList<ArrayList<Integer>> _party = new ArrayList<>();
-
-            ArrayList<Integer> tempList = new ArrayList<>();
-            for (DataSnapshot innerSnapshot : snapshot.child("MonsterAmount").getChildren()) {
-                tempList.add(innerSnapshot.getValue(Integer.class));
+            for (DataSnapshot innerSnapshot : snapshot.getChildren()) {
+                ArrayList<Integer> mostro = new ArrayList<>();
+                mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("Qty").getValue()).toString()));
+                mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("ID").getValue()).toString()));
+                _party.add(mostro);
             }
-            _party.add(tempList);
-
-            tempList = new ArrayList<>();
-            for (DataSnapshot innerSnapshot : snapshot.child("MonsterType").getChildren()) {
-                tempList.add(innerSnapshot.getValue(Integer.class));
-            }
-            _party.add(tempList);
 
             Party.add(_party);
         }
@@ -150,6 +144,10 @@ public class NativeLib {
     }
 
     public ArrayList<ArrayList<String>> getPartyWithName(String nomeParty) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
+            return new ArrayList<>();
+
         int index = 0;
         for (String nome : nomiParty) {
             if (nome.equals(nomeParty))
@@ -161,10 +159,10 @@ public class NativeLib {
         {
             ArrayList<ArrayList<String>> mostriParty = new ArrayList<>();
 
-            for (int i = 0; i < Party.get(index).get(0).size(); i++)
+            for (int i = 0; i < Party.get(index).size(); i++)
             {
-                ArrayList<String> mostro = getMostro(Party.get(index).get(1).get(i));
-                mostro.add(0, String.valueOf(Party.get(index).get(0).get(i)));
+                ArrayList<String> mostro = getMostro(Party.get(index).get(i).get(1));
+                mostro.add(0, String.valueOf(Party.get(index).get(i).get(0)));
                 mostriParty.add(mostro);
             }
 

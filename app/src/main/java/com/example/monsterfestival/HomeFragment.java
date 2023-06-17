@@ -46,68 +46,55 @@ public class HomeFragment extends Fragment {
         }
 
         editText = rootView.findViewById(R.id.search_editText);
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                creaSearchMonsters();
-            }
-        });
+        editText.setOnClickListener(view -> creaSearchMonsters());
 
         imageView = rootView.findViewById(R.id.search_imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                creaSearchMonsters();
-            }
-        });
+        imageView.setOnClickListener(view -> creaSearchMonsters());
 
         partyCreationCard = rootView.findViewById(R.id.partyCreationCard);
-        partyCreationCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { creaPartyCreationFragment(); }
+        partyCreationCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                if (user.isAnonymous())
+                    printMessage(getResources().getString(R.string.creazione_party));
+                else {
+                    creaPartyCreationFragment();
+                }
+            }
         });
 
         myPartiesCard = rootView.findViewById(R.id.myPartiesCard);
-        myPartiesCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    if (user.isAnonymous())
-                        printMessage(getResources().getString(R.string.miei_party));
-                    else {
-                        creaMyPartiesFragment();
-                    }
+        myPartiesCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                if (user.isAnonymous())
+                    printMessage(getResources().getString(R.string.miei_party));
+                else {
+                    creaMyPartiesFragment();
                 }
             }
         });
 
         compareMonstersCard = rootView.findViewById(R.id.compareMonstersCard);
-        compareMonstersCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    if (user.isAnonymous())
-                        printMessage(getResources().getString(R.string.confronto_mostri));
-                    else {
-                        creaCompareMonstersFragment();
-                    }
+        compareMonstersCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                if (user.isAnonymous())
+                    printMessage(getResources().getString(R.string.confronto_mostri));
+                else {
+                    creaCompareMonstersFragment();
                 }
             }
         });
 
         comparePartiesCard = rootView.findViewById(R.id.comparePartiesCard);
-        comparePartiesCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    if (user.isAnonymous())
-                        printMessage(getResources().getString(R.string.confronto_party));
-                    else {
-                        creaComparePartiesFragment();
-                    }
+        comparePartiesCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                if (user.isAnonymous())
+                    printMessage(getResources().getString(R.string.confronto_party));
+                else {
+                    creaComparePartiesFragment();
                 }
             }
         });

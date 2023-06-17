@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
@@ -24,18 +21,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
 import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -69,18 +62,22 @@ public class SplashActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, packageInfo.requestedPermissions, 0);
 
             } catch (PackageManager.NameNotFoundException e) {
-                // Handle the exception (TO DO)
+                e.printStackTrace();
             }
 
             FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> { });
             FirebaseMessaging.getInstance().subscribeToTopic("Aggiornamenti_Database").addOnCompleteListener(task -> { });
 
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            int interval = sharedPreferences.getInt("intervalPeriodicWork", 24 * 60 * 60 * 1000);
+            editor.putInt("intervalPeriodicWork", interval);
+            editor.apply();
+
             PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
                     DatabaseUpdateWorker.class,
-                    /* intervallo di controllo in millisecondi */ 24 * 60 * 60 * 1000,
+                    /* intervallo di controllo in millisecondi */ interval,
                     TimeUnit.MILLISECONDS
             ).build();
-
 
             Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
             OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(DatabaseUpdateWorker.class).setConstraints(constraints).build();

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
     private final HashSet<String> NoToolbarList = new HashSet<>();
     ActivityMainBinding binding;
 
+    private boolean CustomonBackPressed = false;
+
     public MainActivity() {
     }
 
@@ -48,27 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
         textToolbar = findViewById(R.id.toolbarTitle);
         ImageButton buttonToolbar = findViewById(R.id.toolbarButton);
         buttonToolbar.setOnClickListener(v -> {
-
-            FragmentTransaction fragmentTransaction = FragmentManagerList.get(FragmentManagerList.size() - 1).beginTransaction();
-            fragmentTransaction.remove(FragmentRefList.get(FragmentRefList.size() - 1));
-            fragmentTransaction.commit();
-
-            if (FragmentRefList.size() < 2)
-            {
-                toolbar.setVisibility(View.GONE);
-                replaceFragment(new HomeFragment());
-            }
-            else
-            {
-                toolbar.setVisibility(View.VISIBLE);
-                textToolbar.setText(FragmentStringList.get(FragmentStringList.size() - 2));
-                ((OnFragmentRemoveListener) FragmentRefList.get(FragmentRefList.size() - 2)).ripristinaVisibilitaElementi();
-            }
-
-            FragmentManagerList.remove(FragmentManagerList.size() - 1);
-            FragmentRefList.remove(FragmentRefList.size() - 1);
-            FragmentStringList.remove(FragmentStringList.size() - 1);
-
+            tornaIndetro();
         });
 
         currentFragment = null;
@@ -104,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
     @Override
     public void onFragmentVisible(FragmentManager fragmentManager, Fragment fragmentInstance, String fragmentTag) {
         if (!NoToolbarList.contains(fragmentTag)) {
+            CustomonBackPressed = true;
             FragmentManagerList.add(fragmentManager);
             FragmentRefList.add(fragmentInstance);
             FragmentStringList.add(fragmentTag);
@@ -111,6 +94,39 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
             textToolbar.setText(fragmentTag);
             return;
         }
+        CustomonBackPressed = false;
         toolbar.setVisibility(View.GONE);
+    }
+
+    public void tornaIndetro() {
+        FragmentTransaction fragmentTransaction = FragmentManagerList.get(FragmentManagerList.size() - 1).beginTransaction();
+        fragmentTransaction.remove(FragmentRefList.get(FragmentRefList.size() - 1));
+        fragmentTransaction.commit();
+
+        if (FragmentRefList.size() < 2)
+        {
+            toolbar.setVisibility(View.GONE);
+            replaceFragment(new HomeFragment());
+            CustomonBackPressed = false;
+        }
+        else
+        {
+            toolbar.setVisibility(View.VISIBLE);
+            textToolbar.setText(FragmentStringList.get(FragmentStringList.size() - 2));
+            ((OnFragmentRemoveListener) FragmentRefList.get(FragmentRefList.size() - 2)).ripristinaVisibilitaElementi();
+            CustomonBackPressed = true;
+        }
+
+        FragmentManagerList.remove(FragmentManagerList.size() - 1);
+        FragmentRefList.remove(FragmentRefList.size() - 1);
+        FragmentStringList.remove(FragmentStringList.size() - 1);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (CustomonBackPressed)
+            tornaIndetro();
+        else
+            super.onBackPressed();
     }
 }

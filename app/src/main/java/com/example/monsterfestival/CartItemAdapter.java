@@ -61,7 +61,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
         });
 
         holder.recPlus.setOnClickListener(view -> {
-            if (cart.getTotalQuantity() < 100) {
+            if (cart.getTotalQuantity() < 20) {
                 HashMap<DataClass, Integer> itemMap12 = cart.getItemWithQuantity();
                 itemMap12.put(cartItems.get(holder.getAdapterPosition()).getDataClass(), Objects.requireNonNull(itemMap12.get(cartItems.get(holder.getAdapterPosition()).getDataClass())) + 1);
                 holder.recQty.setText(String.valueOf(itemMap12.get(cartItems.get(holder.getAdapterPosition()).getDataClass())));

@@ -181,13 +181,15 @@ void unifyTablesNativeCPP(const vector<unordered_set<int>>& cppFilterTableList, 
     }
 
     for (const unordered_set<int>& cppArrayList : cppFilterTableList)
-        result.insert(cppArrayList.begin(), cppArrayList.end());
+        if (!cppArrayList.empty())
+            result.insert(cppArrayList.begin(), cppArrayList.end());
 
 }
 
 void getMostroCPP(const int& id, vector<string>& result) {
     result = vector<string>();
     Mostro m = ID[id];
+    result.push_back(to_string(id));
     result.push_back(m.Nome);
     result.push_back(m.Descrizione);
     result.push_back(m.Ambiente);
@@ -227,6 +229,8 @@ string convertString(string text, bool remove) {
 bool stringSimilarity(const string& text1, const string& text2, bool is1Proc) {
 
     string processedText1 = is1Proc ? text1 : convertString(text1, true);
+    if (processedText1.empty())
+        return true;
     string processedText2 = convertString(text2, false);
 
     // Converti processedText1 in un unordered_set<string>
@@ -313,23 +317,26 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabaseNative(JNIEnv *env,
     // Salva i Mostri
     Mostro m;
     for (int i = 0; i < tempID.size(); i++) {
-        m.Nome = tempID[i][0];
-        m.Descrizione = tempID[i][1];
-        m.Ambiente = tempID[i][2];
-        m.Categoria = tempID[i][3];
-        m.Taglia = tempID[i][4];
-        m.Sfida = stof(tempID[i][5]);
+        m.Nome = tempID[i][1];
+        m.Descrizione = tempID[i][2];
+        m.Ambiente = tempID[i][3];
+        m.Categoria = tempID[i][4];
+        m.Taglia = tempID[i][5];
+        m.Sfida = stof(tempID[i][6]);
         if (m.Sfida < 0)
             m.Sfida = (float) pow(2, m.Sfida);
-        m.PF = stoi(tempID[i][6]);
-        m.CA = stoi(tempID[i][7]);
-        m.FOR = stoi(tempID[i][8]);
-        m.DES = stoi(tempID[i][9]);
-        m.COST = stoi(tempID[i][10]);
-        m.INT = stoi(tempID[i][11]);
-        m.SAG = stoi(tempID[i][12]);
-        m.CAR = stoi(tempID[i][13]);
-        ID.insert(make_pair(i, m));
+        m.PF = stoi(tempID[i][7]);
+        m.CA = stoi(tempID[i][8]);
+        m.FOR = stoi(tempID[i][9]);
+        m.DES = stoi(tempID[i][10]);
+        m.COST = stoi(tempID[i][11]);
+        m.INT = stoi(tempID[i][12]);
+        m.SAG = stoi(tempID[i][13]);
+        m.CAR = stoi(tempID[i][14]);
+        if (i == stoi(tempID[i][0]) || ID.count(stoi(tempID[i][0])) > 0)
+            ID.insert(make_pair(i, m));
+        else
+            ID.insert(make_pair(stoi(tempID[i][0]), m));
     }
 
     // Salva i Filtri
@@ -385,18 +392,25 @@ Java_com_example_customsearchlibrary_NativeLib_execSearchNative(JNIEnv *env, job
         unifyTablesNativeCPP(idFiltro[i], filterTableList[i]);
 
     // Applicazione della regola AND tra le categorie di filtro
-    unordered_set<int> listaID;
+    unordered_set<int> listaID = unordered_set<int>();
     processTablesNativeCPP(filterTableList, listaID);
 
     // Recupero dei mostri che corrispondono alle specifiche della ricerca
     vector<vector<string>> result;
     vector<string> mostro;
     string processedText = convertString(env->GetStringUTFChars(text, reinterpret_cast<jboolean *>(false)), true);
-    for (const int& id : listaID) {
-        getMostroCPP(id, mostro);
-        if (stringSimilarity(processedText, mostro[0], true))
-            result.push_back(mostro);
-    }
+    if (listaID.empty())
+        for (const auto& id : ID) {
+            getMostroCPP(id.first, mostro);
+            if (stringSimilarity(processedText, mostro[0], true))
+                result.push_back(mostro);
+        }
+    else
+        for (const int& id : listaID) {
+            getMostroCPP(id, mostro);
+            if (stringSimilarity(processedText, mostro[0], true))
+                result.push_back(mostro);
+        }
 
     return convert2JNI(env, result);
 }

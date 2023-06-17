@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 
 public class DataClass implements Comparable<DataClass> {
+    private final String ID;
     private final String Ambiete;
     private final String CA;
     private final String Categoria;
@@ -19,16 +20,9 @@ public class DataClass implements Comparable<DataClass> {
     private final String FOR;
     private final String INT;
     private final String SAG;
-    private String key;
 
 
-
-    public String getKey() {
-        return key;
-    }
-    public void setKey(String key) {
-        this.key = key;
-    }
+    public String getID() { return ID; }
     public String getAmbiente() { return Ambiete; }
     public String getCa() { return CA; }
     public String getCategoria() {
@@ -69,24 +63,29 @@ public class DataClass implements Comparable<DataClass> {
     }
 
     public DataClass(ArrayList<String> dati) {
-        this.Nome = dati.get(0);
-        this.Descrizione = dati.get(1);
-        this.Ambiete = dati.get(2);
-        this.Categoria = dati.get(3);
-        this.Taglia = dati.get(4);
-        this.Sfida = dati.get(5);
-        this.PF = dati.get(6);
-        this.CA = dati.get(7);
-        this.FOR = dati.get(8);
-        this.DES = dati.get(9);
-        this.COST = dati.get(10);
-        this.INT = dati.get(11);
-        this.SAG = dati.get(12);
-        this.CAR = dati.get(13);
+        this.ID = dati.get(0);
+        this.Nome = dati.get(1);
+        this.Descrizione = dati.get(2);
+        this.Ambiete = dati.get(3);
+        this.Categoria = dati.get(4);
+        this.Taglia = dati.get(5);
+        if (Double.parseDouble(dati.get(6)) < 0)
+            this.Sfida = Double.toString(Math.pow(2, Double.parseDouble(dati.get(6))));
+        else
+            this.Sfida = dati.get(6);
+        this.PF = dati.get(7);
+        this.CA = dati.get(8);
+        this.FOR = dati.get(9);
+        this.DES = dati.get(10);
+        this.COST = dati.get(11);
+        this.INT = dati.get(12);
+        this.SAG = dati.get(13);
+        this.CAR = dati.get(14);
     }
 
     public DataClass(DataSnapshot snapshot) {
 
+        this.ID = snapshot.getKey();
         this.Ambiete = snapshot.child("Ambiente").getValue(String.class);
         this.CA = String.valueOf(snapshot.child("CA").getValue(long.class));
         this.Categoria = snapshot.child("Categoria").getValue(String.class);
@@ -101,8 +100,6 @@ public class DataClass implements Comparable<DataClass> {
         this.FOR = snapshot.child("FOR").getValue(String.class);
         this.INT = snapshot.child("INT").getValue(String.class);
         this.SAG = snapshot.child("SAG").getValue(String.class);
-
-        this.key = snapshot.getKey();
 
     }
 

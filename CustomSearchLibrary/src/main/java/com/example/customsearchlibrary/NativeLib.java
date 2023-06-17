@@ -48,6 +48,7 @@ public class NativeLib {
         ID = new ArrayList<>();
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             ArrayList<String> monster = new ArrayList<>();
+            monster.add(snapshot.getKey());
             monster.add(Objects.requireNonNull(snapshot.child("Nome").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("Descrizione").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("Ambiente").getValue()).toString());
@@ -65,6 +66,10 @@ public class NativeLib {
             ID.add(monster);
         }
     }
+
+    public ArrayList<ArrayList<String>> getID() {
+        return ID;
+    };
 
     public void setFiltri(DataSnapshot dataSnapshot) {
         Filtri = new ArrayList<>();
@@ -93,18 +98,12 @@ public class NativeLib {
         }
     }
 
-    public ArrayList<ArrayList<String>> getID() {
-        return ID;
-    };
-
     @SuppressWarnings("unused")
     public native ArrayList<String> getMostro(Integer ID);
 
     private native ArrayList<ArrayList<String>> execSearchNative(String text, ArrayList<ArrayList<String>> filterList);
 
     public ArrayList<ArrayList<String>> execSearch(String text, ArrayList<ArrayList<String>> filterList) {
-        if (filterList.size() > 0)
-            return execSearchNative(text == null ? "" : text, filterList);
-        return ID;
+        return execSearchNative(text == null ? "" : text, filterList);
     }
 }

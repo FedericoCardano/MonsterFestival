@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class DetailFragment extends Fragment implements OnFragmentRemoveListener {
 
-    TextView detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
+    TextView detailID, detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton addButton, exportButton;
 
     Fragment parent;
@@ -61,6 +61,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
 
         filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaMostro.pdf";
 
+        detailID = rootView.findViewById(R.id.detailID);
         detailDesc = rootView.findViewById(R.id.detailDesc);
         detailName = rootView.findViewById(R.id.detailName);
         detailAmbiente = rootView.findViewById(R.id.detailAmbiente);
@@ -80,6 +81,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
+            detailID.setText(bundle.getString("ID"));
             detailDesc.setText(bundle.getString("Descrizione"));
             detailName.setText(bundle.getString("Nome"));
             detailAmbiente.setText(bundle.getString("Ambiente"));
@@ -100,6 +102,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
             if (bundle != null) {
                 Cart cart = CartHelper.getCart();
                 ArrayList<String> dati = new ArrayList<>();
+                dati.add(bundle.getString("ID"));
                 dati.add(bundle.getString("Nome"));
                 dati.add(bundle.getString("Descrizione"));
                 dati.add(bundle.getString("Ambiente"));

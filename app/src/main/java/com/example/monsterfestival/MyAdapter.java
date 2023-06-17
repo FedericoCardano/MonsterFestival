@@ -41,34 +41,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recCategoria.setText(dataList.get(position).getCategoria());
         holder.recTaglia.setText(dataList.get(position).getTaglia());
 
-        holder.recCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle b = new Bundle();
-                b.putString("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
-                b.putString("CA", dataList.get(holder.getAdapterPosition()).getCa());
-                b.putString("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());
-                b.putString("Nome",dataList.get(holder.getAdapterPosition()).getNome());
-                b.putString("PF", dataList.get(holder.getAdapterPosition()).getPf());
-                b.putString("Sfida", dataList.get(holder.getAdapterPosition()).getSfida());
-                b.putString("Taglia", dataList.get(holder.getAdapterPosition()).getTaglia());
-                b.putString("Descrizione", dataList.get(holder.getAdapterPosition()).getDescrizione());
-                b.putString("CAR", dataList.get(holder.getAdapterPosition()).getCar());
-                b.putString("COST", dataList.get(holder.getAdapterPosition()).getCost());
-                b.putString("DES", dataList.get(holder.getAdapterPosition()).getDes());
-                b.putString("FOR", dataList.get(holder.getAdapterPosition()).getFor());
-                b.putString("INT", dataList.get(holder.getAdapterPosition()).getInt());
-                b.putString("SAG", dataList.get(holder.getAdapterPosition()).getSag());
+        holder.recCard.setOnClickListener(view -> {
+            Bundle b = new Bundle();
+            b.putString("ID", dataList.get(holder.getAdapterPosition()).getID());
+            b.putString("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
+            b.putString("CA", dataList.get(holder.getAdapterPosition()).getCa());
+            b.putString("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());
+            b.putString("Nome",dataList.get(holder.getAdapterPosition()).getNome());
+            b.putString("PF", dataList.get(holder.getAdapterPosition()).getPf());
+            b.putString("Sfida", dataList.get(holder.getAdapterPosition()).getSfida());
+            b.putString("Taglia", dataList.get(holder.getAdapterPosition()).getTaglia());
+            b.putString("Descrizione", dataList.get(holder.getAdapterPosition()).getDescrizione());
+            b.putString("CAR", dataList.get(holder.getAdapterPosition()).getCar());
+            b.putString("COST", dataList.get(holder.getAdapterPosition()).getCost());
+            b.putString("DES", dataList.get(holder.getAdapterPosition()).getDes());
+            b.putString("FOR", dataList.get(holder.getAdapterPosition()).getFor());
+            b.putString("INT", dataList.get(holder.getAdapterPosition()).getInt());
+            b.putString("SAG", dataList.get(holder.getAdapterPosition()).getSag());
 
-                SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
-                SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
+            SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
+            SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
 
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                DetailFragment RecyclerFragment = new DetailFragment();
-                RecyclerFragment.setParent(_parent);
-                RecyclerFragment.setArguments(b);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
-            }
+            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            DetailFragment RecyclerFragment = new DetailFragment();
+            RecyclerFragment.setParent(_parent);
+            RecyclerFragment.setArguments(b);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
         });
 
     }

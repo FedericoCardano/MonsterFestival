@@ -21,18 +21,30 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PartyCreationFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
-    AppCompatButton btnAddMonster;
+    AppCompatButton btnAddMonster, btnSaveParty;
     View rootView;
     TextView numMostri;
+    DatabaseReference reference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +71,70 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
+
+        btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
+        btnSaveParty.setOnClickListener(view -> {
+            reference = FirebaseDatabase.getInstance().getReference("User");
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user.isAnonymous()) {
+                //TODO mandarlo alla registrazione
+            }
+            else {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.d("ADebugTag", "Value: " + 1);
+                        if (snapshot.hasChild(user.getUid())) {
+                            long numParty = (long) snapshot.child(user.getUid()).child("NParty").getValue();
+                            if (numParty < 5) {
+                                numParty += 1;
+                                reference.child(user.getUid()).child("NParty").setValue(numParty);
+
+                                HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                                long numMostro = 1;
+                                for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                    reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                    reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                    numMostro += 1;
+                                }
+                                reference.child(user.getUid()).child("Party" + numParty);
+                                cart.setTotalQuantity(0);
+                                itemMap.clear();
+                                cart.changeCart(itemMap);
+                                changeTotalMonstersNumber(cart);
+                                cartItemAdapter.updateCartItems(getCartItems(cart));
+                                cartItemAdapter.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            reference.child(user.getUid()).child("NParty").setValue(1);
+                            HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                            long numMostro = 1;
+                            for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).setValue(entry.getKey().getID());
+                                reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                numMostro += 1;
+                            }
+                            cart.setTotalQuantity(0);
+                            itemMap.clear();
+                            cart.changeCart(itemMap);
+                            changeTotalMonstersNumber(cart);
+                            cartItemAdapter.updateCartItems(getCartItems(cart));
+                            cartItemAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
 
         return rootView;
     }

@@ -9,6 +9,8 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.customsearchlibrary.NativeLib;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +21,9 @@ import com.google.gson.Gson;
 public class DatabaseUpdateWorker extends Worker {
 
     private final Object ThreadLock = new Object();
-    private int operationCounter = 0;
+
+    private final int totalOperations = 3;
+    private boolean NOworkInProgress = true;
 
     public DatabaseUpdateWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -28,6 +32,9 @@ public class DatabaseUpdateWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+
+        final int[] operationCounter = {0};
+        NOworkInProgress = false;
 
         Log.d("MyDatabaseUpdateWorker", "Inizio fase di controllo aggiornamenti");
 
@@ -47,11 +54,8 @@ public class DatabaseUpdateWorker extends Worker {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 objectNativeLib.setFiltri(dataSnapshot);
                 synchronized (ThreadLock) {
-                    if (++operationCounter > 1) {
-                        objectNativeLib.updateDatabase();
-                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-                        editor.apply();
-                    }
+                    if (++operationCounter[0] >= totalOperations)
+                        updateObjectNativeLib(editor, objectNativeLib);
                 }
             }
 
@@ -63,11 +67,8 @@ public class DatabaseUpdateWorker extends Worker {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 objectNativeLib.setID(dataSnapshot);
                 synchronized (ThreadLock) {
-                    if (++operationCounter > 1) {
-                        objectNativeLib.updateDatabase();
-                        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-                        editor.apply();
-                    }
+                    if (++operationCounter[0] >= totalOperations)
+                        updateObjectNativeLib(editor, objectNativeLib);
                 }
             }
 
@@ -75,6 +76,39 @@ public class DatabaseUpdateWorker extends Worker {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser != null) {
+                FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()).child("Party").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        objectNativeLib.setParties(dataSnapshot);
+                        synchronized (ThreadLock) {
+                            if (NOworkInProgress || ++operationCounter[0] >= totalOperations)
+                                updateObjectNativeLib(editor, objectNativeLib);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+            } else {
+                objectNativeLib.invalidateUid();
+                synchronized (ThreadLock) {
+                    if (NOworkInProgress || ++operationCounter[0] >= totalOperations)
+                        updateObjectNativeLib(editor, objectNativeLib);
+                }
+            }
+        });
+
+
         return Result.success();
+    }
+
+    private void updateObjectNativeLib(SharedPreferences.Editor editor, NativeLib objectNativeLib) {
+        objectNativeLib.updateDatabase();
+        editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+        editor.apply();
+        NOworkInProgress = true;
     }
 }

@@ -3,6 +3,8 @@ package com.example.customsearchlibrary;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 
 public class NativeLib {
@@ -10,6 +12,12 @@ public class NativeLib {
     private ArrayList<ArrayList<String>> ID;
     private ArrayList<ArrayList<ArrayList<Integer>>> Filtri;
     public ArrayList<ArrayList<String>> nomiFiltri;
+
+
+    private String userUid = "";
+    private ArrayList<ArrayList<ArrayList<Integer>>> Party;
+    private ArrayList<String> nomiParty;
+
 
     // Used to load the 'customsearchlibrary' library on application startup.
     static {
@@ -98,7 +106,79 @@ public class NativeLib {
         }
     }
 
-    @SuppressWarnings("unused")
+    public void setParties(DataSnapshot dataSnapshot) {
+        invalidateUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
+            userUid = user.getUid();
+
+        Party = new ArrayList<>();
+        nomiParty = new ArrayList<>();
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            nomiParty.add(snapshot.getKey());
+
+            ArrayList<ArrayList<Integer>> _party = new ArrayList<>();
+
+            ArrayList<Integer> tempList = new ArrayList<>();
+            for (DataSnapshot innerSnapshot : snapshot.child("MonsterAmount").getChildren()) {
+                tempList.add(innerSnapshot.getValue(Integer.class));
+            }
+            _party.add(tempList);
+
+            tempList = new ArrayList<>();
+            for (DataSnapshot innerSnapshot : snapshot.child("MonsterType").getChildren()) {
+                tempList.add(innerSnapshot.getValue(Integer.class));
+            }
+            _party.add(tempList);
+
+            Party.add(_party);
+        }
+    }
+
+    public ArrayList<ArrayList<ArrayList<Integer>>> getParties() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
+            return Party;
+        return new ArrayList<>();
+    }
+
+    public ArrayList<String> getPartyNames() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
+            return nomiParty;
+        return new ArrayList<>();
+    }
+
+    public ArrayList<ArrayList<String>> getPartyWithName(String nomeParty) {
+        int index = 0;
+        for (String nome : nomiParty) {
+            if (nome.equals(nomeParty))
+                break;
+            index++;
+        }
+
+        if (index < nomiParty.size())
+        {
+            ArrayList<ArrayList<String>> mostriParty = new ArrayList<>();
+
+            for (int i = 0; i < Party.get(index).get(0).size(); i++)
+            {
+                ArrayList<String> mostro = getMostro(Party.get(index).get(1).get(i));
+                mostro.add(0, String.valueOf(Party.get(index).get(0).get(i)));
+                mostriParty.add(mostro);
+            }
+
+            return mostriParty;
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    public void invalidateUid() {
+        userUid = "";
+    }
+
     public native ArrayList<String> getMostro(Integer ID);
 
     private native ArrayList<ArrayList<String>> execSearchNative(String text, ArrayList<ArrayList<String>> filterList);

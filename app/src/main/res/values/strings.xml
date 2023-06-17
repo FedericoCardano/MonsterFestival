@@ -87,4 +87,6 @@
     <string name="numero_mostri">Numero mostri</string>
     <string name="aggiungi_mostro">Aggiungi mostro</string>
     <string name="salva_party">Salva party</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

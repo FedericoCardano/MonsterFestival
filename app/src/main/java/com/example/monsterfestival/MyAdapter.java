@@ -45,7 +45,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onClick(View view) {
                 Bundle b = new Bundle();
-                b.putString("ID", dataList.get(holder.getAdapterPosition()).getID());
                 b.putString("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
                 b.putString("CA", dataList.get(holder.getAdapterPosition()).getCa());
                 b.putString("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());

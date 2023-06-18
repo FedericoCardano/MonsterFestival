@@ -3,6 +3,7 @@ package com.example.monsterfestival;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -72,18 +73,7 @@ public class LoginFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), getResources().getString(R.string.login_riuscito), Toast.LENGTH_SHORT).show();
-
-                            if (getActivity() instanceof WelcomeActivity) {
-                                WelcomeActivity activity = (WelcomeActivity) getActivity();
-                                if (activity != null)
-                                    activity.mostraRegister();
-                            }
-                            else {
-                                AccountFragment fragment = (AccountFragment) getParentFragment();
-                                if (fragment != null)
-                                    fragment.mostraRegister();
-                            }
-
+                            startActivity(new Intent(getActivity(), MainActivity.class));
                         } else {
                             Toast.makeText(getActivity(), getResources().getString(R.string.login_fallito), Toast.LENGTH_SHORT).show();
                         }

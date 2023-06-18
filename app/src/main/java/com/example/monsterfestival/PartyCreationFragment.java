@@ -74,65 +74,66 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
         btnSaveParty.setOnClickListener(view -> {
-            reference = FirebaseDatabase.getInstance().getReference("User");
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user.isAnonymous()) {
-                //TODO mandarlo alla registrazione
-            }
-            else {
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.d("ADebugTag", "Value: " + 1);
-                        if (snapshot.hasChild(user.getUid())) {
-                            long numParty = (long) snapshot.child(user.getUid()).child("NParty").getValue();
-                            if (numParty < 5) {
-                                numParty += 1;
-                                reference.child(user.getUid()).child("NParty").setValue(numParty);
+            if (cart.getTotalQuantity() > 0)
+            {
+                reference = FirebaseDatabase.getInstance().getReference("User");
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null && !user.isAnonymous()) {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Log.d("ADebugTag", "Value: " + 1);
+                            if (snapshot.hasChild(user.getUid())) {
+                                int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
+                                if (numParty < 5) {
+                                    numParty += 1;
+                                    reference.child(user.getUid()).child("NParty").setValue(numParty);
 
+                                    HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                                    int numMostro = 1;
+                                    for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                        reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                        reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                        numMostro += 1;
+                                    }
+                                    reference.child(user.getUid()).child("Party" + numParty);
+                                    cart.setTotalQuantity(0);
+                                    itemMap.clear();
+                                    cart.changeCart(itemMap);
+                                    changeTotalMonstersNumber(cart);
+                                    cartItemAdapter.updateCartItems(getCartItems(cart));
+                                    cartItemAdapter.notifyDataSetChanged();
+                                }
+
+                            } else {
+                                reference.child(user.getUid()).child("NParty").setValue(1);
                                 HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 
-                                long numMostro = 1;
+                                int numMostro = 1;
                                 for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                    reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                    reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                    reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                    reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                     numMostro += 1;
                                 }
-                                reference.child(user.getUid()).child("Party" + numParty);
                                 cart.setTotalQuantity(0);
                                 itemMap.clear();
                                 cart.changeCart(itemMap);
                                 changeTotalMonstersNumber(cart);
                                 cartItemAdapter.updateCartItems(getCartItems(cart));
                                 cartItemAdapter.notifyDataSetChanged();
-                            }
 
-                        } else {
-                            reference.child(user.getUid()).child("NParty").setValue(1);
-                            HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
-
-                            long numMostro = 1;
-                            for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).setValue(entry.getKey().getID());
-                                reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
-                                numMostro += 1;
                             }
-                            cart.setTotalQuantity(0);
-                            itemMap.clear();
-                            cart.changeCart(itemMap);
-                            changeTotalMonstersNumber(cart);
-                            cartItemAdapter.updateCartItems(getCartItems(cart));
-                            cartItemAdapter.notifyDataSetChanged();
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                    });
+                }
             }
         });
 

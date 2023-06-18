@@ -118,7 +118,12 @@ public class NativeLib {
             nomiParty.add(snapshot.getKey());
 
             ArrayList<ArrayList<Integer>> _party = new ArrayList<>();
+            boolean nParty = true;
             for (DataSnapshot innerSnapshot : snapshot.getChildren()) {
+                if (nParty) {
+                    nParty = false;
+                    continue;
+                }
                 ArrayList<Integer> mostro = new ArrayList<>();
                 mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("Qty").getValue()).toString()));
                 mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("ID").getValue()).toString()));

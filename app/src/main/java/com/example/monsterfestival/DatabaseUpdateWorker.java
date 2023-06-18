@@ -36,7 +36,7 @@ public class DatabaseUpdateWorker extends Worker {
         final int[] operationCounter = {0};
         NOworkInProgress = false;
 
-        Log.d("MyDatabaseUpdateWorker", "Inizio fase di controllo aggiornamenti");
+        Log.d("MyDatabaseUpdateWorker", "Inizio Controllo Aggiornamenti");
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -110,5 +110,6 @@ public class DatabaseUpdateWorker extends Worker {
         editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
         editor.apply();
         NOworkInProgress = true;
+        Log.d("MyDatabaseUpdateWorker", "Terminato Controllo Aggiornamenti");
     }
 }

@@ -20,8 +20,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     <FrameLayout
         android:id="@+id/frame_access_party_creation"
         android:layout_width="match_parent"

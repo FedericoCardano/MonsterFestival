@@ -42,7 +42,7 @@
                 android:drawableStart="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
                 android:hint="@string/nome"
-                android:inputType="text|textPersonName|textAutoComplete|textCapCharacters"
+                android:inputType="text|textPersonName|textAutoComplete"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 

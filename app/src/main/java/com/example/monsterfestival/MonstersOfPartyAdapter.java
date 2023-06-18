@@ -48,9 +48,6 @@ public class MonstersOfPartyAdapter extends RecyclerView.Adapter<MonstersOfParty
         //quantità del mostro dalla lista dei mostri del party corrente
         //holder.recQty.setText();
 
-
-
-
     }
     @Override
     public int getItemCount() {

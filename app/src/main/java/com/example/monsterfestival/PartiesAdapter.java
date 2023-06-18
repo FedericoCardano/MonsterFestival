@@ -46,8 +46,6 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
         //holder.recNome.setText();
 
 
-
-
     }
     @Override
     public int getItemCount() {

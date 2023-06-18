@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class CompareMonstersFragment extends Fragment implements OnFragmentRemoveListener {
@@ -31,6 +32,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
     LinearLayout monster1, monster2;
 
     View rootView;
+    View monsterView;
 
     /*public static CompareMonstersFragment newInstance(String param1, String param2) {
         CompareMonstersFragment fragment = new CompareMonstersFragment();
@@ -130,7 +132,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             public void onClick(View view) {
 
 
-                final View monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart,null,false);
+                monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart,null,false);
 
                 setAllVisibility(false);
 
@@ -164,28 +166,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                 detailSfida = monsterView.findViewById(R.id.detailSfida);
                 detailTaglia = monsterView.findViewById(R.id.detailTaglia);
 
-                Compare compare = new Compare();
-                DataClass dataclass = compare.getMonster2();
 
-                if (dataclass != null) {
-                    detailID.setText(dataclass.getID());
-                    detailName.setText(dataclass.getNome());
-                    detailAmbiente.setText(dataclass.getAmbiente());
-                    detailCA.setText(dataclass.getCa());
-                    detailCAR.setText(dataclass.getCar());
-                    detailCOST.setText(dataclass.getCost());
-                    detailCategoria.setText(dataclass.getCategoria());
-                    detailDES.setText(dataclass.getDes());
-                    detailFOR.setText(dataclass.getFor());
-                    detailINT.setText(dataclass.getInt());
-                    detailPF.setText(dataclass.getPf());
-                    detailSAG.setText(dataclass.getSag());
-                    detailSfida.setText(dataclass.getSfida());
-                    detailTaglia.setText(dataclass.getTaglia());
-
-                    btn2.setVisibility(View.GONE);
-                    monster2.addView(monsterView);
-                }
 
 
             }
@@ -225,6 +206,51 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
     public void ripristinaVisibilitaElementi() {
 
         setAllVisibility(true);
+
+        Compare compare = new Compare();
+        DataClass dataclass2 = compare.getMonster2();
+        DataClass dataclass1 = compare.getMonster1();
+
+
+        if (dataclass2 != null) {
+            detailID.setText(dataclass2.getID());
+            detailName.setText(dataclass2.getNome());
+            detailAmbiente.setText(dataclass2.getAmbiente());
+            detailCA.setText(dataclass2.getCa());
+            detailCAR.setText(dataclass2.getCar());
+            detailCOST.setText(dataclass2.getCost());
+            detailCategoria.setText(dataclass2.getCategoria());
+            detailDES.setText(dataclass2.getDes());
+            detailFOR.setText(dataclass2.getFor());
+            detailINT.setText(dataclass2.getInt());
+            detailPF.setText(dataclass2.getPf());
+            detailSAG.setText(dataclass2.getSag());
+            detailSfida.setText(dataclass2.getSfida());
+            detailTaglia.setText(dataclass2.getTaglia());
+
+            btn2.setVisibility(View.GONE);
+            monster2.addView(monsterView);
+        }
+
+        if (dataclass1 != null) {
+            detailID.setText(dataclass1.getID());
+            detailName.setText(dataclass1.getNome());
+            detailAmbiente.setText(dataclass1.getAmbiente());
+            detailCA.setText(dataclass1.getCa());
+            detailCAR.setText(dataclass1.getCar());
+            detailCOST.setText(dataclass1.getCost());
+            detailCategoria.setText(dataclass1.getCategoria());
+            detailDES.setText(dataclass1.getDes());
+            detailFOR.setText(dataclass1.getFor());
+            detailINT.setText(dataclass1.getInt());
+            detailPF.setText(dataclass1.getPf());
+            detailSAG.setText(dataclass1.getSag());
+            detailSfida.setText(dataclass1.getSfida());
+            detailTaglia.setText(dataclass1.getTaglia());
+
+            btn1.setVisibility(View.GONE);
+            monster1.addView(monsterView);
+        }
 
     }
 }

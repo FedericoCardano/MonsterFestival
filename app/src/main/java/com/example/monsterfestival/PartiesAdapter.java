@@ -13,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -23,13 +25,13 @@ import java.util.Objects;
 
 public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     private final Context context;
-    private final PartyCreationFragment fragment;
+    private final MyPartiesFragment fragment;
 
-    private List<CartItem> cartItems = Collections.emptyList();
+    private ArrayList<String> nomeParty;
 
-    public PartiesAdapter(Context context, PartyCreationFragment fragment) {
+    public PartiesAdapter(Context context, MyPartiesFragment parent) {
         this.context = context;
-        this.fragment = fragment;
+        this.fragment = parent;
 
     }
     @NonNull
@@ -42,19 +44,18 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PartiesViewHolder holder, int position) {
 
-        //nome del party dalla lista dei party
-        //holder.recNome.setText();
+
+        holder.recNome.setText(nomeParty.get(position));
 
 
     }
     @Override
     public int getItemCount() {
-        return cartItems.size();
+        return nomeParty.size();
     }
     @SuppressLint("NotifyDataSetChanged")
-    public void updateCartItems(List<CartItem> cartItems) {
-        //lista dei party
-        //this.cartItems = cartItems;
+    public void updateCartItems(ArrayList<String> nomeParty) {
+        this.nomeParty = nomeParty;
         notifyDataSetChanged();
     }
 

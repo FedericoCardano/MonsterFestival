@@ -13,17 +13,27 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.customsearchlibrary.NativeLib;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListener {
 
@@ -32,7 +42,9 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     RecyclerView recyclerView;
     View rootView;
     DatabaseReference reference;
-    ArrayList<DataClass> dataList;
+    ArrayList<String> prova;
+
+
 
     private NativeLib objectNativeLib;
 
@@ -58,6 +70,14 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
+        final PartiesAdapter adapter = new PartiesAdapter(getActivity(), this);
+        recyclerView.setAdapter(adapter);
+        adapter.updateCartItems(getListItems());
+
+
+
+
+
 
 
         return rootView;
@@ -82,4 +102,22 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     public void ripristinaVisibilitaElementi() {
 
     }
+
+    private ArrayList<String> getListItems() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String temp = sharedPreferences.getString("objectNativeLib", "");
+        NativeLib objectNativeLib;
+        if (temp.equals(""))
+            objectNativeLib = new NativeLib();
+        else
+            objectNativeLib = new Gson().fromJson(temp, NativeLib.class);
+        ArrayList<String> nomeParty = new ArrayList<>();
+
+        for (String element : objectNativeLib.getPartyNames())
+            nomeParty.add(element);
+        Log.d("ADebugTag", "Value: " + objectNativeLib.getPartyNames().size());
+        return nomeParty;
+
+    }
+
 }

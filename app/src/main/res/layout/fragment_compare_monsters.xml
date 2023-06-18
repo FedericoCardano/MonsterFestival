@@ -8,8 +8,11 @@
     tools:context=".CompareMonstersFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/monster1"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center">
@@ -26,13 +29,16 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:background="@drawable/separator_line" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/monster2"
+        android:layout_marginStart="20dp"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center">
@@ -47,5 +53,14 @@
             app:tint="@color/white" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_access_compare_monsters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>

@@ -27,6 +27,37 @@
             android:text="@string/logout"
             android:textColor="#eae4db" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/changeEmailButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/brawnColor"
+                android:text="@string/cambia_email"
+                android:textColor="#eae4db" />
+
+            <EditText
+                android:id="@+id/new_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/changePswButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brawnColor"
+            android:text="@string/cambia_psw"
+            android:textColor="#eae4db" />
+
 
     </LinearLayout>
 

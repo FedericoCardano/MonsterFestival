@@ -19,6 +19,12 @@
     <string name="descrizione_se_ti_registri">Se ti registri, i tuoi dati saranno salvati in modo sicuro, consentendoti di accedervi da più dispositivi.</string>
     <string name="registrati">Registrati</string>
     <string name="non_ora">Non ora</string>
+    <string name="cambia_email">Cambia Email</string>
+    <string name="cambia_psw">Cambia Password</string>
+    <string name="nuova_email_poup">Email Aggiornata</string>
+    <string name="nuova_psw_poup">Mail di Controllo Inviata</string>
+    <string name="cambia_email_fallito">Cambio email fallito</string>
+    <string name="cambia_psw_fallito">Cambio Password fallito</string>
     <string name="email_mancante">Inserire l\'Email</string>
     <string name="password_mancante">Inserire la Password</string>
     <string name="cpassword_diversa">Le due Password non corrispondono</string>

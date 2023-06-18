@@ -79,7 +79,7 @@ public class DatabaseUpdateWorker extends Worker {
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             FirebaseUser currentUser = firebaseAuth.getCurrentUser();
             if (currentUser != null) {
-                FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()).child("Party").addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         objectNativeLib.setParties(dataSnapshot);

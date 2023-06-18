@@ -34,13 +34,14 @@
     <string name="login_riuscito">Login effettuato con Successo</string>
     <string name="login_fallito">Login non riuscito, riprovare…</string>
     <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
+    <string name="funzione_in_arrivo">Funzione non ancora disponibile, presto in arrivo!</string>
     <string name="primo_accesso">Primo Accesso</string>
     <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
     <string name="conferma_cancellazione">Conferma Cancellazione</string>
     <string name="conferma_cancellazione_messaggio">Sei sicuro di voler cancellare questo Party? Questa azione è irreversibile.</string>
     <string name="sì">Sì</string>
     <string name="no">No</string>
-    <string name="riprova">Riprova</string>
+    <string name="riprova">Ritenta Connessione…</string>
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
     <string name="modifica">Modifica</string>

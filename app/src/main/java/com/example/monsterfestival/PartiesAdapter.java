@@ -136,7 +136,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
         });
 
         ImageButton modifyBtn = holder.itemView.findViewById(R.id.modify_btn);
-        modifyBtn.setOnClickListener(view -> Toast.makeText(context, "Funzione non ancora disponibile, presto in arrivo!", Toast.LENGTH_SHORT).show());
+        modifyBtn.setOnClickListener(view -> Toast.makeText(context, context.getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show());
     }
     @Override
     public int getItemCount() {

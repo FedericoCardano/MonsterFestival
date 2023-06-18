@@ -2,7 +2,8 @@ package com.example.monsterfestival;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.nfc.Tag;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-
+import com.example.customsearchlibrary.NativeLib;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,6 +107,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     changeTotalMonstersNumber(cart);
                                     cartItemAdapter.updateCartItems(getCartItems(cart));
                                     cartItemAdapter.notifyDataSetChanged();
+                                    updateLocalParties();
+                                    startActivity(new Intent(getActivity(), MainActivity.class));
                                 }
 
                             } else {
@@ -123,7 +127,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                 changeTotalMonstersNumber(cart);
                                 cartItemAdapter.updateCartItems(getCartItems(cart));
                                 cartItemAdapter.notifyDataSetChanged();
-
+                                updateLocalParties();
+                                startActivity(new Intent(getActivity(), MainActivity.class));
                             }
                         }
 
@@ -210,5 +215,34 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
+    }
+
+    private void updateLocalParties() {
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        NativeLib objectNativeLib = new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    objectNativeLib.setParties(dataSnapshot);
+                    objectNativeLib.updateDatabase();
+                    editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+                    editor.apply();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
+        } else {
+            objectNativeLib.invalidateUid();
+            objectNativeLib.updateDatabase();
+            editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+            editor.apply();
+        }
+
     }
 }

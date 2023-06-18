@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/creamColor"
-    tools:context=".DetailMonsterFragment">
+    tools:context=".DetailPartyFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,32 +46,21 @@
                     android:visibility="gone" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/add_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
-                    android:backgroundTint="@color/brawnColor"
-                    android:contentDescription="@string/aggiungi"
-                    android:src="@drawable/baseline_add_24"
-                    app:tint="@color/white" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/export_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="100dp"
                     android:backgroundTint="@color/brawnColor"
                     android:contentDescription="@string/esporta"
                     android:src="@drawable/export"
                     app:tint="@color/white" />
-
 
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_section"
                 android:layout_width="370dp"
-                android:layout_height="236dp"
+                android:layout_height="197dp"
                 android:layout_gravity="center"
                 android:elevation="10dp"
                 app:cardCornerRadius="7dp">
@@ -97,69 +86,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/Ambiete"
+                                android:text="@string/Difficoltà"
                                 android:textColor="@color/brawnColor"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/detailAmbiente"
+                                android:id="@+id/detailDiff"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:text="@string/Ambiete"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/Categoria"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/detailCategoria"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="@string/Categoria"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/Taglia"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/detailTaglia"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="@string/Taglia"
+                                android:text="@string/Difficoltà"
                                 android:textColor="@color/brawnColor"
                                 android:textSize="20sp" />
 
@@ -242,13 +179,6 @@
                                 android:textSize="20sp" />
 
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -275,6 +205,13 @@
                                 android:textSize="20sp" />
 
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"

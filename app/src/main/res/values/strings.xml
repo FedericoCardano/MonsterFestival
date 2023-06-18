@@ -36,11 +36,17 @@
     <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
     <string name="primo_accesso">Primo Accesso</string>
     <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
+    <string name="conferma_cancellazione">Conferma Cancellazione</string>
+    <string name="conferma_cancellazione_messaggio">Sei sicuro di voler cancellare questo Party? Questa azione è irreversibile.</string>
+    <string name="sì">Sì</string>
+    <string name="no">No</string>
     <string name="riprova">Riprova</string>
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>
+    <string name="modifica">Modifica</string>
     <string name="chiudi">Chiudi</string>
     <string name="esporta">Esporta</string>
+    <string name="rimuovi">Rimuovi</string>
 
     <string name="Titolo">Title</string>
     <string name="Ambiete">Ambiete:</string>
@@ -57,6 +63,7 @@
     <string name="INT">INT:</string>
     <string name="SAG">SAG:</string>
     <string name="Descrizione">Descrizione</string>
+    <string name="Difficoltà">Difficoltà</string>
 
     <string name="benvenuto">Benvenuto</string>
     <string name="default_utente">Anonymous</string>
@@ -76,8 +83,9 @@
 
     <string name="nome_compare_monsters">Confronto Mostri</string>
     <string name="nome_compare_parties">Confronto Party</string>
-    <string name="nome_detailt_monster">Scheda Mostro</string>
+    <string name="nome_detail_monster">Scheda Mostro</string>
     <string name="nome_my_parties">I miei Party</string>
+    <string name="nome_detail_party">Scheda Party</string>
     <string name="nome_party_creation">Creazione Party</string>
     <string name="nome_search">Ricerca</string>
     <string name="nome_search_filters">Filtri Ricerca</string>

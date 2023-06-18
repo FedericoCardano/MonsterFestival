@@ -17,25 +17,47 @@
 
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
-
             <TextView
                 android:id="@+id/tvNome"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:text="Nome Party"
+                android:padding="7dp"
+                android:text="@string/nome"
                 android:textColor="@color/brawnColor"
                 android:textSize="20sp" />
 
+            <ImageButton
+                android:id="@+id/modify_btn"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="150dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/modifica"
+                android:src="@drawable/modify"
+                app:tint="@color/black" />
+
+            <ImageButton
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/rimuovi"
+                android:src="@drawable/baseline_delete_24"
+                app:tint="@color/black" />
+
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

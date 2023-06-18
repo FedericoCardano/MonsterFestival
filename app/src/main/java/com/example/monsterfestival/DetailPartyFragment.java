@@ -7,9 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,18 +23,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import android.graphics.Canvas;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.pdf.PdfWriter;
-
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 
@@ -38,10 +36,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
-public class DetailFragment extends Fragment implements OnFragmentRemoveListener {
+public class DetailPartyFragment extends Fragment implements OnFragmentRemoveListener {
 
-    TextView detailID, detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
-    FloatingActionButton addButton, exportButton;
+    TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida;
+    FloatingActionButton exportButton;
 
     Fragment parent;
     OnFragmentVisibleListener fragmentVisibleListener;
@@ -58,70 +56,37 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_detail_monster, container, false);
+        rootView = inflater.inflate(R.layout.fragment_detail_party, container, false);
 
-        filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaMostro.pdf";
+        filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaParty.pdf";
 
-        detailID = rootView.findViewById(R.id.detailID);
-        detailDesc = rootView.findViewById(R.id.detailDesc);
         detailName = rootView.findViewById(R.id.detailName);
-        detailAmbiente = rootView.findViewById(R.id.detailAmbiente);
+        detailDiff = rootView.findViewById(R.id.detailDiff);
         detailCA = rootView.findViewById(R.id.detailCA);
         detailCAR = rootView.findViewById(R.id.detailCAR);
         detailCOST = rootView.findViewById(R.id.detailCOST);
-        detailCategoria = rootView.findViewById(R.id.detailCategoria);
         detailDES = rootView.findViewById(R.id.detailDES);
         detailFOR = rootView.findViewById(R.id.detailFOR);
         detailINT = rootView.findViewById(R.id.detailINT);
         detailPF = rootView.findViewById(R.id.detailPF);
         detailSAG = rootView.findViewById(R.id.detailSAG);
         detailSfida = rootView.findViewById(R.id.detailSfida);
-        detailTaglia = rootView.findViewById(R.id.detailTaglia);
-        addButton = rootView.findViewById(R.id.add_btn);
         exportButton = rootView.findViewById(R.id.export_btn);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            detailID.setText(bundle.getString("ID"));
-            detailDesc.setText(bundle.getString("Descrizione"));
             detailName.setText(bundle.getString("Nome"));
-            detailAmbiente.setText(bundle.getString("Ambiente"));
+            detailSfida.setText(bundle.getString("Sfida"));
+            //detailDiff.setText(bundle.getString("Difficoltà"));
             detailCA.setText(bundle.getString("CA"));
             detailCAR.setText(bundle.getString("CAR"));
             detailCOST.setText(bundle.getString("COST"));
-            detailCategoria.setText(bundle.getString("Categoria"));
             detailDES.setText(bundle.getString("DES"));
             detailFOR.setText(bundle.getString("FOR"));
             detailINT.setText(bundle.getString("INT"));
             detailPF.setText(bundle.getString("PF"));
             detailSAG.setText(bundle.getString("SAG"));
-            detailSfida.setText(bundle.getString("Sfida"));
-            detailTaglia.setText(bundle.getString("Taglia"));
         }
-
-        addButton.setOnClickListener(view1 -> {
-            if (bundle != null) {
-                Cart cart = CartHelper.getCart();
-                ArrayList<String> dati = new ArrayList<>();
-                dati.add(bundle.getString("ID"));
-                dati.add(bundle.getString("Nome"));
-                dati.add(bundle.getString("Descrizione"));
-                dati.add(bundle.getString("Ambiente"));
-                dati.add(bundle.getString("Categoria"));
-                dati.add(bundle.getString("Taglia"));
-                dati.add(bundle.getString("Sfida"));
-                dati.add(bundle.getString("PF"));
-                dati.add(bundle.getString("CA"));
-                dati.add(bundle.getString("FOR"));
-                dati.add(bundle.getString("DES"));
-                dati.add(bundle.getString("COST"));
-                dati.add(bundle.getString("INT"));
-                dati.add(bundle.getString("SAG"));
-                dati.add(bundle.getString("CAR"));
-                DataClass dataClass = new DataClass(dati);
-                cart.add(dataClass, 1, getContext());
-            }
-        });
 
         exportButton.setOnClickListener(view1 -> {
             if (Build.VERSION.SDK_INT > 29 || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
@@ -135,18 +100,6 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
             else
                 ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         });
-
-        if (parent != null) {
-            Fragment grandparentFragment = parent.getParentFragment();
-            if (grandparentFragment != null) {
-                    if (grandparentFragment instanceof HomeFragment) {
-                        addButton.setVisibility(View.INVISIBLE);
-                    }
-                    else {
-                        addButton.setVisibility(View.VISIBLE);
-                    }
-            }
-        }
 
         return rootView;
     }
@@ -163,7 +116,7 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
-            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_detailt_monster));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.nome_detail_party));
         }
     }
 
@@ -176,12 +129,6 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
         Dialog dialog = builder.create();
         dialog.show();
 
-        boolean addButtonVisibility = false;
-        if (addButton.getVisibility() == View.VISIBLE)
-        {
-            addButtonVisibility = true;
-            addButton.setVisibility(View.INVISIBLE);
-        }
         exportButton.setVisibility(View.INVISIBLE);
 
         int totalHeight = 0;
@@ -236,8 +183,6 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
         // Chiusura del documento
         document.close();
 
-        if (addButtonVisibility)
-            addButton.setVisibility(View.VISIBLE);
         exportButton.setVisibility(View.VISIBLE);
 
         // Visualizzazione o condivisione del PDF

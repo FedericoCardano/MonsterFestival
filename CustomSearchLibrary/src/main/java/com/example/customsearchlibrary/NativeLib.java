@@ -1,11 +1,17 @@
 package com.example.customsearchlibrary;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class NativeLib {
 
@@ -166,7 +172,7 @@ public class NativeLib {
 
             for (int i = 0; i < Party.get(index).size(); i++)
             {
-                ArrayList<String> mostro = getMostro(Party.get(index).get(i).get(1));
+                ArrayList<String> mostro = ID.get(Party.get(index).get(i).get(1));
                 mostro.add(0, String.valueOf(Party.get(index).get(i).get(0)));
                 mostriParty.add(mostro);
             }
@@ -176,6 +182,38 @@ public class NativeLib {
 
         return new ArrayList<>();
 
+    }
+
+    public void deleteParty(int adapterPosition) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
+            return;
+
+        Party.remove(adapterPosition);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(userUid);
+        databaseReference.child(nomiParty.remove(adapterPosition)).removeValue().addOnSuccessListener(aVoid -> databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.child("NParty").getValue() == null)
+                    return;
+
+                int NParty = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child("NParty").getValue()).toString()) - 1;
+
+                if (NParty > 0)
+                {
+                    setParties(dataSnapshot);
+                    databaseReference.child("NParty").setValue(NParty);
+                }
+                else
+                    databaseReference.child("NParty").removeValue();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        }));
     }
 
     public void invalidateUid() {

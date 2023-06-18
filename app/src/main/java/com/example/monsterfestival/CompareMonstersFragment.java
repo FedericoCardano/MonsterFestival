@@ -1,5 +1,6 @@
 package com.example.monsterfestival;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,9 +19,6 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 public class CompareMonstersFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
@@ -34,25 +32,15 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
     View rootView;
     View monsterView;
 
-    /*public static CompareMonstersFragment newInstance(String param1, String param2) {
-        CompareMonstersFragment fragment = new CompareMonstersFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }*/
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (getArguments() != null) {
-
-        }*/
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_compare_monsters, container, false);
 
         btn1 = rootView.findViewById(R.id.add_btn1);
@@ -60,116 +48,124 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         monster1 = rootView.findViewById(R.id.monster1);
         monster2 = rootView.findViewById(R.id.monster2);
 
+        FrameLayout containerFrame = rootView.findViewById(R.id.frame_access_compare_monsters);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btn1.setOnClickListener(view -> {
 
+            final View monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart,null,false);
 
-                final View monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart,null,false);
+            setAllVisibility(false);
 
-                setAllVisibility(false);
+            // Inizializza il Fragment
+            SearchMonstersFragment myFragment = new SearchMonstersFragment();
 
-                FrameLayout container = rootView.findViewById(R.id.frame_access_compare_monsters);
+            // Ottieni il FragmentManager e inizia la transazione
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                // Inizializza il Fragment
-                SearchMonstersFragment myFragment = new SearchMonstersFragment();
+            // Aggiunti il Fragment al Container View
+            fragmentTransaction.add(containerFrame.getId(), myFragment);
 
-                // Ottieni il FragmentManager e inizia la transazione
-                FragmentManager fragmentManager = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            // Esegui la transazione
+            fragmentTransaction.commit();
 
-                // Aggiunti il Fragment al Container View
-                fragmentTransaction.add(container.getId(), myFragment);
+            detailID = monsterView.findViewById(R.id.detailID);
+            detailName = monsterView.findViewById(R.id.detailName);
+            detailAmbiente = monsterView.findViewById(R.id.detailAmbiente);
+            detailCA = monsterView.findViewById(R.id.detailCA);
+            detailCAR = monsterView.findViewById(R.id.detailCAR);
+            detailCOST = monsterView.findViewById(R.id.detailCOST);
+            detailCategoria = monsterView.findViewById(R.id.detailCategoria);
+            detailDES = monsterView.findViewById(R.id.detailDES);
+            detailFOR = monsterView.findViewById(R.id.detailFOR);
+            detailINT = monsterView.findViewById(R.id.detailINT);
+            detailPF = monsterView.findViewById(R.id.detailPF);
+            detailSAG = monsterView.findViewById(R.id.detailSAG);
+            detailSfida = monsterView.findViewById(R.id.detailSfida);
+            detailTaglia = monsterView.findViewById(R.id.detailTaglia);
 
-                // Esegui la transazione
-                fragmentTransaction.commit();
+            Compare compare = new Compare();
+            DataClass dataclass = compare.getMonster1();
 
+            if (dataclass != null) {
+                detailID.setText(dataclass.getID());
+                detailName.setText(dataclass.getNome());
+                detailAmbiente.setText(dataclass.getAmbiente());
+                detailCA.setText(dataclass.getCa());
+                detailCAR.setText(dataclass.getCar());
+                detailCOST.setText(dataclass.getCost());
+                detailCategoria.setText(dataclass.getCategoria());
+                detailDES.setText(dataclass.getDes());
+                detailFOR.setText(dataclass.getFor());
+                detailINT.setText(dataclass.getInt());
+                detailPF.setText(dataclass.getPf());
+                detailSAG.setText(dataclass.getSag());
+                detailSfida.setText(dataclass.getSfida());
+                detailTaglia.setText(dataclass.getTaglia());
 
-                detailID = monsterView.findViewById(R.id.detailID);
-                detailName = monsterView.findViewById(R.id.detailName);
-                detailAmbiente = monsterView.findViewById(R.id.detailAmbiente);
-                detailCA = monsterView.findViewById(R.id.detailCA);
-                detailCAR = monsterView.findViewById(R.id.detailCAR);
-                detailCOST = monsterView.findViewById(R.id.detailCOST);
-                detailCategoria = monsterView.findViewById(R.id.detailCategoria);
-                detailDES = monsterView.findViewById(R.id.detailDES);
-                detailFOR = monsterView.findViewById(R.id.detailFOR);
-                detailINT = monsterView.findViewById(R.id.detailINT);
-                detailPF = monsterView.findViewById(R.id.detailPF);
-                detailSAG = monsterView.findViewById(R.id.detailSAG);
-                detailSfida = monsterView.findViewById(R.id.detailSfida);
-                detailTaglia = monsterView.findViewById(R.id.detailTaglia);
-
-                Compare compare = new Compare();
-                DataClass dataclass = compare.getMonster2();
-
-                if (dataclass != null) {
-                    detailID.setText(dataclass.getID());
-                    detailName.setText(dataclass.getNome());
-                    detailAmbiente.setText(dataclass.getAmbiente());
-                    detailCA.setText(dataclass.getCa());
-                    detailCAR.setText(dataclass.getCar());
-                    detailCOST.setText(dataclass.getCost());
-                    detailCategoria.setText(dataclass.getCategoria());
-                    detailDES.setText(dataclass.getDes());
-                    detailFOR.setText(dataclass.getFor());
-                    detailINT.setText(dataclass.getInt());
-                    detailPF.setText(dataclass.getPf());
-                    detailSAG.setText(dataclass.getSag());
-                    detailSfida.setText(dataclass.getSfida());
-                    detailTaglia.setText(dataclass.getTaglia());
-
-                    btn1.setVisibility(View.GONE);
-                    //monster1.addView(monsterView);
-                }
-
+                btn1.setVisibility(View.GONE);
+                //monster1.addView(monsterView);
             }
+
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btn2.setOnClickListener(view -> {
 
+            monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart, null,false);
 
-                monsterView = getLayoutInflater().inflate(R.layout.compare_monsters_cart,null,false);
+            setAllVisibility(false);
 
-                setAllVisibility(false);
+            // Inizializza il Fragment
+            SearchMonstersFragment myFragment = new SearchMonstersFragment();
 
-                FrameLayout container = rootView.findViewById(R.id.frame_access_compare_monsters);
+            // Ottieni il FragmentManager e inizia la transazione
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                // Inizializza il Fragment
-                SearchMonstersFragment myFragment = new SearchMonstersFragment();
+            // Aggiunti il Fragment al Container View
+            fragmentTransaction.add(containerFrame.getId(), myFragment);
 
-                // Ottieni il FragmentManager e inizia la transazione
-                FragmentManager fragmentManager = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            // Esegui la transazione
+            fragmentTransaction.commit();
 
-                // Aggiunti il Fragment al Container View
-                fragmentTransaction.add(container.getId(), myFragment);
+            detailID = monsterView.findViewById(R.id.detailID);
+            detailName = monsterView.findViewById(R.id.detailName);
+            detailAmbiente = monsterView.findViewById(R.id.detailAmbiente);
+            detailCA = monsterView.findViewById(R.id.detailCA);
+            detailCAR = monsterView.findViewById(R.id.detailCAR);
+            detailCOST = monsterView.findViewById(R.id.detailCOST);
+            detailCategoria = monsterView.findViewById(R.id.detailCategoria);
+            detailDES = monsterView.findViewById(R.id.detailDES);
+            detailFOR = monsterView.findViewById(R.id.detailFOR);
+            detailINT = monsterView.findViewById(R.id.detailINT);
+            detailPF = monsterView.findViewById(R.id.detailPF);
+            detailSAG = monsterView.findViewById(R.id.detailSAG);
+            detailSfida = monsterView.findViewById(R.id.detailSfida);
+            detailTaglia = monsterView.findViewById(R.id.detailTaglia);
 
-                // Esegui la transazione
-                fragmentTransaction.commit();
+            Compare compare = new Compare();
+            DataClass dataclass = compare.getMonster2();
 
-                detailID = monsterView.findViewById(R.id.detailID);
-                detailName = monsterView.findViewById(R.id.detailName);
-                detailAmbiente = monsterView.findViewById(R.id.detailAmbiente);
-                detailCA = monsterView.findViewById(R.id.detailCA);
-                detailCAR = monsterView.findViewById(R.id.detailCAR);
-                detailCOST = monsterView.findViewById(R.id.detailCOST);
-                detailCategoria = monsterView.findViewById(R.id.detailCategoria);
-                detailDES = monsterView.findViewById(R.id.detailDES);
-                detailFOR = monsterView.findViewById(R.id.detailFOR);
-                detailINT = monsterView.findViewById(R.id.detailINT);
-                detailPF = monsterView.findViewById(R.id.detailPF);
-                detailSAG = monsterView.findViewById(R.id.detailSAG);
-                detailSfida = monsterView.findViewById(R.id.detailSfida);
-                detailTaglia = monsterView.findViewById(R.id.detailTaglia);
+            if (dataclass != null) {
+                detailID.setText(dataclass.getID());
+                detailName.setText(dataclass.getNome());
+                detailAmbiente.setText(dataclass.getAmbiente());
+                detailCA.setText(dataclass.getCa());
+                detailCAR.setText(dataclass.getCar());
+                detailCOST.setText(dataclass.getCost());
+                detailCategoria.setText(dataclass.getCategoria());
+                detailDES.setText(dataclass.getDes());
+                detailFOR.setText(dataclass.getFor());
+                detailINT.setText(dataclass.getInt());
+                detailPF.setText(dataclass.getPf());
+                detailSAG.setText(dataclass.getSag());
+                detailSfida.setText(dataclass.getSfida());
+                detailTaglia.setText(dataclass.getTaglia());
 
-
-
-
+                btn2.setVisibility(View.GONE);
+                monster2.addView(monsterView);
             }
+
         });
 
         return rootView;
@@ -211,6 +207,25 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         DataClass dataclass2 = compare.getMonster2();
         DataClass dataclass1 = compare.getMonster1();
 
+        if (dataclass1 != null) {
+            detailID.setText(dataclass1.getID());
+            detailName.setText(dataclass1.getNome());
+            detailAmbiente.setText(dataclass1.getAmbiente());
+            detailCA.setText(dataclass1.getCa());
+            detailCAR.setText(dataclass1.getCar());
+            detailCOST.setText(dataclass1.getCost());
+            detailCategoria.setText(dataclass1.getCategoria());
+            detailDES.setText(dataclass1.getDes());
+            detailFOR.setText(dataclass1.getFor());
+            detailINT.setText(dataclass1.getInt());
+            detailPF.setText(dataclass1.getPf());
+            detailSAG.setText(dataclass1.getSag());
+            detailSfida.setText(dataclass1.getSfida());
+            detailTaglia.setText(dataclass1.getTaglia());
+
+            btn1.setVisibility(View.GONE);
+            monster1.addView(monsterView);
+        }
 
         if (dataclass2 != null) {
             detailID.setText(dataclass2.getID());
@@ -230,26 +245,6 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
             btn2.setVisibility(View.GONE);
             monster2.addView(monsterView);
-        }
-
-        if (dataclass1 != null) {
-            detailID.setText(dataclass1.getID());
-            detailName.setText(dataclass1.getNome());
-            detailAmbiente.setText(dataclass1.getAmbiente());
-            detailCA.setText(dataclass1.getCa());
-            detailCAR.setText(dataclass1.getCar());
-            detailCOST.setText(dataclass1.getCost());
-            detailCategoria.setText(dataclass1.getCategoria());
-            detailDES.setText(dataclass1.getDes());
-            detailFOR.setText(dataclass1.getFor());
-            detailINT.setText(dataclass1.getInt());
-            detailPF.setText(dataclass1.getPf());
-            detailSAG.setText(dataclass1.getSag());
-            detailSfida.setText(dataclass1.getSfida());
-            detailTaglia.setText(dataclass1.getTaglia());
-
-            btn1.setVisibility(View.GONE);
-            monster1.addView(monsterView);
         }
 
     }

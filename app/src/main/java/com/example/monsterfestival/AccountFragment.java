@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.NotNull;
 
@@ -35,6 +37,7 @@ public class AccountFragment extends Fragment {
     Button button;
     Button changeEmail;
     Button changePsw;
+    //Button delateAccount;
 
     EditText editTextEmail;
     TextView textView;
@@ -53,19 +56,28 @@ public class AccountFragment extends Fragment {
         button = rootView.findViewById(R.id.logout);
         textView = rootView.findViewById(R.id.user_details);
 
+        changeEmail= rootView.findViewById(R.id.changeEmailButton);
+        changePsw= rootView.findViewById(R.id.changePswButton);
+        editTextEmail = rootView.findViewById(R.id.new_email);
+        //delateAccount = rootView.findViewById(R.id.delate_account);
+
         user = auth.getCurrentUser();
         if (user == null){
             button.setText(getResources().getString(R.string.login));
             mostraLogin();
         }
         else{
-            changeEmail= rootView.findViewById(R.id.changeEmailButton);
-            changePsw= rootView.findViewById(R.id.changePswButton);
+
+            changeEmail.setText(getResources().getString(R.string.cambia_email));
             textView.setText(user.getEmail());
             button.setText(getResources().getString(R.string.logout));
-            editTextEmail = rootView.findViewById(R.id.new_email);
-            changeEmail.setText(getResources().getString(R.string.cambia_email));
             changePsw.setText(getResources().getString(R.string.cambia_psw));
+            //delateAccount.setText(getResources().getString(R.string.cancella_account));
+
+            changeEmail.setVisibility(View.VISIBLE);
+            changePsw.setVisibility(View.VISIBLE);
+            //delateAccount.setVisibility(View.VISIBLE);
+            editTextEmail.setVisibility(View.VISIBLE);
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +103,15 @@ public class AccountFragment extends Fragment {
                                     textView.setText(user.getEmail());
                                 } else {
                                     Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();//TODO eliminare
+                                    if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                                    {
+                                        auth.signOut();
+                                        button.setText(getResources().getString(R.string.login));
+                                        mostraLogin();
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();//TODO eliminare
+                                    }
                                 }
                             }
                         });
@@ -112,7 +132,16 @@ public class AccountFragment extends Fragment {
                                 else
                                 {
                                     Toast.makeText(getActivity(),R.string.cambia_psw_fallito, Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();//TODO eliminare
+
+                                    if(task.getException().getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                                    {
+                                        auth.signOut();
+                                        button.setText(getResources().getString(R.string.login));
+                                        mostraLogin();
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();//TODO eliminare
+                                    }
                                 }
                             }
                         });
@@ -124,6 +153,12 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraLogin() {
+
+        changeEmail.setVisibility(View.INVISIBLE);
+        changePsw.setVisibility(View.INVISIBLE);
+        editTextEmail.setVisibility(View.INVISIBLE);
+        //delateAccount.setVisibility(View.INVISIBLE);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment
@@ -144,6 +179,11 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraRegister() {
+
+        changeEmail.setVisibility(View.INVISIBLE);
+        changePsw.setVisibility(View.INVISIBLE);
+        editTextEmail.setVisibility(View.INVISIBLE);
+        //delateAccount.setVisibility(View.INVISIBLE);
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment

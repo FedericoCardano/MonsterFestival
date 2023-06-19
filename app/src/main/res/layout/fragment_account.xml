@@ -28,6 +28,7 @@
             android:textColor="#eae4db" />
 
         <LinearLayout
+            android:id="@+id/emailLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -58,6 +59,14 @@
             android:text="@string/cambia_psw"
             android:textColor="#eae4db" />
 
+        <Button
+            android:id="@+id/delate_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brawnColor"
+            android:text="@string/logout"
+            android:textColor="#eae4db" />
+
 
     </LinearLayout>
 
@@ -68,6 +77,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </FrameLayout>
 
 </RelativeLayout>

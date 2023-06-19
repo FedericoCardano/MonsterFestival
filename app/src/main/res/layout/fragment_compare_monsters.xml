@@ -54,6 +54,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/btnClear"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brawnColor"
+            android:src="@drawable/baseline_clear_24"
+            app:tint="@color/white"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/frame_access_compare_monsters"
         android:layout_width="match_parent"

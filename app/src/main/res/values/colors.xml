@@ -10,4 +10,8 @@
     <color name="brawnColor">#2C241C</color>
     <color name="creamColor">#eae4db</color>
     <color name="rossoPorpora">#75151e</color>
+    <color name="rosso">#FF0000</color>
+    <color name="verde">#008000</color>
+    <color name="grigio">#808080</color>
+
 </resources>

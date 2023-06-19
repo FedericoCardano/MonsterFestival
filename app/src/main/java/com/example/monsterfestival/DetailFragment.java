@@ -119,7 +119,13 @@ public class DetailFragment extends Fragment implements OnFragmentRemoveListener
                 dati.add(bundle.getString("SAG"));
                 dati.add(bundle.getString("CAR"));
                 DataClass dataClass = new DataClass(dati);
-                cart.add(dataClass, 1, getContext());
+                final Compare compare = Compare.getCompare();
+                if (compare.getFlag() == false) {
+                    cart.add(dataClass, 1, getContext());
+                }
+                else {
+                    compare.add(dataClass, compare.getNumero());
+                }
             }
         });
 

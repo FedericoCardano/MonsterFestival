@@ -168,6 +168,10 @@ public class HomeFragment extends Fragment {
     void creaCompareMonstersFragment() {
         setAllVisibility(false);
 
+        final Compare compare = Compare.getCompare();
+        compare.setMonster1();
+        compare.setMonster2();
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 

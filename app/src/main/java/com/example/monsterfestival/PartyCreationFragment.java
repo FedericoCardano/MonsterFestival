@@ -143,6 +143,9 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     void creaSearchMonsters() {
         setAllVisibility(false);
 
+        final Compare compare = Compare.getCompare();
+        compare.setFlag(false);
+
         FrameLayout container = rootView.findViewById(R.id.frame_access_party_creation);
 
         // Inizializza il Fragment

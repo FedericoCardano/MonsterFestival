@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="1dp"
+    android:paddingVertical="1dp"
     tools:context=".CompareMonstersFragment">
 
     <LinearLayout
         android:id="@+id/monster1"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_btn1"
@@ -36,12 +38,12 @@
 
     <LinearLayout
         android:id="@+id/monster2"
-        android:layout_marginStart="20dp"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_btn2"
@@ -56,13 +58,13 @@
 
     <LinearLayout
         android:id="@+id/btnClear"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/clearBtn"
@@ -70,8 +72,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brawnColor"
             android:src="@drawable/baseline_clear_24"
-            app:tint="@color/white"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:tint="@color/white" />
 
     </LinearLayout>
 

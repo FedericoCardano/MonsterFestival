@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,13 @@
     android:orientation="vertical"
     android:paddingHorizontal="1dp"
     android:paddingVertical="1dp"
-    tools:context=".CompareMonstersFragment">
+    tools:context=".fragment_dir.CompareMonstersFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
     <LinearLayout
         android:id="@+id/monster1"
@@ -72,8 +78,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brawnColor"
             android:src="@drawable/baseline_clear_24"
+            app:tint="@color/white"
             android:visibility="gone"
-            app:tint="@color/white" />
+            android:contentDescription="@string/rimuovi" />
 
     </LinearLayout>
 
@@ -86,4 +93,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

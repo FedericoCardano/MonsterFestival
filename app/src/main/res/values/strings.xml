@@ -67,6 +67,7 @@
     <string name="SAG">SAG:</string>
     <string name="Descrizione">Descrizione</string>
     <string name="Difficoltà">Difficoltà</string>
+    <string name="mostri_party">Mostri:</string>
 
     <string name="benvenuto">Benvenuto</string>
     <string name="default_utente">Anonymous</string>
@@ -100,6 +101,7 @@
 
     <string name="aggiungi_mostro_1">Aggiungi il Primo Mostro</string>
     <string name="aggiungi_mostro_2">Aggiungi il Secondo Mostro</string>
+    <string name="mostro_selezionato">Mostro selezionato correttamente</string>
 
     <string name="numero_mostri">Numero mostri</string>
     <string name="aggiungi_mostro">Aggiungi mostro</string>

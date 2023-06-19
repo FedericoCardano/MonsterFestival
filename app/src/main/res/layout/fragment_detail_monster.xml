@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/creamColor"
-    tools:context=".DetailMonsterFragment">
+    tools:context=".fragment_dir.DetailMonsterFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"

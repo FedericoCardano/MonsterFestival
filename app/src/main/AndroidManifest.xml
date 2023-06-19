@@ -47,7 +47,7 @@
         android:theme="@style/Theme.MonsterFestival"
         tools:targetApi="32">
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".classes_dir.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="false"
             android:directBootAware="true">
@@ -67,7 +67,7 @@
         </provider>
 
         <receiver
-            android:name=".BootCompletedReceiver"
+            android:name=".classes_dir.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -77,13 +77,13 @@
         </receiver>
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".activity_dir.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_dir.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity_dir.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

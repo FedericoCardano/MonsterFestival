@@ -2,6 +2,7 @@ package com.example.customsearchlibrary;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class NativeLib {
+public class NativeLib implements Serializable {
 
     private ArrayList<ArrayList<String>> ID;
     private ArrayList<ArrayList<ArrayList<Integer>>> Filtri;
@@ -28,6 +29,26 @@ public class NativeLib {
     // Used to load the 'customsearchlibrary' library on application startup.
     static {
         System.loadLibrary("customsearchlibrary");
+    }
+
+    public NativeLib() {
+        this.ID = new ArrayList<>();
+        this.Filtri = new ArrayList<>();
+        this.nomiFiltri = new ArrayList<>();
+        this.userUid = "";
+        this.Party = new ArrayList<>();
+        this.nomiParty = new ArrayList<>();
+    }
+
+    public NativeLib(NativeLib obj) {
+        this.ID = obj.ID;
+        this.Filtri = obj.Filtri;
+        this.nomiFiltri = obj.nomiFiltri;
+        this.userUid = obj.userUid;
+        this.Party = obj.Party;
+        this.nomiParty = obj.nomiParty;
+
+        updateDatabase();
     }
 
     private native ArrayList<Integer> processTablesNative(ArrayList<ArrayList<Integer>> filterTableList);
@@ -221,6 +242,8 @@ public class NativeLib {
     }
 
     public native ArrayList<String> getMostro(Integer ID);
+
+    public native ArrayList<String> getMostro(String nome);
 
     private native ArrayList<ArrayList<String>> execSearchNative(String text, ArrayList<ArrayList<String>> filterList);
 

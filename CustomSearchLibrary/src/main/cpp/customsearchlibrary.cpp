@@ -9,6 +9,7 @@ using namespace std;
 /****** Variabili JNI ******/
 jclass arrayListClass;
 jclass integerClass;
+jclass stringClass;
 
 jmethodID arrayListInit;
 jmethodID integerInit;
@@ -262,6 +263,7 @@ extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM* vm, [[maybe_unused]] void* reserved
     // Definizione oggetti Classe
     arrayListClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/util/ArrayList")));
     integerClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/lang/Integer")));
+    stringClass = reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/lang/String")));
 
     // Definizione metodi delle Classi
     arrayListInit = env->GetMethodID(arrayListClass, "<init>", "()V");
@@ -348,11 +350,23 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabaseNative(JNIEnv *env,
     }
 
 }
+
 extern "C"
 JNIEXPORT jobject JNICALL
-Java_com_example_customsearchlibrary_NativeLib_getMostro(JNIEnv *env, jobject /* this */, jobject id) {
+Java_com_example_customsearchlibrary_NativeLib_getMostro(JNIEnv *env, jobject /* this */, jobject identifier) {
     vector<string> mostro;
-    getMostroCPP(env->CallIntMethod(id, intValueMethod), mostro);
+
+    if (env->IsInstanceOf(identifier, stringClass)) {
+        string nome = env->GetStringUTFChars(reinterpret_cast<jstring>(identifier), reinterpret_cast<jboolean *>(false));
+        for (int index = 0; index < ID.size(); index++)
+            if (ID[index].Nome == nome) {
+                getMostroCPP(index, mostro);
+                break;
+            }
+    }
+    else if (env->IsInstanceOf(identifier, integerClass))
+        getMostroCPP(env->CallIntMethod(identifier, intValueMethod), mostro);
+
     return convert2JNI(env, mostro);
 }
 
@@ -402,13 +416,13 @@ Java_com_example_customsearchlibrary_NativeLib_execSearchNative(JNIEnv *env, job
     if (listaID.empty())
         for (const auto& id : ID) {
             getMostroCPP(id.first, mostro);
-            if (stringSimilarity(processedText, mostro[0], true))
+            if (stringSimilarity(processedText, mostro[1], true))
                 result.push_back(mostro);
         }
     else
         for (const int& id : listaID) {
             getMostroCPP(id, mostro);
-            if (stringSimilarity(processedText, mostro[0], true))
+            if (stringSimilarity(processedText, mostro[1], true))
                 result.push_back(mostro);
         }
 

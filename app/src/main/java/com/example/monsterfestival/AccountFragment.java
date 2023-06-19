@@ -37,7 +37,7 @@ public class AccountFragment extends Fragment {
     Button button;
     Button changeEmail;
     Button changePsw;
-    //Button delateAccount;
+    Button delateAccount;
 
     EditText editTextEmail;
     TextView textView;
@@ -59,7 +59,7 @@ public class AccountFragment extends Fragment {
         changeEmail= rootView.findViewById(R.id.changeEmailButton);
         changePsw= rootView.findViewById(R.id.changePswButton);
         editTextEmail = rootView.findViewById(R.id.new_email);
-        //delateAccount = rootView.findViewById(R.id.delate_account);
+        delateAccount = rootView.findViewById(R.id.delate_account);
 
         user = auth.getCurrentUser();
         if (user == null){
@@ -72,11 +72,11 @@ public class AccountFragment extends Fragment {
             textView.setText(user.getEmail());
             button.setText(getResources().getString(R.string.logout));
             changePsw.setText(getResources().getString(R.string.cambia_psw));
-            //delateAccount.setText(getResources().getString(R.string.cancella_account));
+            delateAccount.setText(getResources().getString(R.string.cancella_account));
 
             changeEmail.setVisibility(View.VISIBLE);
             changePsw.setVisibility(View.VISIBLE);
-            //delateAccount.setVisibility(View.VISIBLE);
+            delateAccount.setVisibility(View.VISIBLE);
             editTextEmail.setVisibility(View.VISIBLE);
         }
 
@@ -147,7 +147,34 @@ public class AccountFragment extends Fragment {
                         });
             }
         });
+        delateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(),R.string.account_cancellato, Toast.LENGTH_SHORT).show();
+                                    mostraRegister();
+                                }
+                                else {
+                                    Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
+                                    if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                                    {
+                                        auth.signOut();
+                                        button.setText(getResources().getString(R.string.login));
 
+                                        mostraLogin();
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();//TODO eliminare
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
 
         return rootView;
     }
@@ -157,7 +184,7 @@ public class AccountFragment extends Fragment {
         changeEmail.setVisibility(View.INVISIBLE);
         changePsw.setVisibility(View.INVISIBLE);
         editTextEmail.setVisibility(View.INVISIBLE);
-        //delateAccount.setVisibility(View.INVISIBLE);
+        delateAccount.setVisibility(View.INVISIBLE);
 
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
@@ -183,7 +210,7 @@ public class AccountFragment extends Fragment {
         changeEmail.setVisibility(View.INVISIBLE);
         changePsw.setVisibility(View.INVISIBLE);
         editTextEmail.setVisibility(View.INVISIBLE);
-        //delateAccount.setVisibility(View.INVISIBLE);
+        delateAccount.setVisibility(View.INVISIBLE);
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment

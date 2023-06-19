@@ -49,14 +49,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
         toolbar.setVisibility(View.GONE);
         textToolbar = findViewById(R.id.toolbarTitle);
         ImageButton buttonToolbar = findViewById(R.id.toolbarButton);
-        buttonToolbar.setOnClickListener(v -> {
-            tornaIndetro();
-        });
+        buttonToolbar.setOnClickListener(v -> tornaIndetro());
 
         currentFragment = null;
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            while(CustomonBackPressed) {
+                tornaIndetro();
+            }
             switch (item.getItemId()) {
                 case R.id.home:
                     replaceFragment(new HomeFragment());

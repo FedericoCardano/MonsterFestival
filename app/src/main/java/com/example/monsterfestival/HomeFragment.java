@@ -94,7 +94,8 @@ public class HomeFragment extends Fragment {
                 if (user.isAnonymous())
                     printMessage(getResources().getString(R.string.confronto_party));
                 else {
-                    creaComparePartiesFragment();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+                    //creaComparePartiesFragment();
                 }
             }
         });

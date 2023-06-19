@@ -43,27 +43,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.recCard.setOnClickListener(view -> {
             Bundle b = new Bundle();
-            b.putString("ID", dataList.get(holder.getAdapterPosition()).getID());
-            b.putString("Ambiente", dataList.get(holder.getAdapterPosition()).getAmbiente());
-            b.putString("CA", dataList.get(holder.getAdapterPosition()).getCa());
-            b.putString("Categoria", dataList.get(holder.getAdapterPosition()).getCategoria());
-            b.putString("Nome",dataList.get(holder.getAdapterPosition()).getNome());
-            b.putString("PF", dataList.get(holder.getAdapterPosition()).getPf());
-            b.putString("Sfida", dataList.get(holder.getAdapterPosition()).getSfida());
-            b.putString("Taglia", dataList.get(holder.getAdapterPosition()).getTaglia());
-            b.putString("Descrizione", dataList.get(holder.getAdapterPosition()).getDescrizione());
-            b.putString("CAR", dataList.get(holder.getAdapterPosition()).getCar());
-            b.putString("COST", dataList.get(holder.getAdapterPosition()).getCost());
-            b.putString("DES", dataList.get(holder.getAdapterPosition()).getDes());
-            b.putString("FOR", dataList.get(holder.getAdapterPosition()).getFor());
-            b.putString("INT", dataList.get(holder.getAdapterPosition()).getInt());
-            b.putString("SAG", dataList.get(holder.getAdapterPosition()).getSag());
+            DataClass monster = dataList.get(holder.getAdapterPosition());
+            b.putString("ID", monster.getID());
+            b.putString("Ambiente", monster.getAmbiente());
+            b.putString("CA", monster.getCa());
+            b.putString("Categoria", monster.getCategoria());
+            b.putString("Nome", monster.getNome());
+            b.putString("PF", monster.getPf());
+            b.putString("Sfida", monster.getSfida());
+            b.putString("Taglia", monster.getTaglia());
+            b.putString("Descrizione", monster.getDescrizione());
+            b.putString("CAR", monster.getCar());
+            b.putString("COST", monster.getCost());
+            b.putString("DES", monster.getDes());
+            b.putString("FOR", monster.getFor());
+            b.putString("INT", monster.getInt());
+            b.putString("SAG", monster.getSag());
 
             SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
             SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
 
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
-            DetailFragment RecyclerFragment = new DetailFragment();
+            DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
             RecyclerFragment.setParent(_parent);
             RecyclerFragment.setArguments(b);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();

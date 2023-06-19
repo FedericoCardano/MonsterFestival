@@ -73,19 +73,20 @@ public class SplashActivity extends AppCompatActivity {
             editor.putInt("intervalPeriodicWork", interval);
             editor.apply();
 
+            Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
             PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
                     DatabaseUpdateWorker.class,
                     /* intervallo di controllo in millisecondi */ interval,
                     TimeUnit.MILLISECONDS
-            ).build();
+            ).setConstraints(constraints).build();
 
-            Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
             OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(DatabaseUpdateWorker.class).setConstraints(constraints).build();
             WorkManager.getInstance(this).enqueue(workRequest);
             WorkManager.getInstance(this).enqueueUniquePeriodicWork("Aggiornamenti_Database", ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
         }
-        else
+        else {
             continueCode();
+        }
 
 
     }

@@ -37,9 +37,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="40dp"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/tvCategoria"

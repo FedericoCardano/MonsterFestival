@@ -64,56 +64,34 @@ public class WelcomeActivity extends AppCompatActivity {
         textView = findViewById(R.id.login_textview);
         mAuth = FirebaseAuth.getInstance();
 
-        buttonPopUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.show();
-            }
+        buttonPopUp.setOnClickListener(view -> dialog.show());
+
+        register.setOnClickListener(view -> {
+            dialog.hide();
+            mostraRegister();
+            buttonPopUp.setVisibility(View.INVISIBLE);
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.hide();
-                mostraRegister();
-                buttonPopUp.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        maybeLater.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                loginAnonymous();
-            }
+        maybeLater.setOnClickListener(view -> {
+            dialog.dismiss();
+            loginAnonymous();
         });
 
 
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mostraLogin();
-                buttonPopUp.setVisibility(View.INVISIBLE);
-            }
+        textView.setOnClickListener(view -> {
+            mostraLogin();
+            buttonPopUp.setVisibility(View.INVISIBLE);
         });
 
     }
 
     private void loginAnonymous() {
         mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(WelcomeActivity.this, "Access error: " + e, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful())
+                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                }).addOnFailureListener(e -> Toast.makeText(WelcomeActivity.this, "Access error: " + e, Toast.LENGTH_SHORT).show());
     }
 
     public void mostraLogin() {

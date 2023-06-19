@@ -1,10 +1,6 @@
 package com.example.monsterfestival;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Compare {
     private DataClass monster1;

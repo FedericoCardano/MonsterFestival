@@ -59,7 +59,7 @@ public class AccountFragment extends Fragment {
         delateAccount = rootView.findViewById(R.id.delate_account);
 
         user = auth.getCurrentUser();
-        if (user == null){
+        if (user == null || user.isAnonymous()){
             button.setText(getResources().getString(R.string.login));
             mostraLogin();
         }

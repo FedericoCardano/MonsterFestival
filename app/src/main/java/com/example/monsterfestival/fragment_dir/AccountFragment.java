@@ -2,7 +2,7 @@ package com.example.monsterfestival.fragment_dir;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,12 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.monsterfestival.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.annotations.NotNull;
+
 
 import java.util.Objects;
 
@@ -87,23 +86,20 @@ public class AccountFragment extends Fragment {
 
             if(!editTextEmail.getText().toString().isEmpty()) {
                 user.updateEmail(editTextEmail.getText().toString())
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull @NotNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), R.string.nuova_email_poup, Toast.LENGTH_SHORT).show();
-                                textView.setText(user.getEmail());
-                            } else {
-                                Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
-                                if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
-                                {
-                                    auth.signOut();
-                                    button.setText(getResources().getString(R.string.login));
-                                    mostraLogin();
-                                }
-                                else {
-                                    Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                                }
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), R.string.nuova_email_poup, Toast.LENGTH_SHORT).show();
+                            textView.setText(user.getEmail());
+                        } else {
+                            Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
+                            if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                            {
+                                auth.signOut();
+                                button.setText(getResources().getString(R.string.login));
+                                mostraLogin();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

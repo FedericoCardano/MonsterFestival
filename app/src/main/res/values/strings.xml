@@ -24,6 +24,13 @@
     <string name="nuova_email_poup">Email Aggiornata</string>
     <string name="cancella_account">Cancella Account</string>
     <string name="account_cancellato">Account Cancellato </string>
+    <string name="N_avventurieri">Numero di avventurieri</string>
+    <string name="Lv_avventurieri">Livello avventurieri</string>
+    <string name="Impostazioni_Scontro">Impostazioni Scontro</string>
+    <string name="descriszione_impostazioni_scontro">Tramite i seguenti parametri verrà calcolata automaticamente la difficoltà dello scontro</string>
+    <string name="credit">Credit</string>
+    <string name="notifiche">Notifiche</string>
+    <string name="feedback">Feedback</string>
     <string name="nuova_psw_poup">Mail di Controllo Inviata</string>
     <string name="cambia_email_fallito">Cambio email fallito</string>
     <string name="cambia_psw_fallito">Cambio Password fallito</string>

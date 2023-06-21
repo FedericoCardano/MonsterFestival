@@ -1,9 +1,12 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +22,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.classes_dir.Cart;
@@ -87,31 +92,69 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
         btnSaveParty.setOnClickListener(view -> {
-            if (cart.getTotalQuantity() > 0)
-            {
-                reference = FirebaseDatabase.getInstance().getReference("User");
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null && !user.isAnonymous()) {
-                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Log.d("ADebugTag", "Value: " + 1);
-                            if (snapshot.hasChild(user.getUid())) {
-                                int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
-                                if (numParty < 5) {
-                                    numParty += 1;
-                                    reference.child(user.getUid()).child("NParty").setValue(numParty);
 
+            Dialog dialog = new Dialog(requireContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_salva_party);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+            dialog.show();
+
+            dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
+            dialog.findViewById(R.id.btnSalva).setOnClickListener(view1 -> {
+
+                String nomeParty = ((TextView) dialog.findViewById(R.id.editNomeParty)).getText().toString();
+
+                if (partyExists(nomeParty) || nomeParty.equals("NParty")) {
+                    Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.nome_usato), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (cart.getTotalQuantity() > 0) {
+                    reference = FirebaseDatabase.getInstance().getReference("User");
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null && !user.isAnonymous()) {
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @SuppressLint("NotifyDataSetChanged")
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Log.d("ADebugTag", "Value: " + 1);
+                                if (snapshot.hasChild(user.getUid())) {
+                                    int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
+                                    if (numParty < 5) {
+                                        numParty += 1;
+                                        reference.child(user.getUid()).child("NParty").setValue(numParty);
+
+                                        HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                                        int numMostro = 1;
+                                        for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                            reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                            reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                            numMostro += 1;
+                                        }
+                                        reference.child(user.getUid()).child("Party" + numParty);
+                                        cart.setTotalQuantity(0);
+                                        itemMap.clear();
+                                        cart.changeCart(itemMap);
+                                        changeTotalMonstersNumber(cart);
+                                        cartItemAdapter.updateCartItems(getCartItems(cart));
+                                        cartItemAdapter.notifyDataSetChanged();
+                                        updateLocalParties();
+                                        dialog.dismiss();
+                                        startActivity(new Intent(getActivity(), MainActivity.class));
+                                    }
+
+                                } else {
+                                    reference.child(user.getUid()).child("NParty").setValue(1);
                                     HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 
                                     int numMostro = 1;
                                     for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                        reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                        reference.child(user.getUid()).child("Party" + numParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                        reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                        reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                         numMostro += 1;
                                     }
-                                    reference.child(user.getUid()).child("Party" + numParty);
                                     cart.setTotalQuantity(0);
                                     itemMap.clear();
                                     cart.changeCart(itemMap);
@@ -119,38 +162,19 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     cartItemAdapter.updateCartItems(getCartItems(cart));
                                     cartItemAdapter.notifyDataSetChanged();
                                     updateLocalParties();
+                                    dialog.dismiss();
                                     startActivity(new Intent(getActivity(), MainActivity.class));
                                 }
-
-                            } else {
-                                reference.child(user.getUid()).child("NParty").setValue(1);
-                                HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
-
-                                int numMostro = 1;
-                                for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                    reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                    reference.child(user.getUid()).child("Party" + 1).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
-                                    numMostro += 1;
-                                }
-                                cart.setTotalQuantity(0);
-                                itemMap.clear();
-                                cart.changeCart(itemMap);
-                                changeTotalMonstersNumber(cart);
-                                cartItemAdapter.updateCartItems(getCartItems(cart));
-                                cartItemAdapter.notifyDataSetChanged();
-                                updateLocalParties();
-                                startActivity(new Intent(getActivity(), MainActivity.class));
                             }
-                        }
 
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
                 }
-            }
+            });
         });
 
         rootView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
@@ -259,5 +283,11 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
             editor.apply();
         }
 
+    }
+
+    private boolean partyExists(String name) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+        return objectNativeLib.getPartyNames().contains(name);
     }
 }

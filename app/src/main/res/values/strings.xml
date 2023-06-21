@@ -47,9 +47,15 @@
     <string name="primo_accesso">Primo Accesso</string>
     <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
     <string name="conferma_cancellazione">Conferma Cancellazione</string>
-    <string name="conferma_cancellazione_messaggio">Sei sicuro di voler cancellare questo Party? Questa azione è irreversibile.</string>
+    <string name="conferma_cancellazione_messaggio">Sei sicuro di voler procedere? Questa azione è irreversibile.</string>
     <string name="sì">Sì</string>
     <string name="no">No</string>
+    <string name="salva_party_titolo">Salvataggio Nuovo Party</string>
+    <string name="salva_party_messaggio">Con quale nome vuoi salvare questo nuovo Party?</string>
+    <string name="il_mio_party">Questo Party si chiamerà…</string>
+    <string name="nome_usato">Attenzione: Esiste già un altro Party con questo nome</string>
+    <string name="salva">Salva</string>
+    <string name="annulla">Annulla</string>
     <string name="riprova">Ritenta Connessione…</string>
     <string name="attendi">Attendi…</string>
     <string name="aggiungi">Aggiungi</string>

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,12 +36,13 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
     TextView detailSfida1, detailPF1, detailCA1, detailID1, detailName1, detailCAR1, detailCOST1, detailDES1, detailFOR1, detailINT1, detailSAG1;
     TextView detailSfida2, detailPF2, detailCA2, detailID2, detailName2, detailCAR2, detailCOST2, detailDES2, detailFOR2, detailINT2, detailSAG2;
+    ImageButton deleteBtn1, deleteBtn2;
     LinearLayout monster1, monster2, btnClear;
 
     View rootView;
     View monsterView1, monsterView2;
 
-    private int green, red, gray;
+    private int green, red, gray, brawn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_compare_monsters, container, false);
 
+
         btn1 = rootView.findViewById(R.id.add_btn1);
         btn2 = rootView.findViewById(R.id.add_btn2);
         clear = rootView.findViewById(R.id.clearBtn);
@@ -63,6 +66,9 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         green = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.verde);
         red = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rosso);
         gray = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.grigio);
+        brawn = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.brawnColor);
+
+
 
         clear.setOnClickListener(view -> {
 
@@ -87,7 +93,10 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         btn1.setOnClickListener(view -> {
 
             monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
-
+           if(monsterView2 == null) {
+               monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
+               deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
+           }
             setAllVisibility(false);
 
             final Compare compare = Compare.getCompare();
@@ -120,13 +129,17 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             detailFOR1 = monsterView1.findViewById(R.id.detailFOR);
             detailINT1 = monsterView1.findViewById(R.id.detailINT);
             detailSAG1 = monsterView1.findViewById(R.id.detailSAG);
+            deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
 
         });
 
         btn2.setOnClickListener(view -> {
 
             monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
-
+            if(monsterView1 == null) {
+                monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
+                deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
+            }
             setAllVisibility(false);
 
             final Compare compare = Compare.getCompare();
@@ -159,6 +172,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             detailFOR2 = monsterView2.findViewById(R.id.detailFOR);
             detailINT2 = monsterView2.findViewById(R.id.detailINT);
             detailSAG2 = monsterView2.findViewById(R.id.detailSAG);
+            deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
 
         });
 
@@ -197,9 +211,58 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         setAllVisibility(true);
 
         final Compare compare = Compare.getCompare();
+
+
+        deleteBtn1.setOnClickListener(view -> {
+            if (btn1.getParent() != null) {
+                ((ViewGroup) btn1.getParent()).removeView(btn1);
+            }
+
+            monster1.removeView(monsterView1);
+            monster1.addView(btn1);
+            btn1.setVisibility(View.VISIBLE);
+            clear.setVisibility(View.GONE);
+            compare.setMonster1();
+
+            detailSfida2.setTextColor(brawn);
+            detailPF2.setTextColor(brawn);
+            detailCA2.setTextColor(brawn);
+            detailID2.setTextColor(brawn);
+            detailName2.setTextColor(brawn);
+            detailCAR2.setTextColor(brawn);
+            detailCOST2.setTextColor(brawn);
+            detailDES2.setTextColor(brawn);
+            detailFOR2.setTextColor(brawn);
+            detailINT2.setTextColor(brawn);
+            detailSAG2.setTextColor(brawn);
+
+        });
+        deleteBtn2.setOnClickListener(view -> {
+            if (btn2.getParent() != null) {
+                ((ViewGroup) btn2.getParent()).removeView(btn2);
+            }
+
+            monster2.removeView(monsterView2);
+            monster2.addView(btn2);
+            btn2.setVisibility(View.VISIBLE);
+            clear.setVisibility(View.GONE);
+            compare.setMonster2();
+
+            detailSfida1.setTextColor(brawn);
+            detailPF1.setTextColor(brawn);
+            detailCA1.setTextColor(brawn);
+            detailID1.setTextColor(brawn);
+            detailName1.setTextColor(brawn);
+            detailCAR1.setTextColor(brawn);
+            detailCOST1.setTextColor(brawn);
+            detailDES1.setTextColor(brawn);
+            detailFOR1.setTextColor(brawn);
+            detailINT1.setTextColor(brawn);
+            detailSAG1.setTextColor(brawn);
+        });
+
         DataClass dataclass2 = compare.getMonster2();
         DataClass dataclass1 = compare.getMonster1();
-
 
         if (dataclass1 != null && dataclass2 != null) {
             setColorConfront(detailSfida1, detailSfida2, Float.parseFloat(dataclass1.getSfida()) - Float.parseFloat(dataclass2.getSfida()));
@@ -257,6 +320,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             }
             monster2.addView(monsterView2);
         }
+
     }
 
     private void setColorConfront(TextView monster1, TextView monster2, float diff) {

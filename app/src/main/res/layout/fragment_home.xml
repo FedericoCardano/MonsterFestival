@@ -57,10 +57,12 @@
                     android:layout_marginEnd="15dp"
                     android:contentDescription="@string/nome_app"
                     android:src="@drawable/baseline_menu_24"
-                    app:tint="@color/creamColor"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/textHello"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textHello" />
+                    app:layout_constraintTop_toTopOf="@+id/textHello"
+                    app:tint="@color/creamColor"
+                    tools:visibility="invisible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

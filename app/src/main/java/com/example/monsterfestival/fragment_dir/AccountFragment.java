@@ -1,17 +1,9 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.customsearchlibrary.NativeLib;
-import com.example.monsterfestival.R;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.monsterfestival.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
-
 
 import java.util.Objects;
 
@@ -42,6 +35,7 @@ public class AccountFragment extends Fragment {
     Button changeEmail;
     Button changePsw;
     Button delateAccount;
+    CardView AccountCard;
 
     EditText editTextEmail;
     TextView textView;
@@ -60,6 +54,7 @@ public class AccountFragment extends Fragment {
         button = rootView.findViewById(R.id.logout);
         textView = rootView.findViewById(R.id.user_details);
 
+        AccountCard = rootView.findViewById(R.id.AccountCardView);
         changeEmail= rootView.findViewById(R.id.changeEmailButton);
         changePsw= rootView.findViewById(R.id.changePswButton);
         editTextEmail = rootView.findViewById(R.id.new_email);
@@ -78,10 +73,7 @@ public class AccountFragment extends Fragment {
             changePsw.setText(getResources().getString(R.string.cambia_psw));
             delateAccount.setText(getResources().getString(R.string.cancella_account));
 
-            changeEmail.setVisibility(View.VISIBLE);
-            changePsw.setVisibility(View.VISIBLE);
-            delateAccount.setVisibility(View.VISIBLE);
-            editTextEmail.setVisibility(View.VISIBLE);
+            AccountCard.setVisibility(View.VISIBLE);
         }
 
         button.setOnClickListener(view -> {
@@ -169,11 +161,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraLogin() {
-
-        changeEmail.setVisibility(View.INVISIBLE);
-        changePsw.setVisibility(View.INVISIBLE);
-        editTextEmail.setVisibility(View.INVISIBLE);
-        delateAccount.setVisibility(View.INVISIBLE);
+        AccountCard.setVisibility(View.INVISIBLE);
 
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
@@ -195,11 +183,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void mostraRegister() {
-
-        changeEmail.setVisibility(View.INVISIBLE);
-        changePsw.setVisibility(View.INVISIBLE);
-        editTextEmail.setVisibility(View.INVISIBLE);
-        delateAccount.setVisibility(View.INVISIBLE);
+        AccountCard.setVisibility(View.INVISIBLE);
         FrameLayout container = rootView.findViewById(R.id.frame_access_account);
 
         // Inizializza il Fragment

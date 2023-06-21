@@ -186,7 +186,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
         filtersCard.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
 
-        ((MainActivity) requireActivity()).tornaIndetro();
+        ((MainActivity) requireActivity()).tornaIndietro();
 
         applyFilters(_text);
     }

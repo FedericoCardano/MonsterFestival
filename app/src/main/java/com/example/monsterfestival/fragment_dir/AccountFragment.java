@@ -1,5 +1,10 @@
 package com.example.monsterfestival.fragment_dir;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 
@@ -10,17 +15,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 
 import java.util.Objects;
@@ -126,26 +134,36 @@ public class AccountFragment extends Fragment {
                         }
                     }
                 }));
-        delateAccount.setOnClickListener(v -> user.delete()
-                .addOnCompleteListener(task -> {
+        delateAccount.setOnClickListener(v -> {
+
+            Dialog dialog = new Dialog(requireContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_conferma_cancellazione);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+            dialog.show();
+
+            dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
+            dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> user.delete().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),R.string.account_cancellato, Toast.LENGTH_SHORT).show();
                         mostraRegister();
                     }
                     else {
                         Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
-                        if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                        if (Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
                         {
                             auth.signOut();
                             button.setText(getResources().getString(R.string.login));
-
                             mostraLogin();
                         }
                         else {
                             Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }));
+                    dialog.dismiss();
+            }));
+        });
 
         return rootView;
     }

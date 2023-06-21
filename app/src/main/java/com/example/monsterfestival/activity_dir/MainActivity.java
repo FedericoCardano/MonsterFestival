@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
         toolbar.setVisibility(View.GONE);
         textToolbar = findViewById(R.id.toolbarTitle);
         ImageButton buttonToolbar = findViewById(R.id.toolbarButton);
-        buttonToolbar.setOnClickListener(v -> tornaIndetro());
+        buttonToolbar.setOnClickListener(v -> tornaIndietro());
 
         currentFragment = null;
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             while(CustomonBackPressed) {
-                tornaIndetro();
+                tornaIndietro();
             }
             switch (item.getItemId()) {
                 case R.id.home:
@@ -115,7 +115,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
         toolbar.setVisibility(View.GONE);
     }
 
-    public void tornaIndetro() {
+    public void tornaIndietro(int nVolte) {
+        while(nVolte-- > 0)
+            tornaIndietro();
+    }
+    public void tornaIndietro() {
         FragmentTransaction fragmentTransaction = FragmentManagerList.get(FragmentManagerList.size() - 1).beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.remove(FragmentRefList.get(FragmentRefList.size() - 1));
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
     @Override
     public void onBackPressed() {
         if (CustomonBackPressed)
-            tornaIndetro();
+            tornaIndietro();
         else
             super.onBackPressed();
     }

@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.classes_dir.Cart;
 import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.Compare;
@@ -134,6 +135,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
                 else {
                     compare.add(requireContext(), dataClass, compare.getNumero());
                 }
+                ((MainActivity) requireActivity()).tornaIndietro(2);
             }
         });
 

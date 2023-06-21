@@ -24,10 +24,9 @@
 
             <TextView
                 android:id="@+id/tvNome"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:gravity="center"
                 android:padding="7dp"
                 android:text="@string/nome"
                 android:textColor="@color/brawnColor"
@@ -41,7 +40,7 @@
                 android:adjustViewBounds="true"
                 android:padding="0dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="150dp"
+                android:layout_marginStart="50dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/modifica"
                 android:src="@drawable/modify"

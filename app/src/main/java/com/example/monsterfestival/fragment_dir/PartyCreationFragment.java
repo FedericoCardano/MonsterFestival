@@ -85,6 +85,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         recyclerView.setLayoutManager(gridLayoutManager);
 
         final Cart cart = CartHelper.getCart();
+        cart.removeAll();
 
         changeTotalMonstersNumber(cart);
 

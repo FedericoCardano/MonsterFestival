@@ -39,4 +39,9 @@ public class Cart {
                 return true;
         return false;
     }
+
+    public void removeAll() {
+        cartItemMap.clear();
+        totalQuantity = 0;
+    }
 }

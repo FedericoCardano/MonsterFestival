@@ -31,6 +31,8 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
+
+    PartiesAdapter adapter;
     View rootView;
 
     @Override
@@ -48,7 +50,7 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        final PartiesAdapter adapter = new PartiesAdapter(getActivity(), this);
+        adapter = new PartiesAdapter(getActivity(), this, requireActivity().getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
         adapter.updateCartItems(getListItems());
 
@@ -73,7 +75,7 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     }
 
     public void ripristinaVisibilitaElementi() {
-
+        adapter.setVisibilitaElementi(true);
     }
 
     private ArrayList<String> getListItems() {
@@ -83,6 +85,10 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
         ArrayList<String> nomeParty = new ArrayList<>(objectNativeLib.getPartyNames());
         Log.d("ADebugTag", "Value: " + objectNativeLib.getPartyNames().size());
         return nomeParty;
+    }
+
+    public PartiesAdapter getAdapter() {
+        return adapter;
     }
 
 }

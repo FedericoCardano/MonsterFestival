@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,9 @@ import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.activity_dir.MainActivity;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -90,6 +94,18 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null)
+        {
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+            NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+
+            ArrayList<ArrayList<String>> dati = objectNativeLib.getPartyWithName(bundle.getString("nomeParty"));
+            for (ArrayList<String> dato : dati)
+                cart.add(new DataClass(new ArrayList<>(dato.subList(1, dato.size()))), Integer.parseInt(dato.get(0)), getContext());
+            ripristinaVisibilitaElementi();
+        }
+
         btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
         btnSaveParty.setOnClickListener(view -> {
 
@@ -98,6 +114,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
             dialog.setContentView(R.layout.popup_salva_party);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCancelable(true);
+            if (bundle != null)
+                ((EditText) dialog.findViewById(R.id.editNomeParty)).setText(bundle.getString("nomeParty"));
             dialog.show();
 
             dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
@@ -105,7 +123,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
                 String nomeParty = ((TextView) dialog.findViewById(R.id.editNomeParty)).getText().toString();
 
-                if (partyExists(nomeParty) || nomeParty.equals("NParty")) {
+                if (bundle != null && (partyExists(nomeParty) || nomeParty.equals("NParty"))) {
                     Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.nome_usato), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -114,7 +132,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                     reference = FirebaseDatabase.getInstance().getReference("User");
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null && !user.isAnonymous()) {
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        ValueEventListener valueEventListener = new ValueEventListener() {
                             @SuppressLint("NotifyDataSetChanged")
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -123,7 +142,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
                                     if (numParty < 5) {
                                         numParty += 1;
-                                        reference.child(user.getUid()).child("NParty").setValue(numParty);
+                                        if (bundle == null)
+                                            reference.child(user.getUid()).child("NParty").setValue(numParty);
 
                                         HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 
@@ -146,7 +166,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     }
 
                                 } else {
-                                    reference.child(user.getUid()).child("NParty").setValue(1);
+                                    if (bundle == null)
+                                        reference.child(user.getUid()).child("NParty").setValue(1);
                                     HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 
                                     int numMostro = 1;
@@ -171,7 +192,18 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                             public void onCancelled(@NonNull DatabaseError error) {
                                 dialog.dismiss();
                             }
-                        });
+                        };
+
+                        if (bundle != null) {
+                            reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    reference.addListenerForSingleValueEvent(valueEventListener);
+                                }
+                            }).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
+                        }
+                        else
+                            reference.addListenerForSingleValueEvent(valueEventListener);
                     }
                 }
             });

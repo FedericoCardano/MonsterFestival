@@ -13,16 +13,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.fragment_dir.DetailPartyFragment;
 import com.example.monsterfestival.fragment_dir.MyPartiesFragment;
+import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -30,12 +32,16 @@ import java.util.ArrayList;
 public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     private final Context context;
     private final MyPartiesFragment fragment;
+    private final FragmentManager fragmentManager;
 
     private ArrayList<String> nomeParty;
 
-    public PartiesAdapter(Context context, MyPartiesFragment parent) {
+    private boolean visibilitaAttiva = true;
+
+    public PartiesAdapter(Context context, MyPartiesFragment parent, FragmentManager fragmentManager) {
         this.context = context;
         this.fragment = parent;
+        this.fragmentManager = fragmentManager;
     }
     @NonNull
     @Override
@@ -46,6 +52,14 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull PartiesViewHolder holder, int position) {
+
+        if (visibilitaAttiva)
+            holder.itemView.setVisibility(View.VISIBLE);
+        else {
+            holder.itemView.setVisibility(View.INVISIBLE);
+            return;
+        }
+
         holder.recNome.setText(nomeParty.get(position));
 
         holder.itemView.setOnClickListener(view -> {
@@ -127,7 +141,16 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
         });
 
         ImageButton modifyBtn = holder.itemView.findViewById(R.id.modify_btn);
-        modifyBtn.setOnClickListener(view -> Toast.makeText(context, context.getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show());
+        modifyBtn.setOnClickListener(view -> {
+            PartyCreationFragment newFragment = new PartyCreationFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("nomeParty", nomeParty.get(position));
+            newFragment.setArguments(bundle);
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(R.id.frame_access_party, newFragment);
+            transaction.commit();
+            fragment.getAdapter().setVisibilitaElementi(false);
+        });
     }
     @Override
     public int getItemCount() {
@@ -136,6 +159,12 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void updateCartItems(ArrayList<String> nomeParty) {
         this.nomeParty = nomeParty;
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setVisibilitaElementi(boolean value) {
+        visibilitaAttiva = value;
         notifyDataSetChanged();
     }
 

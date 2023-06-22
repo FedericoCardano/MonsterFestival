@@ -54,6 +54,8 @@
     <string name="salva_party_messaggio">Con quale nome vuoi salvare questo nuovo Party?</string>
     <string name="il_mio_party">Questo Party si chiamerà…</string>
     <string name="nome_usato">Attenzione: Esiste già un altro Party con questo nome</string>
+    <string name="conferma_modifica">Conferma Modifica</string>
+    <string name="conferma_modifica_messaggio">Sei sicuro di voler modificare questo Party? Questa azione è irreversibile.</string>
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="riprova">Ritenta Connessione…</string>

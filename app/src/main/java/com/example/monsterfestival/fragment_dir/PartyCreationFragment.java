@@ -40,8 +40,6 @@ import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.activity_dir.MainActivity;
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,7 +61,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
-    AppCompatButton btnAddMonster, btnSaveParty;
+    AppCompatButton btnAddMonster, btnSaveParty, btnConfermaSaveParty;
     View rootView;
     TextView numMostri;
     DatabaseReference reference;
@@ -120,97 +118,119 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
             dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
             dialog.findViewById(R.id.btnSalva).setOnClickListener(view1 -> {
+                if (bundle != null)
+                {
+                    Dialog dialog1 = new Dialog(requireContext());
+                    dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog1.setContentView(R.layout.popup_conferma_modifica);
+                    dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog1.setCancelable(true);
+                    dialog1.show();
 
-                String nomeParty = ((TextView) dialog.findViewById(R.id.editNomeParty)).getText().toString();
-
-                if (bundle != null && (partyExists(nomeParty) || nomeParty.equals("NParty"))) {
-                    Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.nome_usato), Toast.LENGTH_SHORT).show();
-                    return;
+                    dialog1.findViewById(R.id.btnNo).setOnClickListener(view3 -> {
+                        dialog.dismiss();
+                        dialog1.dismiss();
+                    });
+                    dialog1.findViewById(R.id.btnSi).setOnClickListener(view3 -> {
+                        salvaParty(bundle, dialog, cart, cartItemAdapter);
+                        dialog1.dismiss();
+                    });
                 }
-
-                if (cart.getTotalQuantity() > 0) {
-                    reference = FirebaseDatabase.getInstance().getReference("User");
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user != null && !user.isAnonymous()) {
-
-                        ValueEventListener valueEventListener = new ValueEventListener() {
-                            @SuppressLint("NotifyDataSetChanged")
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Log.d("ADebugTag", "Value: " + 1);
-                                if (snapshot.hasChild(user.getUid())) {
-                                    int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
-                                    if (numParty < 5) {
-                                        numParty += 1;
-                                        if (bundle == null)
-                                            reference.child(user.getUid()).child("NParty").setValue(numParty);
-
-                                        HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
-
-                                        int numMostro = 1;
-                                        for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                            reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                            reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
-                                            numMostro += 1;
-                                        }
-                                        reference.child(user.getUid()).child("Party" + numParty);
-                                        cart.setTotalQuantity(0);
-                                        itemMap.clear();
-                                        cart.changeCart(itemMap);
-                                        changeTotalMonstersNumber(cart);
-                                        cartItemAdapter.updateCartItems(getCartItems(cart));
-                                        cartItemAdapter.notifyDataSetChanged();
-                                        updateLocalParties();
-                                        dialog.dismiss();
-                                        startActivity(new Intent(getActivity(), MainActivity.class));
-                                    }
-
-                                } else {
-                                    if (bundle == null)
-                                        reference.child(user.getUid()).child("NParty").setValue(1);
-                                    HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
-
-                                    int numMostro = 1;
-                                    for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
-                                        reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                        reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
-                                        numMostro += 1;
-                                    }
-                                    cart.setTotalQuantity(0);
-                                    itemMap.clear();
-                                    cart.changeCart(itemMap);
-                                    changeTotalMonstersNumber(cart);
-                                    cartItemAdapter.updateCartItems(getCartItems(cart));
-                                    cartItemAdapter.notifyDataSetChanged();
-                                    updateLocalParties();
-                                    dialog.dismiss();
-                                    startActivity(new Intent(getActivity(), MainActivity.class));
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                dialog.dismiss();
-                            }
-                        };
-
-                        if (bundle != null) {
-                            reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    reference.addListenerForSingleValueEvent(valueEventListener);
-                                }
-                            }).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
-                        }
-                        else
-                            reference.addListenerForSingleValueEvent(valueEventListener);
-                    }
-                }
+                else
+                    salvaParty(bundle, dialog, cart, cartItemAdapter);
             });
         });
 
         rootView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         return rootView;
+    }
+
+    private void salvaParty(Bundle bundle, Dialog dialog, Cart cart, CartItemAdapter cartItemAdapter) {
+        String nomeParty = ((TextView) dialog.findViewById(R.id.editNomeParty)).getText().toString();
+
+        if (bundle != null && (partyExists(nomeParty) || nomeParty.equals("NParty"))) {
+            Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.nome_usato), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (cart.getTotalQuantity() > 0) {
+            reference = FirebaseDatabase.getInstance().getReference("User");
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null && !user.isAnonymous()) {
+
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.d("ADebugTag", "Value: " + 1);
+                        if (snapshot.hasChild(user.getUid())) {
+                            int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
+                            if (numParty < 5) {
+                                numParty += 1;
+                                if (bundle == null)
+                                    reference.child(user.getUid()).child("NParty").setValue(numParty);
+
+                                HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                                int numMostro = 1;
+                                for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                    reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                    reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                    numMostro += 1;
+                                }
+                                reference.child(user.getUid()).child("Party" + numParty);
+                                cart.setTotalQuantity(0);
+                                itemMap.clear();
+                                cart.changeCart(itemMap);
+                                changeTotalMonstersNumber(cart);
+                                cartItemAdapter.updateCartItems(getCartItems(cart));
+                                cartItemAdapter.notifyDataSetChanged();
+                                updateLocalParties();
+                                dialog.dismiss();
+                                startActivity(new Intent(getActivity(), MainActivity.class));
+                            }
+
+                        } else {
+                            if (bundle == null)
+                                reference.child(user.getUid()).child("NParty").setValue(1);
+                            HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+
+                            int numMostro = 1;
+                            for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                numMostro += 1;
+                            }
+                            cart.setTotalQuantity(0);
+                            itemMap.clear();
+                            cart.changeCart(itemMap);
+                            changeTotalMonstersNumber(cart);
+                            cartItemAdapter.updateCartItems(getCartItems(cart));
+                            cartItemAdapter.notifyDataSetChanged();
+                            updateLocalParties();
+                            dialog.dismiss();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        dialog.dismiss();
+                    }
+                };
+
+                if (bundle != null) {
+                    reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            reference.addListenerForSingleValueEvent(valueEventListener);
+                        }
+                    }).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
+                }
+                else
+                    reference.addListenerForSingleValueEvent(valueEventListener);
+            }
+        }
     }
 
     void creaSearchMonsters() {

@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.customsearchlibrary.NativeLib;
@@ -65,7 +66,7 @@ import java.util.regex.Pattern;
 
 public class DetailPartyFragment extends Fragment implements OnFragmentRemoveListener {
 
-    TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
+    TextView detailDiff1, detailDiff2, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
     FloatingActionButton exportButton;
 
     Fragment parent;
@@ -102,7 +103,8 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         detailSfida = rootView.findViewById(R.id.detailSfida);
         exportButton = rootView.findViewById(R.id.export_btn);
 
-        detailDiff = rootView.findViewById(R.id.detailDifficulty);
+        detailDiff1 = rootView.findViewById(R.id.detailDifficulty1);
+        detailDiff2 = rootView.findViewById(R.id.detailDifficulty2);
         progressBar = rootView.findViewById(R.id.DifficultyProgressBar);
 
         Bundle bundle = this.getArguments();
@@ -123,31 +125,33 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
             int nMember = sharedPreferences.getInt("NumAvventurieri", 1);
             int lvMember = sharedPreferences.getInt("LvAvventurieri", 1);
 
-
-
             switch (difficulty(nMember,lvMember,bundle.getString("NomeParty"))){
                 case 0:{//facile
-                    detailDiff.setText(getResources().getString(R.string.facile));
+                    detailDiff1.setText(getResources().getString(R.string.facile));
+                    detailDiff2.setText(getResources().getString(R.string.facile));
                     progressBar.setProgress(25);
-                    progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.verde)));
+                    progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.verde, null)));
                     break;
                 }
                 case 1:{//medio
-                    detailDiff.setText(getResources().getString(R.string.medio));
+                    detailDiff1.setText(getResources().getString(R.string.medio));
+                    detailDiff2.setText(getResources().getString(R.string.medio));
                     progressBar.setProgress(50);
-                    progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.giallo)));
+                    progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.giallo, null)));
                     break;
                 }
                 case 2:{//difficile
-                    detailDiff.setText(getResources().getString(R.string.difficile));
+                    detailDiff1.setText(getResources().getString(R.string.difficile));
+                    detailDiff2.setText(getResources().getString(R.string.difficile));
                     progressBar.setProgress(75);
-                    progressBar.setProgressTintList(ColorStateList.valueOf( getResources().getColor(R.color.rosso)));
+                    progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.rosso, null)));
                     break;
                 }
                 case 3:{//mortale
-                    detailDiff.setText(getResources().getString(R.string.mortale));
+                    detailDiff1.setText(getResources().getString(R.string.mortale));
+                    detailDiff2.setText(getResources().getString(R.string.mortale));
                     progressBar.setProgress(100);
-                    progressBar.setProgressTintList(ColorStateList.valueOf( getResources().getColor(R.color.purple_dif) ));
+                    progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.purple_dif, null)));
                     break;
                 }
                 default:{
@@ -210,6 +214,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.title_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.cardView_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
+        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
 
         // Calcola l'altezza totale e la larghezza massima tra gli screenshot delle sezioni
         for (Bitmap screenshot : sectionScreenshots) {
@@ -347,7 +352,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
     int sfida2exp(double sfida) {
         if (sfida == 0)
             return 10;
-        else if (sfida >= 1 / 8 - 0.0001 && sfida <= 1)
+        else if (sfida >= 0.125 - 0.0001 && sfida <= 1)
             return 25 * (int) sfida * 8;
         else {
             switch ((int) sfida) {
@@ -633,18 +638,14 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         int expAmount = 0;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-        ArrayList<ArrayList<String>> Party =   objectNativeLib.getPartyWithName(nomeParty);
-
+        ArrayList<ArrayList<String>> Party = objectNativeLib.getPartyWithName(nomeParty);
 
         //Gestione input dell'utente
         if (nMember < 1)
             nMember = 1;
         if (lvMember < 1)
             Lv = 1;
-        else if (lvMember > 20)
-            Lv = 20;
-        else
-            Lv = lvMember;
+        else Lv = Math.min(lvMember, 20);
 
 
         for (int i = 0; i < Party.size(); i++)

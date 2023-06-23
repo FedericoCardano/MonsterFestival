@@ -1,16 +1,21 @@
 package com.example.monsterfestival.activity_dir;
 
+//import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+//import android.content.Context;
+//import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+//import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.fragment_dir.AccountFragment;
 import com.example.monsterfestival.fragment_dir.HomeFragment;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
@@ -19,6 +24,7 @@ import com.example.monsterfestival.R;
 import com.example.monsterfestival.fragment_dir.SettingsFragment;
 import com.example.monsterfestival.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.AppBarLayout;
+//import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashSet;

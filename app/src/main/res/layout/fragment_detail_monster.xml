@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="12dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -50,7 +51,7 @@
                     android:id="@+id/add_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/brawnColor"
                     android:contentDescription="@string/aggiungi"
                     android:src="@drawable/baseline_add_24"
@@ -60,7 +61,7 @@
                     android:id="@+id/export_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/brawnColor"
                     android:contentDescription="@string/esporta"
                     android:src="@drawable/export"

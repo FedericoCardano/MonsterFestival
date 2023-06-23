@@ -226,8 +226,10 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         SpannableString spannableString = new SpannableString(text);
 
         // Definisci i pattern regex per estrarre i nomi dei mostri
-        Pattern nomeMostroRegex = Pattern.compile("([^, (]+)(?= \\()");
+        Pattern nomeMostroRegex = Pattern.compile("([^,(]+)(?= \\()");
         Matcher nomeMostroMatcher = nomeMostroRegex.matcher(text);
+
+        boolean firstName = false;
 
         // Itera sui match dei nomi dei mostri
         while (nomeMostroMatcher.find()) {
@@ -236,6 +238,10 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
 
             // Trova l'indice di inizio e fine del nome dell'oggetto nella stringa completa
             int startIndex = nomeMostroMatcher.start();
+            if (firstName)
+                startIndex += 1;
+            else
+                firstName = true;
             int endIndex = nomeMostroMatcher.end();
 
             ClickableSpan clickableSpan = new ClickableSpan() {

@@ -37,6 +37,23 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/export_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="@color/brawnColor"
+                        android:contentDescription="@string/esporta"
+                        android:src="@drawable/export"
+                        app:tint="@color/white" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/detailID"
                     android:layout_width="wrap_content"
@@ -44,16 +61,6 @@
                     android:layout_gravity="center"
                     android:text="@string/Titolo"
                     android:visibility="gone" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/export_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
-                    android:backgroundTint="@color/brawnColor"
-                    android:contentDescription="@string/esporta"
-                    android:src="@drawable/export"
-                    app:tint="@color/white" />
 
             </LinearLayout>
 

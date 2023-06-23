@@ -335,10 +335,7 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabaseNative(JNIEnv *env,
         m.INT = stoi(tempID[i][12]);
         m.SAG = stoi(tempID[i][13]);
         m.CAR = stoi(tempID[i][14]);
-        if (i == stoi(tempID[i][0]) || ID.count(stoi(tempID[i][0])))
-            ID.insert(make_pair(i, m));
-        else
-            ID.insert(make_pair(stoi(tempID[i][0]), m));
+        ID.insert(make_pair(i, m));
     }
 
     // Salva i Filtri

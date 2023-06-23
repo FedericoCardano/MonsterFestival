@@ -31,6 +31,10 @@
     <string name="credit">Credit</string>
     <string name="aggiornamenti">Check Update</string>
     <string name="feedback">Feedback</string>
+    <string name="facile">Facile</string>
+    <string name="medio">Medio</string>
+    <string name="difficile">Difficile</string>
+    <string name="mortale">Mortale</string>
     <string name="nuova_psw_poup">Mail di Controllo Inviata</string>
     <string name="cambia_email_fallito">Cambio email fallito</string>
     <string name="cambia_psw_fallito">Cambio Password fallito</string>

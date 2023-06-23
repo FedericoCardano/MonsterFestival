@@ -357,6 +357,52 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/DifficultyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Difficoltà"
+                    android:textColor="@color/brawnColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/valueLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/detailDifficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/Difficoltà"
+                        android:textColor="@color/brawnColor"
+                        android:textSize="15sp" />
+
+                    <ProgressBar
+                        android:id="@+id/DifficultyProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:outlineAmbientShadowColor="#FF1100"
+                        android:outlineSpotShadowColor="#03A9F4"
+                        android:progress="25" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

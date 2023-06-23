@@ -1,12 +1,14 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -21,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +56,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+
+
+
+
+
+
+
 public class DetailPartyFragment extends Fragment implements OnFragmentRemoveListener {
 
     TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
@@ -61,6 +71,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
     Fragment parent;
     OnFragmentVisibleListener fragmentVisibleListener;
 
+    ProgressBar progressBar;
     private String filePath;
 
     private View rootView;
@@ -70,6 +81,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
     }
 
     
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +90,6 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaParty.pdf";
 
         detailName = rootView.findViewById(R.id.detailName);
-        //detailDiff = rootView.findViewById(R.id.detailDiff);
         detailCA = rootView.findViewById(R.id.detailCA);
         detailCAR = rootView.findViewById(R.id.detailCAR);
         detailCOST = rootView.findViewById(R.id.detailCOST);
@@ -91,11 +102,13 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         detailSfida = rootView.findViewById(R.id.detailSfida);
         exportButton = rootView.findViewById(R.id.export_btn);
 
+        detailDiff = rootView.findViewById(R.id.detailDifficulty);
+        progressBar = rootView.findViewById(R.id.DifficultyProgressBar);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             detailName.setText(bundle.getString("NomeParty"));
             detailSfida.setText(bundle.getString("totSfida"));
-            //detailDiff.setText(bundle.getString("Difficoltà"));
             detailCA.setText(bundle.getString("totCA"));
             detailCAR.setText(bundle.getString("totCAR"));
             detailCOST.setText(bundle.getString("totCOST"));
@@ -105,6 +118,43 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
             detailPF.setText(bundle.getString("totPF"));
             detailSAG.setText(bundle.getString("totSAG"));
             setTextClickable(detailMostri, bundle.getString("Mostri"));
+
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+            int nMember = sharedPreferences.getInt("NumAvventurieri", 1);
+            int lvMember = sharedPreferences.getInt("LvAvventurieri", 1);
+
+
+
+            switch (difficulty(nMember,lvMember,bundle.getString("NomeParty"))){
+                case 0:{//facile
+                    detailDiff.setText(getResources().getString(R.string.facile));
+                    progressBar.setProgress(25);
+                    progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.verde)));
+                    break;
+                }
+                case 1:{//medio
+                    detailDiff.setText(getResources().getString(R.string.medio));
+                    progressBar.setProgress(50);
+                    progressBar.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.giallo)));
+                    break;
+                }
+                case 2:{//difficile
+                    detailDiff.setText(getResources().getString(R.string.difficile));
+                    progressBar.setProgress(75);
+                    progressBar.setProgressTintList(ColorStateList.valueOf( getResources().getColor(R.color.rosso)));
+                    break;
+                }
+                case 3:{//mortale
+                    detailDiff.setText(getResources().getString(R.string.mortale));
+                    progressBar.setProgress(100);
+                    progressBar.setProgressTintList(ColorStateList.valueOf( getResources().getColor(R.color.purple_dif) ));
+                    break;
+                }
+                default:{
+                    //TODO messaggio di errore
+                    break;
+                }
+            }
         }
 
         exportButton.setOnClickListener(view1 -> {
@@ -292,5 +342,316 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
 
         textView.setText(spannableString);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    int sfida2exp(double sfida) {
+        if (sfida == 0)
+            return 10;
+        else if (sfida >= 1 / 8 - 0.0001 && sfida <= 1)
+            return 25 * (int) sfida * 8;
+        else {
+            switch ((int) sfida) {
+                case 2:
+                    return 450;
+                case 3:
+                    return 700;
+                case 4:
+                    return 1100;
+                case 5:
+                    return 1800;
+                case 6:
+                    return 2300;
+                case 7:
+                    return 2900;
+                case 8:
+                    return 3900;
+                case 9:
+                    return 5000;
+                case 10:
+                    return 5900;
+                case 11:
+                    return 7200;
+                case 12:
+                    return 8400;
+                case 13:
+                    return 10000;
+                case 14:
+                    return 11500;
+                case 15:
+                    return 13000;
+                case 16:
+                    return 15000;
+                case 17:
+                    return 18000;
+                case 18:
+                    return 20000;
+                case 19:
+                    return 22000;
+                case 20:
+                    return 25000;
+                case 21:
+                    return 33000;
+                case 22:
+                    return 41000;
+                case 23:
+                    return 50000;
+                case 24:
+                    return 62000;
+                case 25:
+                    return 75000;
+                case 26:
+                    return 90000;
+                case 27:
+                    return 105000;
+                case 28:
+                    return 120000;
+                case 29:
+                    return 135000;
+                case 30:
+                    return 155000;
+                default:
+                    //TODO messaggio di errore
+                    return 0;
+            }
+        }
+
+
+    }
+
+    int difficultyToHead(int lvMember, int EXP) {
+        if (EXP < 1)
+            return 0;
+        switch (lvMember) {
+            case 1:
+                if (EXP < 50)
+                    return 0;
+                else if (EXP < 75)
+                    return 1;
+                else if (EXP < 100)
+                    return 2;
+                else
+                    return 3;
+
+            case 2:
+                if (EXP < 100)
+                    return 0;
+                else if (EXP < 150)
+                    return 1;
+                else if (EXP < 200)
+                    return 2;
+                else
+                    return 3;
+
+            case 3:
+                if (EXP < 150)
+                    return 0;
+                else if (EXP < 225)
+                    return 1;
+                else if (EXP < 400)
+                    return 2;
+                else
+                    return 3;
+
+            case 4:
+                if (EXP < 250)
+                    return 0;
+                else if (EXP < 375)
+                    return 1;
+                else if (EXP < 500)
+                    return 2;
+                else
+                    return 3;
+
+            case 5:
+                if (EXP < 500)
+                    return 0;
+                else if (EXP < 750)
+                    return 1;
+                else if (EXP < 1100)
+                    return 2;
+                else
+                    return 3;
+
+            case 6:
+                if (EXP < 600)
+                    return 0;
+                else if (EXP < 900)
+                    return 1;
+                else if (EXP < 1400)
+                    return 2;
+                else
+                    return 3;
+
+            case 7:
+                if (EXP < 750)
+                    return 0;
+                else if (EXP < 1100)
+                    return 1;
+                else if (EXP < 1700)
+                    return 2;
+                else
+                    return 3;
+
+            case 8:
+                if (EXP < 900)
+                    return 0;
+                else if (EXP < 1400)
+                    return 1;
+                else if (EXP < 2100)
+                    return 2;
+                else
+                    return 3;
+
+            case 9:
+                if (EXP < 1100)
+                    return 0;
+                else if (EXP < 1600)
+                    return 1;
+                else if (EXP < 2400)
+                    return 2;
+                else
+                    return 3;
+
+            case 10:
+                if (EXP < 1200)
+                    return 0;
+                else if (EXP < 1900)
+                    return 1;
+                else if (EXP < 2800)
+                    return 2;
+                else
+                    return 3;
+
+            case 11:
+                if (EXP < 1600)
+                    return 0;
+                else if (EXP < 2400)
+                    return 1;
+                else if (EXP < 3600)
+                    return 2;
+                else
+                    return 3;
+
+            case 12:
+                if (EXP < 2000)
+                    return 0;
+                else if (EXP < 3000)
+                    return 1;
+                else if (EXP < 4500)
+                    return 2;
+                else
+                    return 3;
+
+            case 13:
+                if (EXP < 2200)
+                    return 0;
+                else if (EXP < 3400)
+                    return 1;
+                else if (EXP < 5100)
+                    return 2;
+                else
+                    return 3;
+
+            case 14:
+                if (EXP < 2500)
+                    return 0;
+                else if (EXP < 3800)
+                    return 1;
+                else if (EXP < 5700)
+                    return 2;
+                else
+                    return 3;
+
+            case 15:
+                if (EXP < 2800)
+                    return 0;
+                else if (EXP < 4300)
+                    return 1;
+                else if (EXP < 6400)
+                    return 2;
+                else
+                    return 3;
+
+            case 16:
+                if (EXP < 3200)
+                    return 0;
+                else if (EXP < 4800)
+                    return 1;
+                else if (EXP < 7200)
+                    return 2;
+                else
+                    return 3;
+
+            case 17:
+                if (EXP < 3900)
+                    return 0;
+                else if (EXP < 5900)
+                    return 1;
+                else if (EXP < 8800)
+                    return 2;
+                else
+                    return 3;
+
+            case 18:
+                if (EXP < 4200)
+                    return 0;
+                else if (EXP < 6300)
+                    return 1;
+                else if (EXP < 9500)
+                    return 2;
+                else
+                    return 3;
+
+            case 19:
+                if (EXP < 4900)
+                    return 0;
+                else if (EXP < 7300)
+                    return 1;
+                else if (EXP < 10900)
+                    return 2;
+                else
+                    return 3;
+
+            case 20:
+                if (EXP < 5700)
+                    return 0;
+                else if (EXP < 8500)
+                    return 1;
+                else if (EXP < 12700)
+                    return 2;
+                else
+                    return 3;
+
+            default:
+                //TODO messaggio di errore
+                return 0;
+        }
+    }
+
+    int difficulty(int nMember, int lvMember, String nomeParty ) {
+        int Lv;
+        int expAmount = 0;
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+        ArrayList<ArrayList<String>> Party =   objectNativeLib.getPartyWithName(nomeParty);
+
+
+        //Gestione input dell'utente
+        if (nMember < 1)
+            nMember = 1;
+        if (lvMember < 1)
+            Lv = 1;
+        else if (lvMember > 20)
+            Lv = 20;
+        else
+            Lv = lvMember;
+
+
+        for (int i = 0; i < Party.size(); i++)
+            expAmount += Integer.parseInt(Party.get(i).get(0)) * sfida2exp(Double.parseDouble(Party.get(i).get(7)));
+        int expToHaad = expAmount / nMember + 1;
+        return difficultyToHead(Lv, expToHaad);
+
+
     }
 }

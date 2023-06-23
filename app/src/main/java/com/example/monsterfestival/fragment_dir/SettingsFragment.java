@@ -1,5 +1,8 @@
 package com.example.monsterfestival.fragment_dir;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.monsterfestival.R;
 
@@ -29,6 +34,27 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        ButtonFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ButtonCredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.popup_conferma_cancellazione);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setCancelable(true);
+                dialog.show();
+
+                dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
             }
         });
 

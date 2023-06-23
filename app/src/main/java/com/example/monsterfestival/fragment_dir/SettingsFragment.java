@@ -133,7 +133,13 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!String.valueOf(s).isEmpty()) {
+                if (String.valueOf(s).isEmpty()) {
+                    NumAvventurieri.setText(String.valueOf(1));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("NumAvventurieri",  1);
+                    editor.apply();
+                }
+                else {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("NumAvventurieri",  (int) Double.parseDouble(String.valueOf(s)));
                     editor.apply();
@@ -154,7 +160,13 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!String.valueOf(s).isEmpty()) {
+                if (String.valueOf(s).isEmpty()) {
+                    LvAvventurieri.setText(String.valueOf(1));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("LvAvventurieri", 1);
+                    editor.apply();
+                }
+                else {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("LvAvventurieri", (int) Double.parseDouble(String.valueOf(s)));
                     editor.apply();

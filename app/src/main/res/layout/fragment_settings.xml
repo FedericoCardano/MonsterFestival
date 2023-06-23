@@ -40,15 +40,37 @@
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <SeekBar
+                        android:id="@+id/seekBarAggiornamenti"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="30"
+                        android:progress="1" />
+
+                    <TextView
+                        android:id="@+id/perdiodoAggiornamenti"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1 Giorno" />
+
+                </LinearLayout>
+
                 <Button
-                    android:id="@+id/ButtonNotifiche"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/brawnColor"
-                    android:text="@string/notifiche"
-                    android:textColor="@color/creamColor"
-                    android:textSize="18sp"
-                    app:cornerRadius="20dp" />
+                    android:text="Button" />
 
                 <Button
                     android:id="@+id/ButtonFeedback"

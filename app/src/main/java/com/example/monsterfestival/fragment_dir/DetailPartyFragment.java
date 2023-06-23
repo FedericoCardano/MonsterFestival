@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 
 public class DetailPartyFragment extends Fragment implements OnFragmentRemoveListener {
 
-    TextView detailDiff1, detailDiff2, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
+    TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
     FloatingActionButton exportButton;
 
     Fragment parent;
@@ -103,8 +103,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         detailSfida = rootView.findViewById(R.id.detailSfida);
         exportButton = rootView.findViewById(R.id.export_btn);
 
-        detailDiff1 = rootView.findViewById(R.id.detailDifficulty1);
-        detailDiff2 = rootView.findViewById(R.id.detailDifficulty2);
+        detailDiff = rootView.findViewById(R.id.detailDifficulty);
         progressBar = rootView.findViewById(R.id.DifficultyProgressBar);
 
         Bundle bundle = this.getArguments();
@@ -127,29 +126,25 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
 
             switch (difficulty(nMember,lvMember,bundle.getString("NomeParty"))){
                 case 0:{//facile
-                    detailDiff1.setText(getResources().getString(R.string.facile));
-                    detailDiff2.setText(getResources().getString(R.string.facile));
+                    detailDiff.setText(getResources().getString(R.string.facile));
                     progressBar.setProgress(25);
                     progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.verde, null)));
                     break;
                 }
                 case 1:{//medio
-                    detailDiff1.setText(getResources().getString(R.string.medio));
-                    detailDiff2.setText(getResources().getString(R.string.medio));
+                    detailDiff.setText(getResources().getString(R.string.medio));
                     progressBar.setProgress(50);
                     progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.giallo, null)));
                     break;
                 }
                 case 2:{//difficile
-                    detailDiff1.setText(getResources().getString(R.string.difficile));
-                    detailDiff2.setText(getResources().getString(R.string.difficile));
+                    detailDiff.setText(getResources().getString(R.string.difficile));
                     progressBar.setProgress(75);
                     progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.rosso, null)));
                     break;
                 }
                 case 3:{//mortale
-                    detailDiff1.setText(getResources().getString(R.string.mortale));
-                    detailDiff2.setText(getResources().getString(R.string.mortale));
+                    detailDiff.setText(getResources().getString(R.string.mortale));
                     progressBar.setProgress(100);
                     progressBar.setProgressTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources(), R.color.purple_dif, null)));
                     break;
@@ -213,8 +208,8 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
 
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.title_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.cardView_section)));
-        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
+        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
 
         // Calcola l'altezza totale e la larghezza massima tra gli screenshot delle sezioni
         for (Bitmap screenshot : sectionScreenshots) {

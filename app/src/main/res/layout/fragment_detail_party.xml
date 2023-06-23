@@ -325,36 +325,40 @@
                                 android:textSize="20sp" />
 
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/DifficultyLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/Difficoltà"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/detailDifficulty1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="@string/Difficoltà"
-                                android:textColor="@color/brawnColor"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/difficultyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/DifficultyProgressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:outlineAmbientShadowColor="#FF1100"
+                    android:outlineSpotShadowColor="#03A9F4"
+                    android:gravity="center"
+                    android:progress="25" />
+
+                <TextView
+                    android:id="@+id/detailDifficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/Difficoltà"
+                    android:textColor="@color/brawnColor"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/detailDesc"
@@ -381,37 +385,6 @@
                     android:text="@string/mostri_party"
                     android:textColor="@color/brawnColor"
                     android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/difficultyLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:padding="20dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/detailDifficulty2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/Difficoltà"
-                    android:textColor="@color/brawnColor"
-                    android:textSize="20sp" />
-
-                <ProgressBar
-                    android:id="@+id/DifficultyProgressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:outlineAmbientShadowColor="#FF1100"
-                    android:outlineSpotShadowColor="#03A9F4"
-                    android:gravity="center"
-                    android:progress="25" />
 
             </LinearLayout>
 

@@ -62,6 +62,7 @@
 
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:id="@+id/btnClear"
         android:layout_width="370dp"
@@ -83,6 +84,7 @@
             android:contentDescription="@string/rimuovi" />
 
     </LinearLayout>
+    -->
 
     <FrameLayout
         android:id="@+id/frame_access_compare_monsters"

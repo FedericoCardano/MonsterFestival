@@ -58,10 +58,10 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
         btn1 = rootView.findViewById(R.id.add_btn1);
         btn2 = rootView.findViewById(R.id.add_btn2);
-        clear = rootView.findViewById(R.id.clearBtn);
+        //clear = rootView.findViewById(R.id.clearBtn);
         monster1 = rootView.findViewById(R.id.monster1);
         monster2 = rootView.findViewById(R.id.monster2);
-        btnClear = rootView.findViewById(R.id.btnClear);
+        //btnClear = rootView.findViewById(R.id.btnClear);
 
         green = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.verde);
         red = ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rosso);
@@ -70,7 +70,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
 
 
-        clear.setOnClickListener(view -> {
+        /*clear.setOnClickListener(view -> {
 
             if(btn1.getParent() != null) {
                 ((ViewGroup)btn1.getParent()).removeView(btn1);
@@ -84,12 +84,12 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             monster2.addView(btn2);
             btn1.setVisibility(View.VISIBLE);
             btn2.setVisibility(View.VISIBLE);
-            clear.setVisibility(View.GONE);
+            //clear.setVisibility(View.GONE);
             final Compare compare = Compare.getCompare();
             compare.setMonster1();
             compare.setMonster2();
 
-        });
+        });*/
         btn1.setOnClickListener(view -> {
 
             monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
@@ -186,7 +186,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         rootView.findViewById(R.id.view).setVisibility(value ? View.VISIBLE : View.GONE);
         rootView.findViewById(R.id.add_btn1).setVisibility(value ? View.VISIBLE : View.GONE);
         rootView.findViewById(R.id.add_btn2).setVisibility(value ? View.VISIBLE : View.GONE);
-        rootView.findViewById(R.id.btnClear).setVisibility(value ? View.VISIBLE : View.GONE);
+        //rootView.findViewById(R.id.btnClear).setVisibility(value ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -221,7 +221,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             monster1.removeView(monsterView1);
             monster1.addView(btn1);
             btn1.setVisibility(View.VISIBLE);
-            clear.setVisibility(View.GONE);
+            //clear.setVisibility(View.GONE);
             compare.setMonster1();
 
             detailSfida2.setTextColor(brawn);
@@ -245,7 +245,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             monster2.removeView(monsterView2);
             monster2.addView(btn2);
             btn2.setVisibility(View.VISIBLE);
-            clear.setVisibility(View.GONE);
+            //clear.setVisibility(View.GONE);
             compare.setMonster2();
 
             detailSfida1.setTextColor(brawn);
@@ -275,7 +275,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             setColorConfront(detailINT1, detailINT2, Integer.parseInt(dataclass1.getInt()) - Integer.parseInt(dataclass2.getInt()));
             setColorConfront(detailSAG1, detailSAG2, Integer.parseInt(dataclass1.getSag()) - Integer.parseInt(dataclass2.getSag()));
 
-            rootView.findViewById(R.id.clearBtn).setVisibility(View.VISIBLE);
+            //rootView.findViewById(R.id.clearBtn).setVisibility(View.VISIBLE);
         }
 
 

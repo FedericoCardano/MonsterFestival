@@ -15,7 +15,7 @@ public class Cart {
         else if (cartItemMap.size() == 0 || !doesContain(dataClass)) {
             cartItemMap.put(dataClass, quantity);
             totalQuantity += quantity;
-            Toast.makeText(context,"Mostro aggiunto al party", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"Mostro aggiunto al party", Toast.LENGTH_SHORT).show();
         }
         else
             Toast.makeText(context,"Il mostro è già presente nel party", Toast.LENGTH_SHORT).show();

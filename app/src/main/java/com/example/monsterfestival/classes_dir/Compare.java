@@ -25,7 +25,7 @@ public class Compare {
             monster1 = dataClass;
         else
             monster2 = dataClass;
-        Toast.makeText(context, context.getResources().getString(R.string.mostro_selezionato), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, context.getResources().getString(R.string.mostro_selezionato), Toast.LENGTH_SHORT).show();
     }
 
     public DataClass getMonster1() {return this.monster1;}

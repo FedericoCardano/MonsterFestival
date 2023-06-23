@@ -29,7 +29,7 @@
     <string name="Impostazioni_Scontro">Impostazioni Scontro</string>
     <string name="descriszione_impostazioni_scontro">Tramite i seguenti parametri verrà calcolata automaticamente la difficoltà dello scontro</string>
     <string name="credit">Credit</string>
-    <string name="notifiche">Notifiche</string>
+    <string name="aggiornamenti">Check Update</string>
     <string name="feedback">Feedback</string>
     <string name="nuova_psw_poup">Mail di Controllo Inviata</string>
     <string name="cambia_email_fallito">Cambio email fallito</string>
@@ -56,6 +56,7 @@
     <string name="nome_usato">Attenzione: Esiste già un altro Party con questo nome</string>
     <string name="conferma_modifica">Conferma Modifica</string>
     <string name="conferma_modifica_messaggio">Sei sicuro di voler modificare questo Party? Questa azione è irreversibile.</string>
+    <string name="crediti_titolo">Conferma Modifica</string>
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="riprova">Ritenta Connessione…</string>
@@ -121,4 +122,5 @@
     <string name="numero_mostri">Numero mostri</string>
     <string name="aggiungi_mostro">Aggiungi mostro</string>
     <string name="salva_party">Salva party</string>
+    <string name="controlla_aggiornamenti">Check ogni:</string>
 </resources>

@@ -40,37 +40,15 @@
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
-
-                    <SeekBar
-                        android:id="@+id/seekBarAggiornamenti"
-                        style="@style/Widget.AppCompat.SeekBar.Discrete"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:max="30"
-                        android:progress="1" />
-
-                    <TextView
-                        android:id="@+id/perdiodoAggiornamenti"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="1 Giorno" />
-
-                </LinearLayout>
-
                 <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
+                    android:id="@+id/ButtonCredit"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:backgroundTint="@color/brawnColor"
+                    android:text="@string/credit"
+                    android:textColor="@color/creamColor"
+                    android:textSize="18sp"
+                    app:cornerRadius="20dp" />
 
                 <Button
                     android:id="@+id/ButtonFeedback"
@@ -83,14 +61,52 @@
                     app:cornerRadius="20dp" />
 
                 <Button
-                    android:id="@+id/ButtonCredit"
+                    android:id="@+id/ButtonAggiornamenti"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/brawnColor"
-                    android:text="@string/credit"
+                    android:text="@string/aggiornamenti"
                     android:textColor="@color/creamColor"
                     android:textSize="18sp"
                     app:cornerRadius="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="@string/controlla_aggiornamenti" />
+
+                    <SeekBar
+                        android:id="@+id/seekBarAggiornamenti"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:layout_width="175dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:max="30"
+                        android:progress="1" />
+
+                    <TextView
+                        android:id="@+id/perdiodoAggiornamenti"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="1 Giorno" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

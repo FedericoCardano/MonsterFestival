@@ -80,17 +80,20 @@
             android:name=".activity_dir.WelcomeActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:resizeableActivity="false"
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity" />
         <activity
             android:name=".activity_dir.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:resizeableActivity="false"
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity" />
         <activity
             android:name=".activity_dir.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" >
+            android:resizeableActivity="false"
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

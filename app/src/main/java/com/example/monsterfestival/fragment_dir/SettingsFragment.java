@@ -128,13 +128,16 @@ public class SettingsFragment extends Fragment {
             dialog.findViewById(R.id.btnOk).setOnClickListener(view15 -> dialog.dismiss());
         });
 
+        NumAvventurieri.setText(sharedPreferences.getInt("NumAvventurieri", 1));
         NumAvventurieri.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("NumAvventurieri", Integer.parseInt(String.valueOf(s)));
-                editor.apply();
+                if (!String.valueOf(s).isEmpty()) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("NumAvventurieri",  (int) Double.parseDouble(String.valueOf(s)));
+                    editor.apply();
+                }
             }
 
             @Override
@@ -146,13 +149,16 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        LvAvventurieri.setText(sharedPreferences.getInt("LvAvventurieri", 1));
         LvAvventurieri.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("LvAvventurieri", Integer.parseInt(String.valueOf(s)));
-                editor.apply();
+                if (!String.valueOf(s).isEmpty()) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("LvAvventurieri", (int) Double.parseDouble(String.valueOf(s)));
+                    editor.apply();
+                }
             }
 
             @Override

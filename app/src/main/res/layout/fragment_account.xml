@@ -53,16 +53,9 @@
                 android:id="@+id/emailLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/changeEmailButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/brawnColor"
-                    android:text="@string/cambia_email"
-                    android:textColor="#eae4db" />
+
 
                 <EditText
                     android:id="@+id/new_email"
@@ -71,12 +64,22 @@
                     android:ems="10"
                     android:inputType="textEmailAddress" />
 
+                <Button
+                    android:id="@+id/changeEmailButton"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/brawnColor"
+                    android:text="@string/cambia_email"
+                    android:textColor="#eae4db" />
+
             </LinearLayout>
 
             <Button
                 android:id="@+id/changePswButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/brawnColor"
                 android:text="@string/cambia_psw"
                 android:textColor="#eae4db" />
@@ -85,6 +88,7 @@
                 android:id="@+id/delate_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/brawnColor"
                 android:text="@string/cancella_account"
                 android:textColor="#eae4db" />

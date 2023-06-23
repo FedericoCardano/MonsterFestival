@@ -123,4 +123,5 @@
     <string name="aggiungi_mostro">Aggiungi mostro</string>
     <string name="salva_party">Salva party</string>
     <string name="controlla_aggiornamenti">Check ogni:</string>
+    <string name="password_dimenticata_invia_email">Password dimenticata? Invia email</string>
 </resources>

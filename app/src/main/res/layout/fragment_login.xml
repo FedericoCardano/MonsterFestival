@@ -87,6 +87,17 @@
                 android:textColor="@color/brawnColor"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/passwordDimenticata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="@string/password_dimenticata_invia_email"
+                android:textColor="@color/brawnColor"
+                android:textSize="18sp" />
+
 
         </LinearLayout>
 

@@ -1,10 +1,12 @@
 package com.example.monsterfestival.fragment_dir;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.example.monsterfestival.R;
 import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.activity_dir.WelcomeActivity;
 import com.example.monsterfestival.fragment_dir.AccountFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment {
@@ -27,7 +31,7 @@ public class LoginFragment extends Fragment {
     Button buttonLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView textView, passwordDimenticata;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class LoginFragment extends Fragment {
         buttonLogin = view.findViewById(R.id.login_button);
         progressBar = view.findViewById(R.id.progressBar);
         textView = view.findViewById(R.id.registerRedirectText);
+        passwordDimenticata = view.findViewById(R.id.passwordDimenticata);
 
         textView.setOnClickListener(view12 -> {
             if (getActivity() instanceof WelcomeActivity) {
@@ -50,6 +55,30 @@ public class LoginFragment extends Fragment {
                 AccountFragment fragment = (AccountFragment) getParentFragment();
                 if (fragment != null)
                     fragment.mostraRegister();
+            }
+        });
+
+        passwordDimenticata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email;
+                email = String.valueOf(editTextEmail.getText());
+
+                if (TextUtils.isEmpty(email)){
+                    Toast.makeText(getActivity(), "Enter email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                mAuth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Email inviata", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 
@@ -81,6 +110,7 @@ public class LoginFragment extends Fragment {
                     });
 
         });
+
 
         view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         return view;

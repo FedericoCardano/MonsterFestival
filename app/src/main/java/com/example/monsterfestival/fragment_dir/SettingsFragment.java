@@ -128,7 +128,7 @@ public class SettingsFragment extends Fragment {
             dialog.findViewById(R.id.btnOk).setOnClickListener(view15 -> dialog.dismiss());
         });
 
-        NumAvventurieri.setText(sharedPreferences.getInt("NumAvventurieri", 1));
+        NumAvventurieri.setText(String.valueOf(sharedPreferences.getInt("NumAvventurieri", 1)));
         NumAvventurieri.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -149,7 +149,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        LvAvventurieri.setText(sharedPreferences.getInt("LvAvventurieri", 1));
+        LvAvventurieri.setText(String.valueOf(sharedPreferences.getInt("LvAvventurieri", 1)));
         LvAvventurieri.addTextChangedListener(new TextWatcher() {
 
             @Override

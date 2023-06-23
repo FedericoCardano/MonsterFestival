@@ -65,7 +65,7 @@ public class LoginFragment extends Fragment {
                 email = String.valueOf(editTextEmail.getText());
 
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(getActivity(), "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Inserisci email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -89,12 +89,12 @@ public class LoginFragment extends Fragment {
             password = String.valueOf(editTextPassword.getText());
 
             if (TextUtils.isEmpty(email)){
-                Toast.makeText(getActivity(), "Enter email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Inserisci email", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (TextUtils.isEmpty(password)){
-                Toast.makeText(getActivity(), "Enter password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Inserisci password", Toast.LENGTH_SHORT).show();
                 return;
             }
 

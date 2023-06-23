@@ -92,15 +92,7 @@ public class AccountFragment extends Fragment {
                             textView.setText(user.getEmail());
                         } else {
                             Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
-                            if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
-                            {
-                                auth.signOut();
-                                button.setText(getResources().getString(R.string.login));
-                                mostraLogin();
-                            }
-                            else {
-                                Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
             }
@@ -142,7 +134,6 @@ public class AccountFragment extends Fragment {
                         mostraRegister();
                     }
                     else {
-                        Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
                         if (Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
                         {
                             auth.signOut();

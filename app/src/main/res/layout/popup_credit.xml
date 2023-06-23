@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="#d3c1aa"
@@ -15,54 +15,66 @@
         android:padding="20dp">
 
         <TextView
-            android:textSize="20sp"
-            android:textColor="@color/brawnColor"
-            android:textStyle="bold"
-            android:text="@string/conferma_cancellazione"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="@string/crediti_titolo"
+            android:textColor="@color/brawnColor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titoloSvil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/crediti_sviluppatori"
+            android:textColor="@color/brawnColor"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="@string/crediti_sviluppatori_messaggio"
+            android:gravity="center"
+            android:id="@+id/messaggioSvil"
+            android:textColor="@color/brawnColor"
+            android:textStyle="normal"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="@string/conferma_cancellazione_messaggio"
+            android:id="@+id/titoloFonti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:id="@+id/tvMessage"
+            android:text="@string/crediti_fonti"
+            android:textColor="@color/brawnColor"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="@string/crediti_fonti_messaggio"
+            android:gravity="center"
+            android:id="@+id/messaggioFonti"
             android:textColor="@color/brawnColor"
             android:textStyle="normal"
             android:textSize="16sp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btnSi"
-                android:textColor="#eae4db"
-                android:textSize="14sp"
-                android:textAllCaps="false"
-                android:text="@string/sì"
-                android:backgroundTint="@color/brawnColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnNo"
-                android:textColor="@color/brawnColor"
-                android:textSize="14sp"
-                android:textAllCaps="false"
-                android:text="@string/no"
-                android:layout_margin="5dp"
-                android:backgroundTint="#eae4db"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnOk"
+            android:textColor="#eae4db"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:text="@string/ok"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/brawnColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

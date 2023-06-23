@@ -56,7 +56,12 @@
     <string name="nome_usato">Attenzione: Esiste già un altro Party con questo nome</string>
     <string name="conferma_modifica">Conferma Modifica</string>
     <string name="conferma_modifica_messaggio">Sei sicuro di voler modificare questo Party? Questa azione è irreversibile.</string>
-    <string name="crediti_titolo">Conferma Modifica</string>
+    <string name="crediti_titolo">Crediti</string>
+    <string name="crediti_sviluppatori">Sviluppatori:</string>
+    <string name="crediti_sviluppatori_messaggio">Federico Cardano, Francesco Marinelli, Samuele Pellegrini</string>
+    <string name="crediti_fonti">Fonti:</string>
+    <string name="crediti_fonti_messaggio">D&amp;D Monster Manual - Wizard of the Coast</string>
+    <string name="ok">OK</string>
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="riprova">Ritenta Connessione…</string>
@@ -124,4 +129,5 @@
     <string name="salva_party">Salva party</string>
     <string name="controlla_aggiornamenti">Check ogni:</string>
     <string name="password_dimenticata_invia_email">Password dimenticata? Invia email</string>
+    <string name="controllo_aggiornamenti_effettuato">Controllo Aggiornamenti Effettuato</string>
 </resources>

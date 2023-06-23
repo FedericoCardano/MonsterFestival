@@ -89,7 +89,10 @@ public class NativeLib implements Serializable {
             monster.add(Objects.requireNonNull(snapshot.child("Ambiente").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("Categoria").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("Taglia").getValue()).toString());
-            monster.add(Objects.requireNonNull(snapshot.child("Sfida").getValue()).toString());
+            double value = Double.parseDouble(Objects.requireNonNull(snapshot.child("Sfida").getValue()).toString());
+            if (value < 0)
+                value = Math.pow(2, value);
+            monster.add(Double.toString(value));
             monster.add(Objects.requireNonNull(snapshot.child("PF").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("CA").getValue()).toString());
             monster.add(Objects.requireNonNull(snapshot.child("FOR").getValue()).toString());

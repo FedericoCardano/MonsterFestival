@@ -193,6 +193,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                 dialog.dismiss();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
                             }
+                            else
+                                Toast.makeText(requireContext(), "Attenzione: Numero Massimo di Party raggiunto (5).", Toast.LENGTH_SHORT).show();
 
                         } else {
                             if (bundle == null)

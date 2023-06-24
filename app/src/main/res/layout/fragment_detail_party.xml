@@ -334,9 +334,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:padding="20dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp">
 
                 <ProgressBar
                     android:id="@+id/DifficultyProgressBar"
@@ -344,9 +347,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:outlineAmbientShadowColor="#FF1100"
                     android:outlineSpotShadowColor="#03A9F4"
-                    android:gravity="center"
                     android:progress="25" />
 
                 <TextView
@@ -365,9 +368,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
-                android:padding="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"

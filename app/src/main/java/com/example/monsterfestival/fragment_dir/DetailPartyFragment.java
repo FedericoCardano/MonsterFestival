@@ -157,7 +157,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         }
 
         exportButton.setOnClickListener(view1 -> {
-            if (Build.VERSION.SDK_INT > 29 || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             {
                 try {
                     createAndSharePdf(requireContext());
@@ -254,11 +254,12 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         // Visualizzazione o condivisione del PDF
         File file = new File(filePath);
         if (file.exists()) {
-            Uri pdfUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+            Uri pdfUri = FileProvider.getUriForFile(requireContext(), context.getApplicationContext().getPackageName() + ".fileprovider", file);
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("application/pdf");
             shareIntent.putExtra(Intent.EXTRA_STREAM, pdfUri);
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.grantUriPermission(context.getApplicationContext().getPackageName(), pdfUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(Intent.createChooser(shareIntent, "Salva o Condividi..."));
         }
 

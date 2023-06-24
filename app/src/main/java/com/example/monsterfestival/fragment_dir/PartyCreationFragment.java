@@ -149,6 +149,9 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     private void salvaParty(Bundle bundle, Dialog dialog, Cart cart, CartItemAdapter cartItemAdapter) {
         String nomeParty = ((TextView) dialog.findViewById(R.id.editNomeParty)).getText().toString();
 
+        if (nomeParty.isEmpty())
+            return;
+
         if (bundle == null && (partyExists(nomeParty) || nomeParty.equals("NParty"))) {
             Toast.makeText(requireContext(), requireContext().getResources().getString(R.string.nome_usato), Toast.LENGTH_SHORT).show();
             return;

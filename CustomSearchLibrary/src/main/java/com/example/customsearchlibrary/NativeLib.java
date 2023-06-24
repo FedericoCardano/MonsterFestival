@@ -144,12 +144,9 @@ public class NativeLib implements Serializable {
 
         Party = new ArrayList<>();
         nomiParty = new ArrayList<>();
-        boolean nParty = true;
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            if (nParty) {
-                nParty = false;
+            if (Objects.equals(snapshot.getKey(), "NParty"))
                 continue;
-            }
             nomiParty.add(snapshot.getKey());
 
             ArrayList<ArrayList<Integer>> _party = new ArrayList<>();

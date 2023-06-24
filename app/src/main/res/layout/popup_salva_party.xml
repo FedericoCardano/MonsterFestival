@@ -41,7 +41,7 @@
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/il_mio_party"
-            android:inputType="text|textAutoComplete"
+            android:inputType="text|textPersonName|textAutoComplete"
             android:maxLength="15"
             android:textAlignment="center" />
 

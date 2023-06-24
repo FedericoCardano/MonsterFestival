@@ -140,7 +140,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         });
 
         exportButton.setOnClickListener(view1 -> {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q || ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             {
                 try {
                     createAndSharePdf(requireContext());

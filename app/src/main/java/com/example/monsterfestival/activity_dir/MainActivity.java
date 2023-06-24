@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
             return true;
         });
 
-
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -102,7 +101,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
             fragmentTransaction.remove(currentFragment);
         }
         currentFragment = fragment;
-        fragmentTransaction.replace(R.id.frame_access_main, fragment);
+        if (getSupportFragmentManager().findFragmentById(R.id.frame_access_main) != null)
+            fragmentTransaction.replace(R.id.frame_access_main, fragment);
+        else
+            fragmentTransaction.add(R.id.frame_access_main, fragment);
         fragmentTransaction.commit();
     }
 
@@ -141,7 +143,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
         {
             toolbar.setVisibility(View.VISIBLE);
             textToolbar.setText(FragmentStringList.get(FragmentStringList.size() - 2));
-            ((OnFragmentRemoveListener) FragmentRefList.get(FragmentRefList.size() - 2)).ripristinaVisibilitaElementi();
+            if (FragmentRefList.get(FragmentRefList.size() - 2) != null)
+                ((OnFragmentRemoveListener) FragmentRefList.get(FragmentRefList.size() - 2)).ripristinaVisibilitaElementi();
+            else {
+                FragmentManagerList.remove(FragmentManagerList.size() - 1);
+                FragmentRefList.remove(FragmentRefList.size() - 1);
+                FragmentStringList.remove(FragmentStringList.size() - 1);
+                tornaIndietro();
+                return;
+            }
             CustomonBackPressed = true;
         }
 

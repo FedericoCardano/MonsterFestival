@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class SearchMonstersFragment extends Fragment implements OnFragmentRemoveListener {
 
@@ -66,6 +68,8 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
 
     private NativeLib objectNativeLib;
 
+    public final Lock ThreadLock = new ReentrantLock();
+
     public SearchMonstersFragment() {
     }
 
@@ -76,29 +80,35 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
         ImageView filtersBtn = view.findViewById(R.id.filters_btn);
         filtersCard = view.findViewById(R.id.filters_card);
         filtersBtn.setOnClickListener(view1 -> {
-            FrameLayout container1 = requireActivity().findViewById(R.id.frame_access_search);
+            if (ThreadLock.tryLock()) {
+                try {
+                    FrameLayout container1 = requireActivity().findViewById(R.id.frame_access_search);
 
-            container1.bringToFront();
-            filtersCard.setVisibility(View.INVISIBLE);
-            searchView.setVisibility(View.INVISIBLE);
-            recyclerView.setVisibility(View.INVISIBLE);
+                    container1.bringToFront();
+                    filtersCard.setVisibility(View.INVISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.INVISIBLE);
 
-            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null)
-                imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+                    InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null)
+                        imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
 
-            // Inizializza il Fragment
-            searchFiltersFragment = new SearchFiltersFragment();
+                    // Inizializza il Fragment
+                    searchFiltersFragment = new SearchFiltersFragment();
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    // Ottieni il FragmentManager e inizia la transazione
+                    FragmentManager fragmentManager = getChildFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // Aggiunti il Fragment al Container View
-            fragmentTransaction.add(container1.getId(), searchFiltersFragment);
+                    // Aggiunti il Fragment al Container View
+                    fragmentTransaction.add(container1.getId(), searchFiltersFragment);
 
-            // Esegui la transazione
-            fragmentTransaction.commit();
+                    // Esegui la transazione
+                    fragmentTransaction.commitNow();
+                } finally{
+                    ThreadLock.unlock();
+                }
+            }
         });
 
         selectedAmbieteFilters = new HashSet<>();

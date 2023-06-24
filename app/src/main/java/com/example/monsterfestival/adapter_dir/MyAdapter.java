@@ -21,6 +21,8 @@ import com.example.monsterfestival.fragment_dir.SearchMonstersFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private final Context context;
@@ -47,32 +49,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recTaglia.setText(dataList.get(position).getTaglia());
 
         holder.recCard.setOnClickListener(view -> {
-            Bundle b = new Bundle();
-            DataClass monster = dataList.get(holder.getAdapterPosition());
-            b.putString("ID", monster.getID());
-            b.putString("Ambiente", monster.getAmbiente());
-            b.putString("CA", monster.getCa());
-            b.putString("Categoria", monster.getCategoria());
-            b.putString("Nome", monster.getNome());
-            b.putString("PF", monster.getPf());
-            b.putString("Sfida", monster.getSfida());
-            b.putString("Taglia", monster.getTaglia());
-            b.putString("Descrizione", monster.getDescrizione());
-            b.putString("CAR", monster.getCar());
-            b.putString("COST", monster.getCost());
-            b.putString("DES", monster.getDes());
-            b.putString("FOR", monster.getFor());
-            b.putString("INT", monster.getInt());
-            b.putString("SAG", monster.getSag());
+            if (((SearchMonstersFragment) _parent).ThreadLock.tryLock()) {
+                try {
+                    Bundle b = new Bundle();
+                    DataClass monster = dataList.get(holder.getAdapterPosition());
+                    b.putString("ID", monster.getID());
+                    b.putString("Ambiente", monster.getAmbiente());
+                    b.putString("CA", monster.getCa());
+                    b.putString("Categoria", monster.getCategoria());
+                    b.putString("Nome", monster.getNome());
+                    b.putString("PF", monster.getPf());
+                    b.putString("Sfida", monster.getSfida());
+                    b.putString("Taglia", monster.getTaglia());
+                    b.putString("Descrizione", monster.getDescrizione());
+                    b.putString("CAR", monster.getCar());
+                    b.putString("COST", monster.getCost());
+                    b.putString("DES", monster.getDes());
+                    b.putString("FOR", monster.getFor());
+                    b.putString("INT", monster.getInt());
+                    b.putString("SAG", monster.getSag());
 
-            SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
-            SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
+                    SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
+                    SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
 
-            AppCompatActivity activity = (AppCompatActivity) view.getContext();
-            DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
-            RecyclerFragment.setParent(_parent);
-            RecyclerFragment.setArguments(b);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
+                    RecyclerFragment.setParent(_parent);
+                    RecyclerFragment.setArguments(b);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
+
+                } finally{
+                    ((SearchMonstersFragment) _parent).ThreadLock.unlock();
+                }
+            }
         });
 
     }

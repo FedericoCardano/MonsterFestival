@@ -133,6 +133,9 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (!String.valueOf(s).matches("-?\\d+(\\.\\d+)?"))
+                    return;
+
                 if (String.valueOf(s).isEmpty()) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("NumAvventurieri",  1);
@@ -159,6 +162,9 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (!String.valueOf(s).matches("-?\\d+(\\.\\d+)?"))
+                    return;
+
                 if (String.valueOf(s).isEmpty()) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("LvAvventurieri", 1);

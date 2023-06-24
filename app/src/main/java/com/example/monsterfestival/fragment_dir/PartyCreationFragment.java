@@ -61,7 +61,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
-    AppCompatButton btnAddMonster, btnSaveParty, btnConfermaSaveParty;
+    AppCompatButton btnAddMonster, btnSaveParty;
     View rootView;
     TextView numMostri;
     DatabaseReference reference;
@@ -170,9 +170,10 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                         if (snapshot.hasChild(user.getUid())) {
                             int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
                             if (numParty < 5) {
-                                numParty += 1;
-                                if (bundle == null)
+                                if (bundle == null) {
+                                    numParty += 1;
                                     reference.child(user.getUid()).child("NParty").setValue(numParty);
+                                }
 
                                 HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
 
@@ -226,12 +227,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                 };
 
                 if (bundle != null) {
-                    reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            reference.addListenerForSingleValueEvent(valueEventListener);
-                        }
-                    }).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
+                    reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(unused ->
+                            reference.addListenerForSingleValueEvent(valueEventListener)).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
                 }
                 else
                     reference.addListenerForSingleValueEvent(valueEventListener);

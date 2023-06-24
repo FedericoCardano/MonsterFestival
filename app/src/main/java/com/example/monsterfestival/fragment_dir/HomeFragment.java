@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
 
     private final Lock ThreadLock = new ReentrantLock();
 
+    private boolean isOnClickListenerEnabled = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,28 +120,29 @@ public class HomeFragment extends Fragment {
     void creaFragment(int fragmentID) {
         if (ThreadLock.tryLock()) {
             try {
-                switch (fragmentID)
-                {
-                    case 0:
-                        creaSearchMonsters();
-                        break;
+                if (isOnClickListenerEnabled)
+                    switch (fragmentID)
+                    {
+                        case 0:
+                            creaSearchMonsters();
+                            break;
 
-                    case 1:
-                        creaPartyCreationFragment();
-                        break;
+                        case 1:
+                            creaPartyCreationFragment();
+                            break;
 
-                    case 2:
-                        creaMyPartiesFragment();
-                        break;
+                        case 2:
+                            creaMyPartiesFragment();
+                            break;
 
-                    case 3:
-                        creaCompareMonstersFragment();
-                        break;
+                        case 3:
+                            creaCompareMonstersFragment();
+                            break;
 
-                    case 4:
-                        creaComparePartiesFragment();
-                        break;
-                }
+                        case 4:
+                            creaComparePartiesFragment();
+                            break;
+                    }
             } finally{
                 ThreadLock.unlock();
             }
@@ -267,6 +270,7 @@ public class HomeFragment extends Fragment {
     public void setAllVisibility(boolean value) {
         rootView.findViewById(R.id.constraintLayout).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
 
+        isOnClickListenerEnabled = value;
         editText.setClickable(value);
         imageView.setClickable(value);
         compareMonstersCard.setClickable(value);

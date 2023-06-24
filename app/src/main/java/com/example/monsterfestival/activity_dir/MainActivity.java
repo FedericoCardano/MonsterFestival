@@ -115,17 +115,18 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
     public void onFragmentVisible(FragmentManager fragmentManager, Fragment fragmentInstance, String fragmentTag) {
         if (ThreadLock.tryLock()) {
             try {
-                if (!NoToolbarList.contains(fragmentTag)) {
+                if (NoToolbarList.contains(fragmentTag)) {
+                    CustomonBackPressed = false;
+                    toolbar.setVisibility(View.GONE);
+                }
+                else if (!FragmentStringList.contains(fragmentTag)) {
                     CustomonBackPressed = true;
                     FragmentManagerList.add(fragmentManager);
                     FragmentRefList.add(fragmentInstance);
                     FragmentStringList.add(fragmentTag);
                     toolbar.setVisibility(View.VISIBLE);
                     textToolbar.setText(fragmentTag);
-                    return;
                 }
-                CustomonBackPressed = false;
-                toolbar.setVisibility(View.GONE);
             } finally{
                 ThreadLock.unlock();
             }

@@ -50,10 +50,10 @@ public class HomeFragment extends Fragment {
         }
 
         editText = rootView.findViewById(R.id.search_editText);
-        editText.setOnClickListener(view -> creaSearchMonsters());
+        editText.setOnClickListener(view -> creaFragment(0));
 
         imageView = rootView.findViewById(R.id.search_imageView);
-        imageView.setOnClickListener(view -> creaSearchMonsters());
+        imageView.setOnClickListener(view -> creaFragment(0));
 
         partyCreationCard = rootView.findViewById(R.id.partyCreationCard);
         partyCreationCard.setOnClickListener(view -> {
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                 if (user.isAnonymous())
                     printMessage(getResources().getString(R.string.creazione_party));
                 else {
-                    creaPartyCreationFragment();
+                    creaFragment(1);
                 }
             }
         });
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
                 if (user.isAnonymous())
                     printMessage(getResources().getString(R.string.miei_party));
                 else {
-                    creaMyPartiesFragment();
+                    creaFragment(2);
                 }
             }
         });
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
                 if (user.isAnonymous())
                     printMessage(getResources().getString(R.string.confronto_mostri));
                 else {
-                    creaCompareMonstersFragment();
+                    creaFragment(3);
                 }
             }
         });
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
                     printMessage(getResources().getString(R.string.confronto_party));
                 else {
                     Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
-                    //creaComparePartiesFragment();
+                    //creaFragment(4);
                 }
             }
         });
@@ -112,132 +112,149 @@ public class HomeFragment extends Fragment {
         Toast.makeText(getActivity(), getResources().getString(R.string.errore_login) + " '" + nome_opzione + "'", Toast.LENGTH_SHORT).show();
     }
 
-    void creaSearchMonsters() {
+    void creaFragment(int fragmentID) {
         synchronized (ThreadLock) {
-            setAllVisibility(false);
+            switch (fragmentID)
+            {
+                case 0:
+                    creaSearchMonsters();
+                    break;
 
-            FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+                case 1:
+                    creaPartyCreationFragment();
+                    break;
 
-            // Inizializza il Fragment
-            SearchMonstersFragment myFragment = new SearchMonstersFragment();
+                case 2:
+                    creaMyPartiesFragment();
+                    break;
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                case 3:
+                    creaCompareMonstersFragment();
+                    break;
 
-            // Aggiunti il Fragment al Container View
-            if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
-                fragmentTransaction.replace(container.getId(), myFragment);
-            else
-                fragmentTransaction.add(container.getId(), myFragment);
-
-            // Esegui la transazione
-            fragmentTransaction.commit();
+                case 4:
+                    creaComparePartiesFragment();
+                    break;
+            }
         }
+    }
+
+    void creaSearchMonsters() {
+        setAllVisibility(false);
+
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+
+        // Inizializza il Fragment
+        SearchMonstersFragment myFragment = new SearchMonstersFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
     void creaPartyCreationFragment() {
-        synchronized (ThreadLock) {
-            setAllVisibility(false);
+        setAllVisibility(false);
 
-            FrameLayout container = rootView.findViewById(R.id.frame_access_home);
-            container.bringToFront();
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
 
-            // Inizializza il Fragment
-            PartyCreationFragment myFragment = new PartyCreationFragment();
+        // Inizializza il Fragment
+        PartyCreationFragment myFragment = new PartyCreationFragment();
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // Aggiunti il Fragment al Container View
-            if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
-                fragmentTransaction.replace(container.getId(), myFragment);
-            else
-                fragmentTransaction.add(container.getId(), myFragment);
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
-            // Esegui la transazione
-            fragmentTransaction.commit();
-        }
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
     void creaMyPartiesFragment() {
-        synchronized (ThreadLock) {
-            setAllVisibility(false);
+        setAllVisibility(false);
 
-            FrameLayout container = rootView.findViewById(R.id.frame_access_home);
-            container.bringToFront();
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
 
-            // Inizializza il Fragment
-            MyPartiesFragment myFragment = new MyPartiesFragment();
+        // Inizializza il Fragment
+        MyPartiesFragment myFragment = new MyPartiesFragment();
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // Aggiunti il Fragment al Container View
-            if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
-                fragmentTransaction.replace(container.getId(), myFragment);
-            else
-                fragmentTransaction.add(container.getId(), myFragment);
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
-            // Esegui la transazione
-            fragmentTransaction.commit();
-        }
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
     void creaCompareMonstersFragment() {
-        synchronized (ThreadLock) {
-            setAllVisibility(false);
+        setAllVisibility(false);
 
-            final Compare compare = Compare.getCompare();
-            compare.setMonster1();
-            compare.setMonster2();
+        final Compare compare = Compare.getCompare();
+        compare.setMonster1();
+        compare.setMonster2();
 
-            FrameLayout container = rootView.findViewById(R.id.frame_access_home);
-            container.bringToFront();
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
 
-            // Inizializza il Fragment
-            CompareMonstersFragment myFragment = new CompareMonstersFragment();
+        // Inizializza il Fragment
+        CompareMonstersFragment myFragment = new CompareMonstersFragment();
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // Aggiunti il Fragment al Container View
-            if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
-                fragmentTransaction.replace(container.getId(), myFragment);
-            else
-                fragmentTransaction.add(container.getId(), myFragment);
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
-            // Esegui la transazione
-            fragmentTransaction.commit();
-        }
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
     void creaComparePartiesFragment() {
-        synchronized (ThreadLock) {
-            setAllVisibility(false);
+        setAllVisibility(false);
 
-            FrameLayout container = rootView.findViewById(R.id.frame_access_home);
-            container.bringToFront();
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
 
-            // Inizializza il Fragment
-            ComparePartiesFragment myFragment = new ComparePartiesFragment();
+        // Inizializza il Fragment
+        ComparePartiesFragment myFragment = new ComparePartiesFragment();
 
-            // Ottieni il FragmentManager e inizia la transazione
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // Aggiunti il Fragment al Container View
-            if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
-                fragmentTransaction.replace(container.getId(), myFragment);
-            else
-                fragmentTransaction.add(container.getId(), myFragment);
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
-            // Esegui la transazione
-            fragmentTransaction.commit();
-        }
+        // Esegui la transazione
+        fragmentTransaction.commit();
     }
 
     public void setAllVisibility(boolean value) {

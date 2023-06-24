@@ -169,7 +169,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                         Log.d("ADebugTag", "Value: " + 1);
                         if (snapshot.hasChild(user.getUid())) {
                             int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
-                            if (numParty < 5) {
+                            if (bundle != null || numParty < 5) {
                                 if (bundle == null) {
                                     numParty += 1;
                                     reference.child(user.getUid()).child("NParty").setValue(numParty);

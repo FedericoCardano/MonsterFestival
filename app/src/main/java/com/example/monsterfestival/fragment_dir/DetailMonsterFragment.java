@@ -7,8 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfWriter;
 
 import com.itextpdf.io.source.ByteArrayOutputStream;
@@ -230,7 +234,10 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         Canvas canvas = new Canvas(fragmentBitmap);
 
         // Imposta lo sfondo della bitmap con lo stesso del fragment
-        rootView.getBackground().draw(canvas);
+        Rect sourceRect = new Rect(0, 0, rootView.getWidth(), rootView.getHeight());
+        Rect destinationRect = new Rect(0, 0, maxWidth, totalHeight);
+        Bitmap bitmapBackground = drawableToBitmap(rootView.getBackground(), rootView.getWidth(), rootView.getHeight());
+        canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
         for (int i = 0; i < sectionScreenshots.size(); i++) {
             canvas.drawBitmap(sectionScreenshots.get(i), (Integer) ((rootView.getWidth() - sectionScreenshots.get(i).getWidth()) / 2), currentHeight, null);
@@ -246,6 +253,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
 
         // Crea un nuovo documento PDF
         PdfDocument document = new PdfDocument(new PdfWriter(filePath));
+        document.setDefaultPageSize(new PageSize(maxWidth, totalHeight));
         Document pdfDocument = new Document(document);
 
         // Crea un oggetto Image da Bitmap e aggiungilo al documento PDF
@@ -279,5 +287,17 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         Canvas canvas = new Canvas(screenshot);
         sectionView.draw(canvas);
         return screenshot;
+    }
+
+    private Bitmap drawableToBitmap(Drawable drawable, int width, int height) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

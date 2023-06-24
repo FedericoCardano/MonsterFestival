@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        setAllVisibility(true);
         return rootView;
     }
 

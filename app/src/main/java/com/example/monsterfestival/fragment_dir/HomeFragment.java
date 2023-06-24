@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     void creaPartyCreationFragment() {
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     void creaMyPartiesFragment() {
@@ -211,7 +211,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     void creaCompareMonstersFragment() {
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     void creaComparePartiesFragment() {
@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     public void setAllVisibility(boolean value) {

@@ -83,6 +83,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         recyclerView = rootView.findViewById(R.id.rvCartItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setMotionEventSplittingEnabled(false);
 
         final Cart cart = CartHelper.getCart();
         cart.removeAll();

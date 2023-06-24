@@ -225,17 +225,19 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     //clear.setVisibility(View.GONE);
                     compare.setMonster1();
 
-                    detailSfida2.setTextColor(brawn);
-                    detailPF2.setTextColor(brawn);
-                    detailCA2.setTextColor(brawn);
-                    detailID2.setTextColor(brawn);
-                    detailName2.setTextColor(brawn);
-                    detailCAR2.setTextColor(brawn);
-                    detailCOST2.setTextColor(brawn);
-                    detailDES2.setTextColor(brawn);
-                    detailFOR2.setTextColor(brawn);
-                    detailINT2.setTextColor(brawn);
-                    detailSAG2.setTextColor(brawn);
+                    if (detailSfida2 != null) {
+                        detailSfida2.setTextColor(brawn);
+                        detailPF2.setTextColor(brawn);
+                        detailCA2.setTextColor(brawn);
+                        detailID2.setTextColor(brawn);
+                        detailName2.setTextColor(brawn);
+                        detailCAR2.setTextColor(brawn);
+                        detailCOST2.setTextColor(brawn);
+                        detailDES2.setTextColor(brawn);
+                        detailFOR2.setTextColor(brawn);
+                        detailINT2.setTextColor(brawn);
+                        detailSAG2.setTextColor(brawn);
+                    }
                 } finally {
                     ThreadLock.unlock();
                 }
@@ -254,17 +256,19 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     //clear.setVisibility(View.GONE);
                     compare.setMonster2();
 
-                    detailSfida1.setTextColor(brawn);
-                    detailPF1.setTextColor(brawn);
-                    detailCA1.setTextColor(brawn);
-                    detailID1.setTextColor(brawn);
-                    detailName1.setTextColor(brawn);
-                    detailCAR1.setTextColor(brawn);
-                    detailCOST1.setTextColor(brawn);
-                    detailDES1.setTextColor(brawn);
-                    detailFOR1.setTextColor(brawn);
-                    detailINT1.setTextColor(brawn);
-                    detailSAG1.setTextColor(brawn);
+                    if (detailSfida1 != null) {
+                        detailSfida1.setTextColor(brawn);
+                        detailPF1.setTextColor(brawn);
+                        detailCA1.setTextColor(brawn);
+                        detailID1.setTextColor(brawn);
+                        detailName1.setTextColor(brawn);
+                        detailCAR1.setTextColor(brawn);
+                        detailCOST1.setTextColor(brawn);
+                        detailDES1.setTextColor(brawn);
+                        detailFOR1.setTextColor(brawn);
+                        detailINT1.setTextColor(brawn);
+                        detailSAG1.setTextColor(brawn);
+                    }
                 } finally {
                     ThreadLock.unlock();
                 }

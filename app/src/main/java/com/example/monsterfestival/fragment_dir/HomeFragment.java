@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
                     creaComparePartiesFragment();
                     break;
             }
-            isLockUsed = true;
+            isLockUsed = false;
         }
     }
 

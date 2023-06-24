@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
             switch (item.getItemId()) {
                 case R.id.home:
                     replaceFragment(new HomeFragment());
+                    ((HomeFragment) currentFragment).setAllVisibility(true);
                     break;
                 case R.id.account:
                     replaceFragment(new AccountFragment());

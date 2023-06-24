@@ -227,8 +227,15 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    void setAllVisibility(boolean value) {
+    public void setAllVisibility(boolean value) {
         rootView.findViewById(R.id.constraintLayout).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+
+        editText.setClickable(value);
+        imageView.setClickable(value);
+        compareMonstersCard.setClickable(value);
+        myPartiesCard.setClickable(value);
+        partyCreationCard.setClickable(value);
+        comparePartiesCard.setClickable(value);
     }
 
 }

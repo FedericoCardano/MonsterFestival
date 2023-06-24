@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     View rootView;
 
     private final Object ThreadLock = new Object();
+    private boolean isLockUsed = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,7 +114,11 @@ public class HomeFragment extends Fragment {
     }
 
     void creaFragment(int fragmentID) {
+        if (isLockUsed)
+            return;
+
         synchronized (ThreadLock) {
+            isLockUsed = true;
             switch (fragmentID)
             {
                 case 0:
@@ -136,6 +141,7 @@ public class HomeFragment extends Fragment {
                     creaComparePartiesFragment();
                     break;
             }
+            isLockUsed = true;
         }
     }
 

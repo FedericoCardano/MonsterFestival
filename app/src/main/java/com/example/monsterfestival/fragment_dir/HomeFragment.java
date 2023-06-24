@@ -122,7 +122,10 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Aggiunti il Fragment al Container View
-        fragmentTransaction.add(container.getId(), myFragment);
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
         fragmentTransaction.commit();
@@ -142,7 +145,10 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Aggiunti il Fragment al Container View
-        fragmentTransaction.add(container.getId(), myFragment);
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
         fragmentTransaction.commit();
@@ -162,7 +168,10 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Aggiunti il Fragment al Container View
-        fragmentTransaction.add(container.getId(), myFragment);
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
         fragmentTransaction.commit();
@@ -186,7 +195,10 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Aggiunti il Fragment al Container View
-        fragmentTransaction.add(container.getId(), myFragment);
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
         fragmentTransaction.commit();
@@ -206,7 +218,10 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Aggiunti il Fragment al Container View
-        fragmentTransaction.add(container.getId(), myFragment);
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
 
         // Esegui la transazione
         fragmentTransaction.commit();

@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -165,8 +166,10 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
                     throw new RuntimeException(e);
                 }
             }
-            else
+            else {
                 ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                Toast.makeText(requireContext(), "Permesso Accesso ai File negato, impossibile esportare la Scheda Party", Toast.LENGTH_SHORT).show();
+            }
         });
 
         rootView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));

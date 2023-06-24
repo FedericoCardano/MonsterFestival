@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.classes_dir.Cart;
@@ -148,8 +149,10 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
                     throw new RuntimeException(e);
                 }
             }
-            else
+            else {
                 ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                Toast.makeText(requireContext(), "Permesso Accesso ai File negato, impossibile esportare la Scheda Mostro", Toast.LENGTH_SHORT).show();
+            }
         });
 
         if (parent != null) {

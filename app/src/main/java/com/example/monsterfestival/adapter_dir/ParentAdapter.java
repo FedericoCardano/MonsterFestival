@@ -2,6 +2,7 @@ package com.example.monsterfestival.adapter_dir;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,6 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentViewHolder> {
     ArrayList<ParentModelClass> parentModelClassList;
     Context context;
 
-    private ArrayList<View> childView = new ArrayList<>();
-
     private final SearchFiltersFragment parentFragment;
 
     public ParentAdapter(ArrayList<ParentModelClass> parentModelClassList, Context context, SearchFiltersFragment parentFragment) {
@@ -47,23 +46,21 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentViewHolder> {
     public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
         holder.tv_parent_title.setText(parentModelClassList.get(position).title);
 
+        Log.d("Test2", String.valueOf(position));
         ChildAdapter childAdapter;
         childAdapter = new ChildAdapter(parentModelClassList.get(position).childModelClassList, context);
         holder.rv_child.setLayoutManager(new WrapLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.rv_child.setAdapter(childAdapter);
-        childAdapter.notifyDataSetChanged();
-        holder.rv_child.requestLayout();
 
-        holder.rv_child.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                holder.rv_child.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                ArrayList<View> childView = new ArrayList<>();
-                for (int i = 0; i < holder.rv_child.getChildCount(); i++)
-                    childView.add(holder.rv_child.getChildAt(i));
-                parentFragment.addFilters(childView);
-            }
-        });
+        holder.rv_child.requestLayout();
+        childAdapter.notifyDataSetChanged();
+
+        holder.rv_child.postDelayed(() -> {
+            ArrayList<View> childView = new ArrayList<>();
+            for (int i = 0; i < holder.rv_child.getChildCount(); i++)
+                childView.add(holder.rv_child.getChildAt(i));
+            parentFragment.addFilters(childView);
+        }, 100);
 
     }
 

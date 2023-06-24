@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/creamColor">
+    android:background="@color/creamColor"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/tv_parent_title"
+        android:textColor="@color/black"
+        android:text="Title">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/tv_parent_title"
-            android:textColor="@color/black"
-            android:text="Title">
+    </TextView>
 
-        </TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/rv_child">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:id="@+id/rv_child">
+    </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

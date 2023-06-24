@@ -102,8 +102,8 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         parentAdapter = new ParentAdapter(parentModelClassArrayList, requireContext(), this);
         recyclerView.setAdapter(parentAdapter);
-        parentAdapter.notifyDataSetChanged();
         recyclerView.requestLayout();
+        parentAdapter.notifyDataSetChanged();
 
     }
 
@@ -111,7 +111,6 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
 
         synchronized (ThreadLock) {
             filtriCounter++;
-
             for (int i = 0; i < childView.size(); i++) {
                 View child = childView.get(i);
                 child.setOnClickListener(this);

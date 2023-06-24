@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     ImageView imageView;
     View rootView;
 
-    private Lock ThreadLock = new ReentrantLock();;
+    private final Lock ThreadLock = new ReentrantLock();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

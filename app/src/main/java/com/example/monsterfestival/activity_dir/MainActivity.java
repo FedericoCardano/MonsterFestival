@@ -28,6 +28,8 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentVisibleListener {
 
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
     ActivityMainBinding binding;
 
     private boolean CustomonBackPressed = false;
+    private final Lock ThreadLock = new ReentrantLock();
 
     public MainActivity() {
     }
@@ -110,17 +113,23 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
 
     @Override
     public void onFragmentVisible(FragmentManager fragmentManager, Fragment fragmentInstance, String fragmentTag) {
-        if (!NoToolbarList.contains(fragmentTag)) {
-            CustomonBackPressed = true;
-            FragmentManagerList.add(fragmentManager);
-            FragmentRefList.add(fragmentInstance);
-            FragmentStringList.add(fragmentTag);
-            toolbar.setVisibility(View.VISIBLE);
-            textToolbar.setText(fragmentTag);
-            return;
+        if (ThreadLock.tryLock()) {
+            try {
+                if (!NoToolbarList.contains(fragmentTag)) {
+                    CustomonBackPressed = true;
+                    FragmentManagerList.add(fragmentManager);
+                    FragmentRefList.add(fragmentInstance);
+                    FragmentStringList.add(fragmentTag);
+                    toolbar.setVisibility(View.VISIBLE);
+                    textToolbar.setText(fragmentTag);
+                    return;
+                }
+                CustomonBackPressed = false;
+                toolbar.setVisibility(View.GONE);
+            } finally{
+                ThreadLock.unlock();
+            }
         }
-        CustomonBackPressed = false;
-        toolbar.setVisibility(View.GONE);
     }
 
     public void tornaIndietro(int nVolte) {

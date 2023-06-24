@@ -102,6 +102,7 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         parentAdapter = new ParentAdapter(parentModelClassArrayList, requireContext(), this);
         recyclerView.setAdapter(parentAdapter);
+        recyclerView.setMotionEventSplittingEnabled(false);
         recyclerView.requestLayout();
         parentAdapter.notifyDataSetChanged();
 

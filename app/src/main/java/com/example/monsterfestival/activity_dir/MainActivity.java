@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentVisible
                     toolbar.setVisibility(View.VISIBLE);
                     textToolbar.setText(fragmentTag);
                 }
-            } finally{
+            } finally {
                 ThreadLock.unlock();
             }
         }

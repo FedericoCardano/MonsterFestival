@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
                             creaComparePartiesFragment();
                             break;
                     }
-            } finally{
+            } finally {
                 ThreadLock.unlock();
             }
         }

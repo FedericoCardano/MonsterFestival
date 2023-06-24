@@ -50,6 +50,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentViewHolder> {
         childAdapter = new ChildAdapter(parentModelClassList.get(position).childModelClassList, context);
         holder.rv_child.setLayoutManager(new WrapLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.rv_child.setAdapter(childAdapter);
+        holder.rv_child.setMotionEventSplittingEnabled(false);
 
         holder.rv_child.requestLayout();
         childAdapter.notifyDataSetChanged();

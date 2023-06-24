@@ -49,6 +49,7 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
         recyclerView = rootView.findViewById(R.id.rvPartyItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setMotionEventSplittingEnabled(false);
 
         adapter = new PartiesAdapter(getActivity(), this, requireActivity().getSupportFragmentManager());
         recyclerView.setAdapter(adapter);

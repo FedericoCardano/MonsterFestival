@@ -105,7 +105,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
 
                     // Esegui la transazione
                     fragmentTransaction.commitNow();
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -130,6 +130,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
         dataList = new ArrayList<>();
         adapter = new MyAdapter(getActivity(), dataList, this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setMotionEventSplittingEnabled(false);
         databaseReference = FirebaseDatabase.getInstance().getReference("Monster");
 
         searchView = view.findViewById(R.id.search);

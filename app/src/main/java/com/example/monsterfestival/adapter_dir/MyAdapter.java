@@ -78,7 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     RecyclerFragment.setArguments(b);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
 
-                } finally{
+                } finally {
                     ((SearchMonstersFragment) _parent).ThreadLock.unlock();
                 }
             }

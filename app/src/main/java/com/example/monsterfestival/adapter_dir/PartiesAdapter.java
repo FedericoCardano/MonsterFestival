@@ -117,7 +117,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     RecyclerFragment.setParent(fragment);
                     RecyclerFragment.setArguments(b);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_party, RecyclerFragment ).addToBackStack(null).commit();
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -150,7 +150,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                         notifyItemRemoved(holder.getAdapterPosition());
 
                     });
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -168,7 +168,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     transaction.add(R.id.frame_access_party, newFragment);
                     transaction.commit();
                     fragment.getAdapter().setVisibilitaElementi(false);
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }

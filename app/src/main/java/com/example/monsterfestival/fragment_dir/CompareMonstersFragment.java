@@ -47,6 +47,8 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
     private final Lock ThreadLock = new ReentrantLock();
 
+    private boolean isOnClickListenerEnabled = true;
+
     private int green, red, gray, brawn;
 
     @Override
@@ -76,46 +78,48 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         btn1.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
+                    if (isOnClickListenerEnabled) {
+                        isOnClickListenerEnabled = false;
+                        monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
+                        if(monsterView2 == null) {
+                            monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
+                            deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
+                        }
+                        setAllVisibility(false);
 
-                    monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
-                    if(monsterView2 == null) {
-                        monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
-                        deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
+                        final Compare compare = Compare.getCompare();
+                        compare.setFlag(true);
+                        compare.setNumero(1);
+
+                        FrameLayout container12 = rootView.findViewById(R.id.frame_access_compare_monsters);
+
+                        // Inizializza il Fragment
+                        SearchMonstersFragment myFragment = new SearchMonstersFragment();
+
+                        // Ottieni il FragmentManager e inizia la transazione
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        // Aggiunti il Fragment al Container View
+                        fragmentTransaction.add(container12.getId(), myFragment);
+
+                        // Esegui la transazione
+                        fragmentTransaction.commitNow();
+
+                        detailSfida1 = monsterView1.findViewById(R.id.detailSfida);
+                        detailPF1 = monsterView1.findViewById(R.id.detailPF);
+                        detailCA1 = monsterView1.findViewById(R.id.detailCA);
+                        detailID1 = monsterView1.findViewById(R.id.detailID);
+                        detailName1 = monsterView1.findViewById(R.id.detailName);
+                        detailCAR1 = monsterView1.findViewById(R.id.detailCAR);
+                        detailCOST1 = monsterView1.findViewById(R.id.detailCOST);
+                        detailDES1 = monsterView1.findViewById(R.id.detailDES);
+                        detailFOR1 = monsterView1.findViewById(R.id.detailFOR);
+                        detailINT1 = monsterView1.findViewById(R.id.detailINT);
+                        detailSAG1 = monsterView1.findViewById(R.id.detailSAG);
+                        deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
                     }
-                    setAllVisibility(false);
-
-                    final Compare compare = Compare.getCompare();
-                    compare.setFlag(true);
-                    compare.setNumero(1);
-
-                    FrameLayout container12 = rootView.findViewById(R.id.frame_access_compare_monsters);
-
-                    // Inizializza il Fragment
-                    SearchMonstersFragment myFragment = new SearchMonstersFragment();
-
-                    // Ottieni il FragmentManager e inizia la transazione
-                    FragmentManager fragmentManager = getChildFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // Aggiunti il Fragment al Container View
-                    fragmentTransaction.add(container12.getId(), myFragment);
-
-                    // Esegui la transazione
-                    fragmentTransaction.commitNow();
-
-                    detailSfida1 = monsterView1.findViewById(R.id.detailSfida);
-                    detailPF1 = monsterView1.findViewById(R.id.detailPF);
-                    detailCA1 = monsterView1.findViewById(R.id.detailCA);
-                    detailID1 = monsterView1.findViewById(R.id.detailID);
-                    detailName1 = monsterView1.findViewById(R.id.detailName);
-                    detailCAR1 = monsterView1.findViewById(R.id.detailCAR);
-                    detailCOST1 = monsterView1.findViewById(R.id.detailCOST);
-                    detailDES1 = monsterView1.findViewById(R.id.detailDES);
-                    detailFOR1 = monsterView1.findViewById(R.id.detailFOR);
-                    detailINT1 = monsterView1.findViewById(R.id.detailINT);
-                    detailSAG1 = monsterView1.findViewById(R.id.detailSAG);
-                    deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -124,45 +128,48 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         btn2.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
-                    monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
-                    if(monsterView1 == null) {
-                        monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
-                        deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
+                    if (isOnClickListenerEnabled) {
+                        isOnClickListenerEnabled = false;
+                        monsterView2 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart,null,false);
+                        if(monsterView1 == null) {
+                            monsterView1 = getLayoutInflater().inflate(R.layout.recyclerview_compare_monster_cart, null, false);
+                            deleteBtn1 = monsterView1.findViewById(R.id.delete_btn);
+                        }
+                        setAllVisibility(false);
+
+                        final Compare compare = Compare.getCompare();
+                        compare.setFlag(true);
+                        compare.setNumero(2);
+
+                        FrameLayout container1 = rootView.findViewById(R.id.frame_access_compare_monsters);
+
+                        // Inizializza il Fragment
+                        SearchMonstersFragment myFragment = new SearchMonstersFragment();
+
+                        // Ottieni il FragmentManager e inizia la transazione
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        // Aggiunti il Fragment al Container View
+                        fragmentTransaction.add(container1.getId(), myFragment);
+
+                        // Esegui la transazione
+                        fragmentTransaction.commitNow();
+
+                        detailSfida2 = monsterView2.findViewById(R.id.detailSfida);
+                        detailPF2 = monsterView2.findViewById(R.id.detailPF);
+                        detailCA2 = monsterView2.findViewById(R.id.detailCA);
+                        detailID2 = monsterView2.findViewById(R.id.detailID);
+                        detailName2 = monsterView2.findViewById(R.id.detailName);
+                        detailCAR2 = monsterView2.findViewById(R.id.detailCAR);
+                        detailCOST2 = monsterView2.findViewById(R.id.detailCOST);
+                        detailDES2 = monsterView2.findViewById(R.id.detailDES);
+                        detailFOR2 = monsterView2.findViewById(R.id.detailFOR);
+                        detailINT2 = monsterView2.findViewById(R.id.detailINT);
+                        detailSAG2 = monsterView2.findViewById(R.id.detailSAG);
+                        deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
                     }
-                    setAllVisibility(false);
-
-                    final Compare compare = Compare.getCompare();
-                    compare.setFlag(true);
-                    compare.setNumero(2);
-
-                    FrameLayout container1 = rootView.findViewById(R.id.frame_access_compare_monsters);
-
-                    // Inizializza il Fragment
-                    SearchMonstersFragment myFragment = new SearchMonstersFragment();
-
-                    // Ottieni il FragmentManager e inizia la transazione
-                    FragmentManager fragmentManager = getChildFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // Aggiunti il Fragment al Container View
-                    fragmentTransaction.add(container1.getId(), myFragment);
-
-                    // Esegui la transazione
-                    fragmentTransaction.commitNow();
-
-                    detailSfida2 = monsterView2.findViewById(R.id.detailSfida);
-                    detailPF2 = monsterView2.findViewById(R.id.detailPF);
-                    detailCA2 = monsterView2.findViewById(R.id.detailCA);
-                    detailID2 = monsterView2.findViewById(R.id.detailID);
-                    detailName2 = monsterView2.findViewById(R.id.detailName);
-                    detailCAR2 = monsterView2.findViewById(R.id.detailCAR);
-                    detailCOST2 = monsterView2.findViewById(R.id.detailCOST);
-                    detailDES2 = monsterView2.findViewById(R.id.detailDES);
-                    detailFOR2 = monsterView2.findViewById(R.id.detailFOR);
-                    detailINT2 = monsterView2.findViewById(R.id.detailINT);
-                    detailSAG2 = monsterView2.findViewById(R.id.detailSAG);
-                    deleteBtn2 = monsterView2.findViewById(R.id.delete_btn);
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -173,6 +180,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
     }
 
     void setAllVisibility(boolean value) {
+        isOnClickListenerEnabled = value;
         rootView.findViewById(R.id.monster1).setVisibility(value ? View.VISIBLE : View.GONE);
         rootView.findViewById(R.id.monster2).setVisibility(value ? View.VISIBLE : View.GONE);
         rootView.findViewById(R.id.view).setVisibility(value ? View.VISIBLE : View.GONE);
@@ -207,7 +215,6 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         deleteBtn1.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
-
                     if (btn1.getParent() != null) {
                         ((ViewGroup) btn1.getParent()).removeView(btn1);
                     }
@@ -229,8 +236,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     detailFOR2.setTextColor(brawn);
                     detailINT2.setTextColor(brawn);
                     detailSAG2.setTextColor(brawn);
-
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }
@@ -238,7 +244,6 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
         deleteBtn2.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
-
                     if (btn2.getParent() != null) {
                         ((ViewGroup) btn2.getParent()).removeView(btn2);
                     }
@@ -260,7 +265,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     detailFOR1.setTextColor(brawn);
                     detailINT1.setTextColor(brawn);
                     detailSAG1.setTextColor(brawn);
-                } finally{
+                } finally {
                     ThreadLock.unlock();
                 }
             }

@@ -101,7 +101,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     fragmentTransaction.add(container12.getId(), myFragment);
 
                     // Esegui la transazione
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commitNow();
 
                     detailSfida1 = monsterView1.findViewById(R.id.detailSfida);
                     detailPF1 = monsterView1.findViewById(R.id.detailPF);
@@ -148,7 +148,7 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                     fragmentTransaction.add(container1.getId(), myFragment);
 
                     // Esegui la transazione
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commitNow();
 
                     detailSfida2 = monsterView2.findViewById(R.id.detailSfida);
                     detailPF2 = monsterView2.findViewById(R.id.detailPF);

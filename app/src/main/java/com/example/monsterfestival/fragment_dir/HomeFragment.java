@@ -21,6 +21,9 @@ import com.example.monsterfestival.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 public class HomeFragment extends Fragment {
 
@@ -32,8 +35,7 @@ public class HomeFragment extends Fragment {
     ImageView imageView;
     View rootView;
 
-    private final Object ThreadLock = new Object();
-    private boolean isLockUsed = false;
+    private Lock ThreadLock = new ReentrantLock();;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,34 +116,33 @@ public class HomeFragment extends Fragment {
     }
 
     void creaFragment(int fragmentID) {
-        if (isLockUsed)
-            return;
+        if (ThreadLock.tryLock()) {
+            try {
+                switch (fragmentID)
+                {
+                    case 0:
+                        creaSearchMonsters();
+                        break;
 
-        synchronized (ThreadLock) {
-            isLockUsed = true;
-            switch (fragmentID)
-            {
-                case 0:
-                    creaSearchMonsters();
-                    break;
+                    case 1:
+                        creaPartyCreationFragment();
+                        break;
 
-                case 1:
-                    creaPartyCreationFragment();
-                    break;
+                    case 2:
+                        creaMyPartiesFragment();
+                        break;
 
-                case 2:
-                    creaMyPartiesFragment();
-                    break;
+                    case 3:
+                        creaCompareMonstersFragment();
+                        break;
 
-                case 3:
-                    creaCompareMonstersFragment();
-                    break;
-
-                case 4:
-                    creaComparePartiesFragment();
-                    break;
+                    case 4:
+                        creaComparePartiesFragment();
+                        break;
+                }
+            } finally{
+                ThreadLock.unlock();
             }
-            isLockUsed = false;
         }
     }
 

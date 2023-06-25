@@ -39,6 +39,7 @@
     <string name="cambia_email_fallito">Cambio email fallito</string>
     <string name="cambia_psw_fallito">Cambio Password fallito</string>
     <string name="email_mancante">Inserire l\'Email</string>
+    <string name="email_errata">Formattazione Email errata</string>
     <string name="password_mancante">Inserire la Password</string>
     <string name="cpassword_diversa">Le due Password non corrispondono</string>
     <string name="nome_mancante">Inserire il Nome Utente</string>

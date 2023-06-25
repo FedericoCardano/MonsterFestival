@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +22,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.monsterfestival.R;
-import com.example.monsterfestival.activity_dir.MainActivity;
+
 import com.example.monsterfestival.activity_dir.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 public class AccountFragment extends Fragment {
@@ -88,16 +90,23 @@ public class AccountFragment extends Fragment {
         changeEmail.setOnClickListener(v -> {
 
             if(!editTextEmail.getText().toString().isEmpty()) {
-                user.updateEmail(editTextEmail.getText().toString())
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), R.string.nuova_email_poup, Toast.LENGTH_SHORT).show();
-                            textView.setText(user.getEmail());
-                        } else {
-                            Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                Pattern pattern = Patterns.EMAIL_ADDRESS;
+                if(!pattern.matcher(editTextEmail.getText().toString()).matches()){
+                    Toast.makeText(getActivity(), R.string.email_errata, Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    user.updateEmail(editTextEmail.getText().toString())
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.nuova_email_poup, Toast.LENGTH_SHORT).show();
+                                    textView.setText(user.getEmail());
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.cambia_email_fallito, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
 

@@ -65,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
         buttonPopUp.setOnClickListener(view -> dialog.show());
 
         register.setOnClickListener(view -> {
-            dialog.hide();
+            dialog.dismiss();
             mostraRegister();
             buttonPopUp.setVisibility(View.GONE);
         });

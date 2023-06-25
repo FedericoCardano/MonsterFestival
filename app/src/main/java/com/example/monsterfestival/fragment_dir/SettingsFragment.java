@@ -135,16 +135,18 @@ public class SettingsFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 if (!String.valueOf(s).matches("-?\\d+(\\.\\d+)?"))
                     return;
-
+                int num = (int) Double.parseDouble(String.valueOf(s));
                 if (String.valueOf(s).isEmpty()) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("NumAvventurieri",  1);
                     editor.apply();
                 }
                 else {
-                    int num = (int) Double.parseDouble(String.valueOf(s));
                     if (num < 1) {
                         num = 1;
+                        NumAvventurieri.setText(String.valueOf(num));
+                    }
+                    else if(num != Double.parseDouble(String.valueOf(s))){
                         NumAvventurieri.setText(String.valueOf(num));
                     }
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -183,6 +185,8 @@ public class SettingsFragment extends Fragment {
                     }
                     else if (num < 1) {
                         num = 1;
+                        LvAvventurieri.setText(String.valueOf(num));
+                    }else if(num != Double.parseDouble(String.valueOf(s))){
                         LvAvventurieri.setText(String.valueOf(num));
                     }
 

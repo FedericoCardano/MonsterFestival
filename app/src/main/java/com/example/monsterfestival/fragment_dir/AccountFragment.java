@@ -82,6 +82,7 @@ public class AccountFragment extends Fragment {
 
         button.setOnClickListener(view -> {
             auth.signOut();
+            button.setText(getResources().getString(R.string.login));
             mostraLogin();
         });
 

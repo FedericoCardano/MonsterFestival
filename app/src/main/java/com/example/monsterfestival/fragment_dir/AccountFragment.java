@@ -1,7 +1,6 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,8 +20,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.monsterfestival.R;
-import com.example.monsterfestival.activity_dir.MainActivity;
-import com.example.monsterfestival.activity_dir.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
@@ -81,8 +78,8 @@ public class AccountFragment extends Fragment {
 
         button.setOnClickListener(view -> {
             auth.signOut();
-            startActivity(new Intent(requireActivity(), WelcomeActivity.class));
-            requireActivity().finish();
+            button.setText(getResources().getString(R.string.login));
+            mostraLogin();
         });
 
         changeEmail.setOnClickListener(v -> {

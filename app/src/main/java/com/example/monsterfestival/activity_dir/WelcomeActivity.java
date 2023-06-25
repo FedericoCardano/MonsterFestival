@@ -67,7 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
         register.setOnClickListener(view -> {
             dialog.dismiss();
             mostraRegister();
-            buttonPopUp.setVisibility(View.GONE);
+            buttonPopUp.setVisibility(View.INVISIBLE);
         });
 
         maybeLater.setOnClickListener(view -> {

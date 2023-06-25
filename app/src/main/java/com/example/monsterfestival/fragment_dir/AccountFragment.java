@@ -1,6 +1,7 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.activity_dir.MainActivity;
+import com.example.monsterfestival.activity_dir.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,11 +64,11 @@ public class AccountFragment extends Fragment {
         delateAccount = rootView.findViewById(R.id.delate_account);
 
         user = auth.getCurrentUser();
-        if (user == null || user.isAnonymous()){
+        if (user == null || user.isAnonymous()) {
             button.setText(getResources().getString(R.string.login));
             mostraLogin();
         }
-        else{
+        else {
 
             changeEmail.setText(getResources().getString(R.string.cambia_email));
             textView.setText(user.getEmail());
@@ -78,8 +81,8 @@ public class AccountFragment extends Fragment {
 
         button.setOnClickListener(view -> {
             auth.signOut();
-            button.setText(getResources().getString(R.string.login));
-            mostraLogin();
+            startActivity(new Intent(requireActivity(), WelcomeActivity.class));
+            requireActivity().finish();
         });
 
         changeEmail.setOnClickListener(v -> {
@@ -134,8 +137,7 @@ public class AccountFragment extends Fragment {
                         mostraRegister();
                     }
                     else {
-                        if (Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
-                        {
+                        if (Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class)) {
                             auth.signOut();
                             button.setText(getResources().getString(R.string.login));
                             mostraLogin();

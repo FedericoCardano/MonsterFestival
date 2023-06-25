@@ -82,6 +82,7 @@ public class AccountFragment extends Fragment {
         button.setOnClickListener(view -> {
             auth.signOut();
             startActivity(new Intent(requireActivity(), WelcomeActivity.class));
+            requireActivity().finish();
         });
 
         changeEmail.setOnClickListener(v -> {

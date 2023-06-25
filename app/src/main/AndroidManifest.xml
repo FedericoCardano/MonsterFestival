@@ -80,18 +80,21 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity,NonResizeableActivity" />
         <activity
             android:name=".activity_dir.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity,NonResizeableActivity" />
         <activity
             android:name=".activity_dir.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:resizeableActivity="false"
+            android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity,NonResizeableActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

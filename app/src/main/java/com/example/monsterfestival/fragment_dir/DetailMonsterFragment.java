@@ -50,6 +50,8 @@ import com.itextpdf.layout.element.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveListener {
@@ -57,10 +59,14 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
     TextView detailID, detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton addButton, exportButton;
 
+    Dialog dialog;
+
     Fragment parent;
     OnFragmentVisibleListener fragmentVisibleListener;
 
     private String filePath;
+
+    private final Lock ThreadLock = new ReentrantLock();
 
     private View rootView;
 
@@ -93,6 +99,11 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         detailTaglia = rootView.findViewById(R.id.detailTaglia);
         addButton = rootView.findViewById(R.id.add_btn);
         exportButton = rootView.findViewById(R.id.export_btn);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.recyclerview_progress_layout);
+        dialog = builder.create();
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -145,12 +156,18 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         });
 
         exportButton.setOnClickListener(view1 -> {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            {
-                try {
-                    createAndSharePdf(requireContext());
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ThreadLock.tryLock()) {
+                    try {
+                        dialog.show();
+                        try {
+                            createAndSharePdf(requireContext());
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } finally {
+                        ThreadLock.unlock();
+                    }
                 }
             }
             else {
@@ -197,23 +214,14 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
     public void ripristinaVisibilitaElementi() {}
 
     private void createAndSharePdf(Context context) throws FileNotFoundException {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(false);
-        builder.setView(R.layout.recyclerview_progress_layout);
-        Dialog dialog = builder.create();
-        dialog.show();
-
-        boolean addButtonVisibility = false;
-        if (addButton.getVisibility() == View.VISIBLE)
-        {
-            addButtonVisibility = true;
-            addButton.setVisibility(View.INVISIBLE);
-        }
-        exportButton.setVisibility(View.INVISIBLE);
-
         int totalHeight = 0;
         int maxWidth = 0;
         int currentHeight = 0;
+
+        exportButton.setVisibility(View.INVISIBLE);
+        boolean addButtonVisibility = addButton.getVisibility() == View.VISIBLE;
+        if (addButtonVisibility)
+            addButton.setVisibility(View.INVISIBLE);
 
         ArrayList<Bitmap> sectionScreenshots = new ArrayList<>();
 
@@ -227,8 +235,6 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
             maxWidth = Math.max(maxWidth, screenshot.getWidth());
         }
 
-        dialog.dismiss();
-
         // Crea una bitmap vuota con le dimensioni totali
         Bitmap fragmentBitmap = Bitmap.createBitmap(maxWidth, totalHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(fragmentBitmap);
@@ -239,12 +245,14 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         Bitmap bitmapBackground = drawableToBitmap(rootView.getBackground(), rootView.getWidth(), rootView.getHeight());
         canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
+        exportButton.setVisibility(View.VISIBLE);
+        if (addButtonVisibility)
+            addButton.setVisibility(View.VISIBLE);
+
         for (int i = 0; i < sectionScreenshots.size(); i++) {
             canvas.drawBitmap(sectionScreenshots.get(i), (Integer) ((rootView.getWidth() - sectionScreenshots.get(i).getWidth()) / 2), currentHeight, null);
             currentHeight += sectionScreenshots.get(i).getHeight();
         }
-
-        dialog.show();
 
         // Converti il Bitmap in un array di byte
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -263,9 +271,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         // Chiusura del documento
         document.close();
 
-        if (addButtonVisibility)
-            addButton.setVisibility(View.VISIBLE);
-        exportButton.setVisibility(View.VISIBLE);
+        dialog.dismiss();
 
         // Visualizzazione o condivisione del PDF
         File file = new File(filePath);
@@ -278,8 +284,6 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
             context.grantUriPermission(context.getApplicationContext().getPackageName(), pdfUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(Intent.createChooser(shareIntent, "Salva o Condividi..."));
         }
-
-        dialog.dismiss();
     }
 
     private Bitmap captureSectionScreenshot(View sectionView) {

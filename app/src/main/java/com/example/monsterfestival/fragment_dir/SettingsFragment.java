@@ -142,8 +142,13 @@ public class SettingsFragment extends Fragment {
                     editor.apply();
                 }
                 else {
+                    int num =(int) Double.parseDouble(String.valueOf(s));
+                    if (num < 1) {
+                        LvAvventurieri.setText(String.valueOf(1));
+                        num = 1;
+                    }
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("NumAvventurieri",  (int) Double.parseDouble(String.valueOf(s)));
+                    editor.putInt("NumAvventurieri", num );
                     editor.apply();
                 }
             }
@@ -175,6 +180,11 @@ public class SettingsFragment extends Fragment {
                     if (num > 20) {
                         LvAvventurieri.setText(String.valueOf(20));
                         num = 20;
+                    }
+                    else if(num<1)
+                    {
+                        LvAvventurieri.setText(String.valueOf(1));
+                        num = 1;
                     }
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("LvAvventurieri", num);

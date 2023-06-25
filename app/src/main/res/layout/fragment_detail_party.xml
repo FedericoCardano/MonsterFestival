@@ -40,7 +40,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -371,7 +371,8 @@
                 android:orientation="horizontal"
                 android:paddingStart="20dp"
                 android:paddingTop="10dp"
-                android:paddingEnd="20dp">
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp" >
 
                 <TextView
                     android:layout_width="wrap_content"

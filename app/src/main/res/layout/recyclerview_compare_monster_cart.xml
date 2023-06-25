@@ -46,7 +46,6 @@
             android:src="@drawable/baseline_delete_24"
             app:tint="@color/black" />
 
-
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -104,7 +105,7 @@
                         android:layout_marginEnd="0dp"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="1 Giorno" />
+                        android:text="@string/default_update_period" />
 
                 </LinearLayout>
 
@@ -170,11 +171,14 @@
                         android:id="@+id/editTextNumAvventurieri"
                         style="@style/Widget.AppCompat.EditText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:ems="10"
                         android:inputType="number|numberDecimal"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:autofillHints="@string/numero_1"
+                        android:hint="@string/numero_1"
+                        tools:ignore="LabelFor" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -199,14 +203,19 @@
                     <EditText
                         android:id="@+id/editTextLvAvventurieri"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:ems="10"
                         android:inputType="number|numberDecimal"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:autofillHints="@string/numero_1"
+                        android:hint="@string/numero_1"
+                        tools:ignore="LabelFor" />
+
                 </LinearLayout>
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>

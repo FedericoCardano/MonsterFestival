@@ -126,9 +126,6 @@ public class SplashActivity extends AppCompatActivity {
         }
         else
             startApp();
-
-
-
     }
 
     private void startApp() {

@@ -22,17 +22,16 @@
         android:typeface="serif" />
 
     <ImageView
-
         android:layout_width="match_parent"
         android:layout_height="270dp"
         android:src="@drawable/splash_screen_logo"
         android:scaleType="centerCrop"
         android:padding="70dp"
         android:layout_marginTop="10dp"
-        />
+        android:contentDescription="@string/benvenuto" />
 
     <ProgressBar
-        android:id="@+id/power"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="220dp"
         android:layout_height="20dp"
@@ -44,9 +43,9 @@
         android:progress="0" />
 
     <TextView
+        android:id="@+id/progressImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/power"
         android:gravity="center_horizontal"
         android:padding="6dp"
         android:text="@string/powered_by_unige"

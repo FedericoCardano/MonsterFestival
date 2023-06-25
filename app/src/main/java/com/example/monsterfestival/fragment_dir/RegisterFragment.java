@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.activity_dir.WelcomeActivity;
-import com.example.monsterfestival.fragment_dir.AccountFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -47,8 +46,6 @@ public class RegisterFragment extends Fragment {
         Button buttonReg = view.findViewById(R.id.register_button);
         progressBar = view.findViewById(R.id.progressBar);
         TextView textView = view.findViewById(R.id.loginRedirectText);
-
-
 
         textView.setOnClickListener(view1 -> {
             if (getActivity() instanceof WelcomeActivity) {
@@ -96,36 +93,35 @@ public class RegisterFragment extends Fragment {
                 return;
             }
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        progressBar.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                progressBar.setVisibility(View.GONE);
+                if (task.isSuccessful()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name).build();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name).build();
 
-                            if (user != null)
-                                user.updateProfile(profileUpdates);
+                    if (user != null)
+                        user.updateProfile(profileUpdates);
 
-                            Toast.makeText(getActivity(), getResources().getString(R.string.account_creato), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.account_creato), Toast.LENGTH_SHORT).show();
 
-                            if (getActivity() instanceof WelcomeActivity) {
-                                WelcomeActivity activity = (WelcomeActivity) getActivity();
-                                if (activity != null)
-                                    activity.mostraLogin();
-                            }
-                            else {
-                                AccountFragment fragment = (AccountFragment) getParentFragment();
-                                if (fragment != null)
-                                    fragment.mostraLogin();
-                            }
+                    if (getActivity() instanceof WelcomeActivity) {
+                        WelcomeActivity activity = (WelcomeActivity) getActivity();
+                        if (activity != null)
+                            activity.mostraLogin();
+                    }
+                    else {
+                        AccountFragment fragment = (AccountFragment) getParentFragment();
+                        if (fragment != null)
+                            fragment.mostraLogin();
+                    }
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getActivity(), getResources().getString(R.string.registrazione_fallita), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(getActivity(), getResources().getString(R.string.registrazione_fallita), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));

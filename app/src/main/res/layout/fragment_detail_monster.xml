@@ -67,7 +67,6 @@
                     android:src="@drawable/export"
                     app:tint="@color/white" />
 
-
             </LinearLayout>
 
             <androidx.cardview.widget.CardView

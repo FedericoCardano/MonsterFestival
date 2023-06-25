@@ -1,9 +1,6 @@
 package com.example.monsterfestival.classes_dir;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import com.example.monsterfestival.R;
 
 public class Compare {
     private DataClass monster1;

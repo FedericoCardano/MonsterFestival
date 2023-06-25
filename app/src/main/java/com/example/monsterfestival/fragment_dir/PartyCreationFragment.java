@@ -40,7 +40,6 @@ import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.activity_dir.MainActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -139,7 +138,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                     });
                 }
                 else
-                    salvaParty(bundle, dialog, cart, cartItemAdapter);
+                    salvaParty(null, dialog, cart, cartItemAdapter);
             });
         });
 
@@ -266,7 +265,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
             CartItem cartItem = new CartItem();
-            cartItem.setDataClass((DataClass) entry.getKey());
+            cartItem.setDataClass(entry.getKey());
             cartItem.setQuantity(entry.getValue());
             cartItems.add(cartItem);
         }

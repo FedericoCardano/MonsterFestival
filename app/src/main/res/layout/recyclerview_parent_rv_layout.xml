@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:id="@+id/tv_parent_title"
         android:textColor="@color/black"
-        android:text="Title">
+        android:text="@string/Titolo">
 
     </TextView>
 

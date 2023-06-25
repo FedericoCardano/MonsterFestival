@@ -49,7 +49,8 @@
                 android:text="@string/sì"
                 android:backgroundTint="@color/brawnColor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/btnNo"
@@ -60,7 +61,8 @@
                 android:layout_margin="5dp"
                 android:backgroundTint="#eae4db"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
 

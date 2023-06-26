@@ -21,8 +21,6 @@ import com.example.monsterfestival.fragment_dir.SearchMonstersFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private final Context context;
@@ -93,6 +91,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void searchDataList(ArrayList<DataClass> searchList){
         dataList = searchList;
         notifyDataSetChanged();
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
 class MyViewHolder extends RecyclerView.ViewHolder{

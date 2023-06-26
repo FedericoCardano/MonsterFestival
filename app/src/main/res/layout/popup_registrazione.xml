@@ -15,7 +15,7 @@
         android:padding="20dp">
 
         <TextView
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@color/brawnColor"
             android:textStyle="bold"
             android:text="@string/vuoi_registrarti"
@@ -49,7 +49,8 @@
                 android:text="@string/registrati"
                 android:backgroundTint="@color/brawnColor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/btnMaybeLater"
@@ -60,7 +61,8 @@
                 android:layout_margin="5dp"
                 android:backgroundTint="#eae4db"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
 

@@ -1,7 +1,6 @@
 package com.example.monsterfestival.classes_dir;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,18 +12,8 @@ public class WrapLayoutManager extends LinearLayoutManager {
 
     private int itemMarginX, itemMarginY;
 
-    public WrapLayoutManager(Context context) {
-        super(context);
-        init(context);
-    }
-
     public WrapLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
-        init(context);
-    }
-
-    public WrapLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 

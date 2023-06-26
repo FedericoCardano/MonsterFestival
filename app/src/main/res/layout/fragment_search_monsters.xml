@@ -41,6 +41,7 @@
             android:layout_margin="5dp"
             android:src="@drawable/ic_filter"
             android:contentDescription="@string/bottone_filtri" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

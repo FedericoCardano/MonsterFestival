@@ -84,11 +84,10 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void loginAnonymous() {
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful())
-                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                }).addOnFailureListener(e -> Toast.makeText(WelcomeActivity.this, "Access error: " + e, Toast.LENGTH_SHORT).show());
+        mAuth.signInAnonymously().addOnCompleteListener(this, task -> {
+            if (task.isSuccessful())
+                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        }).addOnFailureListener(e -> Toast.makeText(WelcomeActivity.this, "Access error: " + e, Toast.LENGTH_SHORT).show());
     }
 
     public void mostraLogin() {

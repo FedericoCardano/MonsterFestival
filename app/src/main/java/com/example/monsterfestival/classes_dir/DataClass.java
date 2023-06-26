@@ -63,6 +63,7 @@ public class DataClass implements Comparable<DataClass> {
     }
 
     public DataClass(ArrayList<String> dati) {
+
         this.ID = dati.get(0);
         this.Nome = dati.get(1);
         this.Descrizione = dati.get(2);
@@ -81,6 +82,7 @@ public class DataClass implements Comparable<DataClass> {
         this.INT = dati.get(12);
         this.SAG = dati.get(13);
         this.CAR = dati.get(14);
+
     }
 
     public DataClass(DataSnapshot snapshot) {

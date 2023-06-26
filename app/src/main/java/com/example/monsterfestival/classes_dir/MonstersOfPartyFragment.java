@@ -22,13 +22,6 @@ public class MonstersOfPartyFragment extends Fragment implements OnFragmentRemov
     RecyclerView recyclerView;
     View rootView;
 
-    public static MonstersOfPartyFragment newInstance(String param1, String param2) {
-        MonstersOfPartyFragment fragment = new MonstersOfPartyFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

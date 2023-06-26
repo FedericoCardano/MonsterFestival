@@ -28,13 +28,16 @@
     <string name="Lv_avventurieri">Livello avventurieri</string>
     <string name="Impostazioni_Scontro">Impostazioni Scontro</string>
     <string name="descriszione_impostazioni_scontro">Tramite i seguenti parametri verrà calcolata automaticamente la difficoltà dello scontro</string>
+
     <string name="credit">Credit</string>
     <string name="aggiornamenti">Check Update</string>
     <string name="feedback">Feedback</string>
+
     <string name="facile">Facile</string>
     <string name="medio">Medio</string>
     <string name="difficile">Difficile</string>
     <string name="mortale">Mortale</string>
+
     <string name="nuova_psw_poup">Mail di Controllo Inviata</string>
     <string name="cambia_email_fallito">Cambio email fallito</string>
     <string name="cambia_psw_fallito">Cambio Password fallito</string>
@@ -47,26 +50,31 @@
     <string name="registrazione_fallita">La Registrazione del tuo Account è fallita, riprovare…</string>
     <string name="login_riuscito">Login effettuato con Successo</string>
     <string name="login_fallito">Login non riuscito, riprovare…</string>
+
     <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
     <string name="funzione_in_arrivo">Funzione non ancora disponibile, presto in arrivo!</string>
+
     <string name="primo_accesso">Primo Accesso</string>
     <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
     <string name="conferma_cancellazione">Conferma Cancellazione</string>
     <string name="conferma_cancellazione_messaggio">Sei sicuro di voler procedere? Questa azione è irreversibile.</string>
     <string name="sì">Sì</string>
     <string name="no">No</string>
+
     <string name="salva_party_titolo">Salvataggio Nuovo Party</string>
     <string name="salva_party_messaggio">Con quale nome vuoi salvare questo nuovo Party?</string>
     <string name="il_mio_party">Questo Party si chiamerà…</string>
     <string name="nome_usato">Attenzione: Esiste già un altro Party con questo nome</string>
     <string name="conferma_modifica">Conferma Modifica</string>
     <string name="conferma_modifica_messaggio">Sei sicuro di voler modificare questo Party? Questa azione è irreversibile.</string>
+
     <string name="crediti_titolo">Crediti</string>
     <string name="crediti_sviluppatori">Sviluppatori:</string>
     <string name="crediti_sviluppatori_messaggio">Federico Cardano, Francesco Marinelli, Samuele Pellegrini</string>
     <string name="crediti_fonti">Fonti:</string>
     <string name="crediti_fonti_messaggio">D&amp;D Monster Manual - Wizard of the Coast</string>
     <string name="ok">OK</string>
+
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="riprova">Ritenta Connessione…</string>
@@ -120,7 +128,7 @@
     <string name="nome_search">Ricerca</string>
     <string name="nome_search_filters">Filtri Ricerca</string>
 
-    <string name="bottone_filtri">Filter Button</string>
+    <string name="bottone_filtri">Buttone Filtri</string>
     <string name="filtro_Ambieti">Ambienti</string>
     <string name="filtro_Categorie">Categorie</string>
     <string name="filtro_Taglie">Taglie</string>
@@ -135,4 +143,8 @@
     <string name="controlla_aggiornamenti">Check ogni:</string>
     <string name="password_dimenticata_invia_email">Password dimenticata? Invia email</string>
     <string name="controllo_aggiornamenti_effettuato">Controllo Aggiornamenti Effettuato</string>
+    <string name="default_update_period">1 Giorno</string>
+    <string name="numero_1">1</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

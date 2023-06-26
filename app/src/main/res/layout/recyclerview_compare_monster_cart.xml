@@ -46,13 +46,13 @@
             android:src="@drawable/baseline_delete_24"
             app:tint="@color/black" />
 
-
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_section"
         android:layout_width="350dp"
         android:layout_height="130dp"
+        android:layout_marginBottom="15dp"
         android:layout_gravity="center_horizontal"
         android:elevation="10dp"
         app:cardCornerRadius="7dp">

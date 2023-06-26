@@ -19,19 +19,9 @@ public class ComparePartiesFragment extends Fragment implements OnFragmentRemove
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
-    public static ComparePartiesFragment newInstance(String param1, String param2) {
-        ComparePartiesFragment fragment = new ComparePartiesFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (getArguments() != null) {
-
-        }*/
     }
 
     @Override

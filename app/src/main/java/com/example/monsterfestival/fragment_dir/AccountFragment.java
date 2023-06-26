@@ -28,8 +28,6 @@ import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
-
 
 public class AccountFragment extends Fragment {
 
@@ -70,7 +68,6 @@ public class AccountFragment extends Fragment {
             mostraLogin();
         }
         else {
-
             changeEmail.setText(getResources().getString(R.string.cambia_email));
             textView.setText(user.getEmail());
             button.setText(getResources().getString(R.string.logout));
@@ -89,12 +86,7 @@ public class AccountFragment extends Fragment {
         changeEmail.setOnClickListener(v -> {
 
             if(!editTextEmail.getText().toString().isEmpty()) {
-                Pattern pattern = Patterns.EMAIL_ADDRESS;
-                if(!pattern.matcher(editTextEmail.getText().toString()).matches()){
-                    Toast.makeText(getActivity(), R.string.email_errata, Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if (Patterns.EMAIL_ADDRESS.matcher(editTextEmail.getText().toString()).matches()) {
                     user.updateEmail(editTextEmail.getText().toString())
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
@@ -106,29 +98,32 @@ public class AccountFragment extends Fragment {
                                 }
                             });
                 }
+                else {
+                    Toast.makeText(getActivity(), R.string.email_errata, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        changePsw.setOnClickListener(v -> auth.sendPasswordResetEmail(Objects.requireNonNull(user.getEmail()))
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(),R.string.nuova_psw_poup, Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(),R.string.cambia_psw_fallito, Toast.LENGTH_SHORT).show();
+        changePsw.setOnClickListener(v -> auth.sendPasswordResetEmail(Objects.requireNonNull(user.getEmail())).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(getActivity(),R.string.nuova_psw_poup, Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getActivity(),R.string.cambia_psw_fallito, Toast.LENGTH_SHORT).show();
 
-                        if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
-                        {
-                            auth.signOut();
-                            button.setText(getResources().getString(R.string.login));
-                            mostraLogin();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }));
+                if(Objects.requireNonNull(task.getException()).getClass().equals(FirebaseAuthRecentLoginRequiredException.class))
+                {
+                    auth.signOut();
+                    button.setText(getResources().getString(R.string.login));
+                    mostraLogin();
+                }
+                else {
+                    Toast.makeText(getActivity(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }));
+
         delateAccount.setOnClickListener(v -> {
 
             Dialog dialog = new Dialog(requireContext());

@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.classes_dir.Cart;
@@ -108,7 +107,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
 }
 class CartItemViewHolder extends RecyclerView.ViewHolder{
     TextView recNome;
-    CardView recCard;
     AppCompatButton recPlus;
     AppCompatButton recMinus;
     AppCompatTextView recQty;

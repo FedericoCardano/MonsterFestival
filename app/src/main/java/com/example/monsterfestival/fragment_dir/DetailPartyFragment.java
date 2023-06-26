@@ -241,7 +241,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         exportButton.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < sectionScreenshots.size(); i++) {
-            canvas.drawBitmap(sectionScreenshots.get(i), (Integer) ((rootView.getWidth() - sectionScreenshots.get(i).getWidth()) / 2), currentHeight, null);
+            canvas.drawBitmap(sectionScreenshots.get(i), (float) ((rootView.getWidth() - sectionScreenshots.get(i).getWidth()) / 2), currentHeight, null);
             currentHeight += sectionScreenshots.get(i).getHeight();
         }
 

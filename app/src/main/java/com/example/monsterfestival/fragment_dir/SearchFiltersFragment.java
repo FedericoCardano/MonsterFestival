@@ -83,7 +83,6 @@ public class SearchFiltersFragment extends Fragment implements View.OnClickListe
         else
             objectNativeLib = new NativeLib(new Gson().fromJson(temp, NativeLib.class));
 
-
         for (int i = 1; i < objectNativeLib.nomiFiltri.get(0).size(); i++) {
             filtri_ambiente.add(new ChildModelClass(objectNativeLib.nomiFiltri.get(0).get(i)));
         }

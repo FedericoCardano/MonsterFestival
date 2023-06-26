@@ -63,7 +63,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
     public static boolean isTagliaSelected;
     public static boolean areFiltersApplied;
 
-    private String _text;
+    private String _text = "";
     private SearchFiltersFragment searchFiltersFragment;
 
     private NativeLib objectNativeLib;

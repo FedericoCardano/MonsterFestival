@@ -120,7 +120,11 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
             detailINT.setText(bundle.getString("INT"));
             detailPF.setText(bundle.getString("PF"));
             detailSAG.setText(bundle.getString("SAG"));
-            detailSfida.setText(bundle.getString("Sfida"));
+            float sfida = Float.parseFloat(bundle.getString("Sfida"));
+            if (((int) sfida) != sfida)
+                detailSfida.setText(String.valueOf(sfida));
+            else
+                detailSfida.setText(String.valueOf((int) sfida));
             detailTaglia.setText(bundle.getString("Taglia"));
         }
 

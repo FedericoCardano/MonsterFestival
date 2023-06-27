@@ -26,6 +26,7 @@ import com.example.monsterfestival.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -134,7 +135,9 @@ public class AccountFragment extends Fragment {
             dialog.show();
 
             dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
-            dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> user.delete().addOnCompleteListener(task -> {
+            dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
+                FirebaseDatabase.getInstance().getReference("User").child( user.getUid()).removeValue();
+                user.delete().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),R.string.account_cancellato, Toast.LENGTH_SHORT).show();
                         mostraRegister();
@@ -150,7 +153,8 @@ public class AccountFragment extends Fragment {
                         }
                     }
                     dialog.dismiss();
-            }));
+                });
+            });
         });
 
         return rootView;

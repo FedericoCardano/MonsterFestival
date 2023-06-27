@@ -63,49 +63,41 @@ public class HomeFragment extends Fragment {
         partyCreationCard = rootView.findViewById(R.id.partyCreationCard);
         partyCreationCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                if (user.isAnonymous())
-                    printMessage(getResources().getString(R.string.creazione_party));
-                else {
-                    creaFragment(1);
-                }
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.creazione_party));
+            else {
+                creaFragment(1);
             }
         });
 
         myPartiesCard = rootView.findViewById(R.id.myPartiesCard);
         myPartiesCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                if (user.isAnonymous())
-                    printMessage(getResources().getString(R.string.miei_party));
-                else {
-                    creaFragment(2);
-                }
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.miei_party));
+            else {
+                creaFragment(2);
             }
         });
 
         compareMonstersCard = rootView.findViewById(R.id.compareMonstersCard);
         compareMonstersCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                if (user.isAnonymous())
-                    printMessage(getResources().getString(R.string.confronto_mostri));
-                else {
-                    creaFragment(3);
-                }
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.confronto_mostri));
+            else {
+                creaFragment(3);
             }
         });
 
         comparePartiesCard = rootView.findViewById(R.id.comparePartiesCard);
         comparePartiesCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                if (user.isAnonymous())
-                    printMessage(getResources().getString(R.string.confronto_party));
-                else {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
-                    //creaFragment(4);
-                }
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.confronto_party));
+            else {
+                Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+                //creaFragment(4);
             }
         });
 

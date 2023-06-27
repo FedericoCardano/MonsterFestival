@@ -111,10 +111,11 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
         btnSaveParty.setOnClickListener(view -> {
 
-             if (!isNetworkConnected(requireContext())) {
+            if (!isNetworkConnected(requireContext())) {
                  Toast.makeText(getActivity(), getResources().getString(R.string.connessione_assente), Toast.LENGTH_SHORT).show();
                  return;
             }
+
             Dialog dialog = new Dialog(requireContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.popup_salva_party);

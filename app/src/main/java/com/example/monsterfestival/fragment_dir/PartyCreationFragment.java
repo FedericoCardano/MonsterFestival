@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -108,6 +111,11 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         btnSaveParty = rootView.findViewById(R.id.btnSaveParty);
         btnSaveParty.setOnClickListener(view -> {
 
+            if (!isNetworkConnected(requireContext())) {
+                 Toast.makeText(getActivity(), getResources().getString(R.string.connessione_assente), Toast.LENGTH_SHORT).show();
+                 return;
+            }
+
             Dialog dialog = new Dialog(requireContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.popup_salva_party);
@@ -197,7 +205,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                             else
                                 Toast.makeText(requireContext(), "Attenzione: Numero Massimo di Party raggiunto (5).", Toast.LENGTH_SHORT).show();
 
-                        } else {
+                        }else {
                             if (bundle == null)
                                 reference.child(user.getUid()).child("NParty").setValue(1);
                             HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
@@ -338,6 +346,20 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
             editor.apply();
         }
 
+    }
+
+    private static boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            Network activeNetwork = connectivityManager.getActiveNetwork();
+            if (activeNetwork != null) {
+                NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+                return networkCapabilities != null && (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR));
+            }
+        }
+
+        return false;
     }
 
     private boolean partyExists(String name) {

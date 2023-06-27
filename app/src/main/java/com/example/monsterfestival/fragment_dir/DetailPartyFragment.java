@@ -118,7 +118,11 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             detailName.setText(bundle.getString("NomeParty"));
-            detailSfida.setText(bundle.getString("totSfida"));
+            float sfida = Float.parseFloat(bundle.getString("totSfida"));
+            if (((int) sfida) != sfida)
+                detailSfida.setText(String.valueOf(sfida));
+            else
+                detailSfida.setText(String.valueOf((int) sfida));
             detailCA.setText(bundle.getString("totCA"));
             detailCAR.setText(bundle.getString("totCAR"));
             detailCOST.setText(bundle.getString("totCOST"));

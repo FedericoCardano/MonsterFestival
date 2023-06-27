@@ -53,7 +53,7 @@
 
     <string name="ricerca_fallita">Ricerca non riuscito, riprova…</string>
     <string name="funzione_in_arrivo">Funzione non ancora disponibile, presto in arrivo!</string>
-
+    <string name="connessione_assente">Connessione Assente</string>
     <string name="primo_accesso">Primo Accesso</string>
     <string name="primo_accesso_messaggio">Attenzione! Per il primo accesso è richiesta una connessione a Internet.</string>
     <string name="conferma_cancellazione">Conferma Cancellazione</string>

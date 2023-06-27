@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,10 @@ public class LoginFragment extends Fragment {
 
             if (TextUtils.isEmpty(email)){
                 Toast.makeText(getActivity(), "Inserisci email", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(getActivity(), R.string.email_errata, Toast.LENGTH_SHORT).show();
                 return;
             }
 

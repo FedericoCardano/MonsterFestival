@@ -69,20 +69,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                int interval;
-                if (seekBar.getProgress() == 0)
-                    interval = -1;
-                else
-                    interval = seekBar.getProgress() * 24 * 60 * 60 * 1000;
-
+                int interval = seekBar.getProgress() * 24 * 60 * 60 * 1000;
                 editor.putInt("intervalPeriodicWork", interval);
                 editor.apply();
 
-                if (interval == -1) {
-                    WorkManager.getInstance(requireActivity()).cancelUniqueWork("Aggiornamenti_Database");
-                }
-                else {
+                // Cancella il Worker con il tag "Aggiornamenti_Database", se esiste, e ricrealo se interval > 0
+                WorkManager.getInstance(requireActivity()).cancelUniqueWork("Aggiornamenti_Database");
+                if (interval > 0) {
                     PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(
                             DatabaseUpdateWorker.class,
                             /* intervallo di controllo in millisecondi */ interval,

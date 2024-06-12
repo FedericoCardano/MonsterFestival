@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/monster_community"
+        android:icon="@drawable/monster_comparison"
+        android:title="@string/mostri" />
+
+    <item
+        android:id="@+id/party_community"
+        android:title="@string/party"
+        android:icon="@drawable/parties_comparison"/>
+
+</menu>

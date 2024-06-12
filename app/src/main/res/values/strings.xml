@@ -109,7 +109,7 @@
     <string name="ricerca_mostri">Ricerca mostri</string>
     <string name="creazione_party">Creazione Party</string>
     <string name="confronto_mostri">Confronto Mostri</string>
-    <string name="confronto_party">Confronto Party</string>
+    <string name="confronto_party">Comunity</string>
     <string name="miei_party">I miei Party</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
@@ -118,7 +118,8 @@
     <string name="seleziona">Seleziona</string>
     <string name="applica">Applica</string>
     <string name="torna_indietro">Torna Indietro</string>
-
+    <string name="mostri">Mostri</string>
+    <string name="party">Party</string>
     <string name="nome_compare_monsters">Confronto Mostri</string>
     <string name="nome_compare_parties">Confronto Party</string>
     <string name="nome_detail_monster">Scheda Mostro</string>

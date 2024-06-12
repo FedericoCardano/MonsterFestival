@@ -96,8 +96,8 @@ public class HomeFragment extends Fragment {
             if (user == null || user.isAnonymous())
                 printMessage(getResources().getString(R.string.confronto_party));
             else {
-                Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
-                //creaFragment(4);
+                //Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+                creaFragment(4);
             }
         });
 
@@ -132,7 +132,9 @@ public class HomeFragment extends Fragment {
                             break;
 
                         case 4:
-                            creaComparePartiesFragment();
+                            creaComunityFragment();
+                            break;
+                        default:
                             break;
                     }
             } finally {
@@ -186,6 +188,8 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.commitNow();
     }
 
+
+
     void creaMyPartiesFragment() {
         setAllVisibility(false);
 
@@ -236,14 +240,14 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.commitNow();
     }
 
-    void creaComparePartiesFragment() {
+    void creaComunityFragment() {
         setAllVisibility(false);
 
         FrameLayout container = rootView.findViewById(R.id.frame_access_home);
         container.bringToFront();
 
         // Inizializza il Fragment
-        ComparePartiesFragment myFragment = new ComparePartiesFragment();
+        CommunityFragment myFragment = new CommunityFragment();
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();

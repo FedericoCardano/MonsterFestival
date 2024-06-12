@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.monsterfestival.classes_dir.Compare;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
@@ -275,8 +275,8 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
             }
         });
 
-        DataClass dataclass2 = compare.getMonster2();
-        DataClass dataclass1 = compare.getMonster1();
+        MonsterClass dataclass2 = compare.getMonster2();
+        MonsterClass dataclass1 = compare.getMonster1();
 
         if (dataclass1 != null && dataclass2 != null) {
             setColorConfront(detailSfida1, detailSfida2, Float.parseFloat(dataclass1.getSfida()) - Float.parseFloat(dataclass2.getSfida()));

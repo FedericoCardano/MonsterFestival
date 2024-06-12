@@ -40,7 +40,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.customsearchlibrary.NativeLib;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
@@ -331,7 +331,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
                     SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                     NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
-                    DataClass monster = new DataClass(objectNativeLib.getMostro(nomeMostro));
+                    MonsterClass monster = new MonsterClass(objectNativeLib.getMostro(nomeMostro));
 
                     b.putString("ID", monster.getID());
                     b.putString("Ambiente", monster.getAmbiente());

@@ -1,10 +1,12 @@
 package com.example.monsterfestival.classes_dir;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
-public class DataClass implements Comparable<DataClass> {
+public class MonsterClass implements Comparable<MonsterClass> {
     private final String ID;
     private final String Ambiete;
     private final String CA;
@@ -62,7 +64,7 @@ public class DataClass implements Comparable<DataClass> {
         return SAG;
     }
 
-    public DataClass(ArrayList<String> dati) {
+    public MonsterClass(ArrayList<String> dati) {
 
         this.ID = dati.get(0);
         this.Nome = dati.get(1);
@@ -85,28 +87,27 @@ public class DataClass implements Comparable<DataClass> {
 
     }
 
-    public DataClass(DataSnapshot snapshot) {
+    public MonsterClass(DataSnapshot snapshot) {
 
         this.ID = snapshot.getKey();
-        this.Ambiete = snapshot.child("Ambiente").getValue(String.class);
-        this.CA = String.valueOf(snapshot.child("CA").getValue(long.class));
-        this.Categoria = snapshot.child("Categoria").getValue(String.class);
-        this.Nome = snapshot.child("Nome").getValue(String.class);
-        this.PF = String.valueOf(snapshot.child("PF").getValue(long.class));
-        this.Sfida = String.valueOf(snapshot.child("Sfida").getValue(long.class));
-        this.Taglia = snapshot.child("Taglia").getValue(String.class);
-        this.Descrizione = snapshot.child("Descrizione").getValue(String.class);
-        this.CAR = snapshot.child("CAR").getValue(String.class);
-        this.COST = snapshot.child("COST").getValue(String.class);
-        this.DES = snapshot.child("DES").getValue(String.class);
-        this.FOR = snapshot.child("FOR").getValue(String.class);
-        this.INT = snapshot.child("INT").getValue(String.class);
-        this.SAG = snapshot.child("SAG").getValue(String.class);
+        this.Ambiete    = snapshot.child("Ambiente").getValue(String.class);
+        this.CA         = snapshot.child("CA").getValue(String.class);
+        this.Categoria  = snapshot.child("Categoria").getValue(String.class);
+        this.Nome       = snapshot.child("Nome").getValue(String.class);
+        this.PF         = snapshot.child("PF").getValue(String.class);
+        this.Sfida      = snapshot.child("Sfida").getValue(String.class);
+        this.Taglia     = snapshot.child("Taglia").getValue(String.class);
+        this.Descrizione= snapshot.child("Descrizione").getValue(String.class);
+        this.CAR        = snapshot.child("CAR").getValue(String.class);
+        this.COST       = snapshot.child("COST").getValue(String.class);
+        this.DES        = snapshot.child("DES").getValue(String.class);
+        this.FOR        = snapshot.child("FOR").getValue(String.class);
+        this.INT        = snapshot.child("INT").getValue(String.class);
+        this.SAG        = snapshot.child("SAG").getValue(String.class);
 
     }
-
-    @Override
-    public int compareTo(DataClass otherData) {
+        @Override
+    public int compareTo(MonsterClass otherData) {
         return this.Nome.compareTo(otherData.getNome());
     }
 }

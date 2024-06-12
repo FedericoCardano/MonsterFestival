@@ -1,7 +1,7 @@
 package com.example.monsterfestival.classes_dir;
 
 public class CartItem {
-    private DataClass dataClass;
+    private MonsterClass monsterClass;
     private int quantity;
 
     public int getQuantity() {
@@ -12,11 +12,11 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public DataClass getDataClass() {
-        return dataClass;
+    public MonsterClass getDataClass() {
+        return monsterClass;
     }
 
-    public void setDataClass(DataClass dataClass) {
-        this.dataClass = dataClass;
+    public void setDataClass(MonsterClass monsterClass) {
+        this.monsterClass = monsterClass;
     }
 }

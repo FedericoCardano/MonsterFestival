@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.adapter_dir.MyAdapter;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
@@ -47,7 +47,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
 
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
-    ArrayList<DataClass> dataList;
+    ArrayList<MonsterClass> dataList;
     @SuppressLint("StaticFieldLeak")
     static MyAdapter adapter;
     @SuppressLint("StaticFieldLeak")
@@ -156,7 +156,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
         objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", null), NativeLib.class));
 
         for (ArrayList<String> element : objectNativeLib.getID())
-            dataList.add(new DataClass(element));
+            dataList.add(new MonsterClass(element));
         adapter.notifyDataSetChanged();
 
         dialog.dismiss();
@@ -172,10 +172,10 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
             applyFilters(text);
         else {
             dialog.show();
-            ArrayList<DataClass> searchList = new ArrayList<>();
-            for (DataClass dataClass : dataList) {
-                if (stringSimilarity(text, dataClass.getNome())) {
-                    searchList.add(dataClass);
+            ArrayList<MonsterClass> searchList = new ArrayList<>();
+            for (MonsterClass monsterClass : dataList) {
+                if (stringSimilarity(text, monsterClass.getNome())) {
+                    searchList.add(monsterClass);
                 }
             }
             dialog.dismiss();
@@ -221,9 +221,9 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
                 listaFiltri.get(2).add(filtro);
 
         ArrayList<ArrayList<String>> tempList = objectNativeLib.execSearch(text, listaFiltri);
-        ArrayList<DataClass> dataList = new ArrayList<>();
+        ArrayList<MonsterClass> dataList = new ArrayList<>();
         for (ArrayList<String> element : tempList)
-            dataList.add(new DataClass(element));
+            dataList.add(new MonsterClass(element));
 
         dialog.dismiss();
 

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.monsterfestival.classes_dir.Cart;
 import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.CartItem;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
 
@@ -50,12 +50,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
         final Cart cart = CartHelper.getCart();
 
         holder.recNome.setText(cartItems.get(position).getDataClass().getNome());
-        Map<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+        Map<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
         if (itemMap.get(cartItems.get(holder.getAdapterPosition()).getDataClass()) != null) {
             holder.recQty.setText(String.valueOf(itemMap.get(cartItems.get(holder.getAdapterPosition()).getDataClass())));
         }
         holder.removeMonster.setOnClickListener(view -> {
-            HashMap<DataClass, Integer> itemMap1 = cart.getItemWithQuantity();
+            HashMap<MonsterClass, Integer> itemMap1 = cart.getItemWithQuantity();
             cart.setTotalQuantity(cart.getTotalQuantity() - Objects.requireNonNull(itemMap1.get(cartItems.get(holder.getAdapterPosition()).getDataClass())));
             itemMap1.remove(cartItems.get(holder.getAdapterPosition()).getDataClass());
             cart.changeCart(itemMap1);
@@ -68,7 +68,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
 
         holder.recPlus.setOnClickListener(view -> {
             if (cart.getTotalQuantity() < 20) {
-                HashMap<DataClass, Integer> itemMap12 = cart.getItemWithQuantity();
+                HashMap<MonsterClass, Integer> itemMap12 = cart.getItemWithQuantity();
                 itemMap12.put(cartItems.get(holder.getAdapterPosition()).getDataClass(), Objects.requireNonNull(itemMap12.get(cartItems.get(holder.getAdapterPosition()).getDataClass())) + 1);
                 holder.recQty.setText(String.valueOf(itemMap12.get(cartItems.get(holder.getAdapterPosition()).getDataClass())));
                 cart.changeCart(itemMap12);
@@ -80,7 +80,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemViewHolder> {
             }
         });
         holder.recMinus.setOnClickListener(view -> {
-            HashMap<DataClass, Integer> itemMap1 = cart.getItemWithQuantity();
+            HashMap<MonsterClass, Integer> itemMap1 = cart.getItemWithQuantity();
             if (Objects.requireNonNull(itemMap1.get(cartItems.get(holder.getAdapterPosition()).getDataClass())) > 1) {
 
                 itemMap1.put(cartItems.get(holder.getAdapterPosition()).getDataClass(), Objects.requireNonNull(itemMap1.get(cartItems.get(holder.getAdapterPosition()).getDataClass())) - 1);

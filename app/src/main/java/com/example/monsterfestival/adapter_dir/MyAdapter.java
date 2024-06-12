@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.fragment_dir.DetailMonsterFragment;
 import com.example.monsterfestival.fragment_dir.SearchMonstersFragment;
@@ -24,11 +24,11 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private final Context context;
-    private List<DataClass> dataList;
+    private List<MonsterClass> dataList;
 
     private final Fragment _parent;
 
-    public MyAdapter(Context context, List<DataClass> dataList, Fragment parent) {
+    public MyAdapter(Context context, List<MonsterClass> dataList, Fragment parent) {
         this.context = context;
         this.dataList = dataList;
         this._parent = parent;
@@ -50,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             if (((SearchMonstersFragment) _parent).ThreadLock.tryLock()) {
                 try {
                     Bundle b = new Bundle();
-                    DataClass monster = dataList.get(holder.getAdapterPosition());
+                    MonsterClass monster = dataList.get(holder.getAdapterPosition());
                     b.putString("ID", monster.getID());
                     b.putString("Ambiente", monster.getAmbiente());
                     b.putString("CA", monster.getCa());
@@ -88,7 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return dataList.size();
     }
     @SuppressLint("NotifyDataSetChanged")
-    public void searchDataList(ArrayList<DataClass> searchList){
+    public void searchDataList(ArrayList<MonsterClass> searchList){
         dataList = searchList;
         notifyDataSetChanged();
     }

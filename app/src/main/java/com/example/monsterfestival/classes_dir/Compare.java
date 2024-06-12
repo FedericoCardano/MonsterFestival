@@ -3,8 +3,8 @@ package com.example.monsterfestival.classes_dir;
 import android.content.Context;
 
 public class Compare {
-    private DataClass monster1;
-    private DataClass monster2;
+    private MonsterClass monster1;
+    private MonsterClass monster2;
 
     private boolean flag;
     private int numMostro;
@@ -17,16 +17,16 @@ public class Compare {
         return compare;
     }
 
-    public void add(Context context, DataClass dataClass, int numMostro) {
+    public void add(Context context, MonsterClass monsterClass, int numMostro) {
         if (numMostro == 1)
-            monster1 = dataClass;
+            monster1 = monsterClass;
         else
-            monster2 = dataClass;
+            monster2 = monsterClass;
         //Toast.makeText(context, context.getResources().getString(R.string.mostro_selezionato), Toast.LENGTH_SHORT).show();
     }
 
-    public DataClass getMonster1() {return this.monster1;}
-    public DataClass getMonster2() {return this.monster2;}
+    public MonsterClass getMonster1() {return this.monster1;}
+    public MonsterClass getMonster2() {return this.monster2;}
     public void setMonster1() {this.monster1 = null;}
     public void setMonster2() {this.monster2 = null;}
     public boolean getFlag() {return this.flag;}

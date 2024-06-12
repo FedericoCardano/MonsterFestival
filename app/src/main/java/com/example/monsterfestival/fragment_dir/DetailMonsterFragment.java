@@ -33,7 +33,7 @@ import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.classes_dir.Cart;
 import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.Compare;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
@@ -147,13 +147,13 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
                 dati.add(bundle.getString("INT"));
                 dati.add(bundle.getString("SAG"));
                 dati.add(bundle.getString("CAR"));
-                DataClass dataClass = new DataClass(dati);
+                MonsterClass monsterClass = new MonsterClass(dati);
                 final Compare compare = Compare.getCompare();
                 if (!compare.getFlag()) {
-                    cart.add(dataClass, 1, getContext());
+                    cart.add(monsterClass, 1, getContext());
                 }
                 else {
-                    compare.add(requireContext(), dataClass, compare.getNumero());
+                    compare.add(requireContext(), monsterClass, compare.getNumero());
                 }
                 ((MainActivity) requireActivity()).tornaIndietro(2);
             }

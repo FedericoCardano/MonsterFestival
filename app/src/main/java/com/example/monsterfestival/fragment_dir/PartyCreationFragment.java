@@ -38,7 +38,7 @@ import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.CartItem;
 import com.example.monsterfestival.adapter_dir.CartItemAdapter;
 import com.example.monsterfestival.classes_dir.Compare;
-import com.example.monsterfestival.classes_dir.DataClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
@@ -104,7 +104,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
             ArrayList<ArrayList<String>> dati = objectNativeLib.getPartyWithName(bundle.getString("nomeParty"));
             for (ArrayList<String> dato : dati)
-                cart.add(new DataClass(new ArrayList<>(dato.subList(1, dato.size()))), Integer.parseInt(dato.get(0)), getContext());
+                cart.add(new MonsterClass(new ArrayList<>(dato.subList(1, dato.size()))), Integer.parseInt(dato.get(0)), getContext());
             ripristinaVisibilitaElementi();
         }
 
@@ -183,10 +183,10 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     reference.child(user.getUid()).child("NParty").setValue(numParty);
                                 }
 
-                                HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+                                HashMap<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
 
                                 int numMostro = 1;
-                                for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                                for (Map.Entry<MonsterClass, Integer> entry : itemMap.entrySet()) {
                                     reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
                                     reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                     numMostro += 1;
@@ -208,10 +208,10 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                         }else {
                             if (bundle == null)
                                 reference.child(user.getUid()).child("NParty").setValue(1);
-                            HashMap<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+                            HashMap<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
 
                             int numMostro = 1;
-                            for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+                            for (Map.Entry<MonsterClass, Integer> entry : itemMap.entrySet()) {
                                 reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
                                 reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                 numMostro += 1;
@@ -269,9 +269,9 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     private List<CartItem> getCartItems(Cart cart) {
         List<CartItem> cartItems = new ArrayList<>();
 
-        Map<DataClass, Integer> itemMap = cart.getItemWithQuantity();
+        Map<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
 
-        for (Map.Entry<DataClass, Integer> entry : itemMap.entrySet()) {
+        for (Map.Entry<MonsterClass, Integer> entry : itemMap.entrySet()) {
             CartItem cartItem = new CartItem();
             cartItem.setDataClass(entry.getKey());
             cartItem.setQuantity(entry.getValue());

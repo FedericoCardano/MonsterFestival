@@ -246,7 +246,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/parties_comparison"
-                            android:text="@string/confronto_party"
+                            android:text="@string/commuity"
                             android:textSize="20sp"
                             android:textColor="@color/brawnColor"
                             android:fontFamily="@font/lobster"
@@ -260,7 +260,7 @@
                             android:layout_height="70dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
-                            android:contentDescription="@string/confronto_party"
+                            android:contentDescription="@string/commuity"
                             android:src="@drawable/parties_comparison" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>

@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         comparePartiesCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null || user.isAnonymous())
-                printMessage(getResources().getString(R.string.confronto_party));
+                printMessage(getResources().getString(R.string.commuity));
             else {
                 //Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
                 creaFragment(4);

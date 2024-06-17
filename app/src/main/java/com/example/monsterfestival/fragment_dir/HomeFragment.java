@@ -134,6 +134,13 @@ public class HomeFragment extends Fragment {
                         case 4:
                             creaComunityFragment();
                             break;
+                        case 5:
+                            //creaCreaMostro();
+                            break;
+                        case 6:
+                            //creaMyMonster();
+                            break;
+
                         default:
                             break;
                     }

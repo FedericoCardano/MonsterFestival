@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/header_background"
                 android:padding="10dp"
-                app:layout_constraintTop_toTopOf="parent" >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textHello"
@@ -107,41 +107,44 @@
                 </LinearLayout>
 
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
+                android:id="@+id/row1"
                 android:layout_width="0dp"
                 android:layout_height="175dp"
-                android:id="@+id/row1"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/partyCreationCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/partyCreationCard"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardElevation="5dp"
-                    app:cardCornerRadius="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
+                            android:id="@+id/party_creation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/party_creation"
-                            android:text="@string/creazione_party"
-                            android:textSize="20sp"
-                            android:textColor="@color/brawnColor"
-                            android:fontFamily="@font/lobster"
-                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/party_creation_image"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/party_creation_image"/>
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="@string/creazione_party"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/party_creation_image"
@@ -153,28 +156,31 @@
                             android:src="@drawable/party_creation" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/myPartiesCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/myPartiesCard"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardElevation="5dp"
-                    app:cardCornerRadius="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
+                            android:id="@+id/my_parties"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/my_parties"
-                            android:text="@string/miei_party"
-                            android:textSize="20sp"
-                            android:textColor="@color/brawnColor"
-                            android:fontFamily="@font/lobster"
-                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/my_parties_image"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/my_parties_image"/>
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="@string/miei_party"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/my_parties_image"
@@ -187,39 +193,43 @@
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="175dp"
                 android:id="@+id/row2"
-                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="165dp"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/row1">
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/compareMonstersCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/compareMonstersCard"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardElevation="5dp"
-                    app:cardCornerRadius="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
+                            android:id="@+id/monster_comparison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/monster_comparison"
-                            android:text="@string/confronto_mostri"
-                            android:textSize="20sp"
-                            android:textColor="@color/brawnColor"
-                            android:fontFamily="@font/lobster"
-                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/monster_comparison_image"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/monster_comparison_image"/>
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="@string/confronto_mostri"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/monster_comparison_image"
@@ -231,28 +241,31 @@
                             android:src="@drawable/monster_comparison" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/comparePartiesCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/comparePartiesCard"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardElevation="5dp"
-                    app:cardCornerRadius="20dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
+                            android:id="@+id/parties_comparison"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/parties_comparison"
-                            android:text="@string/commuity"
-                            android:textSize="20sp"
-                            android:textColor="@color/brawnColor"
-                            android:fontFamily="@font/lobster"
-                            android:layout_marginTop="10dp"
+                            android:layout_below="@+id/parties_comparison_image"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/parties_comparison_image"/>
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="@string/commuity"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/parties_comparison_image"
@@ -264,7 +277,94 @@
                             android:src="@drawable/parties_comparison" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row3"
+                android:layout_width="0dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/row2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/createMonstersCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/createMonster"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/monster_create_image"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="createMonsters"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/monster_create_image"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="createMonsters"
+                            android:src="@drawable/monster_comparison" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/myMonstersCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/myMonsters"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/my_monster_image"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/lobster"
+                            android:text="myMonsters"
+                            android:textColor="@color/brawnColor"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/my_monster_image"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:contentDescription="myMonsters"
+                            android:src="@drawable/parties_comparison" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

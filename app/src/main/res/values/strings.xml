@@ -103,6 +103,8 @@
     <string name="Difficoltà">Diff:</string>
     <string name="mostri_party">Mostri:</string>
 
+    <string name="creazione_mostri">Creazione Mostri</string>
+
     <string name="benvenuto">Benvenuto</string>
     <string name="default_utente">Anonymous</string>
     <string name="errore_login">Accedi per poter usare</string>
@@ -149,4 +151,6 @@
     <string name="numero_1">1</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

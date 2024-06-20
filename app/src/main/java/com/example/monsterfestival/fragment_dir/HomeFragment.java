@@ -27,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class HomeFragment extends Fragment {
 
-    CardView partyCreationCard, myPartiesCard, compareMonstersCard, comparePartiesCard;
+    CardView partyCreationCard, myPartiesCard, compareMonstersCard, comparePartiesCard,createMonstersCard;
     FirebaseAuth auth;
     FirebaseUser user;
     TextView textView;
@@ -101,6 +101,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        createMonstersCard= rootView.findViewById(R.id.createMonstersCard);
+        createMonstersCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.commuity));
+            else {
+                //Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+                creaFragment(5);
+            }
+        });
+
         setAllVisibility(true);
         return rootView;
     }
@@ -135,7 +146,7 @@ public class HomeFragment extends Fragment {
                             creaComunityFragment();
                             break;
                         case 5:
-                            //creaCreaMostro();
+                            creaMonsterCreationFragment();
                             break;
                         case 6:
                             //creaMyMonster();
@@ -255,6 +266,29 @@ public class HomeFragment extends Fragment {
 
         // Inizializza il Fragment
         CommunityFragment myFragment = new CommunityFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commitNow();
+    }
+
+    void creaMonsterCreationFragment() {
+        setAllVisibility(false);
+
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        MonsterCreationFragment myFragment = new MonsterCreationFragment();
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();

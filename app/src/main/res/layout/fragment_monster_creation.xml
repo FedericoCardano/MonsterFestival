@@ -93,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1" />
 
             <TextView
                 android:id="@+id/DesLabel"
@@ -110,7 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
 
             <TextView
                 android:id="@+id/CostLabel"
@@ -127,7 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -142,7 +145,8 @@
                 android:layout_weight="1"
                 android:text="@string/INT"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
             <EditText
                 android:id="@+id/editInt"
@@ -150,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
 
             <TextView
                 android:id="@+id/SagLabel"
@@ -167,7 +172,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
 
             <TextView
                 android:id="@+id/CarLabel"
@@ -184,7 +190,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
         </LinearLayout>
 
         <View
@@ -213,7 +220,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="numberDecimal"
+                android:text="@string/numero_1"/>
 
             <TextView
                 android:id="@+id/CaLabel"
@@ -230,7 +238,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
 
             <TextView
                 android:id="@+id/PfLabel"
@@ -247,11 +256,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@string/numero_1"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/login_button"
+            <EditText
+                android:id="@+id/editDescrizione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/Descrizione"
+                android:inputType="textMultiLine" />
+
+            <Button
+            android:id="@+id/buttonSalva"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
@@ -261,7 +280,8 @@
             android:textSize="18sp" />
 
 
-    </LinearLayout>
+
+        </LinearLayout>
 
 </androidx.cardview.widget.CardView>
 

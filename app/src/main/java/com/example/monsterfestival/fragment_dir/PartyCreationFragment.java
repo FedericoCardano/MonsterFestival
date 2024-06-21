@@ -67,7 +67,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     View rootView;
     TextView numMostri;
     DatabaseReference reference;
-
+    //TODO getire sezione MyMonsters in CreazioneParty
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

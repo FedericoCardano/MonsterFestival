@@ -76,6 +76,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     float totSfida = 0;
                     int totPF = 0, totCA = 0, totFOR = 0, totDES = 0, totCOST = 0, totINT = 0, totSAG = 0, totCAR = 0;
                     StringBuilder lista_mostri = new StringBuilder();
+                    //StringBuilder lista_eventi = new StringBuilder();
 
                     String nome = objectNativeLib.getPartyNames().get(holder.getAdapterPosition());
                     ArrayList<ArrayList<String>> infoParty = objectNativeLib.getPartyWithName(nome);
@@ -97,6 +98,11 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                         totCAR += Integer.parseInt(monster.get(15)) * monsterMultiplier;
                     }
 
+//                    for (ArrayList<String> event : infoParty)
+//                    {
+//                        lista_mostri.append(event.get(0)).append(", "); //event.get(0) = nome evento
+//                    }
+
                     b.putString("NomeParty", nome);
                     //b.putString("Difficoltà", String.valueOf(difficoltà));
                     b.putString("totSfida", String.valueOf(totSfida));
@@ -111,6 +117,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     if (lista_mostri.length() > 0)
                         lista_mostri = new StringBuilder(lista_mostri.substring(0, lista_mostri.length() - 2)).append(".");
                     b.putString("Mostri", String.valueOf(lista_mostri));
+                    //b.putString("Eventi", String.valueOf(lista_eventi));
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailPartyFragment RecyclerFragment = new DetailPartyFragment();
@@ -174,10 +181,17 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
             }
         });
     }
+
+
+
+
     @Override
     public int getItemCount() {
         return nomeParty.size();
     }
+
+
+
     @SuppressLint("NotifyDataSetChanged")
     public void updateCartItems(ArrayList<String> nomeParty) {
         this.nomeParty = nomeParty;

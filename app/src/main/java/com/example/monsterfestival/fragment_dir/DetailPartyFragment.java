@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 
 public class DetailPartyFragment extends Fragment implements OnFragmentRemoveListener {
 
-    TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri;
+    TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri,detailEventTv;
     FloatingActionButton exportButton;
 
     Dialog dialog;
@@ -104,6 +104,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         detailPF = rootView.findViewById(R.id.detailPF);
         detailSAG = rootView.findViewById(R.id.detailSAG);
         detailMostri = rootView.findViewById(R.id.detailMostri);
+        detailEventTv= rootView.findViewById(R.id.detailEventTv);
         detailSfida = rootView.findViewById(R.id.detailSfida);
         exportButton = rootView.findViewById(R.id.export_btn);
 
@@ -132,7 +133,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
             detailPF.setText(bundle.getString("totPF"));
             detailSAG.setText(bundle.getString("totSAG"));
             setTextClickable(detailMostri, bundle.getString("Mostri"));
-
+            //setTextClickable(detailEventTv, bundle.getString("Eventi"));
             SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             int nMember = sharedPreferences.getInt("NumAvventurieri", 1);
             int lvMember = sharedPreferences.getInt("LvAvventurieri", 1);

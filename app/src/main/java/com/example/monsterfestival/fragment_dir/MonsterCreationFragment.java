@@ -22,23 +22,28 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.MonsterPost;
+import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class MonsterCreationFragment extends Fragment {
+public class MonsterCreationFragment extends Fragment implements OnFragmentRemoveListener {
 
     EditText Nome,For,Des,Cost,Int,Sag,Car,Sfida,Ca,Pf,Descrizione;
     Spinner Ambiente,Categoria,Taglia;
@@ -455,7 +460,8 @@ public class MonsterCreationFragment extends Fragment {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User/"+userId+"/MyMonsters");
                 Log.d("PushQuery","ready");
                 ref.push().setValue(Monster);
-
+                Toast.makeText(getActivity(), "Monster creato con successo", Toast.LENGTH_SHORT).show();
+                updateLocalMyMonsters();
 
             }
         });
@@ -510,6 +516,37 @@ public class MonsterCreationFragment extends Fragment {
     }
 
 
+    private void updateLocalMyMonsters() {
 
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()+"/MyMonsters").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    objectNativeLib.setMyMonsters(dataSnapshot);
+                    objectNativeLib.updateDatabase();
+                    editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+                    editor.apply();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
+        } else {
+            objectNativeLib.invalidateUid();
+            objectNativeLib.updateDatabase();
+            editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+            editor.apply();
+        }
+
+    }
+
+    @Override
+    public void ripristinaVisibilitaElementi() {
+
+    }
 }

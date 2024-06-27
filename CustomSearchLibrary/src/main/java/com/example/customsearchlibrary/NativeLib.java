@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class NativeLib implements Serializable {
 
     private ArrayList<ArrayList<String>> ID;
+    private ArrayList<ArrayList<String>> Monster;
     private ArrayList<ArrayList<ArrayList<Integer>>> Filtri;
     public ArrayList<ArrayList<String>> nomiFiltri;
 
@@ -38,6 +39,7 @@ public class NativeLib implements Serializable {
         this.userUid = "";
         this.Party = new ArrayList<>();
         this.nomiParty = new ArrayList<>();
+        this.Monster=new ArrayList<>();
     }
 
     public NativeLib(NativeLib obj) {
@@ -47,6 +49,7 @@ public class NativeLib implements Serializable {
         this.userUid = obj.userUid;
         this.Party = obj.Party;
         this.nomiParty = obj.nomiParty;
+        this.Monster = obj.Monster;
 
         updateDatabase();
     }
@@ -75,7 +78,7 @@ public class NativeLib implements Serializable {
 
     private native void updateDatabaseNative(ArrayList<ArrayList<String>> ID, ArrayList<ArrayList<ArrayList<Integer>>> Filtri, ArrayList<ArrayList<String>> nomiFiltri);
 
-    public void updateDatabase() {
+    public void  updateDatabase() {
         updateDatabaseNative(ID, Filtri, nomiFiltri);
     }
 
@@ -104,6 +107,41 @@ public class NativeLib implements Serializable {
             ID.add(monster);
         }
     }
+
+    public void setMyMonsters(DataSnapshot dataSnapshot) {
+        invalidateUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
+            userUid = user.getUid();
+
+        Monster = new ArrayList<>();
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            ArrayList<String> monster = new ArrayList<>();
+            monster.add(snapshot.getKey());
+            monster.add(Objects.requireNonNull(snapshot.child("nome").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("descrizione").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("ambiente").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("categoria").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("taglia").getValue()).toString());
+            double value = Double.parseDouble(Objects.requireNonNull(snapshot.child("sfida").getValue()).toString());
+            if (value < 0)
+                value = Math.pow(2, value);
+            monster.add(Double.toString(value));
+            monster.add(Objects.requireNonNull(snapshot.child("pf").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("ca").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("for").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("des").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("cost").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("int").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("sag").getValue()).toString());
+            monster.add(Objects.requireNonNull(snapshot.child("car").getValue()).toString());
+            Monster.add(monster);
+        }
+    }
+
+    public ArrayList<ArrayList<String>> getMyMonsters() {
+        return Monster;
+    };
 
     public ArrayList<ArrayList<String>> getID() {
         return ID;
@@ -175,6 +213,20 @@ public class NativeLib implements Serializable {
         return new ArrayList<>();
     }
 
+    public ArrayList<String> getMyMonstersNames() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
+        {
+            ArrayList<String> nomi_mostri=new ArrayList<>();
+            for (int i=0; i<Monster.size();i++)
+            {
+                nomi_mostri.add(Monster.get(i).get(1));
+            }
+            return nomi_mostri;
+        }
+        return new ArrayList<>();
+    }
+
     public ArrayList<ArrayList<String>> getPartyWithName(String nomeParty) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
@@ -212,7 +264,7 @@ public class NativeLib implements Serializable {
 
         Party.remove(adapterPosition);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(userUid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(userUid+"/MyParties");
         databaseReference.child(nomiParty.remove(adapterPosition)).removeValue().addOnSuccessListener(aVoid -> databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

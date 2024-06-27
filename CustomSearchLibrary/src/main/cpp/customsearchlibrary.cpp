@@ -345,7 +345,6 @@ Java_com_example_customsearchlibrary_NativeLib_updateDatabaseNative(JNIEnv *env,
             catFiltro.insert(make_pair(tempNomiFiltri[i][j + 1], tempFiltri[i][j]));
         Filtri.insert(make_pair(tempNomiFiltri[i][0], catFiltro));
     }
-
 }
 
 extern "C"

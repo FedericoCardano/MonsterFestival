@@ -27,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class HomeFragment extends Fragment {
 
-    CardView partyCreationCard, myPartiesCard, compareMonstersCard, comparePartiesCard,createMonstersCard;
+    CardView partyCreationCard, myPartiesCard, compareMonstersCard, comparePartiesCard,createMonstersCard,myMonstersCard;
     FirebaseAuth auth;
     FirebaseUser user;
     TextView textView;
@@ -105,10 +105,21 @@ public class HomeFragment extends Fragment {
         createMonstersCard.setOnClickListener(view -> {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user == null || user.isAnonymous())
-                printMessage(getResources().getString(R.string.commuity));
+                printMessage(getResources().getString(R.string.creazione_mostri));
             else {
                 //Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
                 creaFragment(5);
+            }
+        });
+
+        myMonstersCard= rootView.findViewById(R.id.myMonstersCard);
+        myMonstersCard.setOnClickListener(view -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user == null || user.isAnonymous())
+                printMessage(getResources().getString(R.string.my_monsters));
+            else {
+                //Toast.makeText(getActivity(), getResources().getString(R.string.funzione_in_arrivo), Toast.LENGTH_SHORT).show();
+                creaFragment(6);
             }
         });
 
@@ -149,7 +160,7 @@ public class HomeFragment extends Fragment {
                             creaMonsterCreationFragment();
                             break;
                         case 6:
-                            //creaMyMonster();
+                            creaMyMonsterFragment();
                             break;
 
                         default:
@@ -289,6 +300,28 @@ public class HomeFragment extends Fragment {
 
         // Inizializza il Fragment
         MonsterCreationFragment myFragment = new MonsterCreationFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        if (fragmentManager.findFragmentById(R.id.frame_access_home) != null)
+            fragmentTransaction.replace(container.getId(), myFragment);
+        else
+            fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commitNow();
+    }
+    void creaMyMonsterFragment() {
+        setAllVisibility(false);
+
+        FrameLayout container = rootView.findViewById(R.id.frame_access_home);
+        container.bringToFront();
+
+        // Inizializza il Fragment
+        MyMonsterFragment myFragment = new MyMonsterFragment();
 
         // Ottieni il FragmentManager e inizia la transazione
         FragmentManager fragmentManager = getChildFragmentManager();

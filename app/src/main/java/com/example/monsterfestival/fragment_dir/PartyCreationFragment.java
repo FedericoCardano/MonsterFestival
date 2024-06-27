@@ -67,7 +67,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     View rootView;
     TextView numMostri;
     DatabaseReference reference;
-    //TODO getire sezione MyMonsters in CreazioneParty
+    //TODO getire sezione MyMonsters e MyParties in CreazioneParty
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,29 +169,29 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
             reference = FirebaseDatabase.getInstance().getReference("User");
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null && !user.isAnonymous()) {
-
+                reference= FirebaseDatabase.getInstance().getReference("User").child(user.getUid()+"/MyParties");
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Log.d("ADebugTag", "Value: " + 1);
-                        if (snapshot.hasChild(user.getUid())) {
-                            int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child(user.getUid()).child("NParty").getValue()).toString());
+                        if (snapshot.hasChild("NParty")) {
+                            int numParty = Integer.parseInt(Objects.requireNonNull(snapshot.child("NParty").getValue()).toString());
                             if (bundle != null || numParty < 5) {
                                 if (bundle == null) {
                                     numParty += 1;
-                                    reference.child(user.getUid()).child("NParty").setValue(numParty);
+                                    reference.child("NParty").setValue(numParty);
                                 }
 
                                 HashMap<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
 
                                 int numMostro = 1;
                                 for (Map.Entry<MonsterClass, Integer> entry : itemMap.entrySet()) {
-                                    reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                    reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                    reference.child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                    reference.child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                     numMostro += 1;
                                 }
-                                reference.child(user.getUid()).child("Party" + numParty);
+                                reference.child("Party" + numParty);
                                 cart.setTotalQuantity(0);
                                 itemMap.clear();
                                 cart.changeCart(itemMap);
@@ -207,13 +207,13 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
                         }else {
                             if (bundle == null)
-                                reference.child(user.getUid()).child("NParty").setValue(1);
+                                reference.child("NParty").setValue(1);
                             HashMap<MonsterClass, Integer> itemMap = cart.getItemWithQuantity();
 
                             int numMostro = 1;
                             for (Map.Entry<MonsterClass, Integer> entry : itemMap.entrySet()) {
-                                reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
-                                reference.child(user.getUid()).child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
+                                reference.child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
+                                reference.child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                 numMostro += 1;
                             }
                             cart.setTotalQuantity(0);
@@ -235,7 +235,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                 };
 
                 if (bundle != null) {
-                    reference.child(user.getUid()).child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(unused ->
+                    reference.child(bundle.getString("nomeParty")).removeValue().addOnSuccessListener(unused ->
                             reference.addListenerForSingleValueEvent(valueEventListener)).addOnFailureListener(e -> dialog.dismiss()).addOnCanceledListener(dialog::dismiss);
                 }
                 else
@@ -327,7 +327,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()+"/MyParties").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     objectNativeLib.setParties(dataSnapshot);

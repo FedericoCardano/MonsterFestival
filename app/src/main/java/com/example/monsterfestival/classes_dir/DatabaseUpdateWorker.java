@@ -22,7 +22,7 @@ public class DatabaseUpdateWorker extends Worker {
 
     private final Object ThreadLock = new Object();
 
-    private final int totalOperations = 3;
+    private final int totalOperations =4 ;
     private boolean NOworkInProgress = true;
 
     public DatabaseUpdateWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -93,6 +93,22 @@ public class DatabaseUpdateWorker extends Worker {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+
+                FirebaseDatabase.getInstance().getReference("User").child(currentUser.getUid()+"/MyMonsters").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        objectNativeLib.setMyMonsters(dataSnapshot);
+                        synchronized (ThreadLock) {
+                            if (NOworkInProgress || ++operationCounter[0] >= totalOperations)
+                                updateObjectNativeLib(editor, objectNativeLib);
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+
             } else {
                 objectNativeLib.invalidateUid();
                 synchronized (ThreadLock) {

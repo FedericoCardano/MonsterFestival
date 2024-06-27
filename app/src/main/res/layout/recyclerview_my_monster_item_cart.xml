@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/MyMonsterCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="6dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvNomeMyMonster"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:padding="7dp"
+            android:text="@string/nome"
+            android:textColor="@color/brawnColor"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/my_modify_botton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/modifica"
+            android:src="@drawable/modify"
+            app:tint="@color/black" />
+
+        <ImageButton
+            android:id="@+id/my_delete_botton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/rimuovi"
+            android:src="@drawable/baseline_delete_24"
+            app:tint="@color/black" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

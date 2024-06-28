@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,12 +53,9 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
             Categorie=new ArrayList<String>(),
             Taglie=new ArrayList<String>();
     Button Salva;
+    View view;
 
 
-
-    public MonsterCreationFragment() {
-        // Required empty public constructor
-    }
     private void controlli(){
         For.addTextChangedListener(new TextWatcher() {
             @Override
@@ -375,15 +374,12 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
         Taglie.add("enorme") ;
         Taglie.add("mastodontica") ;}//aggiunta taglie
 
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_monster_creation, container, false);
+        view = inflater.inflate(R.layout.fragment_monster_creation, container, false);
 
         Nome= view.findViewById(R.id.editName);
         Descrizione= view.findViewById(R.id.editDescrizione);
@@ -397,7 +393,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
         Ca= view.findViewById(R.id.editCa);
         Pf= view.findViewById(R.id.editPf);
         Salva= view.findViewById(R.id.buttonSalva);
-
+        Bundle bundle = this.getArguments();
         Salva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -457,11 +453,23 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String userId=user.getUid();
                 MonsterClass Monster= new  MonsterClass(dati);
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User/"+userId+"/MyMonsters");
-                Log.d("PushQuery","ready");
-                ref.push().setValue(Monster);
-                Toast.makeText(getActivity(), "Monster creato con successo", Toast.LENGTH_SHORT).show();
-                updateLocalMyMonsters();
+
+
+                if(bundle!=null && bundle.containsKey("MyMonster")){
+                    ArrayList<String> mon =bundle.getStringArrayList("MyMonster");
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User/"+userId+"/MyMonsters/"+mon.get(0));
+                    Log.d("UpdateQuery","to User/"+userId+"/MyMonsters/"+mon.get(0)+" is ready");
+                    ref.setValue(Monster);
+                    Toast.makeText(getActivity(), "Monster modificato con successo", Toast.LENGTH_SHORT).show();
+                    updateLocalMyMonsters();
+                }
+                else {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User/"+userId+"/MyMonsters");
+                    Log.d("PushQuery","ready");
+                    ref.push().setValue(Monster);
+                    Toast.makeText(getActivity(), "Monster creato con successo", Toast.LENGTH_SHORT).show();
+                    updateLocalMyMonsters();
+                }
 
             }
         });
@@ -511,10 +519,34 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
 
             }
         });
+        view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
 
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if(bundle!=null && bundle.containsKey("MyMonster")){
+            ArrayList<String> mon =bundle.getStringArrayList("MyMonster");
+
+            Nome.setText(mon.get(1));
+            Descrizione.setText(mon.get(2));
+            Ambiente.setSelection(Ambienti.indexOf(mon.get(3)));
+            Categoria.setSelection(Categorie.indexOf(mon.get(4)));
+            Taglia.setSelection(Taglie.indexOf(mon.get(5)));
+            Sfida.setText(mon.get(6));
+            Pf.setText(mon.get(7));
+            Ca.setText(mon.get(8));
+            For.setText(mon.get(9));
+            Des.setText(mon.get(10));
+            Cost.setText(mon.get(11));
+            Int.setText(mon.get(12));
+            Sag.setText(mon.get(13));
+            Car.setText(mon.get(14));
+        }
+    }
 
     private void updateLocalMyMonsters() {
 

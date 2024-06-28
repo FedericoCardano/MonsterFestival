@@ -1,13 +1,18 @@
 package com.example.monsterfestival.adapter_dir;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -18,14 +23,17 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.fragment_dir.DetailMonsterFragment;
+import com.example.monsterfestival.fragment_dir.MonsterCreationFragment;
 import com.example.monsterfestival.fragment_dir.MyMonsterFragment;
 import com.example.monsterfestival.fragment_dir.MyPartiesFragment;
+import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
 import com.example.monsterfestival.fragment_dir.SearchMonstersFragment;
 import com.google.gson.Gson;
 
@@ -72,7 +80,26 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
 
 
             ImageButton modifyBtn= holder.itemView.findViewById(R.id.my_modify_botton);
-            modifyBtn.setOnClickListener(v -> {});//TODO modifica MyMonster
+            modifyBtn.setOnClickListener(v -> {
+                if (ThreadLock.tryLock()) {
+                    try {
+                        MonsterCreationFragment newFragment = new MonsterCreationFragment();
+                        Bundle bundle = new Bundle();
+                        SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+
+                        ArrayList<String> monster = objectNativeLib.getMyMonsters().get(position);
+                        bundle.putStringArrayList("MyMonster", monster);
+                        newFragment.setArguments(bundle);
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.add( R.id.frame_access_my_monster, newFragment);
+                        transaction.commit();
+                        _parent.getAdapter().setVisibilitaElementi(false);
+                    } finally {
+                        ThreadLock.unlock();
+                    }
+                }
+            });
 
 
             CardView Item= holder.itemView.findViewById(R.id.MyMonsterCard);
@@ -84,7 +111,7 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
                         SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                         NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
-                        ArrayList<String> monster = objectNativeLib.getMyMonsters().get(holder.getAdapterPosition());
+                        ArrayList<String> monster = objectNativeLib.getMyMonsters().get(position);
 
 
                         b.putString("ID", monster.get(0));
@@ -115,11 +142,41 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
             });
 
             ImageButton deleteBtn= holder.itemView.findViewById(R.id.my_delete_botton);
-            deleteBtn.setOnClickListener(new View.OnClickListener() {//TODO cancella MyMonster
-                @Override
-                public void onClick(View view) {
-                }
+            //TODO cancella MyMonster
+            deleteBtn.setOnClickListener(view -> {
+                if (ThreadLock.tryLock()) {
+                    try {
+                        Dialog dialog = new Dialog(context);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.popup_conferma_cancellazione);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.setCancelable(true);
+                        dialog.show();
 
+                        dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
+                        dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
+
+                            SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+
+                            Log.d("MyMonstersAdapter", "onBindViewHolder: "+position);
+                            ArrayList<String> monster = objectNativeLib.getMyMonsters().get(holder.getAdapterPosition());
+
+                            objectNativeLib.deleteMostro(holder.getAdapterPosition());
+                            editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
+                            editor.apply();
+
+                            dialog.dismiss();
+
+                            MyMonsters.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+
+                        });
+                    } finally {
+                        ThreadLock.unlock();
+                    }
+                }
             });
         }
 

@@ -297,6 +297,27 @@ public class NativeLib implements Serializable {
 
     public native ArrayList<String> getMostro(String nome);
 
+    public void deleteMostro(int adapterPosition) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
+            return;
+
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(userUid+"/MyMonsters");
+        databaseReference.child(Monster.get(adapterPosition).get(0)).removeValue().addOnSuccessListener(aVoid -> databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        }));
+        Monster.remove(adapterPosition);
+        updateDatabase();
+    }
+
     private native ArrayList<ArrayList<String>> execSearchNative(String text, ArrayList<ArrayList<String>> filterList);
 
     public ArrayList<ArrayList<String>> execSearch(String text, ArrayList<ArrayList<String>> filterList) {

@@ -324,7 +324,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             android:contentDescription="createMonsters"
-                            android:src="@drawable/monster_comparison" />
+                            android:src="@drawable/apippo" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -360,7 +360,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
                             android:contentDescription="myMonsters"
-                            android:src="@drawable/parties_comparison" />
+                            android:src="@drawable/sacco" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

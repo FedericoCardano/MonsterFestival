@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.monsterfestival.adapter_dir.PostAdapter;
 import com.example.monsterfestival.classes_dir.MonsterPost;
@@ -41,6 +42,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
     static RecyclerView recyclerView;
     final CommunityFragment myself=this;
     public static AlertDialog dialog;
+    static LinearLayout CommunityLayout;
     public final Lock ThreadLock = new ReentrantLock();
     ArrayList<MonsterPost> Posts = new ArrayList<MonsterPost>();
     public interface onNameClickListener {
@@ -82,6 +84,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
         DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
         //RecyclerFragment.setParent(_parent);
         RecyclerFragment.setArguments(bundle);
+
         activity.getSupportFragmentManager().beginTransaction().replace(this.getId(), RecyclerFragment).addToBackStack(null).commit();
     }
 
@@ -135,7 +138,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
                // }
             }
         });
-
+        CommunityLayout = view.findViewById(R.id.communityLayout);
         return view;
     }
     @Override
@@ -165,7 +168,12 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
-    public void ripristinaVisibilitaElementi() {   }
+    public void ripristinaVisibilitaElementi() {
+        CommunityLayout.setVisibility(View.VISIBLE);
+    }
+    public void nascondiElementi() {
+        CommunityLayout.setVisibility(View.INVISIBLE);
+    }
 
 
 }

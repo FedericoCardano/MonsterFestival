@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -71,7 +72,11 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
 
 
             ImageButton modifyBtn= holder.itemView.findViewById(R.id.my_modify_botton);
-            modifyBtn.setOnClickListener(view -> {
+            modifyBtn.setOnClickListener(v -> {});//TODO modifica MyMonster
+
+
+            CardView Item= holder.itemView.findViewById(R.id.MyMonsterCard);
+            Item.setOnClickListener(view -> {
                 if (ThreadLock.tryLock()) {
                     try {
 
@@ -110,7 +115,7 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
             });
 
             ImageButton deleteBtn= holder.itemView.findViewById(R.id.my_delete_botton);
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
+            deleteBtn.setOnClickListener(new View.OnClickListener() {//TODO cancella MyMonster
                 @Override
                 public void onClick(View view) {
                 }

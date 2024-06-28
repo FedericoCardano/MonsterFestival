@@ -4,41 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/creamColor"
+
     tools:context=".fragment_dir.CommunityFragment">
 
     <LinearLayout
+        android:id="@+id/communityLayout"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        android:background="@color/creamColor"
         android:orientation="vertical">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/creamColor">
-
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/topperCommunityBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:backgroundTint="@color/creamColor"
-                app:fabCradleMargin="10dp"
-                app:fabCradleRoundedCornerRadius="50dp">
-
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottomNavigationView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="20dp"
-                    app:itemBackground="@color/creamColor"
-                    app:labelVisibilityMode="labeled"
-                    app:menu="@menu/cominity_menu" />
-
-            </com.google.android.material.bottomappbar.BottomAppBar>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/cominity_menu" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -69,9 +69,7 @@ public class MyMonsterFragment extends Fragment implements OnFragmentRemoveListe
         adapter = new MyMonstersAdapter(getActivity(), this, requireActivity().getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
         adapter.updateCartItems(getListItems());
-
-        //progressBar.setVisibility(View.GONE);
-        //recyclerView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
 
         rootView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
 

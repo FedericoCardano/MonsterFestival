@@ -148,7 +148,7 @@ public class MonsterClass implements Comparable<MonsterClass> {
 
     public MonsterClass(DataSnapshot snapshot) {
 
-        if(snapshot.child("Ambiete").exists()) {
+        if(snapshot.child("Ambiente").exists()) {
             this.ID = snapshot.getKey();
             this.Ambiete = snapshot.child("Ambiente").getValue(String.class);
             this.CA = snapshot.child("CA").getValue(String.class);
@@ -181,7 +181,26 @@ public class MonsterClass implements Comparable<MonsterClass> {
             this.INT = snapshot.child("int").getValue(String.class);
             this.SAG = snapshot.child("sag").getValue(String.class);
         }
+    }
+    public ArrayList<String> toArrayListString(){
+        ArrayList<String> mon=new ArrayList<>();
+        mon.add(this.ID);           //0
+        mon.add(this.Nome);         //1
+        mon.add(this.Descrizione);  //2
+        mon.add(this.Ambiete);      //3
+        mon.add(this.Categoria);    //4
+        mon.add(this.Taglia);       //5
+        mon.add(this.Sfida);        //6
+        mon.add(this.PF);           //7
+        mon.add(this.CA);           //8
+        mon.add(this.FOR);          //9
+        mon.add(this.DES);          //10
+        mon.add(this.COST);         //11
+        mon.add(this.INT);          //12
+        mon.add(this.SAG);          //13
+        mon.add(this.CAR);          //14
 
+        return mon;
     }
         @Override
     public int compareTo(MonsterClass otherData) {

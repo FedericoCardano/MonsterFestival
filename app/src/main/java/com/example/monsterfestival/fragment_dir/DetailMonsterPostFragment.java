@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -222,6 +223,47 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         });
 
         //TODO VoteListener
+        voteButton.setOnClickListener(view -> {
+            Log.d("DetailMonsterPost","commentButton Pressed");
+            Dialog dialog = new Dialog(requireContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_voto_mostro);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+            dialog.show();
+
+            dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
+            dialog.findViewById(R.id.btnSalva).setOnClickListener(view1 -> {
+                RatingBar Coerenza = dialog.findViewById(R.id.ratingBarCoerenza);
+                RatingBar Originalita = dialog.findViewById(R.id.ratingBarOriginalita);
+                RatingBar Bilanciamento = dialog.findViewById(R.id.ratingBarBilanciamento);
+
+                int coerenza = (int) (Coerenza.getRating()*2);
+                Log.d("DetailMonsterPost","CoerenzaInt: "+coerenza+" Rating: "+Coerenza.getRating()*2);
+                int originalita = (int) (Originalita.getRating()*2);
+                Log.d("DetailMonsterPost","OriginalitaInt: "+originalita+" Rating: "+Originalita.getRating()*2);
+                int bilanciamento = (int) (Bilanciamento.getRating()*2);
+                Log.d("DetailMonsterPost","BilanciamentoInt: "+bilanciamento+" Rating: "+Bilanciamento.getRating()*2);
+
+                String IdMonster = bundle.getStringArrayList("monster").get(0);
+                String timestamp = String.valueOf(System.currentTimeMillis());
+                String UidComment =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+//                Comment c = new Comment(UidComment,comment,timestamp);
+//
+//                DatabaseReference ref =  FirebaseDatabase.getInstance().getReference("Posts").child(IdMonster).child("commenti").child(timestamp);
+//                ref.setValue(c).addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(requireContext(), "Commento Aggiunto", Toast.LENGTH_SHORT).show();
+//                    }
+//                    else {
+//                        Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                dialog.dismiss();
+            });
+        });
+
         //TODO aggiornamento pagina onUpdateListener
         exportButton.setOnClickListener(view1 -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {

@@ -153,6 +153,10 @@
     <string name="numero_1">1</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+
+    <string name="nuovo_commento">Nuovo Commento</string>
+    <string name="avvertimento_commento">Attenzione! Una volta salvato, non potrai più modificare o cancellare il tuo commento</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

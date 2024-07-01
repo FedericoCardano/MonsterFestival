@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterPost;
-import com.example.monsterfestival.classes_dir.OnNameClickListener;
 import com.example.monsterfestival.fragment_dir.CommunityFragment;
-import com.example.monsterfestival.fragment_dir.DetailMonsterFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
-import com.example.monsterfestival.fragment_dir.MyMonsterFragment;
 
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
         holder.name.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
-                    ArrayList <String> ID_Array=new ArrayList<>();
+
                     ArrayList <String> UidAutoreComment_Array=new ArrayList<>();
                     ArrayList <String> Text_Array=new ArrayList<>();
                     ArrayList <String> CommentTime_Array=new ArrayList<>();
@@ -72,12 +69,11 @@ public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
                     b.putStringArrayList("monster",selectedPost.Monster.toArrayListString());
                     for(int i=0;i<selectedPost.Commenti.size();i++)
                     {
-                        ID_Array.add(selectedPost.Commenti.get(i).getID());
-                        UidAutoreComment_Array.add(selectedPost.Commenti.get(i).getUidAutoreComment());
-                        Text_Array.add(selectedPost.Commenti.get(i).Text);
-                        CommentTime_Array.add(selectedPost.Commenti.get(i).getCommentTime());
+                        UidAutoreComment_Array.add(selectedPost.Commenti.get(i).getUidComment());
+                        Text_Array.add(selectedPost.Commenti.get(i).comment);
+                        CommentTime_Array.add(selectedPost.Commenti.get(i).getTimestamp());
                     }
-                    b.putStringArrayList("IdCommentArray",ID_Array);
+
                     b.putStringArrayList("UidAutoreCommentArray",UidAutoreComment_Array);
                     b.putStringArrayList("TextCommentArray",Text_Array);
                     b.putStringArrayList("CommentTimeArray",CommentTime_Array);

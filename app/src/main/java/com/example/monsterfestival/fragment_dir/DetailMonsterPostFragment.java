@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,21 +30,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.adapter_dir.CommentAdapter;
-import com.example.monsterfestival.classes_dir.Cart;
-import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.Comment;
-import com.example.monsterfestival.classes_dir.Compare;
-import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -139,16 +140,16 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             detailINT.setText(mon.get(12));
             detailSAG.setText(mon.get(13));
             detailCAR.setText(mon.get(14));
-            ArrayList<String> IdCommentArray=bundle.getStringArrayList("IdCommentArray");
+
             ArrayList<String> UidAutoreCommentArray=bundle.getStringArrayList("UidAutoreCommentArray");
             ArrayList<String> TextCommentArray=bundle.getStringArrayList("TextCommentArray");
             ArrayList<String> CommentTimeArray=bundle.getStringArrayList("CommentTimeArray");
-            Log.d("DetailMonsterPost","IdCommentArray: "+IdCommentArray);
+
             Log.d("DetailMonsterPost","UidAutoreCommentArray: "+UidAutoreCommentArray);
             Log.d("DetailMonsterPost","TextCommentArray: "+TextCommentArray);
             Log.d("DetailMonsterPost","CommentTimeArray: "+CommentTimeArray);
-            for (int i=0;i<IdCommentArray.size();i++) {
-                CommentsList.add(new Comment(IdCommentArray.get(i), UidAutoreCommentArray.get(i), TextCommentArray.get(i), CommentTimeArray.get(i)));
+            for (int i=0;i<CommentTimeArray.size();i++) {
+                CommentsList.add(new Comment( UidAutoreCommentArray.get(i), TextCommentArray.get(i), CommentTimeArray.get(i)));
                 Log.d("DetailMonsterPost","CommentList: "+CommentsList);
             }
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
@@ -187,9 +188,41 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
 //                ((MainActivity) requireActivity()).tornaIndietro(2);
 //            }
 //      });
-        //TODO CommentListener
-        //TODO VoteListener
 
+
+        commentButton.setOnClickListener(view -> {
+            Log.d("DetailMonsterPost","commentButton Pressed");
+            Dialog dialog = new Dialog(requireContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_create_comment);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+            dialog.show();
+
+            dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
+            dialog.findViewById(R.id.btnSalva).setOnClickListener(view1 -> {
+                String timestamp = String.valueOf(System.currentTimeMillis());
+                String UidComment =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String comment = ((TextView) dialog.findViewById(R.id.editMulti_CommentText)).getText().toString();
+                String IdMonster = bundle.getStringArrayList("monster").get(0);
+
+                Comment c = new Comment(UidComment,comment,timestamp);
+
+                DatabaseReference ref =  FirebaseDatabase.getInstance().getReference("Posts").child(IdMonster).child("commenti").child(timestamp);
+                ref.setValue(c).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireContext(), "Commento Aggiunto", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.dismiss();
+            });
+        });
+
+        //TODO VoteListener
+        //TODO aggiornamento pagina onUpdateListener
         exportButton.setOnClickListener(view1 -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 if (ThreadLock.tryLock()) {

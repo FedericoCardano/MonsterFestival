@@ -1,6 +1,5 @@
 package com.example.monsterfestival.adapter_dir;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.Comment;
-import com.example.monsterfestival.classes_dir.MonsterPost;
-import com.example.monsterfestival.fragment_dir.CommunityFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,10 +95,10 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
         Comment comment = CommentList.get(position);
 
 
-        holder.time.setText(timePassed(comment.getCommentTime()));
-        holder.text.setText(comment.Text);
+        holder.time.setText(timePassed(comment.getTimestamp()));
+        holder.text.setText(comment.comment);
 
-        DatabaseReference rf = FirebaseDatabase.getInstance().getReference().child("UsersInformation").child(comment.getUidAutoreComment()).child("username");
+        DatabaseReference rf = FirebaseDatabase.getInstance().getReference().child("UsersInformation").child(comment.getUidComment()).child("username");
         rf.get().addOnCompleteListener(task ->  {
             if(task.isSuccessful()){
                 Log.d("firebase", "data: "+ task.getResult().getValue());

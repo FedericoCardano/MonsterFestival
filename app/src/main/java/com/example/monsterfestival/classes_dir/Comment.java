@@ -1,49 +1,40 @@
 package com.example.monsterfestival.classes_dir;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 
 public class Comment{
-    private String ID;
-    private String UidAutoreComment;
-    public String Text;
-    private String CommentTime;
+
+    private String uidComment;
+    public String comment;
+    private String timestamp;
 
       public Comment(DataSnapshot snapshot){
-        this.ID = snapshot.getKey();
-        this.UidAutoreComment= snapshot.child("uidComment").getValue(String.class);
-        this.Text=snapshot.child("comment").getValue(String.class);
-        this.CommentTime=snapshot.child("timestamp").getValue(String.class);
+
+        this.uidComment = snapshot.child("uidComment").getValue(String.class);
+        this.comment =snapshot.child("comment").getValue(String.class);
+        this.timestamp =snapshot.child("timestamp").getValue(String.class);
     }
-    public Comment(String id, String uidAutoreComment, String text, String commentTime) {
-        this.ID = id;
-        this.UidAutoreComment= uidAutoreComment;
-        this.Text=text;
-        this.CommentTime=commentTime;
+    public Comment( String uidAutoreComment, String text, String commentTime) {
+
+        this.uidComment = uidAutoreComment;
+        this.comment =text;
+        this.timestamp =commentTime;
     }
 
-    public String getID() {
-        return ID;
+
+    public String getUidComment() {
+        return uidComment;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setUidComment(String uidComment) {
+        this.uidComment = uidComment;
     }
 
-    public String getUidAutoreComment() {
-        return UidAutoreComment;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setUidAutoreComment(String uidAutoreComment) {
-        UidAutoreComment = uidAutoreComment;
-    }
-
-    public String getCommentTime() {
-        return CommentTime;
-    }
-
-    public void setCommentTime(String commentTime) {
-        CommentTime = commentTime;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

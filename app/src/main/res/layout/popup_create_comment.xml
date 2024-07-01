@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#d3c1aa"
+    app:cardCornerRadius="20dp"
+    android:layout_marginHorizontal="20dp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/nuovo_commento"
+            android:textColor="@color/brawnColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/avvertimento_commento"
+            android:textColor="@color/brawnColor"
+            android:textSize="16sp"
+            android:textStyle="normal|italic" />
+
+        <EditText
+            android:id="@+id/editMulti_CommentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnSalva"
+                android:textColor="#eae4db"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:text="@string/salva"
+                android:backgroundTint="@color/brawnColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/btnAnnulla"
+                android:textColor="@color/brawnColor"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:text="@string/annulla"
+                android:layout_margin="5dp"
+                android:backgroundTint="#eae4db"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

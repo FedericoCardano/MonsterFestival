@@ -16,6 +16,12 @@ public class Comment{
         this.Text=snapshot.child("comment").getValue(String.class);
         this.CommentTime=snapshot.child("timestamp").getValue(String.class);
     }
+    public Comment(String id, String uidAutoreComment, String text, String commentTime) {
+        this.ID = id;
+        this.UidAutoreComment= uidAutoreComment;
+        this.Text=text;
+        this.CommentTime=commentTime;
+    }
 
     public String getID() {
         return ID;

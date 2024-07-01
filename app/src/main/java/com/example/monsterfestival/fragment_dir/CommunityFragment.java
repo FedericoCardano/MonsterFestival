@@ -35,7 +35,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 
-public class CommunityFragment extends Fragment implements OnFragmentRemoveListener, OnNameClickListener {
+public class CommunityFragment extends Fragment implements OnFragmentRemoveListener {
 
 
     static PostAdapter adapter;
@@ -54,39 +54,9 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
-    @Override
-    public void onNameClick(MonsterPost post) {
 
-        Bundle bundle = new Bundle();
-        // Compilazione del bundle
-        bundle.putString("ID", post.Monster.getID());
-        bundle.putString("Nome", post.Monster.getNome());
-        bundle.putString("Descrizione", post.Monster.getDescrizione());
-        bundle.putString("Ambiente", post.Monster.getAmbiente());
-        bundle.putString("Categoria",post.Monster.getCategoria());
-        bundle.putString("Taglia", post.Monster.getTaglia());
-        bundle.putString("Sfida", post.Monster.getSfida());
-        bundle.putString("PF", post.Monster.getPf());
-        bundle.putString("CA", post.Monster.getCa());
-        bundle.putString("FOR", post.Monster.getFor());
-        bundle.putString("DES", post.Monster.getDes());
-        bundle.putString("COST", post.Monster.getCost());
-        bundle.putString("INT", post.Monster.getInt());
-        bundle.putString("SAG", post.Monster.getSag());
-        bundle.putString("CAR", post.Monster.getCar());
-
-        AppCompatActivity activity = (AppCompatActivity)this.getActivity();
-        DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
-        //RecyclerFragment.setParent(_parent);
-        RecyclerFragment.setArguments(bundle);
-
-        activity.getSupportFragmentManager().beginTransaction().replace(this.getId(), RecyclerFragment).addToBackStack(null).commit();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

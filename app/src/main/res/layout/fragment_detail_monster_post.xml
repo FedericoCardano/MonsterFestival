@@ -434,6 +434,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:src="@drawable/message"
@@ -452,6 +453,15 @@
                     android:src="@drawable/star"
                     app:backgroundTint="@color/white" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Commenti"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentRw"

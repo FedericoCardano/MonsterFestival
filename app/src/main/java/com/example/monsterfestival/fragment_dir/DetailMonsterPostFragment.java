@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Canvas;
 import android.util.Log;
@@ -31,8 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.monsterfestival.activity_dir.MainActivity;
+import com.example.monsterfestival.adapter_dir.CommentAdapter;
 import com.example.monsterfestival.classes_dir.Cart;
 import com.example.monsterfestival.classes_dir.CartHelper;
+import com.example.monsterfestival.classes_dir.Comment;
 import com.example.monsterfestival.classes_dir.Compare;
 import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
@@ -59,6 +63,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
 
     TextView detailID, detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton autorButton, exportButton,commentButton,voteButton;
+    RecyclerView Comments;
 
     Dialog dialog;
 
@@ -70,6 +75,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
     private final Lock ThreadLock = new ReentrantLock();
 
     private View rootView;
+    private ArrayList<Comment> CommentsList=new ArrayList<>();
 
     public void setParent(Fragment _parent) {
         parent = _parent;
@@ -102,6 +108,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         exportButton = rootView.findViewById(R.id.export_btn);
         commentButton =rootView.findViewById(R.id.comment_btn);
         voteButton=rootView.findViewById(R.id.vote_btn);
+        Comments=rootView.findViewById(R.id.commentRw);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
@@ -132,6 +139,22 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             detailINT.setText(mon.get(12));
             detailSAG.setText(mon.get(13));
             detailCAR.setText(mon.get(14));
+            ArrayList<String> IdCommentArray=bundle.getStringArrayList("IdCommentArray");
+            ArrayList<String> UidAutoreCommentArray=bundle.getStringArrayList("UidAutoreCommentArray");
+            ArrayList<String> TextCommentArray=bundle.getStringArrayList("TextCommentArray");
+            ArrayList<String> CommentTimeArray=bundle.getStringArrayList("CommentTimeArray");
+            Log.d("DetailMonsterPost","IdCommentArray: "+IdCommentArray);
+            Log.d("DetailMonsterPost","UidAutoreCommentArray: "+UidAutoreCommentArray);
+            Log.d("DetailMonsterPost","TextCommentArray: "+TextCommentArray);
+            Log.d("DetailMonsterPost","CommentTimeArray: "+CommentTimeArray);
+            for (int i=0;i<IdCommentArray.size();i++) {
+                CommentsList.add(new Comment(IdCommentArray.get(i), UidAutoreCommentArray.get(i), TextCommentArray.get(i), CommentTimeArray.get(i)));
+                Log.d("DetailMonsterPost","CommentList: "+CommentsList);
+            }
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+                Comments.setLayoutManager(gridLayoutManager);
+                CommentAdapter commentsAdapter = new CommentAdapter(CommentsList,this);
+                Comments.setAdapter(commentsAdapter);
         }
         //TODO autorButtonListener
        // autorButton.setOnClickListener(view1 -> {

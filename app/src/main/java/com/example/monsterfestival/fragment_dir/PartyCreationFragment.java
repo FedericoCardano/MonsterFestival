@@ -33,11 +33,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.customsearchlibrary.NativeLib;
+import com.example.monsterfestival.adapter_dir.EventAdapter;
 import com.example.monsterfestival.classes_dir.Cart;
 import com.example.monsterfestival.classes_dir.CartHelper;
 import com.example.monsterfestival.classes_dir.CartItem;
 import com.example.monsterfestival.adapter_dir.CartItemAdapter;
 import com.example.monsterfestival.classes_dir.Compare;
+import com.example.monsterfestival.classes_dir.EventClass;
 import com.example.monsterfestival.classes_dir.MonsterClass;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
@@ -62,11 +64,12 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
     OnFragmentVisibleListener fragmentVisibleListener;
 
-    RecyclerView recyclerView;
-    AppCompatButton btnAddMonster, btnSaveParty;
+    RecyclerView recyclerView, rvEventi;
+    AppCompatButton btnAddMonster, btnSaveParty,btnAddEvent;
     View rootView;
     TextView numMostri;
     DatabaseReference reference;
+    ArrayList<EventClass> listaEventi= new ArrayList<>();
     //TODO getire sezione MyMonsters e MyParties in CreazioneParty
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,10 +85,20 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         btnAddMonster = rootView.findViewById(R.id.btnAddMonster);
         btnAddMonster.setOnClickListener(view -> creaSearchMonsters());
 
+        btnAddEvent = rootView.findViewById(R.id.btnAddEvent);
+        btnAddEvent.setOnClickListener(view -> {
+            creaEventCreation();
+        });
+
         recyclerView = rootView.findViewById(R.id.rvCartItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setMotionEventSplittingEnabled(false);
+
+        rvEventi=rootView.findViewById(R.id.rvEventi);
+        rvEventi.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        rvEventi.setMotionEventSplittingEnabled(false);
+
 
         final Cart cart = CartHelper.getCart();
         cart.removeAll();
@@ -96,13 +109,17 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
 
+        EventAdapter eventAdapter = new EventAdapter(getContext(), this, getChildFragmentManager());
+        rvEventi.setAdapter(eventAdapter);
+        eventAdapter.updateCartItems(getNomiEventi());
+
         Bundle bundle = this.getArguments();
         if (bundle != null)
         {
             SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
-            ArrayList<ArrayList<String>> dati = objectNativeLib.getPartyWithName(bundle.getString("nomeParty"));
+            ArrayList<ArrayList<String>> dati = objectNativeLib.getMonsterPartyByName(bundle.getString("nomeParty"));
             for (ArrayList<String> dato : dati)
                 cart.add(new MonsterClass(new ArrayList<>(dato.subList(1, dato.size()))), Integer.parseInt(dato.get(0)), getContext());
             ripristinaVisibilitaElementi();
@@ -191,6 +208,10 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                     reference.child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                     numMostro += 1;
                                 }
+                                for(int i=0;i<listaEventi.size();i++)
+                                {
+                                    reference.child(nomeParty).child("Event"+(i+1)).setValue(listaEventi.get(i));
+                                }
                                 reference.child("Party" + numParty);
                                 cart.setTotalQuantity(0);
                                 itemMap.clear();
@@ -215,6 +236,10 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
                                 reference.child(nomeParty).child("Monster" + numMostro).child("ID").setValue(entry.getKey().getID());
                                 reference.child(nomeParty).child("Monster" + numMostro).child("Qty").setValue(entry.getValue());
                                 numMostro += 1;
+                            }
+                            for(int i=0;i<listaEventi.size();i++)
+                            {
+                                reference.child(nomeParty).child("Event"+(i+1)).setValue(listaEventi.get(i));
                             }
                             cart.setTotalQuantity(0);
                             itemMap.clear();
@@ -266,6 +291,25 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         fragmentTransaction.commit();
     }
 
+    void creaEventCreation() {
+        setAllVisibility(false);
+
+        FrameLayout container = rootView.findViewById(R.id.frame_access_party_creation);
+
+        // Inizializza il Fragment
+        EventCreationFragment myFragment = new EventCreationFragment();
+
+        // Ottieni il FragmentManager e inizia la transazione
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Aggiunti il Fragment al Container View
+        fragmentTransaction.add(container.getId(), myFragment);
+
+        // Esegui la transazione
+        fragmentTransaction.commit();
+    }
+
     private List<CartItem> getCartItems(Cart cart) {
         List<CartItem> cartItems = new ArrayList<>();
 
@@ -280,6 +324,16 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         for(CartItem item : cartItems)
             Log.d("ADebugTag", "Value: " + item.getDataClass().getNome());
         return cartItems;
+    }
+
+    private ArrayList<String> getNomiEventi() {
+        ArrayList<String> nomi = new ArrayList<>();
+
+        for (int i=0;i<listaEventi.size();i++) {
+            nomi.add(listaEventi.get(i).getNome());
+        }
+
+        return nomi;
     }
 
     void setAllVisibility(boolean value) {
@@ -312,11 +366,29 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     public void ripristinaVisibilitaElementi() {
         setAllVisibility(true);
 
+        Bundle bundle = this.getArguments();
+        if(bundle != null && bundle.containsKey("NomeEvento"))
+        {
+            EventClass evento = new EventClass(bundle.getString("NomeEvento"),
+                    bundle.getString("CausaEvento"),
+                    bundle.getString("ReazioneEvento"));
+            listaEventi.add(evento);
+            bundle.remove("NomeEvento");
+            bundle.remove("CausaEvento");
+            bundle.remove("ReazioneEvento");
+
+        }
+
         final Cart cart = CartHelper.getCart();
         changeTotalMonstersNumber(cart);
         final CartItemAdapter cartItemAdapter = new CartItemAdapter(getContext(), PartyCreationFragment.this);
         recyclerView.setAdapter(cartItemAdapter);
         cartItemAdapter.updateCartItems(getCartItems(cart));
+
+        EventAdapter eventAdapter = new EventAdapter(getContext(), this, getChildFragmentManager());
+        rvEventi.setAdapter(eventAdapter);
+        eventAdapter.updateCartItems(getNomiEventi());
+
     }
 
     private void updateLocalParties() {

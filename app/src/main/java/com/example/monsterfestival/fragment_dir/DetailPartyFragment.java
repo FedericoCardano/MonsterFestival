@@ -11,9 +11,11 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,9 +24,11 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -132,8 +136,8 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
             detailINT.setText(bundle.getString("totINT"));
             detailPF.setText(bundle.getString("totPF"));
             detailSAG.setText(bundle.getString("totSAG"));
-            setTextClickable(detailMostri, bundle.getString("Mostri"));
-            //setTextClickable(detailEventTv, bundle.getString("Eventi"));
+            setTextClickable(detailMostri, bundle.getString("Mostri"), true);
+            setTextClickable(detailEventTv, bundle.getString("Eventi"),false);
             SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             int nMember = sharedPreferences.getInt("NumAvventurieri", 1);
             int lvMember = sharedPreferences.getInt("LvAvventurieri", 1);
@@ -301,72 +305,141 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         return bitmap;
     }
 
-    private void setTextClickable(TextView textView, String text) {
+    private void setTextClickable(TextView textView, String text, Boolean isMonster) {
         SpannableString spannableString = new SpannableString(text);
 
         // Definisci i pattern regex per estrarre i nomi dei mostri
         Pattern nomeMostroRegex = Pattern.compile("([^,(]+)(?= \\()");
+        Pattern nomeEventoRegex = Pattern.compile("([^\n]+)(?=[\n.])");
         Matcher nomeMostroMatcher = nomeMostroRegex.matcher(text);
+        Matcher nomeEventoMatcher = nomeEventoRegex.matcher(text);
 
         boolean firstName = false;
 
-        // Itera sui match dei nomi dei mostri
-        while (nomeMostroMatcher.find()) {
-            // Estrai il nome dell'oggetto
-            String nomeMostro = Objects.requireNonNull(nomeMostroMatcher.group(1)).trim();
+        if (isMonster)
+        {
+            // Itera sui match dei nomi dei mostri
+            while (nomeMostroMatcher.find()) {
+                // Estrai il nome dell'oggetto
+                String nomeMostro = Objects.requireNonNull(nomeMostroMatcher.group(1)).trim();
 
-            // Trova l'indice di inizio e fine del nome dell'oggetto nella stringa completa
-            int startIndex = nomeMostroMatcher.start();
-            if (firstName)
-                startIndex += 1;
-            else
-                firstName = true;
-            int endIndex = nomeMostroMatcher.end();
+                // Trova l'indice di inizio e fine del nome dell'oggetto nella stringa completa
+                int startIndex = nomeMostroMatcher.start();
+                if (firstName)
+                    startIndex += 1;
+                else
+                    firstName = true;
+                int endIndex = nomeMostroMatcher.end();
 
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    // Esegui l'azione desiderata con l'oggetto corrente e il numero di occorrenze
-                    Bundle b = new Bundle();
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        // Esegui l'azione desiderata con l'oggetto corrente e il numero di occorrenze
+                        Bundle b = new Bundle();
 
-                    SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-                    NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
-                    MonsterClass monster = new MonsterClass(objectNativeLib.getMostro(nomeMostro));
+                        MonsterClass monster = new MonsterClass(objectNativeLib.getMostro(nomeMostro));
 
-                    b.putString("ID", monster.getID());
-                    b.putString("Ambiente", monster.getAmbiente());
-                    b.putString("CA", monster.getCa());
-                    b.putString("Categoria", monster.getCategoria());
-                    b.putString("Nome", monster.getNome());
-                    b.putString("PF", monster.getPf());
-                    b.putString("Sfida", String.valueOf(Float.parseFloat(monster.getSfida())));
-                    b.putString("Taglia", monster.getTaglia());
-                    b.putString("Descrizione", monster.getDescrizione());
-                    b.putString("CAR", monster.getCar());
-                    b.putString("COST", monster.getCost());
-                    b.putString("DES", monster.getDes());
-                    b.putString("FOR", monster.getFor());
-                    b.putString("INT", monster.getInt());
-                    b.putString("SAG", monster.getSag());
+                        b.putString("ID", monster.getID());
+                        b.putString("Ambiente", monster.getAmbiente());
+                        b.putString("CA", monster.getCa());
+                        b.putString("Categoria", monster.getCategoria());
+                        b.putString("Nome", monster.getNome());
+                        b.putString("PF", monster.getPf());
+                        b.putString("Sfida", String.valueOf(Float.parseFloat(monster.getSfida())));
+                        b.putString("Taglia", monster.getTaglia());
+                        b.putString("Descrizione", monster.getDescrizione());
+                        b.putString("CAR", monster.getCar());
+                        b.putString("COST", monster.getCost());
+                        b.putString("DES", monster.getDes());
+                        b.putString("FOR", monster.getFor());
+                        b.putString("INT", monster.getInt());
+                        b.putString("SAG", monster.getSag());
 
-                    AppCompatActivity activity = (AppCompatActivity) widget.getContext();
-                    DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
-                    RecyclerFragment.setParent(DetailPartyFragment.this);
-                    RecyclerFragment.setArguments(b);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_monster, RecyclerFragment ).addToBackStack(null).commit();
-                }
+                        AppCompatActivity activity = (AppCompatActivity) widget.getContext();
+                        DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
+                        RecyclerFragment.setParent(DetailPartyFragment.this);
+                        RecyclerFragment.setArguments(b);
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_monster, RecyclerFragment ).addToBackStack(null).commit();
+                    }
 
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    // Personalizza lo stile del testo cliccabile (se desiderato)
-                    ds.setUnderlineText(true); // Evidenzia il testo sottolineato
-                    ds.setColor(ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rossoPorpora)); // Imposta il colore del testo
-                }
-            };
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        // Personalizza lo stile del testo cliccabile (se desiderato)
+                        ds.setUnderlineText(true); // Evidenzia il testo sottolineato
+                        ds.setColor(ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rossoPorpora)); // Imposta il colore del testo
+                    }
+                };
 
-            // Applica il ClickableSpan al match nella SpannableString
-            spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // Applica il ClickableSpan al match nella SpannableString
+                spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        else
+        {
+            int ievent = 0;
+            Bundle thisBundle = this.getArguments();
+            while (nomeEventoMatcher.find()) {
+                // Estrai il nome dell'oggetto
+                String nomeEvento = Objects.requireNonNull(nomeEventoMatcher.group(1)).trim();
+
+                // Trova l'indice di inizio e fine del nome dell'oggetto nella stringa completa
+                int startIndex = nomeEventoMatcher.start();
+//                if (firstName)
+//                    startIndex += 1;
+//                else
+//                    firstName = true;
+                int endIndex = nomeEventoMatcher.end();
+
+                final int temp = ievent;
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        // Esegui l'azione desiderata con l'oggetto corrente e il numero di occorrenze
+                        Bundle newBundle = new Bundle();
+
+                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+                        String nomeParty = thisBundle.getString("NomeParty");
+                        ArrayList<ArrayList<String>> eventiParty = objectNativeLib.getEventPartyByName(nomeParty);
+
+                        newBundle.putStringArrayList("Evento",eventiParty.get(temp));
+
+//                        AppCompatActivity activity = (AppCompatActivity) widget.getContext();
+//                        DetailEventFragment RecyclerFragment = new DetailEventFragment();
+//                        //RecyclerFragment.setParent(DetailPartyFragment.this);
+//                        RecyclerFragment.setArguments(newBundle);
+//                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_monster, RecyclerFragment ).addToBackStack(null).commit();
+                        Log.d("DetailMonsterPost","commentButton Pressed");
+                        Dialog dialog = new Dialog(requireContext());
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.fragment_detail_event);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.setCancelable(true);
+                        TextView nome = dialog.findViewById(R.id.tvNomeEvento);
+                        TextView causa = dialog.findViewById(R.id.tvCausaEvento);
+                        TextView reazione = dialog.findViewById(R.id.tvReazioneEvento);
+                        nome.setText(eventiParty.get(temp).get(0));
+                        causa.setText(eventiParty.get(temp).get(1));
+                        reazione.setText(eventiParty.get(temp).get(2));
+
+                        dialog.show();
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        // Personalizza lo stile del testo cliccabile (se desiderato)
+                        ds.setUnderlineText(true); // Evidenzia il testo sottolineato
+                        ds.setColor(ContextCompat.getColor(requireContext().getApplicationContext(), R.color.rossoPorpora)); // Imposta il colore del testo
+                    }
+                };
+
+                // Applica il ClickableSpan al match nella SpannableString
+                spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ievent++;
+            }
         }
 
         textView.setText(spannableString);
@@ -662,7 +735,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         int expAmount = 0;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-        ArrayList<ArrayList<String>> Party = objectNativeLib.getPartyWithName(nomeParty);
+        ArrayList<ArrayList<String>> Party = objectNativeLib.getMonsterPartyByName(nomeParty);
 
         //Gestione input dell'utente
         if (nMember < 1)

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,11 +77,13 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     float totSfida = 0;
                     int totPF = 0, totCA = 0, totFOR = 0, totDES = 0, totCOST = 0, totINT = 0, totSAG = 0, totCAR = 0;
                     StringBuilder lista_mostri = new StringBuilder();
-                    //StringBuilder lista_eventi = new StringBuilder();
+                    StringBuilder lista_eventi = new StringBuilder();
 
                     String nome = objectNativeLib.getPartyNames().get(holder.getAdapterPosition());
-                    ArrayList<ArrayList<String>> infoParty = objectNativeLib.getPartyWithName(nome);
-                    for (ArrayList<String> monster : infoParty)
+                    ArrayList<ArrayList<String>> infoMonsterParty = objectNativeLib.getMonsterPartyByName(nome);
+                    ArrayList<ArrayList<String>> infoEventParty = objectNativeLib.getEventPartyByName(nome);
+
+                    for (ArrayList<String> monster : infoMonsterParty)
                     {
                         int monsterMultiplier = Integer.parseInt(monster.get(0));
                         lista_mostri.append(monster.get(2)).append(" (x").append(monster.get(0)).append("), ");
@@ -98,10 +101,10 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                         totCAR += Integer.parseInt(monster.get(15)) * monsterMultiplier;
                     }
 
-//                    for (ArrayList<String> event : infoParty)
-//                    {
-//                        lista_mostri.append(event.get(0)).append(", "); //event.get(0) = nome evento
-//                    }
+                    for (ArrayList<String> event : infoEventParty)
+                    {
+                        lista_eventi.append(event.get(0)).append("\n"); //event.get(0) = nome evento
+                    }
 
                     b.putString("NomeParty", nome);
                     //b.putString("Difficoltà", String.valueOf(difficoltà));
@@ -117,7 +120,9 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     if (lista_mostri.length() > 0)
                         lista_mostri = new StringBuilder(lista_mostri.substring(0, lista_mostri.length() - 2)).append(".");
                     b.putString("Mostri", String.valueOf(lista_mostri));
-                    //b.putString("Eventi", String.valueOf(lista_eventi));
+                    if (lista_eventi.length() > 0)
+                        lista_eventi = new StringBuilder(lista_eventi.substring(0, lista_eventi.length() -1 )).append(".");
+                    b.putString("Eventi", String.valueOf(lista_eventi));
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailPartyFragment RecyclerFragment = new DetailPartyFragment();

@@ -156,7 +156,19 @@
 
     <string name="nuovo_commento">Nuovo Commento</string>
     <string name="avvertimento_commento">Attenzione! Una volta salvato, non potrai più modificare o cancellare il tuo commento</string>
+    <string name="aggiungi_evento">Aggiungi evento</string>
+    <string name="eventi">Eventi</string>
+    <string name="crea_evento">Creazione Evento</string>
+    <string name="event_detail">Dettagli Evento</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nome_evento">Nome Evento</string>
+    <string name="causa_evento">Causa Evento</string>
+    <string name="reazione_evento">Reazione Evento</string>
+    <string name="info_evento_mancante">Inserire Tutti i Campi</string>
+    <string name="nome_evento_lungo">Nome Evento troppo lungo\n(max 20 caratteri)</string>
+    <string name="nome_evento_caratteri">Nome Evento non deve contenere a capi e/o punti</string>
+    <string name="causa_evento_lungo">Causa Evento troppo lungo\n(max 200 caratteri)</string>
+    <string name="reazione_evento_lungo">Reazione Evento troppo lungo\n(max 200 caratteri)</string>
 </resources>

@@ -23,7 +23,8 @@ public class NativeLib implements Serializable {
 
 
     private String userUid = "";
-    private ArrayList<ArrayList<ArrayList<Integer>>> Party;
+    private ArrayList<ArrayList<ArrayList<Integer>>> MosterParty;
+    private ArrayList<ArrayList<ArrayList<String>>> EventParty;
     private ArrayList<String> nomiParty;
 
 
@@ -37,9 +38,10 @@ public class NativeLib implements Serializable {
         this.Filtri = new ArrayList<>();
         this.nomiFiltri = new ArrayList<>();
         this.userUid = "";
-        this.Party = new ArrayList<>();
+        this.MosterParty = new ArrayList<>();
         this.nomiParty = new ArrayList<>();
         this.Monster=new ArrayList<>();
+        this.EventParty=new ArrayList<>();
     }
 
     public NativeLib(NativeLib obj) {
@@ -47,9 +49,10 @@ public class NativeLib implements Serializable {
         this.Filtri = obj.Filtri;
         this.nomiFiltri = obj.nomiFiltri;
         this.userUid = obj.userUid;
-        this.Party = obj.Party;
+        this.MosterParty = obj.MosterParty;
         this.nomiParty = obj.nomiParty;
         this.Monster = obj.Monster;
+        this.EventParty = obj.EventParty;
 
         updateDatabase();
     }
@@ -180,29 +183,54 @@ public class NativeLib implements Serializable {
         if (user != null)
             userUid = user.getUid();
 
-        Party = new ArrayList<>();
+        MosterParty = new ArrayList<>();
+        EventParty = new ArrayList<>();
         nomiParty = new ArrayList<>();
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             if (Objects.equals(snapshot.getKey(), "NParty"))
                 continue;
             nomiParty.add(snapshot.getKey());
 
-            ArrayList<ArrayList<Integer>> _party = new ArrayList<>();
+            ArrayList<ArrayList<Integer>> _monsterParty = new ArrayList<>();
+            ArrayList<ArrayList<String>> _eventParty = new ArrayList<>();
             for (DataSnapshot innerSnapshot : snapshot.getChildren()) {
-                ArrayList<Integer> mostro = new ArrayList<>();
-                mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("Qty").getValue()).toString()));
-                mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("ID").getValue()).toString()));
-                _party.add(mostro);
+                if (Objects.requireNonNull(innerSnapshot.getKey()).startsWith("Monster"))
+                {
+                    ArrayList<Integer> mostro = new ArrayList<>();
+                    mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("Qty").getValue()).toString()));
+                    mostro.add(Integer.valueOf(Objects.requireNonNull(innerSnapshot.child("ID").getValue()).toString()));
+                    _monsterParty.add(mostro);
+                }
+                else
+                {
+                    ArrayList<String> evento = new ArrayList<>();
+                    evento.add(innerSnapshot.child("nome").getValue(String.class));
+                    evento.add(innerSnapshot.child("causa").getValue(String.class));
+                    evento.add(innerSnapshot.child("reazione").getValue(String.class));
+                    _eventParty.add(evento);
+                }
+
             }
 
-            Party.add(_party);
+            MosterParty.add(_monsterParty);
+            if (!_eventParty.isEmpty())
+                EventParty.add(_eventParty);
+            else
+                EventParty.add(new ArrayList<>());
         }
     }
 
-    public ArrayList<ArrayList<ArrayList<Integer>>> getParties() {
+    public ArrayList<ArrayList<ArrayList<Integer>>> getMosterParties() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
-            return Party;
+            return MosterParty;
+        return new ArrayList<>();
+    }
+
+    public ArrayList<ArrayList<ArrayList<String>>> getEvetParties() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
+            return EventParty;
         return new ArrayList<>();
     }
 
@@ -227,7 +255,7 @@ public class NativeLib implements Serializable {
         return new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<String>> getPartyWithName(String nomeParty) {
+    public ArrayList<ArrayList<String>> getMonsterPartyByName(String nomeParty) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
             return new ArrayList<>();
@@ -243,14 +271,46 @@ public class NativeLib implements Serializable {
         {
             ArrayList<ArrayList<String>> mostriParty = new ArrayList<>();
 
-            for (int i = 0; i < Party.get(index).size(); i++)
+            for (int i = 0; i < MosterParty.get(index).size(); i++)
             {
-                ArrayList<String> mostro = ID.get(Party.get(index).get(i).get(1));
-                mostro.add(0, String.valueOf(Party.get(index).get(i).get(0)));
+                ArrayList<String> mostro = ID.get(MosterParty.get(index).get(i).get(1));
+                mostro.add(0, String.valueOf(MosterParty.get(index).get(i).get(0)));
                 mostriParty.add(mostro);
             }
 
             return mostriParty;
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    public ArrayList<ArrayList<String>> getEventPartyByName(String nomeParty) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
+            return new ArrayList<>();
+
+        int index = 0;
+        for (String nome : nomiParty) {
+            if (nome.equals(nomeParty))
+                break;
+            index++;
+        }
+
+        if (index < nomiParty.size())
+        {
+            ArrayList<ArrayList<String>> eventParty = new ArrayList<>();
+
+            for (int i = 0; i < EventParty.get(index).size(); i++)
+            {
+                ArrayList<String> evento = new ArrayList<>();
+                evento.add(0, EventParty.get(index).get(i).get(0));
+                evento.add(1, EventParty.get(index).get(i).get(1));
+                evento.add(2, EventParty.get(index).get(i).get(2));
+                eventParty.add(evento);
+            }
+
+            return eventParty;
         }
 
         return new ArrayList<>();
@@ -262,7 +322,9 @@ public class NativeLib implements Serializable {
         if (user == null || userUid.isEmpty() || !user.getUid().equals(userUid))
             return;
 
-        Party.remove(adapterPosition);
+        MosterParty.remove(adapterPosition);
+        if (EventParty.size() > adapterPosition)
+            EventParty.remove(adapterPosition);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(userUid+"/MyParties");
         databaseReference.child(nomiParty.remove(adapterPosition)).removeValue().addOnSuccessListener(aVoid -> databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -296,6 +358,7 @@ public class NativeLib implements Serializable {
     public native ArrayList<String> getMostro(Integer ID);
 
     public native ArrayList<String> getMostro(String nome);
+
 
     public void deleteMostro(int adapterPosition) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

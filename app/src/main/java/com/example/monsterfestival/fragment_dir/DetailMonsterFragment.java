@@ -147,6 +147,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
                 dati.add(bundle.getString("INT"));
                 dati.add(bundle.getString("SAG"));
                 dati.add(bundle.getString("CAR"));
+
                 MonsterClass monsterClass = new MonsterClass(dati);
                 final Compare compare = Compare.getCompare();
                 if (!compare.getFlag()) {

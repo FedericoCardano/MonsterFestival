@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.classes_dir.EventClass;
 import com.example.monsterfestival.fragment_dir.DetailMonsterFragment;
+import com.example.monsterfestival.fragment_dir.EventCreationFragment;
 import com.example.monsterfestival.fragment_dir.MonsterCreationFragment;
 import com.example.monsterfestival.fragment_dir.MyMonsterFragment;
 import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
@@ -40,7 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         private PartyCreationFragment _parent;
         private final FragmentManager fragmentManager;
 
-        private ArrayList<String> MyEvents;
+        private ArrayList<EventClass> MyEvents;
 
         private boolean visibilitaAttiva = true;
 
@@ -67,108 +70,58 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
                 holder.itemView.setVisibility(View.INVISIBLE);
                 return;
             }
-            holder.Nome.setText(MyEvents.get(position));
+            holder.Nome.setText(MyEvents.get(position).getNome());
 
 
             ImageButton modifyBtn= holder.itemView.findViewById(R.id.my_modify_botton);
-//            modifyBtn.setOnClickListener(v -> {
-//                if (ThreadLock.tryLock()) {
-//                    try {
-//                        MonsterCreationFragment newFragment = new MonsterCreationFragment();
-//                        Bundle bundle = new Bundle();
-//                        SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-//                        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-//
-//                        ArrayList<String> monster = objectNativeLib.getMyMonsters().get(position);
-//                        bundle.putStringArrayList("MyMonster", monster);
-//                        newFragment.setArguments(bundle);
-//                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                        transaction.add( R.id.frame_access_my_monster, newFragment);
-//                        transaction.commit();
-//                        _parent.getAdapter().setVisibilitaElementi(false);
-//                    } finally {
-//                        ThreadLock.unlock();
-//                    }
-//                }
-//            });
+            modifyBtn.setOnClickListener(v -> {
+                if (ThreadLock.tryLock()) {
+                    try {
+                        EventCreationFragment newFragment = new EventCreationFragment();
+                        Bundle bundle = new Bundle();
+                        EventClass event = MyEvents.get(holder.getAdapterPosition());
+                        bundle.putStringArrayList("MyEvent", event.Event2ArrayString());
+                        newFragment.setArguments(bundle);
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.add( R.id.frame_access_party_creation, newFragment);
+                        _parent.setAllVisibility(false);
+                        MyEvents.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        transaction.commit();
 
 
-            CardView Item= holder.itemView.findViewById(R.id.MyMonsterCard);
-//            Item.setOnClickListener(view -> {
-//                if (ThreadLock.tryLock()) {
-//                    try {
-//
-//                        Bundle b = new Bundle();
-//                        SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-//                        NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-//
-//                        ArrayList<String> monster = objectNativeLib.getMyMonsters().get(position);
-//
-//
-//                        b.putString("ID", monster.get(0));
-//                        b.putString("Nome", monster.get(1));
-//                        b.putString("Descrizione", monster.get(2));
-//                        b.putString("Ambiente", monster.get(3));
-//                        b.putString("Categoria", monster.get(4));
-//                        b.putString("Taglia", monster.get(5));
-//                        b.putString("Sfida", monster.get(6));
-//                        b.putString("PF", monster.get(7));
-//                        b.putString("CA", monster.get(8));
-//                        b.putString("FOR", monster.get(9));
-//                        b.putString("DES", monster.get(10));
-//                        b.putString("COST", monster.get(11));
-//                        b.putString("INT", monster.get(12));
-//                        b.putString("SAG", monster.get(13));
-//                        b.putString("CAR", monster.get(14));
-//
-//                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//                        DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
-//                        RecyclerFragment.setParent(_parent);
-//                        RecyclerFragment.setArguments(b);
-//                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_my_monster, RecyclerFragment).addToBackStack(null).commit();
-//                    }finally {
-//                        ThreadLock.unlock();
-//                    }
-//                }
-//            });
+                    } finally {
+                        ThreadLock.unlock();
+                    }
+                }
+            });
+
+
 
             ImageButton deleteBtn= holder.itemView.findViewById(R.id.my_delete_botton);
             //TODO cancella MyMonster
-//            deleteBtn.setOnClickListener(view -> {
-//                if (ThreadLock.tryLock()) {
-//                    try {
-//                        Dialog dialog = new Dialog(context);
-//                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                        dialog.setContentView(R.layout.popup_conferma_cancellazione);
-//                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                        dialog.setCancelable(true);
-//                        dialog.show();
-//
-//                        dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
-//                        dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
-//
-//                            SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sharedPreferences.edit();
-//                            NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-//
-//                            Log.d("MyMonstersAdapter", "onBindViewHolder: "+position);
-//                            ArrayList<String> monster = objectNativeLib.getMyMonsters().get(holder.getAdapterPosition());
-//
-//                            objectNativeLib.deleteMostro(holder.getAdapterPosition());
-//                            editor.putString("objectNativeLib", new Gson().toJson(objectNativeLib));
-//                            editor.apply();
-//
-//                            dialog.dismiss();
-//
-//                            MyEvents.remove(holder.getAdapterPosition());
-//                            notifyItemRemoved(holder.getAdapterPosition());
-//
-//                        });
-//                    } finally {
-//                        ThreadLock.unlock();
-//                    }
-//                }
-//            });
+            deleteBtn.setOnClickListener(view -> {
+                if (ThreadLock.tryLock()) {
+                    try {
+                        Dialog dialog = new Dialog(context);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.popup_conferma_cancellazione);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.setCancelable(true);
+                        dialog.show();
+
+                        dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
+                        dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
+                            Log.d("MyEvents",MyEvents.toString());
+                            MyEvents.remove(holder.getAdapterPosition());
+                            notifyItemRemoved(holder.getAdapterPosition());
+                            dialog.dismiss();
+                        });
+                    } finally {
+                        ThreadLock.unlock();
+                    }
+                }
+            });
         }
 
         @Override
@@ -177,7 +130,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         }
 
         @SuppressLint("NotifyDataSetChanged")
-        public void updateCartItems(ArrayList<String> myEvents) {
+        public void updateCartItems(ArrayList<EventClass> myEvents) {
             this.MyEvents =myEvents;
             notifyDataSetChanged();
         }

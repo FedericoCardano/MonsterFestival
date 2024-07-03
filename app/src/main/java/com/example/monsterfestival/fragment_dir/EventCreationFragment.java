@@ -1,5 +1,7 @@
 package com.example.monsterfestival.fragment_dir;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -7,9 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,12 +23,15 @@ import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 
+import java.util.ArrayList;
+
 
 public class EventCreationFragment extends Fragment implements OnFragmentRemoveListener {
 
     OnFragmentVisibleListener fragmentVisibleListener;
     EditText Nome,Causa,Reazione;
     Button Salva;
+    InputMethodManager inputMethodManager;
 
     public EventCreationFragment() {
         // Required empty public constructor
@@ -47,6 +54,14 @@ public class EventCreationFragment extends Fragment implements OnFragmentRemoveL
         Nome=view.findViewById(R.id.editNomeEvento);
         Causa=view.findViewById(R.id.editCausaEvento);
         Reazione=view.findViewById(R.id.editReazioneEvento);
+        Bundle b=this.getArguments();
+        if(b!=null)
+        {
+            ArrayList<String> event = b.getStringArrayList("MyEvent");
+            Nome.setText(event.get(0));
+            Causa.setText(event.get(1));
+            Reazione.setText(event.get(2));
+        }
         Salva=view.findViewById(R.id.btnSalva);
         Salva.setOnClickListener(task->{
             if(controlli()) {
@@ -58,7 +73,14 @@ public class EventCreationFragment extends Fragment implements OnFragmentRemoveL
                 bundle.putString("NomeEvento", nome);
                 bundle.putString("CausaEvento", causa);
                 bundle.putString("ReazioneEvento", reazione);
-                ((PartyCreationFragment) getParentFragment()).setArguments(bundle);
+                getParentFragment().setArguments(bundle);
+                ((PartyCreationFragment) getParentFragment()).setAllVisibility(true);
+                try{
+                    inputMethodManager= (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }catch (Exception e){
+                    Log.e("EventCreationFragment",e.toString());
+                }
 
                 ((MainActivity) requireActivity()).tornaIndietro(1);
             }

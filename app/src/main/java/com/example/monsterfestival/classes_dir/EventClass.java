@@ -1,5 +1,7 @@
 package com.example.monsterfestival.classes_dir;
 
+import java.util.ArrayList;
+
 public class EventClass {
     private String nome;
     private String causa;
@@ -11,6 +13,14 @@ public class EventClass {
         this.reazione = reazione;
     }
 
+    public ArrayList<String> Event2ArrayString()
+    {
+        ArrayList<String> e = new ArrayList<>();
+        e.add(this.nome);
+        e.add(this.causa);
+        e.add(this.reazione);
+        return e;
+    }
     public String getNome() {
         return nome;
     }

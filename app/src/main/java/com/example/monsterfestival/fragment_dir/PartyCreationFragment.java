@@ -111,7 +111,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         EventAdapter eventAdapter = new EventAdapter(getContext(), this, getChildFragmentManager());
         rvEventi.setAdapter(eventAdapter);
-        eventAdapter.updateCartItems(getNomiEventi());
+        eventAdapter.updateCartItems(listaEventi);
 
         Bundle bundle = this.getArguments();
         if (bundle != null)
@@ -119,9 +119,16 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
             SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
             NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
-            ArrayList<ArrayList<String>> dati = objectNativeLib.getMonsterPartyByName(bundle.getString("nomeParty"));
-            for (ArrayList<String> dato : dati)
+            ArrayList<ArrayList<String>> mostri = objectNativeLib.getMonsterPartyByName(bundle.getString("nomeParty"));
+            for (ArrayList<String> dato : mostri)
                 cart.add(new MonsterClass(new ArrayList<>(dato.subList(1, dato.size()))), Integer.parseInt(dato.get(0)), getContext());
+
+            ArrayList<ArrayList<String>> eventi = objectNativeLib.getEventPartyByName(bundle.getString("nomeParty"));
+            for (ArrayList<String> evento : eventi)
+            {
+                listaEventi.add(new EventClass(evento.get(0),evento.get(1),evento.get(2)));
+            }
+
             ripristinaVisibilitaElementi();
         }
 
@@ -326,17 +333,8 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
         return cartItems;
     }
 
-    private ArrayList<String> getNomiEventi() {
-        ArrayList<String> nomi = new ArrayList<>();
 
-        for (int i=0;i<listaEventi.size();i++) {
-            nomi.add(listaEventi.get(i).getNome());
-        }
-
-        return nomi;
-    }
-
-    void setAllVisibility(boolean value) {
+    public void setAllVisibility(boolean value) {
         rootView.findViewById(R.id.appBarLayout).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
         rootView.findViewById(R.id.bottomBox).setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
@@ -387,7 +385,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
 
         EventAdapter eventAdapter = new EventAdapter(getContext(), this, getChildFragmentManager());
         rvEventi.setAdapter(eventAdapter);
-        eventAdapter.updateCartItems(getNomiEventi());
+        eventAdapter.updateCartItems(listaEventi);
 
     }
 

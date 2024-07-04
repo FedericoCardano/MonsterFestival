@@ -41,6 +41,9 @@ import com.example.monsterfestival.classes_dir.Comment;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
+
+import com.example.monsterfestival.classes_dir.PartialVoteClass;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -66,7 +69,10 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
     TextView detailID, detailDesc, detailName, detailAmbiente, detailCA, detailCAR, detailCOST, detailCategoria, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailTaglia;
     FloatingActionButton autorButton, exportButton,commentButton,voteButton;
     RecyclerView Comments;
-
+    boolean valutato;
+    int oldCoerenza;
+    int oldOriginalita;
+    int oldBilanciamento;
     Dialog dialog;
 
     Fragment parent;
@@ -128,11 +134,6 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             detailTaglia.setText(mon.get(5));
             Log.d("DetailMonsterPost","TagliaBundle: "+mon.get(5));
             detailSfida.setText(mon.get(6));
-//                    float sfida = Float.parseFloat(bundle.getString("Sfida"));
-//                    if (((int) sfida) != sfida)
-//                        detailSfida.setText(String.valueOf(sfida));
-//                    else
-//                        detailSfida.setText(String.valueOf((int) sfida));
             detailPF.setText(mon.get(7));
             detailCA.setText(mon.get(8));
             detailFOR.setText(mon.get(9));
@@ -158,6 +159,24 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
                 CommentAdapter commentsAdapter = new CommentAdapter(CommentsList,this);
                 Comments.setAdapter(commentsAdapter);
         }
+
+        String IdMonster = bundle.getStringArrayList("monster").get(0);
+        String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyMonsterVotes");
+        refUser.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().hasChild(IdMonster)) {
+                    valutato = true;
+                    oldCoerenza = task.getResult().child(IdMonster+"/voteCoerenza").getValue(int.class);
+                    oldOriginalita = task.getResult().child(IdMonster+"/voteOriginalita").getValue(int.class);
+                    oldBilanciamento = task.getResult().child(IdMonster+"/voteBilanciamento").getValue(int.class);
+                }
+                else
+                    valutato=false;
+            }
+        });
+
+        //TODO aggiornamento pagina onUpdateListener
         //TODO autorButtonListener
        // autorButton.setOnClickListener(view1 -> {
 //            if (bundle != null) {
@@ -205,7 +224,6 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
                 String timestamp = String.valueOf(System.currentTimeMillis());
                 String UidComment =  FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String comment = ((TextView) dialog.findViewById(R.id.editMulti_CommentText)).getText().toString();
-                String IdMonster = bundle.getStringArrayList("monster").get(0);
 
                 Comment c = new Comment(UidComment,comment,timestamp);
 
@@ -222,7 +240,6 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             });
         });
 
-        //TODO VoteListener
         voteButton.setOnClickListener(view -> {
             Log.d("DetailMonsterPost","commentButton Pressed");
             Dialog dialog = new Dialog(requireContext());
@@ -230,7 +247,16 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             dialog.setContentView(R.layout.popup_voto_mostro);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCancelable(true);
+            if(valutato){
+                RatingBar Coerenza = dialog.findViewById(R.id.ratingBarCoerenza);
+                RatingBar Originalita = dialog.findViewById(R.id.ratingBarOriginalita);
+                RatingBar Bilanciamento = dialog.findViewById(R.id.ratingBarBilanciamento);
+                Coerenza.setRating((float) oldCoerenza /2);
+                Originalita.setRating((float) oldOriginalita /2);
+                Bilanciamento.setRating((float) oldBilanciamento /2);
+            }
             dialog.show();
+
 
             dialog.findViewById(R.id.btnAnnulla).setOnClickListener(view1 -> dialog.dismiss());
             dialog.findViewById(R.id.btnSalva).setOnClickListener(view1 -> {
@@ -238,33 +264,96 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
                 RatingBar Originalita = dialog.findViewById(R.id.ratingBarOriginalita);
                 RatingBar Bilanciamento = dialog.findViewById(R.id.ratingBarBilanciamento);
 
-                int coerenza = (int) (Coerenza.getRating()*2);
+                //controllo valori inseriti
+                Double coerenza = (double) (Coerenza.getRating()*2);
                 Log.d("DetailMonsterPost","CoerenzaInt: "+coerenza+" Rating: "+Coerenza.getRating()*2);
-                int originalita = (int) (Originalita.getRating()*2);
+                Double originalita = (double) (Originalita.getRating()*2);
                 Log.d("DetailMonsterPost","OriginalitaInt: "+originalita+" Rating: "+Originalita.getRating()*2);
-                int bilanciamento = (int) (Bilanciamento.getRating()*2);
+                Double bilanciamento = (double) (Bilanciamento.getRating()*2);
                 Log.d("DetailMonsterPost","BilanciamentoInt: "+bilanciamento+" Rating: "+Bilanciamento.getRating()*2);
+                if (coerenza == 0|| originalita == 0|| bilanciamento == 0) {
+                    Toast.makeText(requireContext(), "Valutazione incompleta", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                DatabaseReference refInUser=refUser.child(IdMonster);
+                        if (valutato) {
+                            DatabaseReference ref =  FirebaseDatabase.getInstance().getReference("Posts").child(IdMonster);
+                            ref.get().addOnCompleteListener(read -> {
+                                if (read.isSuccessful()) {
+                                    int nVoti = read.getResult().child("nVoti").getValue(int.class);
+                                    Double voteCoerenza = read.getResult().child("voteCoerenza").getValue(Double.class);
+                                    Double voteOriginalita = read.getResult().child("voteOriginalita").getValue(Double.class);
+                                    Double voteBilanciamento = read.getResult().child("voteBilanciamento").getValue(Double.class);
 
-                String IdMonster = bundle.getStringArrayList("monster").get(0);
-                String timestamp = String.valueOf(System.currentTimeMillis());
-                String UidComment =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    Double newVoteCoerenza = (voteCoerenza * nVoti + coerenza - oldCoerenza) / nVoti;
+                                    Double newVoteOriginalita = (voteOriginalita * nVoti + originalita - oldOriginalita) / nVoti;
+                                    Double newVoteBilanciamento = (voteBilanciamento * nVoti + bilanciamento - oldBilanciamento) / nVoti;
 
-//                Comment c = new Comment(UidComment,comment,timestamp);
-//
-//                DatabaseReference ref =  FirebaseDatabase.getInstance().getReference("Posts").child(IdMonster).child("commenti").child(timestamp);
-//                ref.setValue(c).addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        Toast.makeText(requireContext(), "Commento Aggiunto", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else {
-//                        Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                                    Double vote= (newVoteCoerenza+newVoteOriginalita+newVoteBilanciamento)/3;
+
+                                    PartialVoteClass myV = new PartialVoteClass(coerenza, originalita, bilanciamento);
+
+                                    refInUser.setValue(myV).addOnCompleteListener(writeUser -> {
+                                        if (writeUser.isSuccessful()) {
+                                            ref.child("voteCoerenza").setValue(newVoteCoerenza);
+                                            ref.child("voteOriginalita").setValue(newVoteOriginalita);
+                                            ref.child("voteBilanciamento").setValue(newVoteBilanciamento);
+                                            ref.child("nVoti").setValue(nVoti);
+                                            ref.child("vote").setValue(vote);
+                                            Toast.makeText(requireContext(), "Valutazione Aggiornata", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                else {
+                                    Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        else {
+                            DatabaseReference ref =  FirebaseDatabase.getInstance().getReference("Posts").child(IdMonster);
+                            ref.get().addOnCompleteListener(read -> {
+                                if (read.isSuccessful()) {
+                                    int nVoti = read.getResult().child("nVoti").getValue(int.class);
+                                    Double voteCoerenza = read.getResult().child("voteCoerenza").getValue(Double.class);
+                                    Double voteOriginalita = read.getResult().child("voteOriginalita").getValue(Double.class);
+                                    Double voteBilanciamento = read.getResult().child("voteBilanciamento").getValue(Double.class);
+
+                                    Double newVoteCoerenza = (voteCoerenza * nVoti + coerenza) / (nVoti + 1);
+                                    Double newVoteOriginalita = (voteOriginalita * nVoti + originalita) / (nVoti + 1);
+                                    Double newVoteBilanciamento = (voteBilanciamento * nVoti + bilanciamento) / (nVoti + 1);
+                                    int newNVoti=nVoti+1;
+                                    Double newVote= (newVoteCoerenza+newVoteOriginalita+newVoteBilanciamento)/3;
+
+                                    PartialVoteClass myV = new PartialVoteClass(coerenza, originalita, bilanciamento);
+
+                                    refInUser.setValue(myV).addOnCompleteListener(writeUser -> {
+                                        if (writeUser.isSuccessful()) {
+                                            ref.child("voteCoerenza").setValue(newVoteCoerenza);
+                                            ref.child("voteOriginalita").setValue(newVoteOriginalita);
+                                            ref.child("voteBilanciamento").setValue(newVoteBilanciamento);
+                                            ref.child("nVoti").setValue(newNVoti);
+                                            ref.child("vote").setValue(newVote);
+                                            Toast.makeText(requireContext(), "Valutazione Aggiunta", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                else {
+                                    Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
                 dialog.dismiss();
             });
         });
 
-        //TODO aggiornamento pagina onUpdateListener
+
         exportButton.setOnClickListener(view1 -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 if (ThreadLock.tryLock()) {

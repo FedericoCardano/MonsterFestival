@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
+public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHolder> {
 
     private CommunityFragment _parent;
     private final List<MonsterPost> PostList;
@@ -31,24 +31,24 @@ public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
 
 
 
-    public PostAdapter(ArrayList<MonsterPost> dataList, CommunityFragment parent) {
+    public MonsterPostAdapter(ArrayList<MonsterPost> dataList, CommunityFragment parent) {
         this._parent = parent;
         this.PostList = dataList;
     }
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MonsterPostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_post_item, parent, false);
-        return new PostViewHolder(view);
+        return new MonsterPostViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MonsterPostViewHolder holder, int position) {
         Log.d("onBindViewHolder","Position: "+position+" Holder: "+holder);
         MonsterPost post = PostList.get(position);
         holder.name.setText(post.Monster.getNome());
-        holder.vote.setText(String.valueOf(post.Vote));
+        holder.vote.setText(String.valueOf(Math.round(post.Vote*100)/100.0));
         holder.rank.setText(String.valueOf(position+1));
 
 
@@ -56,13 +56,12 @@ public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
         holder.name.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
-
                     ArrayList <String> UidAutoreComment_Array=new ArrayList<>();
                     ArrayList <String> Text_Array=new ArrayList<>();
                     ArrayList <String> CommentTime_Array=new ArrayList<>();
                     Bundle b = new Bundle();
                     MonsterPost selectedPost= PostList.get(position);
-                    b.putDouble("Vote",selectedPost.Vote);
+
                     b.putString("PostTime",selectedPost.getPostTime());
                     b.putString("UidAutore",selectedPost.getUidAutorePost());
                     Log.d("PostAdapter","Taglia: "+selectedPost.Monster.getTaglia());
@@ -101,10 +100,10 @@ public class PostAdapter  extends RecyclerView.Adapter<PostViewHolder> {
 
 }
 
- class PostViewHolder extends RecyclerView.ViewHolder{
+ class MonsterPostViewHolder extends RecyclerView.ViewHolder{
     TextView rank, vote, name;
     //CardView postCard;
-    public PostViewHolder(@NonNull View itemView) {
+    public MonsterPostViewHolder(@NonNull View itemView) {
 
         super(itemView);
         Log.d("PostViewHolder","View: "+itemView);

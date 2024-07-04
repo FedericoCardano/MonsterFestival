@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.monsterfestival.adapter_dir.PostAdapter;
+import com.example.monsterfestival.adapter_dir.MonsterPostAdapter;
 import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
-import com.example.monsterfestival.classes_dir.OnNameClickListener;
 import com.example.monsterfestival.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +36,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CommunityFragment extends Fragment implements OnFragmentRemoveListener {
 
 
-    static PostAdapter adapter;
+    static MonsterPostAdapter adapter;
     static RecyclerView recyclerView;
     final CommunityFragment myself=this;
     public static AlertDialog dialog;
@@ -65,7 +63,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
         // Inflate the layout for this fragment
         Log.d("firebase", "firebase start");
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        Query topPost = db.child("Posts").orderByChild("Vote").limitToLast(3);
+        Query topPost = db.child("Posts").orderByChild("vote").limitToLast(3);
         Log.d("firebase", "firebase ready");
 
         topPost.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -98,7 +96,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
                             recyclerView = view.findViewById(R.id.PostRank);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
                             recyclerView.setLayoutManager(gridLayoutManager);
-                            adapter = new PostAdapter(Posts, myself);
+                            adapter = new MonsterPostAdapter(Posts, myself);
                             recyclerView.setAdapter(adapter);
 
                         }

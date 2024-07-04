@@ -27,11 +27,10 @@ import android.widget.Toast;
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterClass;
-import com.example.monsterfestival.classes_dir.MonsterPost;
+
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

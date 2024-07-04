@@ -38,9 +38,11 @@
             android:id="@+id/ratingBarCoerenza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
             android:max="10"
             android:numStars="5"
-            android:progressTint="#FFEB3B" />
+            android:progressTint="#FFEB3B"
+            android:theme="@style/RatingBar" />
 
         <TextView
             android:text="Originalità"
@@ -52,12 +54,17 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <RatingBar
             android:id="@+id/ratingBarOriginalita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
             android:max="10"
-            android:numStars="5" />
+            android:numStars="5"
+            android:progressTint="#FFEB3B"
+            android:theme="@style/RatingBar"
+            />
 
         <TextView
             android:text="Bilanciamento"
@@ -74,8 +81,11 @@
             android:id="@+id/ratingBarBilanciamento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
             android:max="10"
-            android:numStars="5" />
+            android:numStars="5"
+            android:progressTint="#FFEB3B"
+            android:theme="@style/RatingBar"/>
 
         <LinearLayout
             android:gravity="center"

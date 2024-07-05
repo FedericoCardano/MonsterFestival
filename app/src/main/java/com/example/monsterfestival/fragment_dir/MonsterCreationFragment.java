@@ -224,9 +224,10 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                         new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item,Ambienti);
                 adapterA.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 Ambiente.setAdapter(adapterA);
-                ArrayList<String> mon =bundle.getStringArrayList("MyMonster");
-                Ambiente.setSelection(Ambienti.indexOf(mon.get(3)));
-
+                if(bundle!=null && bundle.containsKey("MyMonster")){
+                    ArrayList<String> mon =bundle.getStringArrayList("MyMonster");
+                    Ambiente.setSelection(Ambienti.indexOf(mon.get(3)));
+                }
             }
         });
         view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
@@ -498,8 +499,6 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 if (String.valueOf(s).isEmpty()) {
                     Car.setText(String.valueOf(1));
                 }

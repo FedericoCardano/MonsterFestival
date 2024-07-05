@@ -224,6 +224,8 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                         new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item,Ambienti);
                 adapterA.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 Ambiente.setAdapter(adapterA);
+                ArrayList<String> mon =bundle.getStringArrayList("MyMonster");
+                Ambiente.setSelection(Ambienti.indexOf(mon.get(3)));
 
             }
         });

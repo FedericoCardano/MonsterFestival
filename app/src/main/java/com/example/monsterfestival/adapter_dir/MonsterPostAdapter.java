@@ -98,6 +98,7 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
         return PostList.size();
     }
 
+
 }
 
  class MonsterPostViewHolder extends RecyclerView.ViewHolder{
@@ -111,6 +112,7 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
         vote = itemView.findViewById(R.id.TvVote);
         name = itemView.findViewById(R.id.TvName);
         //postCard = itemView.findViewById(R.id.PostCard);
+
 
     }
 

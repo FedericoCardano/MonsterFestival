@@ -60,52 +60,10 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, container, false);
-        // Inflate the layout for this fragment
-        Log.d("firebase", "firebase start");
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        Query topPost = db.child("Posts").orderByChild("vote").limitToLast(3);
-        Log.d("firebase", "firebase ready");
+        recyclerView = view.findViewById(R.id.PostRank);
 
-        topPost.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                //if (ThreadLock.tryLock()) {
-                   // try {
-                        if (!task.isSuccessful()) {
-                            Log.e("firebase", "Error getting data", task.getException());
-                        } else {
 
-                            Log.d("QueryFecthing", "inizio for di scomposizione");
-                            for (DataSnapshot child : task.getResult().getChildren()) {
-                                Log.d("QueryFecthing", String.valueOf(child));
-                                Posts.add(new MonsterPost(child));
-                            }
-                            Log.d("QueryFecthing", "riordino Posts");
-                            ArrayList<MonsterPost> temp = new ArrayList<>();
-                            for (int i = Posts.size() - 1; i >= 0; i--) {
-                                temp.add(Posts.get(i));
-                            }
-                            Posts = temp;
-
-                            Log.d("QueryFecthing", "fine for di scomposizione");
-
-                            for (int i = 0; i < Posts.size(); i++) {
-                                Log.d("Query-result", "Vote: " + Posts.get(i).Vote + "Nome: " + Posts.get(i).Monster.getNome() + " Index: " + i);
-                            }
-                            Log.d("Query-Result","set adapter");
-                            recyclerView = view.findViewById(R.id.PostRank);
-                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
-                            recyclerView.setLayoutManager(gridLayoutManager);
-                            adapter = new MonsterPostAdapter(Posts, myself);
-                            recyclerView.setAdapter(adapter);
-
-                        }
-                   // }finally {
-                   //     ThreadLock.unlock();
-                   // }
-               // }
-            }
-        });
+        update();
         CommunityLayout = view.findViewById(R.id.communityLayout);
         return view;
     }
@@ -137,11 +95,56 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
         super.onViewStateRestored(savedInstanceState);
     }
     public void ripristinaVisibilitaElementi() {
-        CommunityLayout.setVisibility(View.VISIBLE);
+        update();
+
     }
     public void nascondiElementi() {
         CommunityLayout.setVisibility(View.INVISIBLE);
     }
 
+    public void update(){
+        Log.d("firebase", "firebase start");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query topPost = db.child("Posts").orderByChild("vote").limitToLast(3);
+        Log.d("firebase", "firebase ready");
 
+        topPost.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                //if (ThreadLock.tryLock()) {
+                // try {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+
+                    Log.d("QueryFecthing", "inizio for di scomposizione");
+                    Posts.clear();
+                    for (DataSnapshot child : task.getResult().getChildren()) {
+                        Log.d("QueryFecthing", String.valueOf(child));
+                        Posts.add(new MonsterPost(child));
+                    }
+                    Log.d("QueryFecthing", "riordino Posts");
+                    ArrayList<MonsterPost> temp = new ArrayList<>();
+                    for (int i = Posts.size() - 1; i >= 0; i--) {
+                        temp.add(Posts.get(i));
+                    }
+                    Posts = temp;
+
+                    Log.d("QueryFecthing", "fine for di scomposizione");
+
+                    for (int i = 0; i < Posts.size(); i++) {
+                        Log.d("Query-result", "Vote: " + Posts.get(i).Vote + "Nome: " + Posts.get(i).Monster.getNome() + " Index: " + i);
+                    }
+                    Log.d("Query-Result","set adapter");
+
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    adapter = new MonsterPostAdapter(Posts, myself);
+                    recyclerView.setAdapter(adapter);
+                    CommunityLayout.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+    }
 }

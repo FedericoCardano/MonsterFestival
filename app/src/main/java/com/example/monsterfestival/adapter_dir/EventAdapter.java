@@ -99,7 +99,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
 
             ImageButton deleteBtn= holder.itemView.findViewById(R.id.my_delete_botton);
-            //TODO cancella MyMonster
             deleteBtn.setOnClickListener(view -> {
                 if (ThreadLock.tryLock()) {
                     try {

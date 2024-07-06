@@ -70,7 +70,7 @@ public class PartyCreationFragment extends Fragment implements OnFragmentRemoveL
     TextView numMostri;
     DatabaseReference reference;
     ArrayList<EventClass> listaEventi= new ArrayList<>();
-    //TODO getire sezione MyMonsters e MyParties in CreazioneParty
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

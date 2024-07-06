@@ -5,15 +5,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.fragment_dir.CommunityFragment;
+import com.example.monsterfestival.fragment_dir.DetailAuthorFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
 
 import java.util.List;
@@ -24,14 +27,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHolder> {
 
-    private CommunityFragment _parent;
+    private Fragment _parent;
     private final List<MonsterPost> PostList;
     private final Lock ThreadLock = new ReentrantLock();
     //private OnNameClickListener listener;
 
 
 
-    public MonsterPostAdapter(ArrayList<MonsterPost> dataList, CommunityFragment parent) {
+    public MonsterPostAdapter(ArrayList<MonsterPost> dataList, Fragment parent) {
         this._parent = parent;
         this.PostList = dataList;
     }
@@ -50,8 +53,6 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
         holder.name.setText(post.Monster.getNome());
         holder.vote.setText(String.valueOf(Math.round(post.Vote*100)/100.0));
         holder.rank.setText(String.valueOf(position+1));
-
-
 
         holder.name.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
@@ -81,14 +82,35 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
                     DetailMonsterPostFragment RecyclerFragment = new DetailMonsterPostFragment();
                     RecyclerFragment.setParent(_parent);
                     RecyclerFragment.setArguments(b);
-                    _parent.nascondiElementi();
-                    activity.getSupportFragmentManager().beginTransaction().replace(_parent.getId(), RecyclerFragment).addToBackStack(null).commit();
-
-
+                    if(_parent.getClass().equals(CommunityFragment.class)) {
+                        ((CommunityFragment) _parent).nascondiElementi();
+                        activity.getSupportFragmentManager().beginTransaction().replace(_parent.getId(), RecyclerFragment).addToBackStack(null).commit();
+                    }
+                    else if(_parent.getClass().equals(DetailAuthorFragment.class)) {
+                        ((DetailAuthorFragment) _parent).nascondiElementi();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.authorFrameLayout, RecyclerFragment).addToBackStack(null).commit();
+                    }
                 }finally {
                     ThreadLock.unlock();
                 }
             }
+
+
+        });
+
+        if(_parent.getClass().equals(DetailAuthorFragment.class))
+            holder.authorButton.setVisibility(View.INVISIBLE);
+        holder.authorButton.setOnClickListener(view -> {
+           String UidAutore=PostList.get(holder.getAdapterPosition()).getUidAutorePost();
+           Bundle b = new Bundle();
+           b.putString("UidAutore",UidAutore);
+            if(_parent.getClass().equals(CommunityFragment.class))
+                ((CommunityFragment) _parent).nascondiElementi();
+           AppCompatActivity activity = (AppCompatActivity) view.getContext();
+           DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
+           RecyclerFragment.setArguments(b);
+
+           activity.getSupportFragmentManager().beginTransaction().replace(_parent.getId(), RecyclerFragment).addToBackStack(null).commit();
 
         });
     }
@@ -103,6 +125,7 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
 
  class MonsterPostViewHolder extends RecyclerView.ViewHolder{
     TextView rank, vote, name;
+    ImageButton authorButton;
     //CardView postCard;
     public MonsterPostViewHolder(@NonNull View itemView) {
 
@@ -111,6 +134,7 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
         rank = itemView.findViewById(R.id.TvRank);
         vote = itemView.findViewById(R.id.TvVote);
         name = itemView.findViewById(R.id.TvName);
+        authorButton = itemView.findViewById(R.id.author_btn);
         //postCard = itemView.findViewById(R.id.PostCard);
 
 

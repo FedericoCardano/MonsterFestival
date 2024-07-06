@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,8 +76,10 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
     int oldBilanciamento;
     Dialog dialog;
     Bundle bundle ;
-    CommunityFragment parent;
+    Fragment parent;
     OnFragmentVisibleListener fragmentVisibleListener;
+    String uidAutorePost;
+    LinearLayout MonsterPostLayout;
 
     private String filePath;
 
@@ -85,7 +88,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
     private View rootView;
     private ArrayList<Comment> CommentsList=new ArrayList<>();
 
-    public void setParent(CommunityFragment _parent) {
+    public void setParent(Fragment _parent) {
         parent = _parent;
     }
 
@@ -94,7 +97,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_detail_monster_post, container, false);
-
+        MonsterPostLayout=rootView.findViewById(R.id.MonsterPostLayout);
         filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaMostro.pdf";
         bundle = this.getArguments();
         detailID = rootView.findViewById(R.id.detailID);
@@ -115,6 +118,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         autorButton = rootView.findViewById(R.id.autor_btn);
         exportButton = rootView.findViewById(R.id.export_btn);
         commentButton =rootView.findViewById(R.id.comment_btn);
+
         voteButton=rootView.findViewById(R.id.vote_btn);
         Comments=rootView.findViewById(R.id.commentRw);
 
@@ -122,9 +126,10 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         builder.setCancelable(false);
         builder.setView(R.layout.recyclerview_progress_layout);
         dialog = builder.create();
-
-
+        if(parent.getClass().equals(DetailAuthorFragment.class))
+            autorButton.setVisibility(View.INVISIBLE);
         if (bundle != null) {
+            uidAutorePost=bundle.getString("UidAutore");
             ArrayList<String> mon = bundle.getStringArrayList("monster");
             detailID.setText(mon.get(0));
             detailName.setText(mon.get(1));
@@ -132,7 +137,6 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
             detailAmbiente.setText(mon.get(3));
             detailCategoria.setText(mon.get(4));
             detailTaglia.setText(mon.get(5));
-            Log.d("DetailMonsterPost","TagliaBundle: "+mon.get(5));
             detailSfida.setText(mon.get(6));
             detailPF.setText(mon.get(7));
             detailCA.setText(mon.get(8));
@@ -164,7 +168,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyMonsterVotes");
 
-        //TODO aggiornamento pagina onUpdateListener
+
         //TODO autorButtonListener
        // autorButton.setOnClickListener(view1 -> {
 //            if (bundle != null) {
@@ -394,7 +398,12 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         }
     }
 
-    public void ripristinaVisibilitaElementi() {}
+    public void ripristinaVisibilitaElementi() {
+        MonsterPostLayout.setVisibility(View.VISIBLE);
+    }
+    public void nascondiElementi() {
+        MonsterPostLayout.setVisibility(View.INVISIBLE);
+    }
 
     private void createAndSharePdf(Context context) throws FileNotFoundException {
         int totalHeight = 0;
@@ -487,6 +496,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         drawable.draw(canvas);
         return bitmap;
     }
+
     public void getCurrentVote()
     {
         String IdMonster = bundle.getStringArrayList("monster").get(0);

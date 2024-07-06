@@ -68,7 +68,7 @@
                 android:textStyle="bold|italic" />
 
             <ImageButton
-                android:id="@+id/modify_btn"
+                android:id="@+id/author_btn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"

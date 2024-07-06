@@ -171,4 +171,11 @@
     <string name="nome_evento_caratteri">Nome Evento non deve contenere a capi e/o punti</string>
     <string name="causa_evento_lungo">Causa Evento troppo lungo\n(max 200 caratteri)</string>
     <string name="reazione_evento_lungo">Reazione Evento troppo lungo\n(max 200 caratteri)</string>
+    <string name="n_post">n° Post:</string>
+    <string name="data_di_creazione">Data di Creazione:</string>
+    <string name="n_commenti">n° Commenti:</string>
+    <string name="n_voti">n° Voti:</string>
+    <string name="dettagli_utente">Dettagli Utente</string>
+    <string name="autore_commento">Autore Commento</string>
+
 </resources>

@@ -1,16 +1,21 @@
 package com.example.monsterfestival.adapter_dir;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.Comment;
+import com.example.monsterfestival.fragment_dir.CommunityFragment;
+import com.example.monsterfestival.fragment_dir.DetailAuthorFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -102,13 +107,36 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
         rf.get().addOnCompleteListener(task ->  {
             if(task.isSuccessful()){
                 Log.d("firebase", "data: "+ task.getResult().getValue());
-                holder.nameAuthor.setText(String.valueOf(task.getResult().getValue()));
+
+                if(comment.getUidComment().equals(_parent.getArguments().getString("UidAutore")))
+                {
+                    holder.authorButton.setClickable(false);
+                    holder.authorButton.setColorFilter(R.color.grigio);
+
+                    String name = task.getResult().getValue()+" (Autore)";
+                    holder.nameAuthor.setText(name);
+                }
+                else{
+                    holder.nameAuthor.setText(String.valueOf(task.getResult().getValue()));
+                    holder.authorButton.setOnClickListener(view -> {
+                        String UidAutore=comment.getUidComment();
+                        Bundle b = new Bundle();
+                        b.putString("UidAutore",UidAutore);
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
+                        RecyclerFragment.setArguments(b);
+                        _parent.nascondiElementi();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
+
+                    });
+                }
             }
             else{
                 Log.e("firebase", "Error getting data", task.getException());
             }
 
         });
+
 
 
 
@@ -123,6 +151,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
 
  class CommentViewHolder extends RecyclerView.ViewHolder{
     TextView time, text, nameAuthor;
+    ImageButton authorButton;
     //CardView postCard;
     public CommentViewHolder(@NonNull View itemView) {
 
@@ -131,6 +160,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
         time = itemView.findViewById(R.id.TvTime);
         text = itemView.findViewById(R.id.TvText);
         nameAuthor = itemView.findViewById(R.id.TvNameAuthor);
+        authorButton = itemView.findViewById(R.id.comment_author_btn);
         //postCard = itemView.findViewById(R.id.PostCard);
 
     }

@@ -51,12 +51,12 @@
                 android:textStyle="bold|italic" />
 
             <ImageButton
-                android:id="@+id/modify_btn"
+                android:id="@+id/comment_author_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/white"
-                android:contentDescription="@string/modifica"
+                android:contentDescription="@string/autore_commento"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/baseline_person_24"

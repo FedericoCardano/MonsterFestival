@@ -51,7 +51,7 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
         Log.d("onBindViewHolder","Position: "+position+" Holder: "+holder);
         MonsterPost post = PostList.get(position);
         holder.name.setText(post.Monster.getNome());
-        holder.vote.setText(String.valueOf(Math.round(post.Vote*100)/100.0));
+        holder.vote.setText(String.valueOf(Math.round(post.vote *100)/100.0));
         holder.rank.setText(String.valueOf(position+1));
 
         holder.name.setOnClickListener(view -> {
@@ -67,11 +67,11 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<MonsterPostViewHold
                     b.putString("UidAutore",selectedPost.getUidAutorePost());
                     Log.d("PostAdapter","Taglia: "+selectedPost.Monster.getTaglia());
                     b.putStringArrayList("monster",selectedPost.Monster.toArrayListString());
-                    for(int i=0;i<selectedPost.Commenti.size();i++)
+                    for(int i = 0; i<selectedPost.commenti.size(); i++)
                     {
-                        UidAutoreComment_Array.add(selectedPost.Commenti.get(i).getUidComment());
-                        Text_Array.add(selectedPost.Commenti.get(i).comment);
-                        CommentTime_Array.add(selectedPost.Commenti.get(i).getTimestamp());
+                        UidAutoreComment_Array.add(selectedPost.commenti.get(i).getUidComment());
+                        Text_Array.add(selectedPost.commenti.get(i).comment);
+                        CommentTime_Array.add(selectedPost.commenti.get(i).getTimestamp());
                     }
 
                     b.putStringArrayList("UidAutoreCommentArray",UidAutoreComment_Array);

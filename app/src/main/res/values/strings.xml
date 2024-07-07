@@ -177,5 +177,8 @@
     <string name="n_voti">n° Voti:</string>
     <string name="dettagli_utente">Dettagli Utente</string>
     <string name="autore_commento">Autore Commento</string>
+    <string name="ordina_per">Ordina per:</string>
+    <string name="pubblica">Pubblica</string>
+    <string name="conferma_pubblicazione">Conferma Pubblicazione</string>
 
 </resources>

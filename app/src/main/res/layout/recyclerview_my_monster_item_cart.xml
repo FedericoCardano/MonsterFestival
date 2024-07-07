@@ -29,10 +29,23 @@
             android:textSize="20sp" />
 
         <ImageButton
+            android:id="@+id/my_publish_botton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/pubblica"
+            android:padding="0dp"
+            android:scaleType="center"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            app:srcCompat="@drawable/baseline_publish_24" />
+
+        <ImageButton
             android:id="@+id/my_modify_botton"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="10dp"
             android:adjustViewBounds="true"
             android:backgroundTint="@color/white"
             android:contentDescription="@string/modifica"

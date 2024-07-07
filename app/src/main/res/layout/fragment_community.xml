@@ -20,48 +20,32 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/cominity_menu" />
+            app:menu="@menu/cominity_menu">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_rectangle_background"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageMenu">
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/search_editText"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:focusableInTouchMode="false"
-                android:hint="@string/ricerca_mostri"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/purple_700"
-                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/OrdinaPerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ordina_per"
+                android:textColor="@color/brawnColor"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/search_imageView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/search_icon_background"
-                android:contentDescription="@string/nome_app"
-                android:padding="6dp"
-                android:src="@drawable/baseline_search_24"
-                app:tint="@color/brawnColor" />
-
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="Ordina per" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -164,7 +164,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
                 Comments.setAdapter(commentsAdapter);
         }
         getCurrentVote();
-        String IdMonster = bundle.getStringArrayList("monster").get(0);
+        String IdMonster = bundle.getString("PostTime");
         String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyMonsterVotes");
 

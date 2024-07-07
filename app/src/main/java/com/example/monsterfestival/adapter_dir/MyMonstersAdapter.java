@@ -1,5 +1,7 @@
 package com.example.monsterfestival.adapter_dir;
 
+import static java.lang.Math.round;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,12 +31,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterClass;
+import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.fragment_dir.DetailMonsterFragment;
 import com.example.monsterfestival.fragment_dir.MonsterCreationFragment;
 import com.example.monsterfestival.fragment_dir.MyMonsterFragment;
 import com.example.monsterfestival.fragment_dir.MyPartiesFragment;
 import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
 import com.example.monsterfestival.fragment_dir.SearchMonstersFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 
@@ -142,7 +148,6 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
             });
 
             ImageButton deleteBtn= holder.itemView.findViewById(R.id.my_delete_botton);
-            //TODO cancella MyMonster
             deleteBtn.setOnClickListener(view -> {
                 if (ThreadLock.tryLock()) {
                     try {
@@ -178,6 +183,39 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
                     }
                 }
             });
+
+            ImageButton publishBtn = holder.itemView.findViewById(R.id.my_publish_botton);
+            publishBtn.setOnClickListener(view->{
+                Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.popup_conferma_pubblicazione);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setCancelable(true);
+                dialog.show();
+
+                dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
+                dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
+
+                    SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+
+                    Log.d("MyMonstersAdapter", "onBindViewHolder: "+position);
+                    ArrayList<String> nativeMonster = objectNativeLib.getMyMonsters().get(holder.getAdapterPosition());
+
+                    MonsterClass monster = new MonsterClass(nativeMonster);
+                    String time= String.valueOf(System.currentTimeMillis());
+                    String uidAutore= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    MonsterPost newPost= new MonsterPost(uidAutore,time,monster);
+
+                    DatabaseReference refMonsterPost = FirebaseDatabase.getInstance().getReference("Posts").child(time);
+                    refMonsterPost.setValue(newPost);
+
+                    dialog.dismiss();
+                });
+            });
+
         }
 
         @Override

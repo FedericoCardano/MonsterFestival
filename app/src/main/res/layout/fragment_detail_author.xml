@@ -41,121 +41,130 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/brawnColor"
-                    android:textSize="16sp"
+                    android:textSize="22sp"
                     android:textStyle="italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:baselineAligned="false"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/DataCreazioneLayout"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_marginEnd="30dp"
+                        android:baselineAligned="false"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/DataCreazioneLabel"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/data_di_creazione"
-                            android:textColor="@color/brawnColor"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvDataCreazione"
+                        <LinearLayout
+                            android:id="@+id/NCommentiLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textStyle="italic" />
+                            android:layout_marginStart="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/NCommentiLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/n_commenti"
+                                android:textColor="@color/brawnColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvNCommenti"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="99"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/NVotiLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/NVotiLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/n_voti"
+                                android:textColor="@color/brawnColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvNVoti"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="99"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/NPostsLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/NPostsLabel"
+                        <LinearLayout
+                            android:id="@+id/DataCreazioneLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/n_post"
-                            android:textColor="@color/brawnColor"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvNPosts"
+                            <TextView
+                                android:id="@+id/DataCreazioneLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/data_di_creazione"
+                                android:textColor="@color/brawnColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvDataCreazione"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/NPostsLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:baselineAligned="false"
-                            android:text="TextView"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-                </LinearLayout>
+                            android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/NPostsLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/n_post"
+                                android:textColor="@color/brawnColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/NCommentiLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/NCommentiLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/n_commenti"
-                            android:textColor="@color/brawnColor"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvNCommenti"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/NVotiLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/NVotiLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/n_voti"
-                            android:textColor="@color/brawnColor"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvNVoti"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textStyle="italic" />
+                            <TextView
+                                android:id="@+id/tvNPosts"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:baselineAligned="false"
+                                android:text="99"
+                                android:textSize="16sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -165,13 +174,24 @@
 
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/MonsterLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/mostri" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PostRank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/PartyLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/party" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/PartyPostRank"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

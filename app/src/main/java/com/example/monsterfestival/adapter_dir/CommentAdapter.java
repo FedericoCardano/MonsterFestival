@@ -18,6 +18,7 @@ import com.example.monsterfestival.classes_dir.Comment;
 import com.example.monsterfestival.fragment_dir.CommunityFragment;
 import com.example.monsterfestival.fragment_dir.DetailAuthorFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
+import com.example.monsterfestival.fragment_dir.DetailPartyPostFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -126,10 +127,14 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
                         RecyclerFragment.setArguments(b);
-                        if(_parent instanceof DetailMonsterPostFragment)
+                        if(_parent instanceof DetailMonsterPostFragment) {
                             ((DetailMonsterPostFragment) _parent).nascondiElementi();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
-
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
+                        }
+                        else if(_parent instanceof DetailPartyPostFragment) {
+                            ((DetailPartyPostFragment) _parent).nascondiElementi();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.flPartyPost, RecyclerFragment).addToBackStack(null).commit();
+                        }
                     });
                 }
             }

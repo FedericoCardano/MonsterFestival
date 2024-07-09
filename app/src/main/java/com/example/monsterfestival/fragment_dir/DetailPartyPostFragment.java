@@ -396,6 +396,10 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         PartyPostLayout.setVisibility(View.VISIBLE);
     }
 
+    public void nascondiElementi() {
+        PartyPostLayout.setVisibility(View.INVISIBLE);
+    }
+
     public void setParent(Fragment parent) {
         this.parent = parent;
     }

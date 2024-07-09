@@ -42,16 +42,16 @@ public class PartyPost {
                 this.eventi.add(event);
             }
         }
-        this.listaMostri = snapshot.child("Party").child("listaMostri").getValue(String.class);
-        this.totCA = snapshot.child("Party").child("totCA").getValue(String.class);
-        this.totCAR = snapshot.child("Party").child("totCAR").getValue(String.class);
-        this.totCOST = snapshot.child("Party").child("totCOST").getValue(String.class);
-        this.totDES = snapshot.child("Party").child("totDES").getValue(String.class);
-        this.totFOR = snapshot.child("Party").child("totFOR").getValue(String.class);
-        this.totINT = snapshot.child("Party").child("totINT").getValue(String.class);
-        this.totPF = snapshot.child("Party").child("totPF").getValue(String.class);
-        this.totSAG = snapshot.child("Party").child("totSAG").getValue(String.class);
-        this.totSfida = snapshot.child("Party").child("totSfida").getValue(String.class);
+        this.listaMostri = String.valueOf(snapshot.child("Party").child("listaMostri").getValue());
+        this.totCA = String.valueOf(snapshot.child("Party").child("totCA").getValue());
+        this.totCAR = String.valueOf(snapshot.child("Party").child("totCAR").getValue());
+        this.totCOST = String.valueOf(snapshot.child("Party").child("totCOST").getValue());
+        this.totDES = String.valueOf(snapshot.child("Party").child("totDES").getValue());
+        this.totFOR = String.valueOf(snapshot.child("Party").child("totFOR").getValue());
+        this.totINT = String.valueOf(snapshot.child("Party").child("totINT").getValue());
+        this.totPF = String.valueOf(snapshot.child("Party").child("totPF").getValue());
+        this.totSAG = String.valueOf(snapshot.child("Party").child("totSAG").getValue());
+        this.totSfida = String.valueOf(snapshot.child("Party").child("totSfida").getValue());
 
 
 

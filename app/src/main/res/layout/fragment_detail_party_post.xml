@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/creamColor"
     tools:context=".fragment_dir.DetailPartyFragment">
 
     <ScrollView
@@ -437,7 +436,7 @@
     </ScrollView>
 
     <FrameLayout
-        android:id="@+id/frame_access_monster"
+        android:id="@+id/flPartyPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

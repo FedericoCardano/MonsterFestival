@@ -207,8 +207,8 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
 
                 SharedPreferences sharedPreferences = fragment.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
-                int totPF=0, totCA=0, totFOR=0, totDES=0, totCOST=0, totINT=0, totSAG=0, totCAR=0;
-                double totSfida=0;
+                Integer totPF=0, totCA=0, totFOR=0, totDES=0, totCOST=0, totINT=0, totSAG=0, totCAR=0;
+                Double totSfida=0.0;
                 StringBuilder lista_mostri = new StringBuilder();
 
                 Log.d("MyPartiesAdapter", "onBindViewHolder: "+position);

@@ -22,6 +22,8 @@ import com.example.monsterfestival.activity_dir.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterFragment extends Fragment {
 
@@ -105,6 +107,12 @@ public class RegisterFragment extends Fragment {
 
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name).build();
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UsersInformation").child(user.getUid());
+                    ref.child("username").setValue(name);
+                    ref.child("nPost").setValue(0);
+                    ref.child("nCommenti").setValue(0);
+                    ref.child("nVoti").setValue(0);
+                    ref.child("timeCreazione").setValue(System.currentTimeMillis());
 
                     if (user != null)
                         user.updateProfile(profileUpdates);

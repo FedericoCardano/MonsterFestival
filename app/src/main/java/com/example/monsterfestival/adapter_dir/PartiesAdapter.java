@@ -23,9 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.classes_dir.EventClass;
+import com.example.monsterfestival.classes_dir.MonsterClass;
+import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.fragment_dir.DetailPartyFragment;
 import com.example.monsterfestival.fragment_dir.MyPartiesFragment;
 import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -107,7 +113,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     }
 
                     b.putString("NomeParty", nome);
-                    //b.putString("Difficoltà", String.valueOf(difficoltà));
+
                     b.putString("totSfida", String.valueOf(totSfida));
                     b.putString("totPF", String.valueOf(totPF));
                     b.putString("totCA", String.valueOf(totCA));
@@ -184,6 +190,85 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     ThreadLock.unlock();
                 }
             }
+        });
+
+        ImageButton publishButton = holder.itemView.findViewById(R.id.my_publish_botton);
+        publishButton.setOnClickListener(view -> {
+
+            Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_conferma_pubblicazione);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+            dialog.show();
+
+            dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
+            dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
+
+                SharedPreferences sharedPreferences = fragment.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
+                int totPF=0, totCA=0, totFOR=0, totDES=0, totCOST=0, totINT=0, totSAG=0, totCAR=0;
+                double totSfida=0;
+                StringBuilder lista_mostri = new StringBuilder();
+
+                Log.d("MyPartiesAdapter", "onBindViewHolder: "+position);
+                ArrayList<ArrayList<String>> eventi = objectNativeLib.getEventParties().get(position);
+                ArrayList<ArrayList<Integer>> mostri = objectNativeLib.getMosterParties().get(position);
+                String time= String.valueOf(System.currentTimeMillis());
+                String uidAutorePost= FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DatabaseReference reference= FirebaseDatabase.getInstance().getReference("PartyPosts").child(time);
+                ArrayList<EventClass> listaEventi=new ArrayList<>();
+                for (ArrayList<String> evento : eventi)
+                {
+                    listaEventi.add(new EventClass(evento.get(0),evento.get(1),evento.get(2)));
+                }
+                String nomeParty=objectNativeLib.getPartyNames().get(position);
+
+                for (int i=0;i<listaEventi.size();i++)
+                {
+                    reference.child("Party").child("Event"+(i+1)).setValue(listaEventi.get(i));
+                }
+
+                for (ArrayList<Integer> mostro : mostri)
+                {
+                    MonsterClass m= new MonsterClass(objectNativeLib.getMostro(mostro.get(1)));
+
+                    totFOR+=Integer.parseInt(m.getFor()) *mostro.get(0);
+                    totDES+=Integer.parseInt(m.getDes()) *mostro.get(0);
+                    totCOST+=Integer.parseInt(m.getCost()) *mostro.get(0);
+                    totINT+=Integer.parseInt(m.getInt()) *mostro.get(0);
+                    totSAG+=Integer.parseInt(m.getSag()) *mostro.get(0);
+                    totCAR+=Integer.parseInt(m.getCar()) *mostro.get(0);
+
+                    totPF+=Integer.parseInt(m.getPf()) *mostro.get(0);
+                    totCA+=Integer.parseInt(m.getCa()) *mostro.get(0);
+                    totSfida+=Double.parseDouble(m.getSfida()) *mostro.get(0);
+
+                    lista_mostri.append(m.getNome()).append(" (x").append(mostro.get(0)).append("), ");
+                }
+
+                reference.child("Party").child("totSfida").setValue(totSfida);
+                reference.child("Party").child("totPF").setValue(totPF);
+                reference.child("Party").child("totCA").setValue(totCA);
+                reference.child("Party").child("totFOR").setValue(totFOR);
+                reference.child("Party").child("totDES").setValue(totDES);
+                reference.child("Party").child("totCOST").setValue(totCOST);
+                reference.child("Party").child("totINT").setValue(totINT);
+                reference.child("Party").child("totSAG").setValue(totSAG);
+                reference.child("Party").child("totCAR").setValue(totCAR);
+                reference.child("Party").child("listaMostri").setValue(lista_mostri.toString());
+
+                reference.child("nome").setValue(nomeParty);
+                reference.child("postTime").setValue(time);
+                reference.child("uidAutorePost").setValue(uidAutorePost);
+                reference.child("nVoti").setValue(0);
+                reference.child("vote").setValue(0.0);
+                reference.child("voteBilanciamento").setValue(0.0);
+                reference.child("voteCoerenza").setValue(0.0);
+                reference.child("voteOriginalita").setValue(0.0);
+
+                dialog.dismiss();
+            });
         });
     }
 

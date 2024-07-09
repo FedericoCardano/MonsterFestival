@@ -15,26 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.MonsterPost;
+import com.example.monsterfestival.classes_dir.PartyPost;
 import com.example.monsterfestival.fragment_dir.CommunityFragment;
 import com.example.monsterfestival.fragment_dir.DetailAuthorFragment;
 import com.example.monsterfestival.fragment_dir.DetailMonsterPostFragment;
-
-import java.util.List;
+import com.example.monsterfestival.fragment_dir.DetailPartyPostFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder> {
+public class PartyPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder> {
 
     private Fragment _parent;
-    private final List<MonsterPost> PostList;
+    private final List<PartyPost> PostList;
     private final Lock ThreadLock = new ReentrantLock();
     //private OnNameClickListener listener;
 
 
 
-    public MonsterPostAdapter(ArrayList<MonsterPost> dataList, Fragment parent) {
+    public PartyPostAdapter(ArrayList<PartyPost> dataList, Fragment parent) {
         this._parent = parent;
         this.PostList = dataList;
     }
@@ -49,8 +50,8 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PartyPostViewHolder holder, int position) {
         Log.d("onBindViewHolder","Position: "+position+" Holder: "+holder);
-        MonsterPost post = PostList.get(position);
-        holder.name.setText(post.Monster.getNome());
+        PartyPost post = PostList.get(position);
+        holder.name.setText(post.getNome());
         holder.vote.setText(String.valueOf(Math.round(post.vote *100)/100.0));
         holder.rank.setText(String.valueOf(position+1));
 
@@ -60,13 +61,25 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
                     ArrayList <String> UidAutoreComment_Array=new ArrayList<>();
                     ArrayList <String> Text_Array=new ArrayList<>();
                     ArrayList <String> CommentTime_Array=new ArrayList<>();
-                    Bundle b = new Bundle();
-                    MonsterPost selectedPost= PostList.get(position);
 
-                    b.putString("PostTime",selectedPost.getPostTime());
-                    b.putString("UidAutore",selectedPost.getUidAutorePost());
-                    Log.d("PostAdapter","Taglia: "+selectedPost.Monster.getTaglia());
-                    b.putStringArrayList("monster",selectedPost.Monster.toArrayListString());
+                    ArrayList<String> nomiEventi=new ArrayList<>();
+                    ArrayList<String> causeEventi=new ArrayList<>();
+                    ArrayList<String> reazioniEventi=new ArrayList<>();
+
+                    Bundle b = new Bundle();
+                    StringBuilder lista_eventi = new StringBuilder();
+                    PartyPost selectedPost= PostList.get(position);
+
+
+
+                    for (int i =0; i< selectedPost.getEventi().size();i++)
+                    {
+                        lista_eventi.append(selectedPost.getEventi().get(i).getNome()).append("\n"); //event.get(0) = nome evento
+                        nomiEventi.add(selectedPost.getEventi().get(i).getNome());
+                        causeEventi.add(selectedPost.getEventi().get(i).getCausa());
+                        reazioniEventi.add(selectedPost.getEventi().get(i).getReazione());
+                    }
+
                     for(int i = 0; i<selectedPost.commenti.size(); i++)
                     {
                         UidAutoreComment_Array.add(selectedPost.commenti.get(i).getUidComment());
@@ -74,12 +87,32 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
                         CommentTime_Array.add(selectedPost.commenti.get(i).getTimestamp());
                     }
 
+                    b.putString("PostTime",selectedPost.getPostTime());
+                    b.putString("UidAutore",selectedPost.getUidAutorePost());
+                    b.putString("Nome",selectedPost.getNome());
+                    b.putString("ListaEventi",lista_eventi.toString());
+                    b.putString("ListaMostri",selectedPost.getListaMostri());
+                    b.putString("totCa",selectedPost.getTotCA());
+                    b.putString("totSfida",selectedPost.getTotSfida());
+                    b.putString("totPf",selectedPost.getTotPF());
+                    b.putString("totFor",selectedPost.getTotFOR());
+                    b.putString("totDes",selectedPost.getTotDES());
+                    b.putString("totCost",selectedPost.getTotCOST());
+                    b.putString("totInt",selectedPost.getTotINT());
+                    b.putString("totSag",selectedPost.getTotSAG());
+                    b.putString("totCar",selectedPost.getTotCAR());
+
+
+                    b.putStringArrayList("nomiEventi",nomiEventi);
+                    b.putStringArrayList("causeEventi",causeEventi);
+                    b.putStringArrayList("reazioniEventi",reazioniEventi);
+
                     b.putStringArrayList("UidAutoreCommentArray",UidAutoreComment_Array);
                     b.putStringArrayList("TextCommentArray",Text_Array);
                     b.putStringArrayList("CommentTimeArray",CommentTime_Array);
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    DetailMonsterPostFragment RecyclerFragment = new DetailMonsterPostFragment();
+                    DetailPartyPostFragment RecyclerFragment = new DetailPartyPostFragment();
                     RecyclerFragment.setParent(_parent);
                     RecyclerFragment.setArguments(b);
                     if(_parent.getClass().equals(CommunityFragment.class)) {
@@ -123,11 +156,11 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
 
 }
 
- class MonsterPostViewHolder extends RecyclerView.ViewHolder{
+ class PartyPostViewHolder extends RecyclerView.ViewHolder{
     TextView rank, vote, name;
     ImageButton authorButton;
     //CardView postCard;
-    public MonsterPostViewHolder(@NonNull View itemView) {
+    public PartyPostViewHolder(@NonNull View itemView) {
 
         super(itemView);
         Log.d("PostViewHolder","View: "+itemView);

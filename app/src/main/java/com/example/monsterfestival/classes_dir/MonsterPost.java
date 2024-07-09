@@ -18,10 +18,7 @@ public class MonsterPost {
        this.voteOriginalita =snapshot.child("voteOriginalita").getValue(Double.class);
        this.voteBilanciamento =snapshot.child("voteBilanciamento").getValue(Double.class);
        this.nVoti=snapshot.child("nVoti").getValue(int.class);
-       if(this.nVoti<=0)
-           this.vote =0.0;
-       else
-           this.vote = (this.voteCoerenza +this.voteOriginalita +this.voteBilanciamento)/3;
+       this.vote = snapshot.child("vote").getValue(Double.class);
        this.Monster= new MonsterClass(snapshot.child("Monster"));
        this.ID = this.Monster.getID();
        this.uidAutorePost = snapshot.child("uidAutorePost").getValue(String.class);

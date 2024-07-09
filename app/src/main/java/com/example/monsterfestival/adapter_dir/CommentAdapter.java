@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monsterfestival.R;
@@ -27,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
 
-    private DetailMonsterPostFragment _parent;
+    private Fragment _parent;
     private final List<Comment> CommentList;
     private final Lock ThreadLock = new ReentrantLock();
     //private OnNameClickListener listener;
@@ -82,7 +83,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
 
     }
 
-    public CommentAdapter(ArrayList<Comment> dataList, DetailMonsterPostFragment parent) {
+    public CommentAdapter(ArrayList<Comment> dataList, Fragment parent) {
         this._parent = parent;
         this.CommentList = dataList;
     }
@@ -125,7 +126,8 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
                         RecyclerFragment.setArguments(b);
-                        _parent.nascondiElementi();
+                        if(_parent instanceof DetailMonsterPostFragment)
+                            ((DetailMonsterPostFragment) _parent).nascondiElementi();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
 
                     });

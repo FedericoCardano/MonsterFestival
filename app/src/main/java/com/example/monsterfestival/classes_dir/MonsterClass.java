@@ -151,11 +151,29 @@ public class MonsterClass implements Comparable<MonsterClass> {
         if(snapshot.child("Ambiente").exists()) {
             this.ID = snapshot.getKey();
             this.Ambiete = snapshot.child("Ambiente").getValue(String.class);
-            this.CA = snapshot.child("CA").getValue(String.class);
+            if (snapshot.child("CA").getValue().getClass()==String.class)
+                this.CA = snapshot.child("CA").getValue(String.class);
+            else
+                this.CA = snapshot.child("CA").getValue(int.class).toString();
             this.Categoria = snapshot.child("Categoria").getValue(String.class);
             this.Nome = snapshot.child("Nome").getValue(String.class);
-            this.PF = snapshot.child("PF").getValue(String.class);
-            this.Sfida = snapshot.child("Sfida").getValue(String.class);
+            if (snapshot.child("PF").getValue().getClass()==String.class)
+                this.PF = snapshot.child("PF").getValue(String.class);
+            else
+                this.PF = snapshot.child("PF").getValue(int.class).toString();
+            if (snapshot.child("Sfida").getValue().getClass()==String.class) {
+                if (Double.parseDouble(snapshot.child("Sfida").getValue(String.class)) < 0)
+                    this.Sfida = Double.toString(Math.pow(2, Double.parseDouble(snapshot.child("Sfida").getValue(String.class))));
+                else
+                    this.Sfida = snapshot.child("Sfida").getValue(String.class);
+            }
+            else
+            {
+                if (snapshot.child("Sfida").getValue(Double.class) < 0)
+                    this.Sfida = Double.toString(Math.pow(2, snapshot.child("Sfida").getValue(Double.class)));
+                else
+                    this.Sfida = String.valueOf(snapshot.child("Sfida").getValue(Double.class));
+            }
             this.Taglia = snapshot.child("Taglia").getValue(String.class);
             this.Descrizione = snapshot.child("Descrizione").getValue(String.class);
             this.CAR = snapshot.child("CAR").getValue(String.class);

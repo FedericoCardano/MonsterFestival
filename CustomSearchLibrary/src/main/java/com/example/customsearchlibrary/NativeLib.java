@@ -227,7 +227,7 @@ public class NativeLib implements Serializable {
         return new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<ArrayList<String>>> getEvetParties() {
+    public ArrayList<ArrayList<ArrayList<String>>> getEventParties() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null && !userUid.isEmpty() && user.getUid().equals(userUid))
             return EventParty;

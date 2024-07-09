@@ -197,7 +197,6 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
                 dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
 
                     SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
                     Log.d("MyMonstersAdapter", "onBindViewHolder: "+position);

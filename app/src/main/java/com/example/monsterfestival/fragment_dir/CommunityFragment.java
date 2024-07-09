@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,10 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.monsterfestival.adapter_dir.MonsterPostAdapter;
+import com.example.monsterfestival.adapter_dir.PartyPostAdapter;
 import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
 import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.classes_dir.PartyPost;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,14 +42,18 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CommunityFragment extends Fragment implements OnFragmentRemoveListener {
 
     static MonsterPostAdapter adapter;
+    static PartyPostAdapter PartyAdapter;
     static RecyclerView recyclerView;
+    static RecyclerView PartyRecyclerView;
     static Spinner orderSpinner;
     public static AlertDialog dialog;
     static LinearLayout CommunityLayout;
     public final Lock ThreadLock = new ReentrantLock();
     ArrayList<MonsterPost> Posts = new ArrayList<MonsterPost>();
+    ArrayList<PartyPost> PartyPost = new ArrayList<PartyPost>();
     OnFragmentVisibleListener fragmentVisibleListener;
     ArrayList<String> order = new ArrayList<>();
+    BottomNavigationView communityNavBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,20 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
         View view = inflater.inflate(R.layout.fragment_community, container, false);
         recyclerView = view.findViewById(R.id.PostRank);
         orderSpinner = view.findViewById(R.id.spinner);
+        PartyRecyclerView = view.findViewById(R.id.PostPartyRank);
+        communityNavBar=view.findViewById(R.id.communityNavBar);
+        communityNavBar.setOnItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.monster_community)
+            {
+                recyclerView.setVisibility(View.VISIBLE);
+                PartyRecyclerView.setVisibility(View.GONE);
+            }
+            else{
+                recyclerView.setVisibility(View.GONE);
+                PartyRecyclerView.setVisibility(View.VISIBLE);
+            }
+            return true;
+        });
 
         ArrayAdapter<String> adapterSpinner=
                 new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item,order);
@@ -72,11 +95,13 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 update(position);
+                updateParties(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 update(0);
+                updateParties(0);
             }
         });
 
@@ -108,6 +133,7 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
 
     public void ripristinaVisibilitaElementi() {
         update(0);
+        updateParties(0);
     }
     public void nascondiElementi() {
         CommunityLayout.setVisibility(View.INVISIBLE);
@@ -156,6 +182,54 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
                 recyclerView.setLayoutManager(gridLayoutManager);
                 adapter = new MonsterPostAdapter(Posts, this);
                 recyclerView.setAdapter(adapter);
+                CommunityLayout.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void updateParties(int order){
+        ArrayList<String> orderList = new ArrayList<>();
+        orderList.add("vote");
+        orderList.add("voteCoerenza");
+        orderList.add("voteOriginalita");
+        orderList.add("voteBilanciamento");
+        orderList.add("PostTime");
+        Log.d("firebase", "firebase start");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query topPost = db.child("PartyPosts").orderByChild(orderList.get(order));
+        Log.d("firebase", "firebase ready");
+
+        topPost.get().addOnCompleteListener(task -> {
+            //if (ThreadLock.tryLock()) {
+            // try {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+
+                Log.d("QueryFecthing", "inizio for di scomposizione");
+                PartyPost.clear();
+                for (DataSnapshot child : task.getResult().getChildren()) {
+                    Log.d("QueryFecthing", String.valueOf(child));
+                    PartyPost.add(new PartyPost(child));
+                }
+                Log.d("QueryFecthing", "riordino Posts");
+                ArrayList<PartyPost> temp = new ArrayList<>();
+                for (int i = PartyPost.size() - 1; i >= 0; i--) {
+                    temp.add(PartyPost.get(i));
+                }
+                PartyPost = temp;
+
+                Log.d("QueryFecthing", "fine for di scomposizione");
+
+                for (int i = 0; i < PartyPost.size(); i++) {
+                    Log.d("Query-result", "Vote: " + PartyPost.get(i).vote + "Nome: " + PartyPost.get(i).getNome() + " Index: " + i);
+                }
+                Log.d("Query-Result","set adapter");
+
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+                PartyRecyclerView.setLayoutManager(gridLayoutManager);
+                PartyAdapter = new PartyPostAdapter(PartyPost, this);
+                PartyRecyclerView.setAdapter(PartyAdapter);
                 CommunityLayout.setVisibility(View.VISIBLE);
             }
         });

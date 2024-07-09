@@ -1,5 +1,7 @@
 package com.example.monsterfestival.classes_dir;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
 public class EventClass {
@@ -11,6 +13,12 @@ public class EventClass {
         this.nome = nome;
         this.causa = causa;
         this.reazione = reazione;
+    }
+
+    public EventClass(DataSnapshot snapshot) {
+        this.nome = snapshot.child("nome").getValue(String.class);
+        this.causa = snapshot.child("causa").getValue(String.class);
+        this.reazione = snapshot.child("reazione").getValue(String.class);
     }
 
     public ArrayList<String> Event2ArrayString()

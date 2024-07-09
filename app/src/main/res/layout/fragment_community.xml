@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+            android:id="@+id/communityNavBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -52,6 +52,12 @@
             android:id="@+id/PostRank"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/PostPartyRank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
 
 
     </LinearLayout>

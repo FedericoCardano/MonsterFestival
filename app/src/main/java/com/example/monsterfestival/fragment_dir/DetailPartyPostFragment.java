@@ -136,6 +136,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         voteButton=rootView.findViewById(R.id.vote_btn);
         Comments=rootView.findViewById(R.id.commentRw);
 
+        //exportButton.setVisibility(View.INVISIBLE);
         if(bundle != null){
             Bundle b = this.getArguments();
             detailName.setText(b.getString("Nome"));
@@ -182,7 +183,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
             CommentAdapter commentsAdapter = new CommentAdapter(CommentsList,this);
             Comments.setAdapter(commentsAdapter);
 
-            //getCurrentVote();
+
             String IdParty = bundle.getString("PostTime");
             String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
             DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyPartyVotes");
@@ -445,7 +446,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
 
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.title_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.cardView_section)));
-        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
+       // sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
 
         // Calcola l'altezza totale e la larghezza massima tra gli screenshot delle sezioni
@@ -461,7 +462,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         // Imposta lo sfondo della bitmap con lo stesso del fragment
         Rect sourceRect = new Rect(0, 0, rootView.getWidth(), rootView.getHeight());
         Rect destinationRect = new Rect(0, 0, maxWidth, totalHeight);
-        Bitmap bitmapBackground = drawableToBitmap(rootView.getBackground(), rootView.getWidth(), rootView.getHeight());
+        Bitmap bitmapBackground = drawableToBitmap(getResources().getDrawable(R.drawable.background_image, null), rootView.getWidth(), rootView.getHeight());
         canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
         exportButton.setVisibility(View.VISIBLE);

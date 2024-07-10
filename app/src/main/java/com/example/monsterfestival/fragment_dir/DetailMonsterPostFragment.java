@@ -123,7 +123,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
 
         voteButton=rootView.findViewById(R.id.vote_btn);
         Comments=rootView.findViewById(R.id.commentRw);
-
+        //exportButton.setVisibility(View.INVISIBLE);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.recyclerview_progress_layout);
@@ -417,7 +417,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         // Imposta lo sfondo della bitmap con lo stesso del fragment
         Rect sourceRect = new Rect(0, 0, rootView.getWidth(), rootView.getHeight());
         Rect destinationRect = new Rect(0, 0, maxWidth, totalHeight);
-        Bitmap bitmapBackground = drawableToBitmap(rootView.getBackground(), rootView.getWidth(), rootView.getHeight());
+        Bitmap bitmapBackground = drawableToBitmap(getResources().getDrawable(R.drawable.background_image, null), rootView.getWidth(), rootView.getHeight());
         canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
         exportButton.setVisibility(View.VISIBLE);

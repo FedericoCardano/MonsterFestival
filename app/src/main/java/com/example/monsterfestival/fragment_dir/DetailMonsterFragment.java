@@ -249,7 +249,7 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
         // Imposta lo sfondo della bitmap con lo stesso del fragment
         Rect sourceRect = new Rect(0, 0, rootView.getWidth(), rootView.getHeight());
         Rect destinationRect = new Rect(0, 0, maxWidth, totalHeight);
-        Bitmap bitmapBackground = drawableToBitmap(rootView.getBackground(), rootView.getWidth(), rootView.getHeight());
+        Bitmap bitmapBackground = drawableToBitmap(getResources().getDrawable(R.drawable.background_image, null), rootView.getWidth(), rootView.getHeight());
         canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
         exportButton.setVisibility(View.VISIBLE);

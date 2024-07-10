@@ -112,12 +112,12 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                 Double num = Double.parseDouble(String.valueOf(Sfida.getText()));
                 if (num < 0.125) {
                     Sfida.setText("0.125");
-                    Toast.makeText(getActivity(), "Il valore minimo è 0.125", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Il valore minimo di Sfida è 0.125", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if (num >50) {
                     Sfida.setText("50");
-                    Toast.makeText(getActivity(), "Il valore massimo è 50", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Il valore massimo di Sfida è 50", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -127,7 +127,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                     if (num < 1) {
                         if (!(num == 0.125 || num == 0.25 || num == 0.5)) {
                             Sfida.setText("0.125");
-                            Toast.makeText(getActivity(), "I numeri decimali ammessi sono:\n 0.125, 0.25, 0.5", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "I numeri decimali di Sfida ammessi sono:\n 0.125, 0.25, 0.5", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
@@ -138,7 +138,8 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                         return;
                     }
                 }
-
+                if(!controlli())
+                    return;
 
                 ArrayList<String> dati = new ArrayList<>();
                 dati.add("myMonsterId");//non viene usato per ora
@@ -182,7 +183,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
             }
         });
 
-        controlli();
+
 
 
         Ambiente= view.findViewById(R.id.ambienteSpinner);
@@ -305,294 +306,173 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
 
     }
 
-    private void controlli(){
-        For.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    private boolean controlli(){
+        Editable s = For.getText();
+        if (String.valueOf(s).isEmpty()) {
+            For.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore FOR mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Toast.makeText(getActivity(), "FOR troppo bassa (FOR < 1)", Toast.LENGTH_SHORT).show();
+                For.setText(String.valueOf(1));
+                return false;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+            else if(num>30)
+            {
+                Toast.makeText(getActivity(), "FOR troppo alta (FOR > 30)", Toast.LENGTH_SHORT).show();
+                For.setText(String.valueOf(30));
+                return false;
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (String.valueOf(s).isEmpty()) {
-                    For.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        For.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        For.setText(String.valueOf(30));
-                        num=30;
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        For.setText(String.valueOf(num));
-                    }
-                }
+        }
+        s = Des.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Des.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore DES mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Des.setText(String.valueOf(1));
+                Toast.makeText(getActivity(), "DES troppo bassa (DES < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });
-
-        Des.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            else if(num>30)
+            {
+                Des.setText(String.valueOf(30));
+                Toast.makeText(getActivity(), "DES troppo alta (DES > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        s = Cost.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Cost.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore COST mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Cost.setText(String.valueOf(1));
+                Toast.makeText(getActivity(), "COST troppo bassa (COST < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (String.valueOf(s).isEmpty()) {
-                    Des.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Des.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        Des.setText(String.valueOf(30));
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Des.setText(String.valueOf(num));
-                    }
-                }
+            else if(num>30)
+            {
+                Cost.setText(String.valueOf(30));
+                Toast.makeText(getActivity(), "COST troppo alta (COST > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });
+        }
 
-        Cost.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        s = Int.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Int.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore INT mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Int.setText(String.valueOf(1));
+                Toast.makeText(getActivity(), "INT troppo bassa (INT < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+            else if(num>30)
+            {
+                Int.setText(String.valueOf(30));
+                Toast.makeText(getActivity(), "INT troppo alta (INT > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
+        }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (String.valueOf(s).isEmpty()) {
-                    Cost.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Cost.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        Cost.setText(String.valueOf(30));
-                        num=30;
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Cost.setText(String.valueOf(num));
-                    }
-                }
+        s = Sag.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Sag.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore SAG mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Sag.setText(String.valueOf(1));
+                Toast.makeText(getActivity(), "SAG troppo bassa (SAG < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });
-
-        Int.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            else if(num>30)
+            {
+                Sag.setText(String.valueOf(30));
+                Toast.makeText(getActivity(), "SAG troppo alta (SAG > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        s = Car.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Car.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore CAR mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Car.setText(String.valueOf(1));
+                Toast.makeText(getActivity(), "CAR troppo bassa (CAR < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (String.valueOf(s).isEmpty()) {
-                    Int.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Int.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        Int.setText(String.valueOf(30));
-                        num=30;
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Int.setText(String.valueOf(num));
-                    }
-                }
+            else if(num>30)
+            {
+                Car.setText(String.valueOf(30));
+                Toast.makeText(getActivity(), "CAR troppo alta (CAR > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });
+        }
 
-        Sag.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        s = Ca.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Ca.setText(String.valueOf(1));
+            Toast.makeText(getActivity(), "valore CA mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Ca.setText("1");
+                Toast.makeText(getActivity(), "Forza troppo bassa (FOR < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+            else if(num>30)
+            {
+                Ca.setText("30");
+                Toast.makeText(getActivity(), "Forza troppo alta (FOR > 30)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-                if (String.valueOf(s).isEmpty()) {
-                    Sag.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Sag.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        Sag.setText(String.valueOf(30));
-                        num=30;
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Sag.setText(String.valueOf(num));
-                    }
-                }
+        }
+        s = Pf.getText();
+        if (String.valueOf(s).isEmpty()) {
+            Pf.setText("1");
+            Toast.makeText(getActivity(), "valore PF mancante", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            int num = Integer.parseInt(String.valueOf(s));
+            if (num < 1) {
+                Pf.setText("1");
+                Toast.makeText(getActivity(), "Pf troppo bassa (PF < 1)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-        });;
-
-        Car.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            else if(num>999)
+            {
+                Pf.setText("999");
+                Toast.makeText(getActivity(), "Pf troppo alta (PF > 999)", Toast.LENGTH_SHORT).show();
+                return false;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (String.valueOf(s).isEmpty()) {
-                    Car.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Car.setText(String.valueOf(1));
-                        num = 1;
-                    }
-                    else if(num>30)
-                    {
-                        Car.setText(String.valueOf(30));
-                        num=30;
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Car.setText(String.valueOf(num));
-                    }
-                }
-            }
-        });
-
-        Ca.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-                if (String.valueOf(s).isEmpty()) {
-                    Ca.setText(String.valueOf(1));
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Ca.setText("1");
-
-                    }
-                    else if(num>30)
-                    {
-                        Ca.setText("30");
-
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Ca.setText(String.valueOf(num));
-                    }
-                }
-            }
-        });
-
-        Pf.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-                if (String.valueOf(s).isEmpty()) {
-                    Pf.setText("1");
-                }
-                else {
-                    int num = Integer.parseInt(String.valueOf(s));
-                    if (num < 1) {
-                        Pf.setText("1");
-                    }
-                    else if(num>999)
-                    {
-                        Pf.setText("999");
-                    }
-                    else if(num != Double.parseDouble(String.valueOf(s)))
-                    {
-                        Pf.setText(String.valueOf(num));
-                    }
-                }
-            }
-        });
-
+        }
+        return true;
     }
 
 }

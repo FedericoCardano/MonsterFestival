@@ -236,6 +236,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.cardView_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
+        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailEvent)));
 
         // Calcola l'altezza totale e la larghezza massima tra gli screenshot delle sezioni
         for (Bitmap screenshot : sectionScreenshots) {

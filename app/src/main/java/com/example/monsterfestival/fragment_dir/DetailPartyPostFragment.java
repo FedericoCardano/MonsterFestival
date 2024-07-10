@@ -453,13 +453,13 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         int currentHeight = 0;
 
         exportButton.setVisibility(View.INVISIBLE);
-
+        authorButton.setVisibility(View.INVISIBLE);
         ArrayList<Bitmap> sectionScreenshots = new ArrayList<>();
 
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.title_section)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.cardView_section)));
-       // sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.difficultyLayout)));
         sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailDesc)));
+        sectionScreenshots.add(captureSectionScreenshot(rootView.findViewById(R.id.detailEvent)));
 
         // Calcola l'altezza totale e la larghezza massima tra gli screenshot delle sezioni
         for (Bitmap screenshot : sectionScreenshots) {
@@ -478,6 +478,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         canvas.drawBitmap(bitmapBackground, sourceRect, destinationRect, new Paint());
 
         exportButton.setVisibility(View.VISIBLE);
+        authorButton.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < sectionScreenshots.size(); i++) {
             canvas.drawBitmap(sectionScreenshots.get(i), (float) ((rootView.getWidth() - sectionScreenshots.get(i).getWidth()) / 2), currentHeight, null);

@@ -67,13 +67,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     b.putString("INT", monster.getInt());
                     b.putString("SAG", monster.getSag());
 
-                    SearchMonstersFragment.filtersCard.setVisibility(View.INVISIBLE);
-                    SearchMonstersFragment.searchView.setVisibility(View.INVISIBLE);
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
                     RecyclerFragment.setParent(_parent);
                     RecyclerFragment.setArguments(b);
+                    ((SearchMonstersFragment) _parent).nascondiElementi();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_search, RecyclerFragment ).addToBackStack(null).commit();
 
                 } finally {

@@ -76,12 +76,7 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
 
         @Override
         public void onBindViewHolder(@NonNull MyMonstersViewHolder holder, int position) {
-            if (visibilitaAttiva)
-                holder.itemView.setVisibility(View.VISIBLE);
-            else {
-                holder.itemView.setVisibility(View.INVISIBLE);
-                return;
-            }
+
             holder.Nome.setText(MyMonsters.get(position));
 
 
@@ -100,7 +95,7 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                         transaction.add( R.id.frame_access_my_monster, newFragment);
                         transaction.commit();
-                        _parent.getAdapter().setVisibilitaElementi(false);
+                        _parent.nascondiElementi();
                     } finally {
                         ThreadLock.unlock();
                     }
@@ -140,6 +135,7 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
                         DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
                         RecyclerFragment.setParent(_parent);
                         RecyclerFragment.setArguments(b);
+                        _parent.nascondiElementi();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_my_monster, RecyclerFragment).addToBackStack(null).commit();
                     }finally {
                         ThreadLock.unlock();
@@ -225,12 +221,6 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
         @SuppressLint("NotifyDataSetChanged")
         public void updateCartItems(ArrayList<String> myMonsters) {
             this.MyMonsters=myMonsters;
-            notifyDataSetChanged();
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        public void setVisibilitaElementi(boolean value) {
-            visibilitaAttiva = value;
             notifyDataSetChanged();
         }
 

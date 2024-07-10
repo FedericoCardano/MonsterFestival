@@ -7,50 +7,60 @@
     android:background="@drawable/background_image"
     tools:context=".activity_dir.MainActivity">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="75dp"
-        android:background="@drawable/brawn_border"
-        android:backgroundTint="@color/white"
-        android:focusable="true"
-        android:importantForAutofill="yes"
-        app:closeIcon="@drawable/baseline_clear_24"
-        app:iconifiedByDefault="false"
-        app:queryHint="@string/cerca"
-        app:searchHintIcon="@null"
-        app:searchIcon="@drawable/baseline_search_24" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/filters_card"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        app:cardCornerRadius="10dp">
-
-        <ImageView
-            android:id="@+id/filters_btn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_filter"
-            android:contentDescription="@string/bottone_filtri" />
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
+        android:id="@+id/SearchLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/brawn_border"
+                android:backgroundTint="@color/white"
+                android:focusable="true"
+                android:importantForAutofill="yes"
+                app:closeIcon="@drawable/baseline_clear_24"
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/cerca"
+                app:searchHintIcon="@null"
+                app:searchIcon="@drawable/baseline_search_24" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/filters_card"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/filters_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:contentDescription="@string/bottone_filtri"
+                    android:src="@drawable/ic_filter" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frame_access_search"

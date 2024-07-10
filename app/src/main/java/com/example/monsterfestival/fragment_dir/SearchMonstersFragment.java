@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,7 +66,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
 
     private String _text = "";
     private SearchFiltersFragment searchFiltersFragment;
-
+    private LinearLayout SearchLayout;
     private NativeLib objectNativeLib;
 
     public final Lock ThreadLock = new ReentrantLock();
@@ -77,6 +78,7 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_monsters, container, false);
 
+        SearchLayout = view.findViewById(R.id.SearchLayout);
         ImageView filtersBtn = view.findViewById(R.id.filters_btn);
         filtersCard = view.findViewById(R.id.filters_card);
         filtersBtn.setOnClickListener(view1 -> {
@@ -262,9 +264,10 @@ public class SearchMonstersFragment extends Fragment implements OnFragmentRemove
     }
 
     public void ripristinaVisibilitaElementi() {
-        filtersCard.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.VISIBLE);
+        SearchLayout.setVisibility(View.VISIBLE);
+    }
+    public void nascondiElementi() {
+        SearchLayout.setVisibility(View.INVISIBLE);
     }
 
 }

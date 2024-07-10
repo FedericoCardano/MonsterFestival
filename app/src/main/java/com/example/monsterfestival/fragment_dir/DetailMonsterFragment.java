@@ -194,6 +194,8 @@ public class DetailMonsterFragment extends Fragment implements OnFragmentRemoveL
             else if (parent instanceof DetailPartyFragment) {
                 addButton.setVisibility(View.INVISIBLE);
             }
+            else if (parent instanceof DetailPartyPostFragment)
+                addButton.setVisibility(View.INVISIBLE);
         }
 
         rootView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));

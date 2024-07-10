@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/DetailPa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
-    android:background="@color/creamColor"
     tools:context=".fragment_dir.DetailPartyFragment">
 
     <ScrollView
@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/detailPartyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -336,8 +337,8 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingTop="10dp"
                 android:paddingStart="20dp"
+                android:paddingTop="10dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="10dp">
 
@@ -372,7 +373,7 @@
                 android:paddingStart="20dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:paddingBottom="20dp" >
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -392,6 +393,7 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/detailEvent"
                 android:layout_width="match_parent"
@@ -401,7 +403,7 @@
                 android:paddingStart="20dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:paddingBottom="20dp" >
+                android:paddingBottom="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"

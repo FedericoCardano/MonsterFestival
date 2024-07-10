@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +73,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
 
     TextView detailDiff, detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida, detailMostri,detailEventTv;
     FloatingActionButton exportButton;
-
+    LinearLayout DetailPartyLayout;
     Dialog dialog;
 
     Fragment parent;
@@ -97,7 +98,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         rootView = inflater.inflate(R.layout.fragment_detail_party, container, false);
 
         filePath = requireContext().getFilesDir() + File.separator + "MonsterFestival_SchedaParty.pdf";
-
+        DetailPartyLayout = rootView.findViewById(R.id.detailPartyLayout);
         detailName = rootView.findViewById(R.id.detailName);
         detailCA = rootView.findViewById(R.id.detailCA);
         detailCAR = rootView.findViewById(R.id.detailCAR);
@@ -215,7 +216,12 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
         }
     }
 
-    public void ripristinaVisibilitaElementi() {}
+    public void ripristinaVisibilitaElementi() {
+        DetailPartyLayout.setVisibility(View.VISIBLE);
+    }
+    public void nascondiElementi() {
+        DetailPartyLayout.setVisibility(View.INVISIBLE);
+    }
 
     private void createAndSharePdf(Context context) throws FileNotFoundException {
         int totalHeight = 0;
@@ -362,6 +368,7 @@ public class DetailPartyFragment extends Fragment implements OnFragmentRemoveLis
                         DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
                         RecyclerFragment.setParent(DetailPartyFragment.this);
                         RecyclerFragment.setArguments(b);
+                        nascondiElementi();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_monster, RecyclerFragment ).addToBackStack(null).commit();
                     }
 

@@ -25,7 +25,6 @@ import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
 import com.example.monsterfestival.classes_dir.EventClass;
 import com.example.monsterfestival.classes_dir.MonsterClass;
-import com.example.monsterfestival.classes_dir.MonsterPost;
 import com.example.monsterfestival.fragment_dir.DetailPartyFragment;
 import com.example.monsterfestival.fragment_dir.MyPartiesFragment;
 import com.example.monsterfestival.fragment_dir.PartyCreationFragment;
@@ -40,18 +39,19 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     private final Context context;
-    private final MyPartiesFragment fragment;
+    private final MyPartiesFragment _parent;
     private final FragmentManager fragmentManager;
+
 
     private ArrayList<String> nomeParty;
 
-    private boolean visibilitaAttiva = true;
+
 
     private final Lock ThreadLock = new ReentrantLock();
 
     public PartiesAdapter(Context context, MyPartiesFragment parent, FragmentManager fragmentManager) {
         this.context = context;
-        this.fragment = parent;
+        this._parent = parent;
         this.fragmentManager = fragmentManager;
     }
     @NonNull
@@ -64,20 +64,13 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PartiesViewHolder holder, int position) {
 
-        if (visibilitaAttiva)
-            holder.itemView.setVisibility(View.VISIBLE);
-        else {
-            holder.itemView.setVisibility(View.INVISIBLE);
-            return;
-        }
-
         holder.recNome.setText(nomeParty.get(position));
 
         holder.itemView.setOnClickListener(view -> {
             if (ThreadLock.tryLock()) {
                 try {
                     Bundle b = new Bundle();
-                    SharedPreferences sharedPreferences = fragment.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                     NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
 
                     float totSfida = 0;
@@ -132,8 +125,9 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailPartyFragment RecyclerFragment = new DetailPartyFragment();
-                    RecyclerFragment.setParent(fragment);
+                    RecyclerFragment.setParent(_parent);
                     RecyclerFragment.setArguments(b);
+                    _parent.nascondiElementi();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_party, RecyclerFragment ).addToBackStack(null).commit();
                 } finally {
                     ThreadLock.unlock();
@@ -155,7 +149,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
                     dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
 
-                        SharedPreferences sharedPreferences = fragment.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
                         objectNativeLib.deleteParty(holder.getAdapterPosition());
@@ -184,8 +178,9 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                     newFragment.setArguments(bundle);
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     transaction.add(R.id.frame_access_party, newFragment);
+                    _parent.nascondiElementi();
                     transaction.commit();
-                    fragment.getAdapter().setVisibilitaElementi(false);
+
                 } finally {
                     ThreadLock.unlock();
                 }
@@ -205,7 +200,7 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
             dialog.findViewById(R.id.btnNo).setOnClickListener(view1 -> dialog.dismiss());
             dialog.findViewById(R.id.btnSi).setOnClickListener(view1 -> {
 
-                SharedPreferences sharedPreferences = fragment.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = _parent.requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
                 NativeLib objectNativeLib = new NativeLib(new Gson().fromJson(sharedPreferences.getString("objectNativeLib", ""), NativeLib.class));
                 Integer totPF=0, totCA=0, totFOR=0, totDES=0, totCOST=0, totINT=0, totSAG=0, totCAR=0;
                 Double totSfida=0.0;
@@ -285,12 +280,6 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void updateCartItems(ArrayList<String> nomeParty) {
         this.nomeParty = nomeParty;
-        notifyDataSetChanged();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setVisibilitaElementi(boolean value) {
-        visibilitaAttiva = value;
         notifyDataSetChanged();
     }
 

@@ -91,6 +91,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
     Fragment parent;
     OnFragmentVisibleListener fragmentVisibleListener;
     String uidAutorePost;
+    DetailPartyPostFragment myself=this;
 
     ArrayList<Comment> CommentsList = new ArrayList<>();
     ArrayList<EventClass>Eventi= new ArrayList<>();
@@ -569,11 +570,10 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
 
                                         AppCompatActivity activity = (AppCompatActivity) widget.getContext();
                                         DetailMonsterFragment RecyclerFragment = new DetailMonsterFragment();
-                                        RecyclerFragment.setParent(DetailPartyPostFragment.this);
+                                        RecyclerFragment.setParent(myself);
                                         PartyPostLayout.setVisibility(View.INVISIBLE);
                                         RecyclerFragment.setArguments(b);
-
-                                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_access_monster, RecyclerFragment).addToBackStack(null).commit();
+                                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.flPartyPost, RecyclerFragment).addToBackStack(null).commit();
                                     }
                                 }
                             }

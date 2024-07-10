@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +32,7 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     OnFragmentVisibleListener fragmentVisibleListener;
 
     RecyclerView recyclerView;
-
+    ConstraintLayout myPartiesLayout;
     PartiesAdapter adapter;
     View rootView;
 
@@ -45,7 +46,7 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_my_parties, container, false);
-
+        myPartiesLayout = rootView.findViewById(R.id.appBarLayout);
         recyclerView = rootView.findViewById(R.id.rvPartyItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -75,9 +76,8 @@ public class MyPartiesFragment extends Fragment implements OnFragmentRemoveListe
         }
     }
 
-    public void ripristinaVisibilitaElementi() {
-        adapter.setVisibilitaElementi(true);
-    }
+    public void ripristinaVisibilitaElementi() {myPartiesLayout.setVisibility(View.VISIBLE);    }
+    public void nascondiElementi() { myPartiesLayout.setVisibility(View.INVISIBLE);    }
 
     private ArrayList<String> getListItems() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);

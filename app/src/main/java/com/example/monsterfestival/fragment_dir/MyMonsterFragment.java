@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.example.customsearchlibrary.NativeLib;
@@ -42,7 +43,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MyMonsterFragment extends Fragment implements OnFragmentRemoveListener
 {
     OnFragmentVisibleListener fragmentVisibleListener;
-
+    LinearLayout myMonstersLayout;
     RecyclerView recyclerView;
     ProgressBar progressBar;
     MyMonstersAdapter adapter;
@@ -60,6 +61,8 @@ public class MyMonsterFragment extends Fragment implements OnFragmentRemoveListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_my_monters, container, false);
+
+        myMonstersLayout=rootView.findViewById(R.id.myMonstersLayout);
         progressBar = rootView.findViewById(R.id.progressBarTemp);
         recyclerView = rootView.findViewById(R.id.rvMyMonsterItems);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
@@ -93,7 +96,9 @@ public class MyMonsterFragment extends Fragment implements OnFragmentRemoveListe
         }
     }
 
-    public void ripristinaVisibilitaElementi() {        adapter.setVisibilitaElementi(true);    }
+    public void ripristinaVisibilitaElementi() {       myMonstersLayout.setVisibility(View.VISIBLE);    }
+
+    public void nascondiElementi() {        myMonstersLayout.setVisibility(View.INVISIBLE);    }
 
     private ArrayList<String> getListItems() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);

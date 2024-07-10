@@ -18,6 +18,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -37,6 +38,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.adapter_dir.CommentAdapter;
 import com.example.monsterfestival.classes_dir.Comment;
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
@@ -126,7 +128,7 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         builder.setCancelable(false);
         builder.setView(R.layout.recyclerview_progress_layout);
         dialog = builder.create();
-        if(parent.getClass().equals(DetailAuthorFragment.class))
+        if(parent instanceof DetailAuthorFragment)
             autorButton.setVisibility(View.INVISIBLE);
         if (bundle != null) {
             uidAutorePost=bundle.getString("UidAutore");
@@ -169,37 +171,18 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyMonsterVotes");
         getCurrentVote();
 
-        //TODO autorButtonListener
-       // autorButton.setOnClickListener(view1 -> {
-//            if (bundle != null) {
-//                Cart cart = CartHelper.getCart();
-//                ArrayList<String> dati = new ArrayList<>();
-//                dati.add(bundle.getString("ID"));
-//                dati.add(bundle.getString("Nome"));
-//                dati.add(bundle.getString("Descrizione"));
-//                dati.add(bundle.getString("Ambiente"));
-//                dati.add(bundle.getString("Categoria"));
-//                dati.add(bundle.getString("Taglia"));
-//                dati.add(bundle.getString("Sfida"));
-//                dati.add(bundle.getString("PF"));
-//                dati.add(bundle.getString("CA"));
-//                dati.add(bundle.getString("FOR"));
-//                dati.add(bundle.getString("DES"));
-//                dati.add(bundle.getString("COST"));
-//                dati.add(bundle.getString("INT"));
-//                dati.add(bundle.getString("SAG"));
-//                dati.add(bundle.getString("CAR"));
-//                MonsterClass monsterClass = new MonsterClass(dati);
-//                final Compare compare = Compare.getCompare();
-//                if (!compare.getFlag()) {
-//                    cart.add(monsterClass, 1, getContext());
-//                }
-//                else {
-//                    compare.add(requireContext(), monsterClass, compare.getNumero());
-//                }
-//                ((MainActivity) requireActivity()).tornaIndietro(2);
-//            }
-//      });
+
+        autorButton.setOnClickListener(view1 -> {
+
+                        Bundle b = new Bundle();
+                        b.putString("UidAutore",uidAutorePost);
+                        AppCompatActivity activity = (AppCompatActivity) view1.getContext();
+                        DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
+                        RecyclerFragment.setArguments(b);
+                        nascondiElementi();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
+
+      });
 
 
         commentButton.setOnClickListener(view -> {

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -44,8 +43,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.adapter_dir.CommentAdapter;
 import com.example.monsterfestival.classes_dir.Comment;
 import com.example.monsterfestival.classes_dir.EventClass;
@@ -57,7 +56,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.geom.PageSize;
@@ -80,7 +78,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
 
     LinearLayout PartyPostLayout;
     TextView detailName, detailCA, detailCAR, detailCOST, detailDES, detailFOR, detailINT, detailPF, detailSAG, detailSfida,detailMostri,detailEvent;
-    ImageButton autorButton, exportButton,commentButton,voteButton;
+    ImageButton authorButton, exportButton,commentButton,voteButton;
     RecyclerView Comments;
     boolean valutato;
     int oldCoerenza;
@@ -133,7 +131,7 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
         detailEvent = rootView.findViewById(R.id.detailEventTv);
         exportButton = rootView.findViewById(R.id.export_btn);
         //TODO onClickListeners
-        autorButton = rootView.findViewById(R.id.autor_btn);
+        authorButton = rootView.findViewById(R.id.autor_btn);
         commentButton =rootView.findViewById(R.id.comment_btn);
         voteButton=rootView.findViewById(R.id.vote_btn);
         Comments=rootView.findViewById(R.id.commentRw);
@@ -151,10 +149,12 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
             detailSAG.setText(b.getString("totSag"));
             detailSfida.setText(b.getString("totSfida"));
             uidAutorePost=b.getString("UidAutore");
-//            detailMostri.setText(b.getString("ListaMostri"));
-//            detailEvent.setText(b.getString("ListaEventi"));
+
             setTextClickable(detailMostri, bundle.getString("ListaMostri"), true);
             setTextClickable(detailEvent, bundle.getString("ListaEventi"),false);
+
+            if(parent instanceof DetailAuthorFragment)
+                authorButton.setVisibility(View.INVISIBLE);
 
             if(b.getString("ListaEventi")!=null && !b.getString("ListaEventi").isEmpty())
             {
@@ -187,6 +187,16 @@ public class DetailPartyPostFragment extends Fragment implements OnFragmentRemov
             String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
             DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyPartyVotes");
             getCurrentVote();
+
+            authorButton.setOnClickListener(view -> {
+                Bundle bun = new Bundle();
+                bun.putString("UidAutore",uidAutorePost);
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
+                RecyclerFragment.setArguments(bun);
+                nascondiElementi();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flPartyPost, RecyclerFragment).addToBackStack(null).commit();
+            });
 
             //TODO Debug
             exportButton.setOnClickListener(view1 -> {

@@ -110,6 +110,8 @@ public class PartyPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder> 
                     b.putStringArrayList("UidAutoreCommentArray",UidAutoreComment_Array);
                     b.putStringArrayList("TextCommentArray",Text_Array);
                     b.putStringArrayList("CommentTimeArray",CommentTime_Array);
+                    if(_parent.getArguments()!=null &&_parent.getArguments().containsKey("comment"))
+                        b.putBoolean("comment",true);
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailPartyPostFragment RecyclerFragment = new DetailPartyPostFragment();
@@ -142,7 +144,7 @@ public class PartyPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder> 
            AppCompatActivity activity = (AppCompatActivity) view.getContext();
            DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
            RecyclerFragment.setArguments(b);
-
+           RecyclerFragment.setParent(_parent);
            activity.getSupportFragmentManager().beginTransaction().replace(_parent.getId(), RecyclerFragment).addToBackStack(null).commit();
 
         });

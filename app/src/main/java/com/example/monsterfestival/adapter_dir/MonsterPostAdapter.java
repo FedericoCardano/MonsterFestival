@@ -77,6 +77,8 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
                     b.putStringArrayList("UidAutoreCommentArray",UidAutoreComment_Array);
                     b.putStringArrayList("TextCommentArray",Text_Array);
                     b.putStringArrayList("CommentTimeArray",CommentTime_Array);
+                    if(_parent.getArguments()!=null &&_parent.getArguments().containsKey("comment"))
+                        b.putBoolean("comment",true);
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     DetailMonsterPostFragment RecyclerFragment = new DetailMonsterPostFragment();

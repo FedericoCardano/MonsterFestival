@@ -109,14 +109,22 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
         rf.get().addOnCompleteListener(task ->  {
             if(task.isSuccessful()){
                 Log.d("firebase", "data: "+ task.getResult().getValue());
+                Fragment grandparent = _parent.getParentFragment();
+                Bundle thisBundle = _parent.getArguments();
 
-                if(comment.getUidComment().equals(_parent.getArguments().getString("UidAutore")))
+                if(comment.getUidComment().equals(thisBundle.getString("UidAutore")))
                 {
                     holder.authorButton.setClickable(false);
-                    holder.authorButton.setColorFilter(R.color.grigio);
+                    holder.authorButton.setVisibility(View.INVISIBLE);
 
                     String name = task.getResult().getValue()+" (Autore)";
                     holder.nameAuthor.setText(name);
+                }
+                else if(thisBundle.containsKey("comment"))
+                {
+                    holder.authorButton.setClickable(false);
+                    holder.authorButton.setVisibility(View.INVISIBLE);
+                    holder.nameAuthor.setText(String.valueOf(task.getResult().getValue()));
                 }
                 else{
                     holder.nameAuthor.setText(String.valueOf(task.getResult().getValue()));
@@ -124,15 +132,18 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentViewHolder> {
                         String UidAutore=comment.getUidComment();
                         Bundle b = new Bundle();
                         b.putString("UidAutore",UidAutore);
+                        b.putBoolean("comment",true);
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();
                         RecyclerFragment.setArguments(b);
                         if(_parent instanceof DetailMonsterPostFragment) {
                             ((DetailMonsterPostFragment) _parent).nascondiElementi();
+                            RecyclerFragment.setParent(this._parent);
                             activity.getSupportFragmentManager().beginTransaction().replace(R.id.flMonsterPost, RecyclerFragment).addToBackStack(null).commit();
                         }
                         else if(_parent instanceof DetailPartyPostFragment) {
                             ((DetailPartyPostFragment) _parent).nascondiElementi();
+                            RecyclerFragment.setParent(this._parent);
                             activity.getSupportFragmentManager().beginTransaction().replace(R.id.flPartyPost, RecyclerFragment).addToBackStack(null).commit();
                         }
                     });

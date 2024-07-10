@@ -180,5 +180,7 @@
     <string name="ordina_per">Ordina per:</string>
     <string name="pubblica">Pubblica</string>
     <string name="conferma_pubblicazione">Conferma Pubblicazione</string>
+    <string name="crea_mostro">Crea Mostro</string>
+    <string name="i_miei_mostri">I miei Mostri</string>
 
 </resources>

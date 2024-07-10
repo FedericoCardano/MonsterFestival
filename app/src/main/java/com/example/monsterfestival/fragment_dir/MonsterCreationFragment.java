@@ -260,7 +260,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
         }
         if (fragmentVisibleListener != null) {
 
-            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.my_monsters));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.crea_mostro));
         }
     }
 

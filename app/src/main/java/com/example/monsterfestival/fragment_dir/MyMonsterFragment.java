@@ -92,7 +92,7 @@ public class MyMonsterFragment extends Fragment implements OnFragmentRemoveListe
         super.onViewCreated(view, savedInstanceState);
         if (fragmentVisibleListener != null) {
 
-            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.my_monsters));
+            fragmentVisibleListener.onFragmentVisible(getParentFragmentManager(), this, getResources().getString(R.string.i_miei_mostri));
         }
     }
 

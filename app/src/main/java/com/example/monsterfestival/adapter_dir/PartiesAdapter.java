@@ -262,6 +262,14 @@ public class PartiesAdapter extends RecyclerView.Adapter<PartiesViewHolder> {
                 reference.child("voteCoerenza").setValue(0.0);
                 reference.child("voteOriginalita").setValue(0.0);
 
+                DatabaseReference refUserInf = FirebaseDatabase.getInstance().getReference("UsersInformation").child(uidAutorePost);
+                refUserInf.child("nPost").get().addOnCompleteListener(read -> {
+                    if (read.isSuccessful()) {
+                        int old_nPost = read.getResult().getValue(int.class);
+                        refUserInf.child("nPost").setValue(old_nPost+1);
+                    }
+                });
+
                 dialog.dismiss();
             });
         });

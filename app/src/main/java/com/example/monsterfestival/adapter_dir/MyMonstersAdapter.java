@@ -206,6 +206,13 @@ public class MyMonstersAdapter extends RecyclerView.Adapter<MyMonstersViewHolder
 
                     DatabaseReference refMonsterPost = FirebaseDatabase.getInstance().getReference("Posts").child(time);
                     refMonsterPost.setValue(newPost);
+                    DatabaseReference refUserInf = FirebaseDatabase.getInstance().getReference("UsersInformation").child(uidAutore);
+                    refUserInf.child("nPost").get().addOnCompleteListener(read -> {
+                        if (read.isSuccessful()) {
+                            int old_nPost = read.getResult().getValue(int.class);
+                            refUserInf.child("nPost").setValue(old_nPost+1);
+                        }
+                    });
 
                     dialog.dismiss();
                 });

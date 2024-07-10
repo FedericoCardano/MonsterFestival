@@ -167,8 +167,10 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
         }
 
         String IdMonster = bundle.getString("PostTime");
-        String UidVoto =  FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidVoto).child("MyMonsterVotes");
+        String UidCurrentUser =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference refUser = FirebaseDatabase.getInstance().getReference("User").child(UidCurrentUser).child("MyMonsterVotes");
+        DatabaseReference refUserInf = FirebaseDatabase.getInstance().getReference("UsersInformation").child(UidCurrentUser);
+
         getCurrentVote();
 
 
@@ -211,6 +213,12 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
                         Comments.setLayoutManager(gridLayoutManager);
                         CommentAdapter commentsAdapter = new CommentAdapter(CommentsList,this);
                         Comments.setAdapter(commentsAdapter);
+                        refUserInf.child("nCommenti").get().addOnCompleteListener(read -> {
+                            if (read.isSuccessful()) {
+                                int old_nCommenti = read.getResult().getValue(int.class);
+                                refUserInf.child("nCommenti").setValue(old_nCommenti+1);
+                            }
+                        });
                     }
                     else {
                         Toast.makeText(requireContext(), "Errore", Toast.LENGTH_SHORT).show();
@@ -313,14 +321,19 @@ public class DetailMonsterPostFragment extends Fragment implements OnFragmentRem
 
                                     refInUser.setValue(myV).addOnCompleteListener(writeUser -> {
                                         if (writeUser.isSuccessful()) {
-                                            ref.child("voteCoerenza").setValue(newVoteCoerenza);
-                                            ref.child("voteOriginalita").setValue(newVoteOriginalita);
-                                            ref.child("voteBilanciamento").setValue(newVoteBilanciamento);
-                                            ref.child("nVoti").setValue(newNVoti);
-                                            ref.child("vote").setValue(newVote);
-                                            getCurrentVote();
-                                            Toast.makeText(requireContext(), "Valutazione Aggiunta", Toast.LENGTH_SHORT).show();
-
+                                            refUserInf.child("nVoti").get().addOnCompleteListener(read2 -> {
+                                                if (read2.isSuccessful()) {
+                                                    int old_nVoti = read2.getResult().getValue(int.class);
+                                                    refUserInf.child("nVoti").setValue(old_nVoti+1);
+                                                    ref.child("voteCoerenza").setValue(newVoteCoerenza);
+                                                    ref.child("voteOriginalita").setValue(newVoteOriginalita);
+                                                    ref.child("voteBilanciamento").setValue(newVoteBilanciamento);
+                                                    ref.child("nVoti").setValue(newNVoti);
+                                                    ref.child("vote").setValue(newVote);
+                                                    getCurrentVote();
+                                                    Toast.makeText(requireContext(), "Valutazione Aggiunta", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                             //TODO aggiornamento pagina onUpdateListener
 
                                         }

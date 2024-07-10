@@ -84,11 +84,11 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
                     DetailMonsterPostFragment RecyclerFragment = new DetailMonsterPostFragment();
                     RecyclerFragment.setParent(_parent);
                     RecyclerFragment.setArguments(b);
-                    if(_parent.getClass().equals(CommunityFragment.class)) {
+                    if(_parent instanceof CommunityFragment) {
                         ((CommunityFragment) _parent).nascondiElementi();
                         activity.getSupportFragmentManager().beginTransaction().replace(_parent.getId(), RecyclerFragment).addToBackStack(null).commit();
                     }
-                    else if(_parent.getClass().equals(DetailAuthorFragment.class)) {
+                    else if(_parent instanceof DetailAuthorFragment) {
                         ((DetailAuthorFragment) _parent).nascondiElementi();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.authorFrameLayout, RecyclerFragment).addToBackStack(null).commit();
                     }
@@ -100,13 +100,13 @@ public class MonsterPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder
 
         });
 
-        if(_parent.getClass().equals(DetailAuthorFragment.class))
+        if(_parent instanceof DetailAuthorFragment )
             holder.authorButton.setVisibility(View.INVISIBLE);
         holder.authorButton.setOnClickListener(view -> {
            String UidAutore=PostList.get(holder.getAdapterPosition()).getUidAutorePost();
            Bundle b = new Bundle();
            b.putString("UidAutore",UidAutore);
-            if(_parent.getClass().equals(CommunityFragment.class))
+            if(_parent instanceof CommunityFragment)
                 ((CommunityFragment) _parent).nascondiElementi();
            AppCompatActivity activity = (AppCompatActivity) view.getContext();
            DetailAuthorFragment RecyclerFragment = new DetailAuthorFragment();

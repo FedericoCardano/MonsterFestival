@@ -1,6 +1,7 @@
 package com.example.monsterfestival.fragment_dir;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.customsearchlibrary.NativeLib;
 import com.example.monsterfestival.R;
+import com.example.monsterfestival.activity_dir.MainActivity;
 import com.example.monsterfestival.classes_dir.MonsterClass;
 
 import com.example.monsterfestival.classes_dir.OnFragmentRemoveListener;
@@ -171,6 +173,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                     ref.setValue(Monster);
                     Toast.makeText(getActivity(), "Monster modificato con successo", Toast.LENGTH_SHORT).show();
                     updateLocalMyMonsters();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                 }
                 else {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User/"+userId+"/MyMonsters");
@@ -178,6 +181,7 @@ public class MonsterCreationFragment extends Fragment implements OnFragmentRemov
                     ref.push().setValue(Monster);
                     Toast.makeText(getActivity(), "Monster creato con successo", Toast.LENGTH_SHORT).show();
                     updateLocalMyMonsters();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                 }
 
             }

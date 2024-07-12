@@ -1,5 +1,7 @@
 package com.example.monsterfestival.fragment_dir;
 
+import static java.lang.Math.round;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,11 +30,15 @@ import com.example.monsterfestival.classes_dir.OnFragmentVisibleListener;
 import com.example.monsterfestival.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CompareMonstersFragment extends Fragment implements OnFragmentRemoveListener {
 
+    private static final Logger log = LoggerFactory.getLogger(CompareMonstersFragment.class);
     OnFragmentVisibleListener fragmentVisibleListener;
 
     FloatingActionButton btn1, btn2;
@@ -105,8 +111,11 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
 
                         // Esegui la transazione
                         fragmentTransaction.commitNow();
-
                         detailSfida1 = monsterView1.findViewById(R.id.detailSfida);
+                        String temp = detailSfida1.getText().toString();
+                        if(temp.length() > 5)
+                            temp= temp.substring(0,5);
+                        detailSfida1.setText(temp);
                         detailPF1 = monsterView1.findViewById(R.id.detailPF);
                         detailCA1 = monsterView1.findViewById(R.id.detailCA);
                         detailID1 = monsterView1.findViewById(R.id.detailID);
@@ -157,6 +166,10 @@ public class CompareMonstersFragment extends Fragment implements OnFragmentRemov
                         fragmentTransaction.commitNow();
 
                         detailSfida2 = monsterView2.findViewById(R.id.detailSfida);
+                        String temp = detailSfida2.getText().toString();
+                        if(temp.length() > 5)
+                            temp= temp.substring(0,5);
+                        detailSfida2.setText(temp);
                         detailPF2 = monsterView2.findViewById(R.id.detailPF);
                         detailCA2 = monsterView2.findViewById(R.id.detailCA);
                         detailID2 = monsterView2.findViewById(R.id.detailID);

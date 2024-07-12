@@ -234,4 +234,8 @@ public class CommunityFragment extends Fragment implements OnFragmentRemoveListe
             }
         });
     }
+
+    public int getCurrentOrder(){
+        return orderSpinner.getSelectedItemPosition();
+    }
 }

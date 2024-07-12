@@ -52,7 +52,26 @@ public class PartyPostAdapter extends RecyclerView.Adapter<PartyPostViewHolder> 
         Log.d("onBindViewHolder","Position: "+position+" Holder: "+holder);
         PartyPost post = PostList.get(position);
         holder.name.setText(post.getNome());
-        holder.vote.setText(String.valueOf(Math.round(post.vote *100)/100.0));
+        if(_parent instanceof CommunityFragment)
+        {
+            int orderSelected = ((CommunityFragment) _parent).getCurrentOrder();
+            switch (orderSelected) {
+                case 1:
+                    holder.vote.setText(String.valueOf(Math.round(post.voteCoerenza *100)/100.0));
+                    break;
+                case 2:
+                    holder.vote.setText(String.valueOf(Math.round(post.voteOriginalita *100)/100.0));
+                    break;
+                case 3:
+                    holder.vote.setText(String.valueOf(Math.round(post.voteBilanciamento *100)/100.0));
+                    break;
+                default:
+                    holder.vote.setText(String.valueOf(Math.round(post.vote *100)/100.0));
+                    break;
+            }
+        }
+        else
+            holder.vote.setText(String.valueOf(Math.round(post.vote *100)/100.0));
         holder.rank.setText(String.valueOf(position+1));
 
         holder.name.setOnClickListener(view -> {

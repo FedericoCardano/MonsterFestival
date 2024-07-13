@@ -67,7 +67,7 @@ public class DetailAuthorFragment extends Fragment implements OnFragmentRemoveLi
         authorLayout = view.findViewById(R.id.authorLayout);
         authorCard = view.findViewById(R.id.cvAutore);
 
-
+        authorCard.setVisibility(View.INVISIBLE);
         UidAutore = bundle.getString("UidAutore");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UsersInformation").child(UidAutore);
         ref.get().addOnCompleteListener(task -> {
@@ -83,7 +83,7 @@ public class DetailAuthorFragment extends Fragment implements OnFragmentRemoveLi
                 String formattedDate = dateFormat.format(date);
 
                 tvDataCreazione.setText(formattedDate);
-
+                authorCard.setVisibility(View.VISIBLE);
                 DatabaseReference refMonsterPost = FirebaseDatabase.getInstance().getReference("Posts");
                 refMonsterPost.orderByChild("uidAutorePost").equalTo(UidAutore).get().addOnCompleteListener(task1 -> {
                    if (task1.isSuccessful()) {

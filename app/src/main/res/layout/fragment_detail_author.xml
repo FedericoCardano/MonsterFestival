@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/brawnColor"
-                    android:textSize="22sp"
+                    android:textSize="24sp"
                     android:textStyle="italic" />
 
                 <LinearLayout
@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="15dp"
                         android:baselineAligned="false"
                         android:orientation="vertical">
 
@@ -72,7 +72,7 @@
                                 android:layout_weight="1"
                                 android:text="@string/n_commenti"
                                 android:textColor="@color/brawnColor"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -80,7 +80,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="99"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="italic" />
                         </LinearLayout>
 
@@ -98,7 +98,7 @@
                                 android:layout_weight="1"
                                 android:text="@string/n_voti"
                                 android:textColor="@color/brawnColor"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -106,7 +106,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="99"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="italic" />
                         </LinearLayout>
                     </LinearLayout>
@@ -129,7 +129,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/data_di_creazione"
                                 android:textColor="@color/brawnColor"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -137,7 +137,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="TextView"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="italic" />
                         </LinearLayout>
 
@@ -153,7 +153,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/n_post"
                                 android:textColor="@color/brawnColor"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -162,7 +162,7 @@
                                 android:layout_height="wrap_content"
                                 android:baselineAligned="false"
                                 android:text="99"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="italic" />
                         </LinearLayout>
                     </LinearLayout>
@@ -177,7 +177,10 @@
             android:id="@+id/MonsterLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mostri" />
+            android:text="@string/mostri"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PostRank"
@@ -188,7 +191,11 @@
             android:id="@+id/PartyLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/party" />
+            android:layout_marginTop="10dp"
+            android:text="@string/party"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/PartyPostRank"
